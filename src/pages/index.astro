@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+
+import { Image } from "astro:assets";
+import portraitDark from "../assets/portrait-dark.webp";
+import portraitLight from "../assets/portrait-light.webp";
+
+const pageTitle = "Home";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+	<section
+		class="grid grid-cols-2 gap-[var(--guide-gutter)] items-center w-[var(--full-w)]"
+	>
+		<div class="relative w-[var(--half-w)] h-full">
+			<Image
+				id="hero-img-light"
+				src={portraitLight}
+				class="opacity-[var(--light-img-opacity)] w-full h-full object-cover p-4"
+				alt="Jordan Sherrington"
+			/>
+			<Image
+				id="hero-img-dark"
+				src={portraitDark}
+				class="opacity-[var(--dark-img-opacity)] absolute inset-0 w-full h-full object-cover p-4"
+				alt="Jordan Sherrington"
+			/>
+		</div>
+		<div class="w-[var(--half-w)] p-4">
+			<h1 class="text-5xl font-bold tracking-tight leading-relaxed">
+				Hi, I'm Jordan.
+			</h1>
+			<p class="instructions">
+				Web developer & designer focused on making cool stuff.
+				<br /><br />
+				TO-DO:<br />
+				Create cards for Showcase<br />
+				Create blog layout, thumbnail cards, and post format<br />
+				Implement serif fonts<br />
+				Implement monospace fonts<br />
+				Implement custom theme selector + configurable hero image
+			</p>
+		</div>
+	</section>
+	<section class="grid grid-cols-2 gap-12 items-center">
+		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
+		/><br /><br /><br /><br /><br /><br />
+	</section>
+</BaseLayout>
+
+<script>
+	document.addEventListener("astro:after-swap", () => {
+		document.querySelectorAll("img").forEach((img) => {
+			img.addEventListener("contextmenu", (e) => {
+				e.preventDefault();
+			});
+		});
+	});
+</script>

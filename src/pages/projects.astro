@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "@/components/Card.astro";
+
+import BlogPost from "../components/BlogPost.astro";
+// import { getCollection } from "astro:content";
+// const allPosts = await getCollection("posts");
+
+import img1 from "../assets/project1.jpg";
+import img2 from "../assets/project2.jpg";
+import img3 from "../assets/project3.jpg";
+
+const pageTitle = "Projects";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+	<section
+		class="grid grid-rows-[min-content_100%] items-start w-[var(--full-w)] gap-12 pb-48"
+	>
+		<div
+			class="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-flow-row gap-[var(--guide-gutter)]"
+		>
+			<Card
+				title="Personal Website"
+				desc="You are here! Custom-made static site using Astro, with some React components."
+				tags={[
+					"Tailwind CSS",
+					"JavaScript",
+					"Astro",
+					"React",
+				]}
+				image={img1}
+				href="#"
+			/>
+			<Card
+				title="GratisRegistry"
+				desc="A free gift registry web app built with Angular, using Supabase as a backend."
+				tags={["Angular", "HTML", "CSS", "Supabase"]}
+				image={img2}
+				href="#"
+			/>
+			<Card
+				title="Wedding Website"
+				desc="A website I created for my own wedding, using vanilla HTML, CSS, and JavaScript."
+				tags={["HTML", "CSS", "JavaScript"]}
+				image={img3}
+				href="#"
+			/>
+			<!-- <Card />
+			<Card />
+			<Card />
+			<Card />
+			<Card />
+			<Card />
+			<Card /> -->
+		</div>
+	</section>
+</BaseLayout>

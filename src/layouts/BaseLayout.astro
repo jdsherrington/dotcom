@@ -1,0 +1,170 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import { ViewTransitions } from "astro:transitions";
+
+const { pageTitle, pageDesc } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+
+		<meta name="title" content={pageTitle} />
+		<meta name="description" content={pageDesc} />
+
+		<link
+			rel="preload"
+			href="/fonts/InterVariable.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+
+		<ViewTransitions />
+		<script is:inline>
+			// Determines the initial theme, based on user preferences
+			function currentTheme() {
+				const storedTheme = localStorage.getItem("theme");
+				if (storedTheme) {
+					return storedTheme;
+				}
+				return window.matchMedia("(prefers-color-scheme: light)")
+					.matches
+					? "light"
+					: "dark";
+			}
+
+			// Updates the site with the correct theme
+			function updateTheme() {
+				const theme = currentTheme();
+				localStorage.setItem("theme", theme);
+				document.documentElement.setAttribute("data-theme", theme);
+			}
+
+			// Immediately invoke function before content and styles load
+			updateTheme();
+
+			// Updates site theme on page transition
+			document.addEventListener("astro:before-swap", (ev) => {
+				const theme = currentTheme();
+				localStorage.setItem("theme", theme);
+				ev.newDocument.documentElement.setAttribute(
+					"data-theme",
+					theme
+				);
+			});
+		</script>
+	</head>
+	<body class="z-20 flex flex-col min-h-dvh">
+		<canvas
+			transition:persist
+			id="gradient-canvas"
+			class="fixed top-0 left-0 -z-50"></canvas>
+		<div
+			transition:persist
+			id="gradient-overlay"
+			class="fixed top-0 left-0 -z-40 w-full h-full"
+		>
+		</div>
+		<Header />
+		<!-- <div
+			id="grid-guide-container"
+			class="fixed flex h-svh w-svw top-0 left-0 z-30 justify-center items-center"
+		>
+			<div
+				id="grid-guide"
+				class="relative grid h-svh top-0 left-0 z-30 justify-stretch"
+			>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div> -->
+		<main
+			class="flex flex-col self-center justify-self-start min-h-[var(--page-height)] justify-start items-start w-[var(--full-w)]"
+		>
+			<slot />
+		</main>
+		<Footer />
+
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				// Causes a scroll to top when clicking the nav link for the current page
+				function isSamePage(link) {
+					return (
+						link.pathname === window.location.pathname &&
+						link.search === window.location.search
+					);
+				}
+				document.querySelectorAll(".nav-button a").forEach((link) => {
+					link.addEventListener("click", (event) => {
+						if (isSamePage(link)) {
+							if (window.scrollY === 0) {
+								// If the user is already at the top, allow the default action (page reload)
+								return;
+							} else {
+								// If the user is not at the top, prevent the default action and scroll to the top
+								event.preventDefault();
+								window.scrollTo({ top: 0, behavior: "smooth" });
+							}
+						}
+					});
+				});
+			});
+		</script>
+
+		<script>
+			function setActiveLink() {
+				const currentPath = window.location.pathname;
+
+				// Remove active class from all links
+				document.querySelectorAll(".nav-button > a").forEach((link) => {
+					link.classList.remove("active-link");
+				});
+
+				// Add active class to the current link
+				const activeLink = document.querySelector(
+					`.nav-button > a[href="${currentPath}"]`
+				);
+				if (activeLink) {
+					activeLink.classList.add("active-link");
+				}
+			}
+
+			document.addEventListener("astro:after-swap", () => {
+				// Set the active link on page load
+				setActiveLink();
+
+				// Update active link on navigation events
+				document.querySelectorAll(".nav-button > a").forEach((link) => {
+					link.addEventListener("click", (event) => {
+						// Allow default link behavior for navigation
+						if (link.href === window.location.href) {
+							event.preventDefault();
+						}
+						setActiveLink();
+					});
+				});
+
+				// Optionally, listen to popstate events to handle browser navigation
+				window.addEventListener("popstate", setActiveLink);
+			});
+			document.addEventListener("DOMContentLoaded", setActiveLink);
+		</script>
+	</body>
+</html>
