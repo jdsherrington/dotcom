@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+const allPosts = await Astro.glob("./blog/*.md");
 
 import BlogPost from "../components/BlogPost.astro";
 // import { getCollection } from "astro:content";
@@ -9,8 +10,26 @@ const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-	<section class="h-full">
-		<p>This is where I will post about my journey learning Astro.</p>
+	<section
+		class="grid grid-cols-2 grid-rows-[min-content_100%] items-start w-[var(--full-w)] gap-12 pb-48"
+	>
+		<div
+			class="w-[--two-thirds-w] grid xl:grid-cols-1 grid-flow-row gap-[var(--guide-gutter)]"
+		>
+			{
+				allPosts.map((post) => (
+					<BlogPost
+						title={post.frontmatter.title}
+						desc={post.frontmatter.description}
+						date={post.frontmatter.pubDate}
+						url={post.url}
+						tags={post.frontmatter.tags}
+						imagePath={post.frontmatter.imagePath}
+						imageAlt={post.frontmatter.imageAlt}
+						accentColor={post.frontmatter.accentColor}
+					/>
+				))
+			}
+		</div>
 	</section>
 </BaseLayout>
-

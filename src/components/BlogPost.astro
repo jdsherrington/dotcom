@@ -1,5 +1,156 @@
 ---
-const { title, url } = Astro.props;
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+	title: string;
+	desc: string;
+	date: string;
+	url: string;
+	tags: string[];
+	imagePath: string;
+	imageAlt: string;
+	accentColor: string;
+}
+
+const { title, desc, date, url, tags, imagePath, imageAlt, accentColor } =
+	Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/blog/*.{jpeg,jpg,png,gif,webp}"
+);
+
+if (!images[imagePath])
+	throw new Error(
+		`"${imagePath}" does not exist in glob: "src/assets/blog/*"`
+	);
 ---
 
-<li><a href={url}>{title}</a></li>
+<div
+	class="card rounded-xl cursor-pointer border-transparent border-[1px] hover:border-foreground/20 shadow-xl shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-40"
+>
+	<Image
+		src={images[imagePath]()}
+		alt={imageAlt}
+		class="card-img block h-40 w-40 object-cover rounded-l-xl rounded-r-none"
+	/>
+	<div
+		class="card-accent rounded-xl absolute bottom-0 left-0 w-full h-full"
+		data-accent={accentColor}
+	>
+	</div>
+	<div
+		class="card-content grid grid-rows-[auto_1fr_min-content] h-full w-auto cursor-pointer align-items-start pl-0 pb-4 overflow-hidden rounded-xl md:absolute md:top-0 md:left-40"
+	>
+		<h1
+			class="text-xl font-bold tracking-tight pt-4 pl-4 pr-4 pb-0.5 place-content-start"
+		>
+			{title}
+			<span></span>
+		</h1>
+		<p class="text-sm pl-4 pr-4 pb-4 place-content-start">
+			{date} - {desc}
+		</p>
+		<div
+			class="flex flex-wrap-reverse justify-start gap-1 align-self-end place-content-end pl-4 pr-4"
+		>
+			{
+				tags?.map((tag: any) => (
+					<span
+						class:list={[
+							tag.toLowerCase().replaceAll(" ", "-"),
+							"card-tag bg-foreground/5 text-foreground/75 backdrop-blur-xl rounded-full pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
+						]}
+					>
+						{tag}
+					</span>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<style define:vars={{ image: `url("${imagePath}")` }}>
+	.card {
+		transition:
+			box-shadow ease-in-out 400ms,
+			border-color ease-in-out 200ms;
+		position: relative;
+		border-radius: 0.75rem;
+	}
+
+	.card::before {
+		border-radius: inherit;
+		content: "";
+		height: 100%;
+		left: 0px;
+		opacity: 0;
+		position: absolute;
+		top: 0px;
+		transition: opacity 500ms;
+		width: 100%;
+	}
+
+	.card::before {
+		background: radial-gradient(
+			600px circle at var(--mouse-x) var(--mouse-y),
+			hsla(var(--foreground) / 0.08) 0%,
+			transparent 35%
+		);
+		z-index: 3;
+	}
+
+	.card:hover::before {
+		opacity: 1;
+	}
+
+	.card-img {
+		object-position: 50% top;
+		mask-image: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 100%
+		);
+	}
+
+	.card-content {
+		transition:
+			box-shadow ease-in-out 400ms,
+			border-color ease-in-out 200ms;
+		z-index: 2;
+		border-radius: calc(0.75rem - 1px);
+	}
+</style>
+
+<script>
+	const cards = document.querySelectorAll(
+		".card-accent"
+	) as NodeListOf<HTMLElement>;
+	cards.forEach(function (el) {
+		console.log(el.dataset.accent);
+		el.style.background = `radial-gradient(circle 250px at 0% 200%, ${el.dataset.accent} -50%, transparent 150%)`;
+	});
+
+	const handleOnMouseMove = (e) => {
+		const { currentTarget: target } = e;
+
+		const rect = target.getBoundingClientRect(),
+			x = e.clientX - rect.left,
+			y = e.clientY - rect.top;
+
+		target.style.setProperty("--mouse-x", `${x}px`);
+		target.style.setProperty("--mouse-y", `${y}px`);
+	};
+
+	const attachEventListeners = () => {
+		for (const card of document.querySelectorAll(".card")) {
+			(card as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
+		}
+	};
+
+	attachEventListeners();
+
+	document.addEventListener("astro:after-swap", () => {
+		attachEventListeners();
+	});
+</script>

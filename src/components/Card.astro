@@ -15,12 +15,13 @@ const { href, title, desc, tags, image } = Astro.props;
 <div
 	class="card rounded-xl cursor-pointer border-transparent border-[1px] hover:border-foreground/20 shadow-xl shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5"
 >
-    <Image
-        src={image}
-        alt={title}
-        class="card-img sm:hidden md:block h-72 object-cover rounded-xl"
-    />
-    <div class="card-blur rounded-xl absolute bottom-0 left-0 w-full h-full"></div>
+	<Image
+		src={image}
+		alt={title}
+		class="card-img sm:hidden md:block h-72 object-cover rounded-xl"
+	/>
+	<div class="card-blur rounded-xl absolute bottom-0 left-0 w-full h-full">
+	</div>
 	<a
 		href={href}
 		class="card-content grid grid-rows-[auto_min-content_min-content] h-full w-auto cursor-pointer align-items-start pb-4 overflow-hidden rounded-xl md:absolute md:top-0 md:left-0"
@@ -59,7 +60,7 @@ const { href, title, desc, tags, image } = Astro.props;
 			box-shadow ease-in-out 400ms,
 			border-color ease-in-out 200ms;
 		position: relative;
-        border-radius: 0.75rem;
+		border-radius: 0.75rem;
 	}
 
 	.card::before {
@@ -88,7 +89,7 @@ const { href, title, desc, tags, image } = Astro.props;
 	}
 
 	.card-img {
-        object-position: 50% top;
+		object-position: 50% top;
 		mask-image: linear-gradient(
 			to top,
 			rgba(0, 0, 0, 0) 0%,
@@ -101,15 +102,19 @@ const { href, title, desc, tags, image } = Astro.props;
 			box-shadow ease-in-out 400ms,
 			border-color ease-in-out 200ms;
 		z-index: 2;
-        border-radius: calc(0.75rem - 1px);
+		border-radius: calc(0.75rem - 1px);
 	}
 
-    .card-blur {
-        -webkit-backdrop-filter: blur(50px);
-        backdrop-filter: blur(50px);
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0rem, black 10rem);
-        mask-image: linear-gradient(to bottom, transparent 0rem, black 10rem);
-    }
+	.card-blur {
+		-webkit-backdrop-filter: blur(50px);
+		backdrop-filter: blur(50px);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0rem,
+			black 10rem
+		);
+		mask-image: linear-gradient(to bottom, transparent 0rem, black 10rem);
+	}
 
 	.html {
 		background-color: var(--tag-html);
@@ -151,11 +156,11 @@ const { href, title, desc, tags, image } = Astro.props;
 		background-color: var(--tag-azure-cosmos);
 		color: var(--card-light);
 	}
-    .angular {
+	.angular {
 		background-color: var(--tag-angular);
 		color: var(--card-light);
 	}
-    .supabase {
+	.supabase {
 		background-color: var(--tag-supabase);
 		color: var(--card-dark);
 	}
@@ -173,7 +178,15 @@ const { href, title, desc, tags, image } = Astro.props;
 		target.style.setProperty("--mouse-y", `${y}px`);
 	};
 
-	for (const card of document.querySelectorAll(".card")) {
-		(card as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
-	}
+	const attachEventListeners = () => {
+		for (const card of document.querySelectorAll(".card")) {
+			(card as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
+		}
+	};
+
+	attachEventListeners();
+
+	document.addEventListener("astro:after-swap", () => {
+		attachEventListeners();
+	});
 </script>

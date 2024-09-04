@@ -6,9 +6,9 @@ import BlogPost from "../components/BlogPost.astro";
 // import { getCollection } from "astro:content";
 // const allPosts = await getCollection("posts");
 
-import img1 from "../assets/project1.jpg";
-import img2 from "../assets/project2.jpg";
-import img3 from "../assets/project3.jpg";
+import img1 from "../assets/projects/project1.jpg";
+import img2 from "../assets/projects/project2.jpg";
+import img3 from "../assets/projects/project3.jpg";
 
 const pageTitle = "Projects";
 ---
@@ -23,12 +23,7 @@ const pageTitle = "Projects";
 			<Card
 				title="Personal Website"
 				desc="You are here! Custom-made static site using Astro, with some React components."
-				tags={[
-					"Tailwind CSS",
-					"JavaScript",
-					"Astro",
-					"React",
-				]}
+				tags={["Tailwind CSS", "JavaScript", "Astro", "React"]}
 				image={img1}
 				href="#"
 			/>

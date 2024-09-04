@@ -130,40 +130,23 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		<script>
 			function setActiveLink() {
-				const currentPath = window.location.pathname;
+				const currentPath =
+					"/" + window.location.pathname.split("/")[1];
 
 				// Remove active class from all links
 				document.querySelectorAll(".nav-button > a").forEach((link) => {
-					link.classList.remove("active-link");
+					if (link.getAttribute("href") == currentPath) {
+						link.classList.add("active-link");
+					} else {
+						link.classList.remove("active-link");
+					}
 				});
-
-				// Add active class to the current link
-				const activeLink = document.querySelector(
-					`.nav-button > a[href="${currentPath}"]`
-				);
-				if (activeLink) {
-					activeLink.classList.add("active-link");
-				}
 			}
 
 			document.addEventListener("astro:after-swap", () => {
-				// Set the active link on page load
 				setActiveLink();
-
-				// Update active link on navigation events
-				document.querySelectorAll(".nav-button > a").forEach((link) => {
-					link.addEventListener("click", (event) => {
-						// Allow default link behavior for navigation
-						if (link.href === window.location.href) {
-							event.preventDefault();
-						}
-						setActiveLink();
-					});
-				});
-
-				// Optionally, listen to popstate events to handle browser navigation
-				window.addEventListener("popstate", setActiveLink);
 			});
+
 			document.addEventListener("DOMContentLoaded", setActiveLink);
 		</script>
 	</body>

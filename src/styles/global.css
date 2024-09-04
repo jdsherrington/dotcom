@@ -292,6 +292,7 @@
 } */
 
 #grid-guide {
+    display: none;
 	margin-left: var(--guide-margin);
 	margin-right: var(--guide-margin);
 	gap: var(--guide-gutter);
@@ -304,7 +305,7 @@
 
 #grid-guide > div {
 	background-color: red;
-	opacity: 0.3;
+	opacity: 0.01;
 	width: var(--guide-width);
 	height: 100%;
 }
