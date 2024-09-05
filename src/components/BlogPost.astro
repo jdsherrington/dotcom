@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import rightArrow from "../assets/ui/right-arrow.svg";
 
 interface Props {
 	title: string;
@@ -16,6 +17,12 @@ interface Props {
 const { title, desc, date, url, tags, imagePath, imageAlt, accentColor } =
 	Astro.props;
 
+const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+});
+
 const images = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/blog/*.{jpeg,jpg,png,gif,webp}"
 );
@@ -27,45 +34,71 @@ if (!images[imagePath])
 ---
 
 <div
-	class="card rounded-xl cursor-pointer border-transparent border-[1px] hover:border-foreground/20 shadow-xl shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-40"
+	class="card grid grid-cols-[auto_auto] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] cursor-pointer border-transparent border-[1px] hover:border-[var(--card-accent)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto"
+	data-accent={accentColor}
 >
 	<Image
 		src={images[imagePath]()}
 		alt={imageAlt}
-		class="card-img block h-40 w-40 object-cover rounded-l-xl rounded-r-none"
+		class="card-img h-36 sm:w-[var(--quarter-w)] md:w-[var(--three-w)] lg:w-[var(--two-w)] object-cover rounded-l-[var(--radius)] rounded-r-none"
 	/>
 	<div
-		class="card-accent rounded-xl absolute bottom-0 left-0 w-full h-full"
+		class="card-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full"
 		data-accent={accentColor}
 	>
 	</div>
 	<div
-		class="card-content grid grid-rows-[auto_1fr_min-content] h-full w-auto cursor-pointer align-items-start pl-0 pb-4 overflow-hidden rounded-xl md:absolute md:top-0 md:left-40"
+		class="card-content grid grid-rows-[auto_auto_1fr_min-content] h-full sm:w-[var(--three-w)] md:w-[var(--five-w)] lg:w-[var(--half-w)] cursor-pointer align-items-startoverflow-hidden rounded-[var(--radius)] pr-[var(--guide-gutter)]"
 	>
 		<h1
-			class="text-xl font-bold tracking-tight pt-4 pl-4 pr-4 pb-0.5 place-content-start"
+			class="text-xl font-bold tracking-tight pt-4 pr-4 place-content-start"
 		>
 			{title}
 			<span></span>
 		</h1>
-		<p class="text-sm pl-4 pr-4 pb-4 place-content-start">
-			{date} - {desc}
-		</p>
-		<div
-			class="flex flex-wrap-reverse justify-start gap-1 align-self-end place-content-end pl-4 pr-4"
+		<span
+			class="small-caps pr-4 pb-2 place-content-start text-foreground/40"
 		>
-			{
-				tags?.map((tag: any) => (
-					<span
-						class:list={[
-							tag.toLowerCase().replaceAll(" ", "-"),
-							"card-tag bg-foreground/5 text-foreground/75 backdrop-blur-xl rounded-full pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
-						]}
-					>
-						{tag}
-					</span>
-				))
-			}
+			{formattedDate}
+		</span>
+		<p
+			class="text-xs pr-4 place-content-start whitespace-nowrap overflow-hidden text-ellipsis"
+		>
+			{desc}
+		</p>
+		<div class="flex flex-row">
+			<div
+				class="flex w-full flex-wrap-reverse justify-start gap-1 align-self-end place-content-end pt-4 pb-4"
+			>
+				{
+					tags?.map((tag: any) => (
+						<span
+							class:list={[
+								tag.toLowerCase().replaceAll(" ", "-"),
+								"card-tag bg-foreground/5 text-foreground/75 backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
+							]}
+						>
+							{tag}
+						</span>
+					))
+				}
+			</div>
+			<svg
+				class="nav-arrow h-6 w-min fill-foreground/50 hover:fill-foreground place-self-end mb-4"
+				viewBox="0 0 492.004 492.004"
+			>
+				<g>
+					<g>
+						<path
+							d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+			                    c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+			                    v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+			                    c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+			                    l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"
+						></path>
+					</g>
+				</g>
+			</svg>
 		</div>
 	</div>
 </div>
@@ -76,7 +109,8 @@ if (!images[imagePath])
 			box-shadow ease-in-out 400ms,
 			border-color ease-in-out 200ms;
 		position: relative;
-		border-radius: 0.75rem;
+		border-radius: var(--radius);
+		--card-accent: white;
 	}
 
 	.card::before {
@@ -89,26 +123,37 @@ if (!images[imagePath])
 		top: 0px;
 		transition: opacity 500ms;
 		width: 100%;
-	}
-
-	.card::before {
 		background: radial-gradient(
 			600px circle at var(--mouse-x) var(--mouse-y),
-			hsla(var(--foreground) / 0.08) 0%,
+			var(--card-accent-glow) 0%,
 			transparent 35%
 		);
 		z-index: 3;
+		pointer-events: none;
 	}
 
 	.card:hover::before {
 		opacity: 1;
 	}
 
+	.nav-arrow {
+		transition: fill ease-in-out 200ms;
+	}
+
+	.card:hover::before svg {
+		fill: hsl(var(foreground));
+	}
+
+	.card-accent {
+		pointer-events: none;
+	}
+
 	.card-img {
-		object-position: 50% top;
+		pointer-events: none;
+		object-position: 50% 50%;
 		mask-image: linear-gradient(
 			to top,
-			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 0) -10%,
 			rgba(0, 0, 0, 1) 100%
 		);
 	}
@@ -118,19 +163,11 @@ if (!images[imagePath])
 			box-shadow ease-in-out 400ms,
 			border-color ease-in-out 200ms;
 		z-index: 2;
-		border-radius: calc(0.75rem - 1px);
+		border-radius: calc(var(--radius) - 1px);
 	}
 </style>
 
 <script>
-	const cards = document.querySelectorAll(
-		".card-accent"
-	) as NodeListOf<HTMLElement>;
-	cards.forEach(function (el) {
-		console.log(el.dataset.accent);
-		el.style.background = `radial-gradient(circle 250px at 0% 200%, ${el.dataset.accent} -50%, transparent 150%)`;
-	});
-
 	const handleOnMouseMove = (e) => {
 		const { currentTarget: target } = e;
 
@@ -146,6 +183,29 @@ if (!images[imagePath])
 		for (const card of document.querySelectorAll(".card")) {
 			(card as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
 		}
+
+		const cards = document.querySelectorAll(
+			".card-accent"
+		) as NodeListOf<HTMLElement>;
+		cards.forEach(function (el) {
+			console.log(el.dataset.accent);
+			el.style.background = `radial-gradient(circle 250px at 0% 250%, ${el.dataset.accent} -50%, transparent 150%)`;
+		});
+
+		const cardsBefore = document.querySelectorAll(
+			".card"
+		) as NodeListOf<HTMLElement>;
+		cardsBefore.forEach(function (el) {
+			console.log(el.dataset.accent);
+			el.style.setProperty(
+				"--card-accent",
+				`${el.dataset.accent as string}55`
+			);
+			el.style.setProperty(
+				"--card-accent-glow",
+				`${el.dataset.accent as string}22`
+			);
+		});
 	};
 
 	attachEventListeners();

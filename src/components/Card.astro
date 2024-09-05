@@ -13,18 +13,20 @@ const { href, title, desc, tags, image } = Astro.props;
 ---
 
 <div
-	class="card rounded-xl cursor-pointer border-transparent border-[1px] hover:border-foreground/20 shadow-xl shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5"
+	class="card rounded-[var(--radius)] cursor-pointer border-transparent border-[1px] hover:border-foreground/20 shadow-xl shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5"
 >
 	<Image
 		src={image}
 		alt={title}
-		class="card-img sm:hidden md:block h-72 object-cover rounded-xl"
+		class="card-img sm:hidden md:block h-72 object-cover rounded-[var(--radius)]"
 	/>
-	<div class="card-blur rounded-xl absolute bottom-0 left-0 w-full h-full">
+	<div
+		class="card-blur rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:invisible md:visible"
+	>
 	</div>
 	<a
 		href={href}
-		class="card-content grid grid-rows-[auto_min-content_min-content] h-full w-auto cursor-pointer align-items-start pb-4 overflow-hidden rounded-xl md:absolute md:top-0 md:left-0"
+		class="card-content grid grid-rows-[auto_min-content_min-content] h-full w-auto cursor-pointer align-items-start pb-4 overflow-hidden rounded-[var(--radius)] md:absolute md:top-0 md:left-0"
 	>
 		<h2
 			class="text-lg font-bold tracking-tight sm:pt-4 md:pt-1 pl-4 pr-4 pb-0.5 place-content-end"
@@ -43,7 +45,7 @@ const { href, title, desc, tags, image } = Astro.props;
 					<span
 						class:list={[
 							tag.toLowerCase().replaceAll(" ", "-"),
-							"card-tag bg-foreground/50 text-foreground backdrop-blur-xl rounded-full pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
+							"card-tag bg-foreground/50 text-foreground backdrop-blur-xl rounded-[var(--radius)] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
 						]}
 					>
 						{tag}
@@ -60,7 +62,7 @@ const { href, title, desc, tags, image } = Astro.props;
 			box-shadow ease-in-out 400ms,
 			border-color ease-in-out 200ms;
 		position: relative;
-		border-radius: 0.75rem;
+		border-radius: var(--radius);
 	}
 
 	.card::before {
@@ -102,7 +104,7 @@ const { href, title, desc, tags, image } = Astro.props;
 			box-shadow ease-in-out 400ms,
 			border-color ease-in-out 200ms;
 		z-index: 2;
-		border-radius: calc(0.75rem - 1px);
+		border-radius: calc(var(--radius) - 1px);
 	}
 
 	.card-blur {
@@ -116,53 +118,61 @@ const { href, title, desc, tags, image } = Astro.props;
 		mask-image: linear-gradient(to bottom, transparent 0rem, black 10rem);
 	}
 
+	.card-tag {
+		border-style: solid;
+		border-width: 1px;
+		border-radius: 250px;
+		color: hsl(var(--foreground) / 0.6);
+		background-color: hsla(var(--background) / 0.5);
+	}
+
 	.html {
-		background-color: var(--tag-html);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-html), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-html), var(--tag-bg-opacity));
 	}
 	.css {
-		background-color: var(--tag-css);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-css), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-css), var(--tag-bg-opacity));
 	}
 	.javascript {
-		background-color: var(--tag-javascript);
-		color: var(--card-dark);
+		border-color: hsla(var(--tag-javascript), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-javascript), var(--tag-bg-opacity));
 	}
 	.astro {
-		background-color: var(--tag-astro);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-astro), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-astro), var(--tag-bg-opacity));
 	}
 	.tailwind-css {
-		background-color: var(--tag-tailwind);
-		color: var(--card-dark);
+		border-color: hsla(var(--tag-tailwind), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-tailwind), var(--tag-bg-opacity));
 	}
 	.react {
-		background-color: var(--tag-react);
-		color: var(--card-dark);
+		border-color: hsla(var(--tag-react), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-react), var(--tag-bg-opacity));
 	}
 	.sql {
-		background-color: var(--tag-sql);
-		color: var(--card-dark);
+		border-color: hsla(var(--tag-sql), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-sql), var(--tag-bg-opacity));
 	}
 	.c\# {
-		background-color: var(--tag-csharp);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-csharp), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-csharp), var(--tag-bg-opacity));
 	}
 	.\.net {
-		background-color: var(--tag-dotnet);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-dotnet), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-dotnet), var(--tag-bg-opacity));
 	}
 	.azure-cosmos-db {
-		background-color: var(--tag-azure-cosmos);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-azure-cosmos), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-azure-cosmos), var(--tag-bg-opacity));
 	}
 	.angular {
-		background-color: var(--tag-angular);
-		color: var(--card-light);
+		border-color: hsla(var(--tag-angular), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-angular), var(--tag-bg-opacity));
 	}
 	.supabase {
-		background-color: var(--tag-supabase);
-		color: var(--card-dark);
+		border-color: hsla(var(--tag-supabase), var(--tag-border-opacity));
+		background-color: hsla(var(--tag-supabase), var(--tag-bg-opacity));
 	}
 </style>
 
