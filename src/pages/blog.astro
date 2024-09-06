@@ -1,16 +1,19 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const allPosts = await Astro.glob("./blog/*.md");
-
 import BlogPost from "../components/BlogPost.astro";
+
+import { slide } from "astro:transitions";
+
 // import { getCollection } from "astro:content";
 // const allPosts = await getCollection("posts");
 
+const allPosts = await Astro.glob("./blog/*.md");
 const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 	<section
+		
 		class="grid grid-cols-[auto_auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
 	>
 		<div
@@ -26,7 +29,7 @@ const pageTitle = "Blog";
 					<BlogPost
 						title={post.frontmatter.title}
 						desc={post.frontmatter.description}
-						date={post.frontmatter.pubDate}
+						date={post.frontmatter.date}
 						url={post.url}
 						tags={post.frontmatter.tags}
 						imagePath={post.frontmatter.imagePath}

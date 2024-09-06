@@ -37,11 +37,11 @@
 
 	--one-w: calc(var(--guide-true-width) * 1);
 	--two-w: calc((var(--guide-true-width) * 2) + var(--guide-gutter));
-    --three-w: calc((var(--guide-true-width) * 3) + (var(--guide-gutter) * 2));
-    --four-w: calc((var(--guide-true-width) * 4) + (var(--guide-gutter) * 3));
-    --five-w: calc((var(--guide-true-width) * 5) + (var(--guide-gutter) * 4));
-    --six-w: calc((var(--guide-true-width) * 6) + (var(--guide-gutter) * 5));
-    --seven-w: calc((var(--guide-true-width) * 7) + (var(--guide-gutter) * 6));
+	--three-w: calc((var(--guide-true-width) * 3) + (var(--guide-gutter) * 2));
+	--four-w: calc((var(--guide-true-width) * 4) + (var(--guide-gutter) * 3));
+	--five-w: calc((var(--guide-true-width) * 5) + (var(--guide-gutter) * 4));
+	--six-w: calc((var(--guide-true-width) * 6) + (var(--guide-gutter) * 5));
+	--seven-w: calc((var(--guide-true-width) * 7) + (var(--guide-gutter) * 6));
 }
 
 /* Medium Desktop - 905px-1439px */
@@ -156,7 +156,7 @@
 		--card-dark: hsl(20 14.3% 4.5%);
 
 		--tag-border-opacity: 0.5;
-        --tag-bg-opacity: 0.15;
+		--tag-bg-opacity: 0.15;
 
 		--tag-html: 18, 81%, 54%;
 		--tag-css: 221, 82%, 53%;
@@ -180,6 +180,12 @@
 			var(--theme-darkness);
 		--foreground: var(--theme-hue) var(--theme-saturation)
 			var(--theme-lightness);
+
+		--css-background: var(--theme-hue), var(--theme-saturation),
+			var(--theme-darkness);
+		--css-foreground: var(--theme-hue), var(--theme-saturation),
+			var(--theme-lightness);
+
 		--background-alt: var(--theme-hue) var(--theme-saturation)
 			var(--theme-darkness);
 		--card: var(--theme-hue) var(--theme-saturation) var(--theme-darkness);
@@ -219,6 +225,12 @@
 			var(--theme-lightness);
 		--foreground: var(--theme-hue) var(--theme-saturation)
 			var(--theme-darkness);
+
+		--css-background: var(--theme-hue), var(--theme-saturation),
+			var(--theme-lightness);
+		--css-foreground: var(--theme-hue), var(--theme-saturation),
+			var(--theme-darkness);
+
 		--background-alt: var(--theme-hue) var(--theme-saturation)
 			var(--theme-lightness);
 		--card: var(--theme-hue) 0% 100%;
@@ -285,8 +297,13 @@
 		margin-top: 0.5rem;
 		margin-left: 0.5rem;
 		margin-right: 0.5rem;
-		--tw-shadow-color: rgba(0, 0, 0, 0.01) !important;
-		background-color: hsla(var(--background-alt) / 0.3);
+		--tw-shadow-color: rgba(0, 0, 0, 0.025) !important;
+		border-color: hsla(var(--foreground) / 0.03);
+		border-width: 1px;
+		border-style: solid;
+		background-color: hsla(var(--background) / 0.5);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
 	}
 
 	@media screen and (max-width: 599px) {
@@ -313,6 +330,10 @@
 }
 
 #nav {
+	border-color: transparent;
+	border-width: 1px;
+	border-style: solid;
+
 	transition:
 		border-radius ease-in-out 300ms,
 		margin ease-out 200ms,
@@ -320,6 +341,7 @@
 		height 600ms,
 		box-shadow ease-in-out 300ms,
 		background-color 250ms;
+	border-color: 250ms;
 }
 
 /* .showcase-card::after {
@@ -352,4 +374,80 @@
 #grid-guide > div:nth-child(n + var(--guide-count)) {
 	/* Set the desired hidden style here */
 	display: none;
+}
+
+.post-markdown p {
+	font-size: 1rem;
+	font-weight: normal;
+	margin-bottom: 1rem;
+}
+
+.post-markdown h1 {
+	font-size: 1.6rem;
+	font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.post-markdown h2 {
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+
+.post-markdown h3 {
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+
+.post-markdown h4 {
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+
+.post-markdown h5 {
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+
+.post-markdown h6 {
+	font-size: 0.9rem;
+	font-weight: 700;
+}
+
+.post-markdown ul, .post-markdown ol {
+    margin-bottom: 1.75rem;
+}
+
+.post-markdown ul > li {
+    margin-left: var(--guide-gutter);
+    list-style: disc;
+	margin-bottom: 0.75rem;
+}
+
+.post-markdown ol > li {
+    margin-left: var(--guide-gutter);
+    list-style: decimal;
+	margin-bottom: 0.75rem;
+}
+
+.post-markdown pre {
+    border-radius: var(--radius);
+    padding: 1rem;
+    background-color: hsla(var(--foreground) / 0.05) !important;
+}
+
+.post-markdown hr {
+	border-color: hsla(var(--css-foreground), 0.2);
+	margin: 2rem 0;
+}
+
+.post-markdown blockquote {
+    border-left: var(--radius) solid hsla(var(--foreground) / 0.75);
+    border-radius: var(--radius);
+    padding: 1rem;
+    background-color: hsla(var(--foreground) / 0.05) !important;
+    margin-bottom: 1rem;
+}
+
+.post-markdown blockquote * {
+    margin-bottom: 0rem;
 }

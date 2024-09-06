@@ -6,11 +6,11 @@ import ThemeIcon from "./ThemeIcon.astro";
 <header
 	transition:persist
 	id="header"
-	class="flex h-0 sm:mb-28 md:mb-[var(--header-padding)] sticky z-40 items-start justify-center top-0 bg-red-50"
+	class="flex h-0 sm:mb-28 md:mb-[var(--header-padding)] sticky z-40 items-start justify-center top-0"
 >
 	<div
 		id="nav"
-		class="nav flex items-center justify-between backdrop-blur-xl sm:h-[100px] md:h-[var(--nav-height)] sm:w-full md:w-[calc(var(--full-w)+1.75rem)] shadow-xl shadow-transparent sm:mt-0 md:mt-[var(--header-nav-diff)] pl-10 pr-10 bg-transparent rounded-xl"
+		class="nav flex items-center justify-between sm:h-[100px] md:h-[var(--nav-height)] sm:w-full md:w-[calc(var(--full-w)+var(--guide-gutter)+var(--guide-gutter))] shadow-xl shadow-transparent sm:mt-0 md:mt-[var(--header-nav-diff)] pl-10 pr-10 bg-transparent rounded-[var(--radius)]"
 	>
 		<a href="/">
 			<h1

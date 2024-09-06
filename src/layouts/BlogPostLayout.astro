@@ -1,15 +1,88 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { slide } from 'astro:transitions';
+
 const { frontmatter } = Astro.props;
+
+const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+});
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}"
+);
+
+if (!images[frontmatter.imagePath])
+	throw new Error(
+		`"${frontmatter.imagePath}" does not exist in glob: "src/assets/blog/posts/*"`
+	);
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-	<img src={frontmatter.imgUrl} width="300" alt={frontmatter.imgAlt} />
-	<h1>{frontmatter.title}</h1>
-	<p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
-	<p><em>{frontmatter.description}</em></p>
-	<p>Written by: {frontmatter.author}</p>
-	<slot />
-	<slot />
+	<div transition:name=`post-data-${frontmatter.desc}`
+		class="bg-foreground/5 rounded-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--seven-w)] relative"
+	>
+		<Image
+            transition:name=`media-image-${frontmatter.imagePath}`
+			src={images[frontmatter.imagePath]()}
+			alt={frontmatter.imageAlt}
+			class="w-[var(--full-w)] h-32 object-cover rounded-t-[var(--radius)] rounded-b-none blur-3xl -translate-y-10 pointer-events-none select-none opacity-60"
+		/>
+		<a href="javascript:void(0);" onclick="history.back()">
+			<svg
+				class=`nav-arrow absolute top-0 left-0 h-6 w-min transition-colors duration-300 cursor-pointer fill-foreground/50 hover:fill-foreground/100 place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)]`
+				viewBox="0 0 492 492"
+			>
+				<g>
+					<g>
+						<path
+							d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
+			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
+			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
+			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
+			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
+			C492,219.198,479.172,207.418,464.344,207.418z"
+						></path>
+					</g>
+				</g>
+			</svg>
+		</a>
+		<div
+			class="post-details pb-[var(--guide-gutter)] mb-6 border-b-[2px]
+            border-b-foreground/5"
+		>
+			<h1 transition:name=`post-data-${frontmatter.title}`
+                class="text-4xl font-bold mb-1 mx-[var(--guide-gutter)]">
+				{frontmatter.title}
+			</h1>
+			<p  transition:name=`post-data-${frontmatter.date}`
+				class="post-details small-caps place-content-start text-foreground/70 tracking-[0.2rem] mx-[var(--guide-gutter)]">
+				{formattedDate}
+			</p>
+			<div
+				class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
+			>
+				{
+					frontmatter.tags?.map((tag: any) => (
+						<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
+							class:list={[
+								tag.toLowerCase().replaceAll(" ", "-"),
+								"post-tag bg-foreground/5 hover:bg-foreground/10 text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300",
+							]}
+						>
+							{tag}
+						</a>
+					))
+				}
+			</div>
+		</div>
+		<div class="post-markdown mx-[var(--guide-gutter)]">
+			<slot />
+		</div>
+	</div>
 </BaseLayout>
