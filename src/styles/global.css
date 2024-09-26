@@ -127,10 +127,10 @@
 @layer base {
 	:root {
 		scroll-behavior: smooth;
-		--header-height: 9rem;
 		--header-padding: 10rem;
 		--nav-height: 5rem;
-		--header-nav-diff: calc((var(--header-height) - var(--nav-height)) / 2);
+		--header-nav-diff: var(--guide-gutter);
+		--header-height: calc((var(--header-nav-diff) * 2) + var(--nav-height));
 		--footer-height: 8rem;
 		--page-height: calc(
 			100vh -
@@ -272,10 +272,6 @@
 	body {
 		@apply bg-background text-foreground;
 	}
-
-	.small-caps {
-		@apply text-xs uppercase tracking-wider;
-	}
 }
 
 @layer components {
@@ -285,6 +281,25 @@
 
 	.active-link {
 		background-color: hsla(var(--foreground) / 0.07) !important;
+	}
+
+	#header {
+		transition: top ease-in-out 300ms;
+	}
+
+	#nav {
+		border-color: transparent;
+		border-width: 1px;
+		border-style: solid;
+
+		transition:
+			border-radius ease-in-out 300ms,
+			margin ease-out 200ms,
+			padding ease-in-out 300ms,
+			height 600ms,
+			box-shadow ease-in-out 300ms,
+			background-color 250ms;
+		border-color: 250ms;
 	}
 
 	#header.detached {
@@ -297,13 +312,10 @@
 		margin-top: 0.5rem;
 		margin-left: 0.5rem;
 		margin-right: 0.5rem;
-		--tw-shadow-color: rgba(0, 0, 0, 0.025) !important;
-		border-color: hsla(var(--foreground) / 0.03);
-		border-width: 1px;
-		border-style: solid;
+		--tw-shadow-color: hsla(var(--foreground) / 0.025) !important;
 		background-color: hsla(var(--background) / 0.5);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
 	}
 
 	@media screen and (max-width: 599px) {
@@ -315,6 +327,7 @@
 			margin-top: 0px;
 			margin-left: 0rem;
 			margin-right: 0rem;
+			box-shadow:;
 			--tw-shadow-color: rgba(0, 0, 0, 0.01) !important;
 			background-color: hsla(var(--background-alt) / 0.6);
 		}
@@ -323,25 +336,6 @@
 
 * {
 	transition: background ease-in-out 0.2s;
-}
-
-#header {
-	transition: top ease-in-out 300ms;
-}
-
-#nav {
-	border-color: transparent;
-	border-width: 1px;
-	border-style: solid;
-
-	transition:
-		border-radius ease-in-out 300ms,
-		margin ease-out 200ms,
-		padding ease-in-out 300ms,
-		height 600ms,
-		box-shadow ease-in-out 300ms,
-		background-color 250ms;
-	border-color: 250ms;
 }
 
 /* .showcase-card::after {
@@ -371,11 +365,6 @@
 	height: 100%;
 }
 
-#grid-guide > div:nth-child(n + var(--guide-count)) {
-	/* Set the desired hidden style here */
-	display: none;
-}
-
 .post-markdown p {
 	font-size: 1rem;
 	font-weight: normal;
@@ -385,7 +374,7 @@
 .post-markdown h1 {
 	font-size: 1.6rem;
 	font-weight: 700;
-    margin-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 .post-markdown h2 {
@@ -413,26 +402,27 @@
 	font-weight: 700;
 }
 
-.post-markdown ul, .post-markdown ol {
-    margin-bottom: 1.75rem;
+.post-markdown ul,
+.post-markdown ol {
+	margin-bottom: 1.75rem;
 }
 
 .post-markdown ul > li {
-    margin-left: var(--guide-gutter);
-    list-style: disc;
+	margin-left: var(--guide-gutter);
+	list-style: disc;
 	margin-bottom: 0.75rem;
 }
 
 .post-markdown ol > li {
-    margin-left: var(--guide-gutter);
-    list-style: decimal;
+	margin-left: var(--guide-gutter);
+	list-style: decimal;
 	margin-bottom: 0.75rem;
 }
 
 .post-markdown pre {
-    border-radius: var(--radius);
-    padding: 1rem;
-    background-color: hsla(var(--foreground) / 0.05) !important;
+	border-radius: var(--radius);
+	padding: 1rem;
+	background-color: hsla(var(--foreground) / 0.05) !important;
 }
 
 .post-markdown hr {
@@ -441,13 +431,13 @@
 }
 
 .post-markdown blockquote {
-    border-left: var(--radius) solid hsla(var(--foreground) / 0.75);
-    border-radius: var(--radius);
-    padding: 1rem;
-    background-color: hsla(var(--foreground) / 0.05) !important;
-    margin-bottom: 1rem;
+	border-left: var(--radius) solid hsla(var(--foreground) / 0.75);
+	border-radius: var(--radius);
+	padding: 1rem;
+	background-color: hsla(var(--foreground) / 0.05) !important;
+	margin-bottom: 1rem;
 }
 
 .post-markdown blockquote * {
-    margin-bottom: 0rem;
+	margin-bottom: 0rem;
 }

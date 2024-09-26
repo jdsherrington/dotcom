@@ -2,10 +2,10 @@
 layout: ../../layouts/BlogPostLayout.astro
 title: "My First Blog Post"
 date: 2024-09-01
-description: "This is the first post of my new Astro blog."
+description: "This is the first post of my new Astro blog. This text is a test to see if the text gets cut off at a certain point, or if it breaks the bounds of the cards. Let's find out!"
 author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost1.jpg"
-imageAlt: "The Astro logo on a dark background with a pink glow."
+imageAlt: "The first blog post"
 tags: ["astro", "blogging", "learning in public", "test tag", "123"]
 accentColor: "#9c8146"
 ---
@@ -13,7 +13,6 @@ accentColor: "#9c8146"
 # Welcome to My Blog!
 
 Welcome to my personal blog where I share **insights**, _opinions_, and stories about _technology_, **life**, and everything in between.
-
 
 ## Table of Contents
 

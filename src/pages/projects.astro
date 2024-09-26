@@ -1,5 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+import { slide } from "astro:transitions";
+
+// import { getCollection } from "astro:content";
+// const allPosts = await getCollection("posts");
+
+const allPosts = (await Astro.glob("./projects/*.md")).sort(
+	(b, a) => b.frontmatter.id - a.frontmatter.id
+);
+const pageTitle = "Projects";
+---
+
+<!-- ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Card from "@/components/Card.astro";
 
 import BlogPost from "../components/BlogPost.astro";
@@ -41,13 +56,38 @@ const pageTitle = "Projects";
 				image={img3}
 				href="#"
 			/>
-			<!-- <Card />
 			<Card />
 			<Card />
 			<Card />
 			<Card />
 			<Card />
-			<Card /> -->
+			<Card />
+			<Card />
+		</div>
+	</section>
+</BaseLayout> -->
+<BaseLayout pageTitle={pageTitle}>
+	<section
+		class="grid grid-cols-[auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
+	>
+		<div
+			class="sm:w-[--full-w] lg:w-[--two-thirds-w] grid sm:grid-cols-1 md:grid-cols-2 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
+		>
+			{
+				allPosts.map((post) => (
+					<ProjectCard
+						id={post.frontmatter.id}
+						title={post.frontmatter.title}
+						type={post.frontmatter.type}
+						desc={post.frontmatter.description}
+						url={post.url}
+						tags={post.frontmatter.tags}
+						imagePath={post.frontmatter.imagePath}
+						imageAlt={post.frontmatter.imageAlt}
+						accentColor={post.frontmatter.accentColor}
+					/>
+				))
+			}
 		</div>
 	</section>
 </BaseLayout>

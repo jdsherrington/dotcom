@@ -3,9 +3,10 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
 interface Props {
+    id: number;
 	title: string;
+    type: string;
 	desc: string;
-	date: string;
 	url: string;
 	tags: string[];
 	imagePath: string;
@@ -13,70 +14,65 @@ interface Props {
 	accentColor: string;
 }
 
-const { title, desc, date, url, tags, imagePath, imageAlt, accentColor } =
+const { id, title, type, desc, url, tags, imagePath, imageAlt, accentColor } =
 	Astro.props;
 
-const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-US", {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-});
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}"
+const projectImages = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/projects/*.{jpeg,jpg,png,gif,webp}"
 );
 
-if (!images[imagePath])
+if (!projectImages[imagePath])
 	throw new Error(
-		`"${imagePath}" does not exist in glob: "src/assets/blog/posts/*"`
+		`"${imagePath}" does not exist in glob: "src/assets/projects/*"`
 	);
 ---
 
 
-	<div transition:name=`post-data-01${url}`
-		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-[var(--three-w)_var(--five-w)] lg:grid-cols-[var(--two-w)_var(--half-w)] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--post-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden"
+	<div transition:name=`project-data-01${url}`
+		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-1 gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--project-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden"
 		data-accent={accentColor}
-	>   <a href={url} class="post-link cursor-pointer">
-		<Image
+	>
+    <a href={url} class="post-link cursor-pointer">
+		<Image transition:name=`project-data-02${url}`
             transition:name=`post-data-02${url}`
-			src={images[imagePath]()}
+			src={projectImages[imagePath]()}
 			alt={imageAlt}
-			class="post-img w-full object-cover rounded-t-[var(--radius)] rounded-b-none"
+			class="post-img w-full object-cover sm:rounded-l-[var(--radius)] sm:rounded-r-none"
 		/>
         </a>
 		<div
-            transition:name=`post-data-02a${url}`
-			class="post-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100"
+            transition:name=`project-data-02a${url}`
+			class="project-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100"
 			data-accent={accentColor}
 		>
 		</div>
 		<div
-			class="post-content grid grid-rows-[auto_auto_1fr_min-content] h-auto w-full align-items-start overflow-hidden rounded-[var(--radius)] sm:pr-[calc(var(--guide-gutter)*2)] md:pr-[var(--guide-gutter)]"
+			class="post-content grid grid-rows-[auto_auto_1fr_min-content] h-auto w-full align-items-start overflow-hidden rounded-[var(--radius)] pl-[var(--guide-gutter)]"
 		><a href={url} class="cursor-pointer">
-			<h1 transition:name=`post-data-03${url}`
-				class="post-sizing w-auto text-xl font-bold sm:leading-[1.1] tracking-tight pt-[calc(var(--guide-gutter)*0.75)] pb-1 place-content-start text-foreground/90 transition-colors duration-300 transform-none"
+			<h1 transition:name=`project-data-03${url}`
+				class="post-sizing w-auto sm:text-xl md:text-2xl font-bold sm:leading-[1.1] tracking-tight pt-[var(--guide-gutter)] sm:pb-1 md:pb-0 place-content-start text-foreground/90 transition-colors duration-300 transform-none"
 			>
 				{title}
 			</h1>
-            
-			<p  transition:name=`post-data-04${url}`
-				class="post-sizing w-auto font-semibold text-xs uppercase tracking-widest pr-4 pb-2 place-content-start text-foreground/40 transform-none"
+            <p  transition:name=`post-data-04${url}`
+				class="post-sizing w-auto font-semibold text-xs uppercase tracking-widest pb-2 place-content-start text-foreground/40 transform-none"
 			>
-				{formattedDate}
+				{type}
 			</p>
-			<p transition:name=`post-data-05${url}`
-				class="post-sizing w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 pb-[calc(var(--guide-gutter)*0.75)] transform-none"
+			<p transition:name=`project-data-05${url}`
+				class="post-sizing w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-foreground/90 pb-[var(--guide-gutter)] transform-none"
 			>
 				{desc}
 			</p>
             </a>
-			<div class="post-sizing flex-row sm:hidden md:flex pb-[calc(var(--guide-gutter)*0.75)]">
-				<div transition:name=`post-data-06${url}`
+			<div class="post-sizing flex-row flex pb-[calc(var(--guide-gutter)*0.75)]">
+				<div transition:name=`project-data-06${url}`
 					class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end transform-none"
 				>
 					{
 						tags?.map((tag: any) => (
-							<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
+							<a href=`/projects/${tag.toLowerCase().replaceAll(" ", " ")}`
 								class:list={[
 									tag.toLowerCase().replaceAll(" ", "-"),
 									"post-tag bg-foreground/5 hover:bg-foreground/10 text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer",
@@ -116,7 +112,7 @@ if (!images[imagePath])
 			border-color ease-in-out 200ms;
 		position: relative;
 		border-radius: var(--radius);
-		--post-accent: white;
+		--project-accent: white;
 	}
 
 	.post::before {
@@ -131,7 +127,7 @@ if (!images[imagePath])
 		width: 100%;
 		background: radial-gradient(
 			600px circle at var(--mouse-x) var(--mouse-y),
-			var(--post-accent-glow) 0%,
+			var(--project-accent-glow) 0%,
 			transparent 35%
 		);
 		z-index: 1;
@@ -147,14 +143,14 @@ if (!images[imagePath])
 	}
 
 	.nav-arrow:hover {
-		fill: var(--post-accent);
+		fill: var(--project-accent);
 	}
 
     .post-link:hover h1 {
         color: hsl(var(--css-foreground));
     }
 
-	.post-accent {
+	.project-accent {
 		pointer-events: none;
 	}
 
@@ -224,11 +220,11 @@ if (!images[imagePath])
 		}
 
 		const posts = document.querySelectorAll(
-			".post-accent"
+			".project-accent"
 		) as NodeListOf<HTMLElement>;
 		posts.forEach(function (el) {
 			console.log(el.dataset.accent);
-			el.style.background = `radial-gradient(circle 250px at 0% 250%, ${el.dataset.accent} -50%, transparent 150%)`;
+			el.style.background = `radial-gradient(circle 250px at 100% 300%, ${el.dataset.accent} -50%, transparent 200%)`;
 		});
 
 		const postsBefore = document.querySelectorAll(
