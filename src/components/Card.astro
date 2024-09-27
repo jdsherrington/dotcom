@@ -45,7 +45,7 @@ const { href, title, desc, tags, image } = Astro.props;
 					<span
 						class:list={[
 							tag.toLowerCase().replaceAll(" ", "-"),
-							"card-tag bg-foreground/50 text-foreground backdrop-blur-xl rounded-[var(--radius)] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
+							"post-tag bg-foreground/50 text-foreground backdrop-blur-xl rounded-[var(--radius)] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap place-self-end opacity-90",
 						]}
 					>
 						{tag}
@@ -124,55 +124,6 @@ const { href, title, desc, tags, image } = Astro.props;
 		border-radius: 250px;
 		color: hsl(var(--foreground) / 0.6);
 		background-color: hsla(var(--background) / 0.5);
-	}
-
-	.html {
-		border-color: hsla(var(--tag-html), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-html), var(--tag-bg-opacity));
-	}
-	.css {
-		border-color: hsla(var(--tag-css), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-css), var(--tag-bg-opacity));
-	}
-	.javascript {
-		border-color: hsla(var(--tag-javascript), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-javascript), var(--tag-bg-opacity));
-	}
-	.astro {
-		border-color: hsla(var(--tag-astro), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-astro), var(--tag-bg-opacity));
-	}
-	.tailwind-css {
-		border-color: hsla(var(--tag-tailwind), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-tailwind), var(--tag-bg-opacity));
-	}
-	.react {
-		border-color: hsla(var(--tag-react), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-react), var(--tag-bg-opacity));
-	}
-	.sql {
-		border-color: hsla(var(--tag-sql), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-sql), var(--tag-bg-opacity));
-	}
-	.c\# {
-		border-color: hsla(var(--tag-csharp), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-csharp), var(--tag-bg-opacity));
-	}
-	.\.net {
-		border-color: hsla(var(--tag-dotnet), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-dotnet), var(--tag-bg-opacity));
-	}
-	.azure-cosmos-db {
-		border-color: hsla(var(--tag-azure-cosmos), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-azure-cosmos), var(--tag-bg-opacity));
-	}
-	.angular {
-		border-color: hsla(var(--tag-angular), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-angular), var(--tag-bg-opacity));
-	}
-	.supabase {
-		border-color: hsla(var(--tag-supabase), var(--tag-border-opacity));
-		background-color: hsla(var(--tag-supabase), var(--tag-bg-opacity));
 	}
 </style>
 

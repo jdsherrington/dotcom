@@ -7,5 +7,5 @@ description: "A website I created for my own wedding, using vanilla HTML, CSS, a
 imagePath: "/src/assets/projects/project3.jpg"
 imageAlt: "Jordan Sherrington wedding website"
 tags: ["HTML", "CSS", "JavaScript"]
-accentColor: "#FFFFFF"
+accentColor: "#345e83"
 ---

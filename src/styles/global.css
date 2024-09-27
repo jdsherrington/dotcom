@@ -365,6 +365,76 @@
 	height: 100%;
 }
 
+.card-tag {
+	position: relative;
+	overflow: hidden;
+	border-style: solid;
+	border-width: 1px;
+	border-color: hsla(var(--tag-color), 0.5);
+	transition:
+		background-color 250ms,
+		border-color 250ms;
+}
+
+.card-tag::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: hsla(var(--tag-color), 0.25); /* start with 0.5 opacity */
+	z-index: -1;
+	transition:
+		background-color 250ms,
+		border-color 250ms;
+}
+
+.card-tag:hover::before {
+	background-color: hsla(var(--tag-color), 0.7); /* full opacity on hover */
+}
+
+.card-tag:hover {
+	border-color: hsla(var(--tag-color), 0.7) !important;
+}
+
+.html {
+	--tag-color: var(--tag-html);
+}
+.css {
+	--tag-color: var(--tag-css);
+}
+.javascript {
+	--tag-color: var(--tag-javascript);
+}
+.astro {
+	--tag-color: var(--tag-astro);
+}
+.tailwind-css {
+	--tag-color: var(--tag-tailwind);
+}
+.react {
+	--tag-color: var(--tag-react);
+}
+.sql {
+	--tag-color: var(--tag-sql);
+}
+.c\# {
+	--tag-color: var(--tag-csharp);
+}
+.\.net {
+	--tag-color: var(--tag-dotnet);
+}
+.azure-cosmos-db {
+	--tag-color: var(--tag-azure-cosmos);
+}
+.angular {
+	--tag-color: var(--tag-angular);
+}
+.supabase {
+	--tag-color: var(--tag-supabase);
+}
+
 .post-markdown p {
 	font-size: 1rem;
 	font-weight: normal;

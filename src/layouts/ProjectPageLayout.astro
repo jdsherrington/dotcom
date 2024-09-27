@@ -28,7 +28,7 @@ if (!projectImages[frontmatter.imagePath])
 		class="bg-foreground/5 rounded-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] relative place-self-center"
 	>
     <div class="relative rounded-t-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)]">
-		<Image transition:name=`project-data-02${frontmatter.url}`
+		<Image
 			src={projectImages[frontmatter.imagePath]()}
 			alt={frontmatter.imageAlt}
 			class="w-[var(--full-w)] sm:h-20 md:h-28 lg:h-32 object-cover rounded-t-[var(--radius)] rounded-b-none blur-3xl -translate-y-10 pointer-events-none select-none opacity-60"
@@ -70,22 +70,22 @@ if (!projectImages[frontmatter.imagePath])
 				{frontmatter.type}
 			</p>
             <p  transition:name=`project-data-05${frontmatter.url}`
-				class="w-auto text-xs pr-4 place-content-start whitespace-nowrap overflow-hidden text-foreground/90 text-ellipsis h-min mx-[var(--guide-gutter)]">
+				class="w-auto text-xs pr-4 place-content-start overflow-hidden text-foreground/90 h-min mx-[var(--guide-gutter)]">
 				{frontmatter.description}
 			</p>
 			<div transition:name=`project-data-06${frontmatter.url}` class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
 			>
 				{
 					frontmatter.tags?.map((tag: any) => (
-						<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
-							class:list={[
-								tag.toLowerCase().replaceAll(" ", "-"),
-								"post-tag bg-foreground/5 hover:bg-foreground/10 text-foreground/50 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300",
-							]}
-						>
-							{tag}
-						</a>
-					))
+							<a href=`/projects/${tag.toLowerCase().replaceAll(" ", " ")}`
+								class:list={[
+									tag.toLowerCase().replaceAll(" ", "-"),
+									"card-tag text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer",
+								]}
+							>
+								{tag}
+							</a>
+						))
 				}
 			</div>
             

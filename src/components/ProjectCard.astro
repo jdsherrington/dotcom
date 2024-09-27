@@ -30,7 +30,7 @@ if (!projectImages[imagePath])
 
 
 	<div transition:name=`project-data-01${url}`
-		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-1 gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--project-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden"
+		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-1 sm:grid-rows-1 md:grid-rows-[auto_1fr] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--project-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-full overflow-hidden"
 		data-accent={accentColor}
 	>
     <a href={url} class="post-link cursor-pointer">
@@ -38,7 +38,7 @@ if (!projectImages[imagePath])
             transition:name=`post-data-02${url}`
 			src={projectImages[imagePath]()}
 			alt={imageAlt}
-			class="post-img w-full object-cover sm:rounded-l-[var(--radius)] sm:rounded-r-none"
+			class="post-img w-full sm:hmax--auto md:max-h-32 object-cover md:rounded-l-[var(--radius)] md:rounded-t-[var(--radius)]"
 		/>
         </a>
 		<div
@@ -48,34 +48,34 @@ if (!projectImages[imagePath])
 		>
 		</div>
 		<div
-			class="post-content grid grid-rows-[auto_auto_1fr_min-content] h-auto w-full align-items-start overflow-hidden rounded-[var(--radius)] pl-[var(--guide-gutter)]"
-		><a href={url} class="cursor-pointer">
+			class="post-content flex flex-col sm:h-auto md:h-full sm:w-full md:w-auto align-items-start overflow-hidden rounded-[var(--radius)] sm:pr-[var(--guide-gutter)] md:px-[var(--guide-gutter)]"
+		><a href={url} class="cursor-pointer h-full flex flex-col flex-grow">
 			<h1 transition:name=`project-data-03${url}`
-				class="post-sizing w-auto sm:text-xl md:text-2xl font-bold sm:leading-[1.1] tracking-tight pt-[var(--guide-gutter)] sm:pb-1 md:pb-0 place-content-start text-foreground/90 transition-colors duration-300 transform-none"
+				class="post-sizing w-auto sm:text-xl md:text-2xl font-bold sm:leading-[1.1] tracking-tight sm:pt-[var(--guide-gutter)] md:pt-0 sm:pb-1 md:pb-0 place-content-start text-foreground/90 transition-colors duration-300"
 			>
 				{title}
 			</h1>
             <p  transition:name=`post-data-04${url}`
-				class="post-sizing w-auto font-semibold text-xs uppercase tracking-widest pb-2 place-content-start text-foreground/40 transform-none"
+				class="post-sizing w-auto font-semibold text-xs uppercase tracking-widest pb-2 place-content-start text-[var(--project-accent)]"
 			>
 				{type}
 			</p>
 			<p transition:name=`project-data-05${url}`
-				class="post-sizing w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-foreground/90 pb-[var(--guide-gutter)] transform-none"
+				class="post-sizing w-auto text-xs place-content-start leading-normal text-foreground/90 pb-[var(--guide-gutter)] md:flex-grow"
 			>
 				{desc}
 			</p>
             </a>
-			<div class="post-sizing flex-row flex pb-[calc(var(--guide-gutter)*0.75)]">
+			<div class="post-sizing flex flex-row pb-[calc(var(--guide-gutter)*0.75)]">
 				<div transition:name=`project-data-06${url}`
-					class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end transform-none"
+					class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end"
 				>
 					{
 						tags?.map((tag: any) => (
 							<a href=`/projects/${tag.toLowerCase().replaceAll(" ", " ")}`
 								class:list={[
 									tag.toLowerCase().replaceAll(" ", "-"),
-									"post-tag bg-foreground/5 hover:bg-foreground/10 text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer",
+									"card-tag text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer",
 								]}
 							>
 								{tag}
@@ -159,7 +159,7 @@ if (!projectImages[imagePath])
 		object-position: 50% 50%;
 		mask-image: linear-gradient(
 			to top,
-			rgba(0, 0, 0, 0) -10%,
+			rgba(0, 0, 0, 0) -50%,
 			rgba(0, 0, 0, 1) 100%
 		);
 	}
@@ -171,6 +171,8 @@ if (!projectImages[imagePath])
 		z-index: 2;
 		border-radius: calc(var(--radius) - 1px);
 	}
+
+    
 </style>
 
 <script>
@@ -224,7 +226,7 @@ if (!projectImages[imagePath])
 		) as NodeListOf<HTMLElement>;
 		posts.forEach(function (el) {
 			console.log(el.dataset.accent);
-			el.style.background = `radial-gradient(circle 250px at 100% 300%, ${el.dataset.accent} -50%, transparent 200%)`;
+			el.style.background = `radial-gradient(circle 250px at 0% 350%, ${el.dataset.accent} -50%, transparent 200%)`;
 		});
 
 		const postsBefore = document.querySelectorAll(
@@ -233,15 +235,15 @@ if (!projectImages[imagePath])
 		postsBefore.forEach(function (el) {
 			console.log(el.dataset.accent);
 			el.style.setProperty(
-				"--post-accent",
+				"--project-accent",
 				`${el.dataset.accent as string}`
 			);
 			el.style.setProperty(
-				"--post-accent-border",
+				"--project-accent-border",
 				`${el.dataset.accent as string}55`
 			);
 			el.style.setProperty(
-				"--post-accent-glow",
+				"--project-accent-glow",
 				`${el.dataset.accent as string}22`
 			);
 		});
