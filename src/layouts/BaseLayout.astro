@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import NavFooter from "@/components/NavFooter.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import { ViewTransitions } from "astro:transitions";
@@ -62,7 +63,8 @@ const { pageTitle, pageDesc } = Astro.props;
 		</script>
 	</head>
 	<body class="z-20 flex flex-col min-h-dvh">
-		<Header/>
+		<Header />
+		<NavFooter />
 		<!-- <div
 			id="grid-guide-container"
 			class="fixed flex h-svh w-svw top-0 left-0 z-30 justify-center items-center"

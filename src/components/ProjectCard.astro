@@ -30,20 +30,20 @@ if (!projectImages[imagePath])
 
 
 	<div transition:name=`project-data-01${url}`
-		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-1 sm:grid-rows-1 md:grid-rows-[auto_1fr] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--project-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-full overflow-hidden"
+		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-1 sm:grid-rows-1 md:grid-rows-[auto_1fr] sm:gap-[calc(var(--guide-gutter)*1)] md:gap-[calc(var(--guide-gutter)*0.75)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--project-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-full overflow-hidden"
 		data-accent={accentColor}
 	>
-    <a href={url} class="post-link cursor-pointer">
+    <a href={url} class="post-link cursor-pointer sm:mx-0 sm:mt-0 md:mx-[var(--guide-gutter)] md:mt-[var(--guide-gutter)] z-40">
 		<Image transition:name=`project-data-02${url}`
             transition:name=`post-data-02${url}`
 			src={projectImages[imagePath]()}
 			alt={imageAlt}
-			class="post-img w-full sm:hmax--auto md:max-h-32 object-cover md:rounded-l-[var(--radius)] md:rounded-t-[var(--radius)]"
+			class="post-img sm:w-full sm:max-h-96 md:w-24 md:max-h-24 lg:w-28 lg:max-h-28 object-cover sm:rounded-[var(--radius)] sm:rounded-r-none md:rounded-[var(--radius)]"
 		/>
         </a>
 		<div
             transition:name=`project-data-02a${url}`
-			class="project-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100"
+			class="project-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100 z-10"
 			data-accent={accentColor}
 		>
 		</div>
@@ -156,12 +156,7 @@ if (!projectImages[imagePath])
 
 	.post-img {
 		pointer-events: none;
-		object-position: 50% 50%;
-		mask-image: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0) -50%,
-			rgba(0, 0, 0, 1) 100%
-		);
+		
 	}
 
 	.post-content {
@@ -226,7 +221,7 @@ if (!projectImages[imagePath])
 		) as NodeListOf<HTMLElement>;
 		posts.forEach(function (el) {
 			console.log(el.dataset.accent);
-			el.style.background = `radial-gradient(circle 250px at 0% 350%, ${el.dataset.accent} -50%, transparent 200%)`;
+			el.style.background = `radial-gradient(circle 250px at -50% -50%, ${el.dataset.accent} -50%, transparent 200%)`;
 		});
 
 		const postsBefore = document.querySelectorAll(

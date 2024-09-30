@@ -1,0 +1,107 @@
+---
+// import Hamburger from "./Hamburger.astro";
+import ThemeIcon from "./ThemeIcon.astro";
+---
+
+<nav
+	id="nav-footer"
+	transition:persist="nav-footer"
+	class="nav-footer fixed bottom-0 flex items-center h-24 w-full z-50 overflow-hidden border-t border-t-foreground/15"
+>
+	<div
+		class="grid grid-cols-5 w-full h-full nav-footer-button bg-background/50 backdrop-blur-xl"
+	>
+		<a class="flex flex-col gap-2" href="/">
+			<svg
+				class="h-8 fill-foreground"
+				viewBox="0 0 1024 1024"
+				xmlns="http://www.w3.org/2000/svg"
+				><path
+					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+				></path></svg
+			>
+			<span>Home</span>
+		</a>
+		<a class="flex flex-col gap-2" href="/blog"
+			><svg
+				class="h-8 fill-foreground"
+				viewBox="0 0 1024 1024"
+				xmlns="http://www.w3.org/2000/svg"
+				><path
+					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+				></path></svg
+			>
+			<span>Blog</span>
+		</a>
+		<a class="flex flex-col gap-2" href="/projects"
+			><svg
+				class="h-8 fill-foreground"
+				viewBox="0 0 1024 1024"
+				xmlns="http://www.w3.org/2000/svg"
+				><path
+					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+				></path></svg
+			>
+			<span>Projects</span></a
+		>
+		<a class="flex flex-col gap-2" href="/resources"
+			><svg
+				class="h-8 fill-foreground"
+				viewBox="0 0 1024 1024"
+				xmlns="http://www.w3.org/2000/svg"
+				><path
+					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+				></path></svg
+			>
+			<span>Resources</span></a
+		>
+		<a class="flex flex-col gap-2" href="#">
+			<ThemeIcon />
+			<span>Theme</span></a
+		>
+	</div>
+</nav>
+
+<style>
+	.nav-footer-button a {
+		@apply inline-flex
+        py-4
+        my-2
+        mx-1
+        justify-center
+        place-items-center
+        font-semibold
+        text-xs
+        rounded-[var(--radius)]
+        hover:bg-foreground/10
+        focus:bg-foreground/10
+        focus:text-foreground
+        focus:outline-none
+        disabled:pointer-events-none
+        disabled:opacity-50
+        leading-none
+        tracking-normal;
+	}
+</style>
+
+<script is:inline>
+	function detachHeader() {
+		const header = document.querySelector("#header"),
+			nav = document.querySelector("#nav");
+		setTimeout(() => {
+			if (header && nav) {
+				if (window.scrollY > 10) {
+					header.classList.add("detached");
+					nav.classList.add("detached");
+				} else {
+					header.classList.remove("detached");
+					nav.classList.remove("detached");
+				}
+			}
+		}, 150);
+	}
+
+	document.addEventListener("scroll", function () {
+		detachHeader();
+	});
+</script>

@@ -6,7 +6,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 <header
 	transition:persist="header"
 	id="header"
-	class="flex h-0 sm:mb-28 md:mb-[var(--header-padding)] sticky z-40 items-start justify-center top-0"
+	class="flex h-0 sm:mb-28 md:mb-[var(--header-padding)] sticky z-40 items-start justify-center sm:bottom-0 md:top-0"
 >
 	<div
 		id="nav"
@@ -19,7 +19,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 				Jordan Sherrington
 			</h1>
 		</a>
-		<div class="flex items-center space-x-2 nav-button">
+		<div class="items-center space-x-2 nav-button sm:hidden md:flex">
 			<a class="group" href="/blog">Blog</a>
 			<a class="group" href="/projects">Projects</a>
 			<a class="group" href="/resources">Resources</a>

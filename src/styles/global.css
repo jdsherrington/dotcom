@@ -327,7 +327,6 @@
 			margin-top: 0px;
 			margin-left: 0rem;
 			margin-right: 0rem;
-			box-shadow:;
 			--tw-shadow-color: rgba(0, 0, 0, 0.01) !important;
 			background-color: hsla(var(--background-alt) / 0.6);
 		}
@@ -370,10 +369,12 @@
 	overflow: hidden;
 	border-style: solid;
 	border-width: 1px;
-	border-color: hsla(var(--tag-color), 0.5);
+    color: hsl(var(--foreground)/ 0.5);
+	border-color: hsl(var(--foreground)/ 0.25);
 	transition:
-		background-color 250ms,
-		border-color 250ms;
+		ease-in-out background-color 300ms,
+		ease-in-out border-color 300ms,
+        ease-in-out color 300ms;
 }
 
 .card-tag::before {
@@ -383,7 +384,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: hsla(var(--tag-color), 0.25); /* start with 0.5 opacity */
+	background-color: hsla(var(--tag-color), 0); /* start with 0.5 opacity */
 	z-index: -1;
 	transition:
 		background-color 250ms,
@@ -391,11 +392,11 @@
 }
 
 .card-tag:hover::before {
-	background-color: hsla(var(--tag-color), 0.7); /* full opacity on hover */
+	background-color: hsla(var(--tag-color), 0.25); /* full opacity on hover */
 }
 
 .card-tag:hover {
-	border-color: hsla(var(--tag-color), 0.7) !important;
+	border-color: hsla(var(--tag-color), 1) !important;
 }
 
 .html {
