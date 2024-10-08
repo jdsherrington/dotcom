@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 
 interface Props {
 	title: string;
-	desc: string;
+	description: string;
 	date: string;
 	url: string;
 	tags: string[];
@@ -13,7 +13,7 @@ interface Props {
 	accentColor: string;
 }
 
-const { title, desc, date, url, tags, imagePath, imageAlt, accentColor } =
+const { title, description, date, url, tags, imagePath, imageAlt, accentColor } =
 	Astro.props;
 
 const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-US", {
@@ -33,45 +33,45 @@ if (!images[imagePath])
 ---
 
 
-	<div transition:name=`post-data-01${url}`
-		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-[var(--three-w)_var(--five-w)] lg:grid-cols-[var(--two-w)_var(--half-w)] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--post-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden"
+	<!-- <div transition:name=`container-${url}`
+		class="blog-post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-[var(--three-w)_1fr] lg:grid-cols-[var(--two-w)_1fr] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--card-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto w-auto duration-150 ease-in-out"
 		data-accent={accentColor}
-	>   <a href={url} class="post-link cursor-pointer">
+	>   <a href={url} class="blog-post-link cursor-pointer w-full">
 		<Image
-            transition:name=`post-data-02${url}`
+            transition:name=`image-${url}`
 			src={images[imagePath]()}
 			alt={imageAlt}
-			class="post-img w-full object-cover"
+			class="blog-post-img w-full object-cover rounded-l-[var(--radius)]"
 		/>
         </a>
 		<div
-            transition:name=`post-data-02a${url}`
-			class="post-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100"
+            transition:name=`accent-${url}`
+			class="blog-post-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100"
 			data-accent={accentColor}
 		>
 		</div>
 		<div
-			class="post-content grid grid-rows-[auto_auto_1fr_min-content] h-auto w-full align-items-start overflow-hidden rounded-[var(--radius)] sm:pr-[calc(var(--guide-gutter)*2)] md:pr-[var(--guide-gutter)]"
-		><a href={url} class="cursor-pointer">
-			<h1 transition:name=`post-data-03${url}`
-				class="post-sizing w-auto text-xl font-bold sm:leading-[1.1] tracking-tight pt-[calc(var(--guide-gutter)*0.75)] pb-1 place-content-start text-foreground/90 transition-colors duration-300 transform-none"
+			class="blog-post-content flex flex-col h-min overflow-hidden rounded-[var(--radius)] sm:pr-[calc(var(--guide-gutter)*2)] md:pr-[var(--guide-gutter)] content-start">
+        <a href={url} class="inline w-fit font-bold tracking-tight pb-1 text-foreground/85 hover:text-foreground transition-colors transform-none cursor-pointer h-min mt-[calc(var(--guide-gutter)*0.85)] sm:text-lg md:text-xl sm:leading-[1.2] md:leading-[1.2]">
+			<h1 transition:name=`title-${url}`
 			>
 				{title}
 			</h1>
+            </a>
             
-			<p  transition:name=`post-data-04${url}`
-				class="post-sizing w-auto font-semibold text-xs uppercase tracking-widest pr-4 pb-2 place-content-start text-foreground/40 transform-none"
+			<p  transition:name=`date-${url}`
+				class="blog-post-date"
 			>
 				{formattedDate}
 			</p>
-			<p transition:name=`post-data-05${url}`
-				class="post-sizing w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 pb-[calc(var(--guide-gutter)*0.75)] transform-none"
+			<p transition:name=`description-${url}`
+				class="w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] transform-none sm:mb-[var(--guide-gutter)] md:mb-0"
 			>
-				{desc}
+				{description}
 			</p>
-            </a>
-			<div class="post-sizing flex-row sm:hidden md:flex pb-[calc(var(--guide-gutter)*0.75)]">
-				<div transition:name=`post-data-06${url}`
+            
+			<div class="flex-row w-[100%] sm:hidden md:flex sm:mb-0 md:mb-[calc(var(--guide-gutter)*0.75)]">
+				<div transition:name=`tags-${url}`
 					class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end transform-none"
 				>
 					{
@@ -79,7 +79,7 @@ if (!images[imagePath])
 							<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
 								class:list={[
 									tag.toLowerCase().replaceAll(" ", "-"),
-									"post-tag bg-foreground/5 hover:bg-foreground/0 text-foreground/25 hover:text-foreground/75 border-[1px] border-foreground/0 hover:border-foreground/50 backdrop-blur-xl rounded-[250px] pl-2 pr-2 pt-0.5 pb-0.5 text-[0.7rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer",
+									"blog-post-tag",
 								]}
 							>
 								{tag}
@@ -107,100 +107,96 @@ if (!images[imagePath])
                 </a>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-<style define:vars={{ image: `url("${imagePath}")` }}>
-	.post {
-		transition:
-			box-shadow ease-in-out 400ms,
-			border-color ease-in-out 200ms;
-		position: relative;
-		border-radius: var(--radius);
-		--post-accent: white;
-	}
+    <div transition:name=`container-${url}`
+    class="blog-post sm:grid-cols-[var(--one-w)_1fr] md:grid-cols-[var(--three-w)_1fr] lg:grid-cols-[var(--two-w)_1fr]"
+    data-accent={accentColor}
+>
+    <a href={url}>
+        <Image
+            transition:name=`image-${url}`
+            src={images[imagePath]()} 
+            alt={imageAlt} 
+            class="blog-post-img"
+        />
+    </a>
 
-	.post::before {
-		border-radius: inherit;
-		content: "";
-		height: 100%;
-		left: 0px;
-		opacity: 0;
-		position: absolute;
-		top: 0px;
-		transition: opacity 500ms;
-		width: 100%;
-		background: radial-gradient(
-			600px circle at var(--mouse-x) var(--mouse-y),
-			var(--post-accent-glow) 0%,
-			transparent 35%
-		);
-		z-index: 1;
-		pointer-events: none;
-	}
+    <div
+        transition:name=`accent-${url}`
+        class="blog-post-accent"
+        data-accent={accentColor}
+    ></div>
 
-	.post:hover::before {
-		opacity: 1;
-	}
+    <div
+        class="blog-post-content"
+    >
+        <a href={url} class="inline w-fit font-bold tracking-tight pb-1 text-foreground/85 hover:text-foreground transition-colors transform-none cursor-pointer h-min mt-[calc(var(--guide-gutter)*0.85)] sm:text-lg md:text-xl sm:leading-[1.2] md:leading-[1.2]">
+            <h1 transition:name=`title-${url}` class="blog-post-title">{title}</h1>
+        </a>
+        
+        <p transition:name=`date-${url}` class="blog-post-date">{formattedDate}</p>
+        
+        <p transition:name=`description-${url}` class="w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] transform-none sm:mb-[var(--guide-gutter)] md:mb-0">
+            {description}
+        </p>
 
-	.nav-arrow {
-		transition: fill ease-in-out 200ms;
-	}
+        <div class="flex-row w-[100%] sm:hidden md:flex sm:mb-0 md:mb-[calc(var(--guide-gutter)*0.75)]">
+            <div transition:name=`tags-${url}` class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end transform-none">
+                {
+                    tags?.map((tag: any) => (
+                        <a href=`/blog/tagged/${tag.toLowerCase()}`
+                            class:list={[
+                                tag.toLowerCase().replaceAll(" ", "-"),
+                                "blog-post-tag",
+                            ]}
+                        >
+                            {tag}
+                        </a>
+                    ))
+                }
+            </div>
+            <a href={url} class="place-self-end ml-[var(--guide-gutter)] cursor-pointer">
+                <svg class="nav-arrow h-6 w-min fill-foreground/25" viewBox="0 0 492.004 492.004">
+                    <g>
+                        <g>
+                            <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+                            c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+                            v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+                            c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+                            l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"></path>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
 
-	.nav-arrow:hover {
-		fill: var(--post-accent);
-	}
-
-    .post-link:hover h1 {
-        color: hsl(var(--css-foreground));
-    }
-
-	.post-accent {
-		pointer-events: none;
-	}
-
-	.post-img {
-		pointer-events: none;
-		object-position: 50% 50%;
-		mask-image: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0) -10%,
-			rgba(0, 0, 0, 1) 100%
-		);
-	}
-
-	.post-content {
-		transition:
-			box-shadow ease-in-out 400ms,
-			border-color ease-in-out 200ms;
-		z-index: 2;
-		border-radius: calc(var(--radius) - 1px);
-	}
-</style>
 
 <script>
-	function getCombinedHeight(post: HTMLElement) {
-		const postSizing = post.querySelectorAll(
-			".post-sizing"
+	function getContentHeight(post: HTMLElement) {
+		const contentHeight = post.querySelectorAll(
+			".blog-post-content > *"
 		) as NodeListOf<HTMLElement>;
 		let totalHeight = 0;
-		postSizing.forEach((element) => {
+        console.log(contentHeight);
+		contentHeight.forEach((element) => {
 			const style = window.getComputedStyle(element);
 			const elementHeight = element.offsetHeight;
 			const marginTop = parseFloat(style.marginTop);
 			const marginBottom = parseFloat(style.marginBottom);
 			totalHeight += elementHeight + marginTop + marginBottom;
 		});
-
 		return totalHeight;
 	}
 
-	function getCombinedHeights() {
+	function setImageHeight() {
 		const allposts: NodeListOf<HTMLElement> =
-			document.querySelectorAll(".post");
+			document.querySelectorAll(".blog-post");
 		allposts.forEach((post) => {
-			const height = getCombinedHeight(post);
-			const image = post.querySelector(".post-img") as HTMLElement;
-			console.log(image);
+			const height = getContentHeight(post);
+			const image = post.querySelector(".blog-post-img") as HTMLElement;
 			if (image) {
 				image.style.height = `${height}px`;
 			}
@@ -219,38 +215,36 @@ if (!images[imagePath])
 	};
 
 	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".post")) {
+		for (const post of document.querySelectorAll(".blog-post")) {
 			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
 		}
 
 		const posts = document.querySelectorAll(
-			".post-accent"
+			".blog-post-accent"
 		) as NodeListOf<HTMLElement>;
 		posts.forEach(function (el) {
-			console.log(el.dataset.accent);
 			el.style.background = `radial-gradient(circle 250px at 0% 250%, ${el.dataset.accent} -50%, transparent 150%)`;
 		});
 
 		const postsBefore = document.querySelectorAll(
-			".post"
+			".blog-post"
 		) as NodeListOf<HTMLElement>;
 		postsBefore.forEach(function (el) {
-			console.log(el.dataset.accent);
 			el.style.setProperty(
-				"--post-accent",
+				"--card-accent",
 				`${el.dataset.accent as string}`
 			);
 			el.style.setProperty(
-				"--post-accent-border",
+				"--card-accent-border",
 				`${el.dataset.accent as string}55`
 			);
 			el.style.setProperty(
-				"--post-accent-glow",
-				`${el.dataset.accent as string}22`
+				"--card-accent-glow",
+				`${el.dataset.accent as string}33`
 			);
 		});
 
-		getCombinedHeights();
+		setImageHeight();
 	};
 
 	attachEventListeners();
@@ -259,5 +253,5 @@ if (!images[imagePath])
 		attachEventListeners();
 	});
 
-	window.addEventListener("resize", getCombinedHeights);
+	window.addEventListener("resize", setImageHeight);
 </script>

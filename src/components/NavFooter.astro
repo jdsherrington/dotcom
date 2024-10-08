@@ -1,81 +1,103 @@
 ---
-// import Hamburger from "./Hamburger.astro";
 import ThemeIcon from "./ThemeIcon.astro";
 ---
 
+<!-- <nav
+	id="nav-footer"
+	class="nav-footer fixed sm:bottom-0 md:-bottom-20 sm:flex items-center h-20 w-full z-50 p-[calc(var(--guide-gutter)/2)]"
+> -->
 <nav
 	id="nav-footer"
-	transition:persist="nav-footer"
-	class="nav-footer fixed bottom-0 flex items-center h-24 w-full z-50 overflow-hidden border-t border-t-foreground/15"
+	class="fixed sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))] grid grid-cols-5 w-[calc(100%-var(--guide-gutter))] ml-[calc(var(--guide-gutter)/2)] mb-[calc(var(--guide-gutter)/2)] h-20 bg-background/50 rounded-[var(--radius)] border border-foreground/10 px-0.5 backdrop-blur-xl z-50 shadow-xl shadow-background"
 >
-	<div
-		class="grid grid-cols-5 w-full h-full nav-footer-button bg-background/50 backdrop-blur-xl"
+	<a class="flex flex-col gap-2" href="/">
+		<svg
+			class="h-6 fill-foreground"
+			viewBox="0 0 1024 1024"
+			xmlns="http://www.w3.org/2000/svg"
+			><path
+				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+			></path></svg
+		>
+		<span>Home</span>
+	</a>
+	<a class="flex flex-col gap-2" href="/blog"
+		><svg
+			class="h-6 fill-foreground"
+			viewBox="0 0 1024 1024"
+			xmlns="http://www.w3.org/2000/svg"
+			><path
+				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+			></path></svg
+		>
+		<span>Blog</span>
+	</a>
+	<a class="flex flex-col gap-2" href="/projects"
+		><svg
+			class="h-6 fill-foreground"
+			viewBox="0 0 1024 1024"
+			xmlns="http://www.w3.org/2000/svg"
+			><path
+				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+			></path></svg
+		>
+		<span>Projects</span></a
 	>
-		<a class="flex flex-col gap-2" href="/">
-			<svg
-				class="h-8 fill-foreground"
-				viewBox="0 0 1024 1024"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-				></path></svg
-			>
-			<span>Home</span>
-		</a>
-		<a class="flex flex-col gap-2" href="/blog"
-			><svg
-				class="h-8 fill-foreground"
-				viewBox="0 0 1024 1024"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-				></path></svg
-			>
-			<span>Blog</span>
-		</a>
-		<a class="flex flex-col gap-2" href="/projects"
-			><svg
-				class="h-8 fill-foreground"
-				viewBox="0 0 1024 1024"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-				></path></svg
-			>
-			<span>Projects</span></a
+	<a class="flex flex-col gap-2" href="/resources"
+		><svg
+			class="h-6 fill-foreground"
+			viewBox="0 0 1024 1024"
+			xmlns="http://www.w3.org/2000/svg"
+			><path
+				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
+			></path></svg
 		>
-		<a class="flex flex-col gap-2" href="/resources"
-			><svg
-				class="h-8 fill-foreground"
-				viewBox="0 0 1024 1024"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-				></path></svg
-			>
-			<span>Resources</span></a
-		>
-		<a class="flex flex-col gap-2" href="#">
-			<ThemeIcon />
-			<span>Theme</span></a
-		>
-	</div>
+		<span>Resources</span></a
+	>
+	<a class="flex flex-col gap-2" href="#">
+		<ThemeIcon />
+		<span>Theme</span></a
+	>
 </nav>
+<!-- </nav> -->
 
 <style>
-	.nav-footer-button a {
+	#nav-footer {
+		view-transition-name: navfooter;
+		transition: ease-in-out bottom 200ms;
+		background-color: hsl(var(--background) / 0.5) !important;
+		backdrop-filter: blur(24px) !important;
+		-webkit-backdrop-filter: blur(24px) !important;
+		border-radius: var(--radius) !important;
+		z-index: 90 !important;
+		overflow: hidden !important;
+
+		--tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+			0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+		--tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+			0 8px 10px -6px var(--tw-shadow-color) !important;
+
+		--tw-shadow-color: hsl(var(--background)) !important;
+		--tw-shadow: var(--tw-shadow-colored) !important;
+
+		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+			var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+	}
+
+	#nav-footer > a {
 		@apply inline-flex
-        py-4
-        my-2
-        mx-1
+        my-1
+        mx-0.5
         justify-center
         place-items-center
-        font-semibold
-        text-xs
+        font-normal
+        text-foreground/75
+        text-[0.75rem]
         rounded-[var(--radius)]
         hover:bg-foreground/10
         focus:bg-foreground/10
         focus:text-foreground
+        focus:font-semibold
         focus:outline-none
         disabled:pointer-events-none
         disabled:opacity-50
@@ -84,24 +106,23 @@ import ThemeIcon from "./ThemeIcon.astro";
 	}
 </style>
 
-<script is:inline>
-	function detachHeader() {
-		const header = document.querySelector("#header"),
-			nav = document.querySelector("#nav");
-		setTimeout(() => {
-			if (header && nav) {
-				if (window.scrollY > 10) {
-					header.classList.add("detached");
-					nav.classList.add("detached");
-				} else {
-					header.classList.remove("detached");
-					nav.classList.remove("detached");
-				}
-			}
-		}, 150);
-	}
+<script>
+	const radius = "0.5rem";
 
-	document.addEventListener("scroll", function () {
-		detachHeader();
+	document.addEventListener("astro:before-preparation", () => {
+		document.getElementById("nav-footer").style.borderRadius = radius;
+	});
+
+	document.addEventListener("astro:after-preparation", () => {
+		document.getElementById("nav-footer").style.borderRadius = radius;
+	});
+
+	document.addEventListener("astro:before-swap", (ev) => {
+		setTimeout(() => {
+			const oldElement = document.getElementById("nav-footer");
+			oldElement.style.borderRadius = radius;
+			const newElement = ev.newDocument.getElementById("nav-footer");
+			newElement.style.borderRadius = radius;
+		}, 1000);
 	});
 </script>

@@ -38,7 +38,7 @@ const {
 		url: string;
 		frontmatter: {
 			title: string;
-			desc: string;
+			description: string;
 			date: string;
 			url: string;
 			tags: string[];
@@ -108,7 +108,7 @@ const filteredPosts = posts.filter((post) =>
 					posts.map((post) => (
 						<BlogPost
 							title={post.frontmatter.title}
-							desc={post.frontmatter.description}
+							description={post.frontmatter.description}
 							date={post.frontmatter.date}
 							url={post.url}
 							tags={post.frontmatter.tags}

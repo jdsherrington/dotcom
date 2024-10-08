@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
-title: "My Second Blog Post"
+title: "Persisting Backdrop Blur During View Transitions"
 date: 2024-09-03
 description: "This is the second post of my new Astro blog."
 author: "Jordan Sherrington"

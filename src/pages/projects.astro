@@ -4,68 +4,13 @@ import ProjectCard from "../components/ProjectCard.astro";
 
 import { slide } from "astro:transitions";
 
-// import { getCollection } from "astro:content";
-// const allPosts = await getCollection("posts");
-
 const allPosts = (await Astro.glob("./projects/*.md")).sort(
 	(b, a) => b.frontmatter.id - a.frontmatter.id
 );
-const pageTitle = "Projects";
----
-
-<!-- ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Card from "@/components/Card.astro";
-
-import BlogPost from "../components/BlogPost.astro";
-// import { getCollection } from "astro:content";
-// const allPosts = await getCollection("posts");
-
-import img1 from "../assets/projects/project1.jpg";
-import img2 from "../assets/projects/project2.jpg";
-import img3 from "../assets/projects/wedding-website-thumbnail.webp";
 
 const pageTitle = "Projects";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-	<section
-		class="grid grid-rows-[min-content_100%] items-start w-[var(--full-w)] gap-12 pb-48"
-	>
-		<div
-			class="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-flow-row gap-[var(--guide-gutter)]"
-		>
-			<Card
-				title="Personal Website"
-				desc="You are here! Custom-made static site using Astro, with some React components."
-				tags={["Tailwind CSS", "JavaScript", "Astro", "React"]}
-				image={img1}
-				href="#"
-			/>
-			<Card
-				title="GratisRegistry"
-				desc="A free gift registry web app built with Angular, using Supabase as a backend."
-				tags={["Angular", "HTML", "CSS", "Supabase"]}
-				image={img2}
-				href="#"
-			/>
-			<Card
-				title="Wedding Website"
-				desc="A website I created for my own wedding, using vanilla HTML, CSS, and JavaScript."
-				tags={["HTML", "CSS", "JavaScript"]}
-				image={img3}
-				href="#"
-			/>
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-			<Card />
-		</div>
-	</section>
-</BaseLayout> -->
 <BaseLayout pageTitle={pageTitle}>
 	<section
 		class="grid grid-cols-[auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
@@ -74,19 +19,21 @@ const pageTitle = "Projects";
 			class="sm:w-[--full-w] lg:w-[--two-thirds-w] grid sm:grid-cols-1 md:grid-cols-2 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
 		>
 			{
-				allPosts.map((post) => (
-					<ProjectCard
-						id={post.frontmatter.id}
-						title={post.frontmatter.title}
-						type={post.frontmatter.type}
-						desc={post.frontmatter.description}
-						url={post.url}
-						tags={post.frontmatter.tags}
-						imagePath={post.frontmatter.imagePath}
-						imageAlt={post.frontmatter.imageAlt}
-						accentColor={post.frontmatter.accentColor}
-					/>
-				))
+				allPosts.map((post) => {
+					return (
+						<ProjectCard
+							id={post.frontmatter.id}
+							title={post.frontmatter.title}
+							category={post.frontmatter.category}
+							description={post.frontmatter.description}
+							url={post.url}
+							tags={post.frontmatter.tags}
+							imagePath={post.frontmatter.imagePath}
+							imageAlt={post.frontmatter.imageAlt}
+							accentColor={post.frontmatter.accentColor}
+						/>
+					);
+				})
 			}
 		</div>
 	</section>

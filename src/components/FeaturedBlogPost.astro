@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 
 interface Props {
 	title: string;
-	desc: string;
+	description: string;
 	date: string;
 	url: string;
 	tags: string[];
@@ -13,7 +13,7 @@ interface Props {
 	accentColor: string;
 }
 
-const { title, desc, date, url, tags, imagePath, imageAlt, accentColor } =
+const { title, description, date, url, tags, imagePath, imageAlt, accentColor } =
 	Astro.props;
 
 const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-US", {
@@ -33,16 +33,16 @@ if (!images[imagePath])
 ---
 
 
-	<div transition:name=`post-data-01${url}`
-		class="post relative grid sm:grid-cols-[var(--two-w)_var(--two-w)] md:grid-cols-[var(--four-w)_var(--four-w)] lg:grid-cols-[var(--three-w),var(--five-w)] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--post-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden"
+	<!-- <div transition:name=`container-${url}`
+		class="blog-post relative grid sm:grid-cols-[var(--two-w)_var(--two-w)] md:grid-cols-[var(--four-w)_var(--four-w)] lg:grid-cols-[var(--three-w),var(--five-w)] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--card-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden duration-150 ease-in-out"
 		data-accent={accentColor}
 	>
-    <a href={url} class="post-link cursor-pointer">
-    <Image
-            transition:name=`post-data-02${url}`
+        <a href={url} class="blog-post-link cursor-pointer">
+        <Image
+            transition:name=`image-${url}`
 			src={images[imagePath]()}
 			alt={imageAlt}
-			class="post-img w-full h-56 object-cover"
+			class="blog-post-img w-full h-56 object-cover rounded-l-[var(--radius)]"
 		/>
         </a>
 		<div
@@ -51,33 +51,33 @@ if (!images[imagePath])
 		>
 		</div>
 		<div
-			class="post-content grid grid-rows-[min-content_auto_auto_max-content_min-content] h-auto w-full align-items-start rounded-[var(--radius)] pr-[var(--guide-gutter)]">
+			class="blog-post-content grid grid-rows-[min-content_auto_auto_max-content_min-content] h-auto w-full align-items-start rounded-[var(--radius)] pr-[var(--guide-gutter)]">
             <p
-				class="post-sizing w-auto text-xs uppercase tracking-widest place-content-start text-foreground/40 pt-[var(--guide-gutter)] pb-2"
+				class="blog-post-featured"
 			>
 				FEATURED POST
 			</p>
-            <a href={url} class="post-link cursor-pointer">
-			<h1 transition:name=`post-data-03${url}`
-				class="post-sizing w-auto sm:text-2xl md:text-3xl font-bold sm:leading-[1.1] tracking-tight pb-1 place-content-start text-foreground/90 transition-all duration-300 text-wrap"
+            <a href={url} class="blog-post-link cursor-pointer">
+			<h1 transition:name=`title-${url}`
+				class="w-auto sm:text-2xl md:text-3xl font-bold sm:leading-[1.1] tracking-tight pb-1 place-content-start text-foreground/90 transition-all text-wrap"
 			>
 				{title}
 				
 			</h1>
+            </a>
             
-			<p  transition:name=`post-data-04${url}`
-				class="post-sizing w-auto font-semibold text-xs uppercase tracking-widest pb-2 place-content-start text-foreground/40"
+			<p  transition:name=`date-${url}`
+				class="blog-post-date"
 			>
 				{formattedDate}
 			</p>
-			<p transition:name=`post-data-05${url}`
-				class="post-sizing w-auto text-xs place-content-start leading-normal text-wrap min-h-16 text-foreground/90 pb-4"
+			<p transition:name=`description-${url}`
+				class="w-auto text-xs place-content-start leading-normal text-wrap min-h-16 text-foreground/90 pb-4"
 			>
-				{desc}
+				{description}
 			</p>
-            </a>
-			<div class="post-sizing flex flex-row">
-				<div transition:name=`post-data-06${url}`
+			<div class="flex flex-row">
+				<div transition:name=`tags-${url}`
 					class="w-full flex-wrap justify-start gap-1 align-self-end place-content-end pt-4 pb-4 sm:hidden md:flex"
 				>
 					{
@@ -85,7 +85,80 @@ if (!images[imagePath])
 							<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
 								class:list={[
 									tag.toLowerCase().replaceAll(" ", "-"),
-									"post-tag bg-foreground/5 hover:bg-foreground/10 text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer",
+									"blog-post-tag",
+								]}
+							>
+								{tag}
+							</a>
+						))
+					}
+				</div>
+                <a href={url} class="place-self-end align-self-end mb-4 sm:ml-[auto] md:ml-4 cursor-pointer">
+				<svg
+					class="nav-arrow h-6 w-min fill-foreground/25"
+					viewBox="0 0 492.004 492.004"
+				>
+					<g>
+						<g>
+							<path
+								d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+			                    c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+			                    v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+			                    c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+			                    l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"
+							></path>
+						</g>
+					</g>
+				</svg>
+                </a>
+			</div>
+		</div>
+	</div> -->
+
+    <div transition:name=`container-${url}`
+		class="blog-post grid sm:grid-cols-[var(--two-w)_1fr] md:grid-cols-[var(--four-w)_1fr] lg:grid-cols-[var(--three-w)_1fr]"
+		data-accent={accentColor}
+	>
+        <a href={url}>
+        <Image
+            transition:name=`image-${url}`
+			src={images[imagePath]()}
+			alt={imageAlt}
+			class="blog-post-img h-56"
+		/>
+        </a>
+		<div
+			class="featured-post-accent"
+			data-accent={accentColor}
+		></div>
+		<div
+			class="blog-post-content">
+            <p class="blog-post-featured">FEATURED POST</p>
+            <a href={url} class="blog-post-link cursor-pointer">
+				<h1 transition:name=`title-${url}`
+					class="w-auto sm:text-2xl md:text-3xl font-bold sm:leading-[1.1] tracking-tight pb-1 place-content-start text-foreground/90 transition-all text-wrap"
+				>
+					{title}
+				</h1>
+            </a>
+            <p transition:name=`date-${url}` class="blog-post-date">
+				{formattedDate}
+			</p>
+			<p transition:name=`description-${url}`
+				class="w-auto text-xs place-content-start leading-normal text-wrap min-h-16 text-foreground/90 pb-4"
+			>
+				{description}
+			</p>
+			<div class="flex flex-row">
+				<div transition:name=`tags-${url}`
+					class="w-full flex-wrap justify-start gap-1 align-self-end place-content-end pt-4 pb-4 sm:hidden md:flex"
+				>
+					{
+						tags?.map((tag: any) => (
+							<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
+								class:list={[
+									tag.toLowerCase().replaceAll(" ", "-"),
+									"blog-post-tag",
 								]}
 							>
 								{tag}
@@ -116,149 +189,36 @@ if (!images[imagePath])
 	</div>
 
 <style define:vars={{ image: `url("${imagePath}")` }}>
-	.post {
-		transition:
-			box-shadow ease-in-out 400ms,
-			border-color ease-in-out 200ms;
-		position: relative;
-		border-radius: var(--radius);
-		--post-accent: white;
-	}
-
-	.post::before {
-		border-radius: inherit;
-		content: "";
-		height: 100%;
-		left: 0px;
-		opacity: 0;
-		position: absolute;
-		top: 0px;
-		transition: opacity 500ms;
-		width: 100%;
-		background: radial-gradient(
-			600px circle at var(--mouse-x) var(--mouse-y),
-			var(--post-accent-glow) 0%,
-			transparent 35%
-		);
-		z-index: 1;
-		pointer-events: none;
-	}
-
-	.post:hover::before {
-		opacity: 1;
-	}
-
-	.nav-arrow {
-		transition: fill ease-in-out 200ms;
-	}
-
-	.nav-arrow:hover {
-		fill: var(--post-accent);
-	}
-
-    .post-link:hover h1 {
-        color: hsl(var(--css-foreground));
-    }
-
 	.featured-post-accent {
-		pointer-events: none;
+		@apply pointer-events-none;
 	}
 
-	.post-img {
-		pointer-events: none;
-		object-position: 50% 50%;
-		mask-image: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0) -10%,
-			rgba(0, 0, 0, 1) 100%
-		);
-	}
 
-	.post-content {
-		transition:
-			box-shadow ease-in-out 400ms,
-			border-color ease-in-out 200ms;
-		z-index: 2;
-		border-radius: calc(var(--radius) - 1px);
-	}
 </style>
 
-<!-- <script>
-	const handleOnMouseMove = (e) => {
-		const { currentTarget: target } = e;
-
-		const rect = target.getBoundingClientRect(),
-			x = e.clientX - rect.left,
-			y = e.clientY - rect.top;
-
-		target.style.setProperty("--mouse-x", `${x}px`);
-		target.style.setProperty("--mouse-y", `${y}px`);
-	};
-
-	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".post")) {
-			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
-		}
-
-		const posts = document.querySelectorAll(
-			".post-accent"
-		) as NodeListOf<HTMLElement>;
-		posts.forEach(function (el) {
-			console.log(el.dataset.accent);
-			el.style.background = `radial-gradient(circle 250px at 0% 250%, ${el.dataset.accent} -50%, transparent 150%)`;
-		});
-
-		const postsBefore = document.querySelectorAll(
-			".post"
-		) as NodeListOf<HTMLElement>;
-		postsBefore.forEach(function (el) {
-			console.log(el.dataset.accent);
-			el.style.setProperty(
-				"--post-accent",
-				`${el.dataset.accent as string}`
-			);
-			el.style.setProperty(
-				"--post-accent-border",
-				`${el.dataset.accent as string}55`
-			);
-			el.style.setProperty(
-				"--post-accent-glow",
-				`${el.dataset.accent as string}22`
-			);
-		});
-	};
-
-	attachEventListeners();
-
-	document.addEventListener("astro:after-swap", () => {
-		attachEventListeners();
-	});
-</script> -->
-
 <script>
-	function getCombinedHeight(post: HTMLElement) {
-		const postSizing = post.querySelectorAll(
-			".post-sizing"
+	function getContentHeight(post: HTMLElement) {
+		const contentHeight = post.querySelectorAll(
+			".blog-post-content > *"
 		) as NodeListOf<HTMLElement>;
 		let totalHeight = 0;
-		postSizing.forEach((element) => {
+        console.log(contentHeight);
+		contentHeight.forEach((element) => {
 			const style = window.getComputedStyle(element);
 			const elementHeight = element.offsetHeight;
 			const marginTop = parseFloat(style.marginTop);
 			const marginBottom = parseFloat(style.marginBottom);
 			totalHeight += elementHeight + marginTop + marginBottom;
 		});
-
 		return totalHeight;
 	}
 
-	function getCombinedHeights() {
+	function setImageHeight() {
 		const allposts: NodeListOf<HTMLElement> =
-			document.querySelectorAll(".post");
+			document.querySelectorAll(".blog-post");
 		allposts.forEach((post) => {
-			const height = getCombinedHeight(post);
-			const image = post.querySelector(".post-img") as HTMLElement;
-			console.log(image);
+			const height = getContentHeight(post);
+			const image = post.querySelector(".blog-post-img") as HTMLElement;
 			if (image) {
 				image.style.height = `${height}px`;
 			}
@@ -277,7 +237,7 @@ if (!images[imagePath])
 	};
 
 	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".post")) {
+		for (const post of document.querySelectorAll(".blog-post")) {
 			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
 		}
 
@@ -287,25 +247,25 @@ if (!images[imagePath])
 		post.style.background = `radial-gradient(circle 250px at 100% 325%, ${post.dataset.accent} 0%, transparent 300%)`;
 
 		const postsBefore = document.querySelectorAll(
-			".post"
+			".blog-post"
 		) as NodeListOf<HTMLElement>;
 		postsBefore.forEach(function (el) {
 			console.log(el.dataset.accent);
 			el.style.setProperty(
-				"--post-accent",
+				"--card-accent",
 				`${el.dataset.accent as string}`
 			);
 			el.style.setProperty(
-				"--post-accent-border",
+				"--card-accent-border",
 				`${el.dataset.accent as string}55`
 			);
 			el.style.setProperty(
-				"--post-accent-glow",
-				`${el.dataset.accent as string}22`
+				"--card-accent-glow",
+				`${el.dataset.accent as string}33`
 			);
 		});
 
-		getCombinedHeights();
+		setImageHeight();
 	};
 
 	attachEventListeners();
@@ -314,5 +274,5 @@ if (!images[imagePath])
 		attachEventListeners();
 	});
 
-	window.addEventListener("resize", getCombinedHeights);
+	window.addEventListener("resize", setImageHeight);
 </script>

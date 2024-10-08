@@ -6,27 +6,71 @@ import ThemeIcon from "./ThemeIcon.astro";
 <header
 	transition:persist="header"
 	id="header"
-	class="flex h-0 sm:mb-28 md:mb-[var(--header-padding)] sticky z-40 items-start justify-center sm:bottom-0 md:top-0"
+	class="flex h-2 sm:mb-26 md:mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sticky z-40 items-start justify-center top-0"
 >
-	<div
+	<nav
 		id="nav"
-		class="nav flex items-center justify-between sm:h-[100px] md:h-[var(--nav-height)] sm:w-full md:w-[calc(var(--full-w)+var(--guide-gutter)+var(--guide-gutter))] shadow-xl shadow-transparent sm:mt-0 md:mt-[var(--header-nav-diff)] pl-10 pr-10 bg-transparent rounded-[var(--radius)]"
+		class="nav flex items-center justify-between sm:h-[100px] md:h-[var(--nav-height)] sm:w-full md:w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-xl shadow-transparent sm:mt-0 md:mt-[var(--header-nav-diff)] pl-10 pr-10 bg-transparent rounded-lg"
 	>
-		<a href="/">
-			<h1
-				class="font-bold tracking-tight text-2xl select-none leading-tight"
+		<a href="/" class="transition-all duration-150">
+			<svg
+				class="h-9 header-logo fill-foreground hover:fill-foreground"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink"
+				viewBox="0 0 2963 1760"
 			>
-				Jordan Sherrington
-			</h1>
+				<path
+					d="M2785.229,1427.542 L2784.251,1427.751 C2743.747,1436.419 2703.884,1410.612 2695.216,1370.107 L2585.135,855.749 C2576.582,815.785 2602.046,776.454 2642.010,767.901 L2644.943,767.274 C2765.376,741.499 2883.900,818.234 2909.674,938.667 L2957.391,1161.624 C2983.281,1282.596 2906.201,1401.652 2785.229,1427.542 ZM2742.580,516.289 L2741.602,516.498 C2620.630,542.388 2501.574,465.308 2475.684,344.336 L2427.969,121.385 C2419.532,81.961 2444.651,43.162 2484.075,34.724 L2487.009,34.096 C2607.981,8.206 2727.037,85.286 2752.927,206.258 L2800.223,427.254 C2808.892,467.758 2783.084,507.620 2742.580,516.289 ZM2522.495,1638.190 C2531.048,1678.154 2505.584,1717.485 2465.620,1726.038 L2462.686,1726.666 C2342.254,1752.441 2223.730,1675.705 2197.956,1555.273 L2150.450,1333.300 C2141.781,1292.795 2167.589,1252.933 2208.093,1244.265 L2209.071,1244.055 C2330.043,1218.165 2449.099,1295.245 2474.989,1416.217 L2522.495,1638.190 ZM2307.684,992.855 L2306.706,993.065 C2185.734,1018.955 2066.679,941.875 2040.788,820.903 L1993.072,597.946 C1967.298,477.514 2044.033,358.990 2164.465,333.215 L2167.399,332.587 C2207.363,324.034 2246.694,349.498 2255.247,389.462 L2365.328,903.820 C2373.996,944.324 2348.188,984.187 2307.684,992.855 ZM1711.390,1427.256 L1710.413,1427.466 C1669.908,1436.134 1630.046,1410.326 1621.378,1369.822 L1354.554,123.077 C1345.885,82.573 1371.693,42.710 1412.197,34.042 L1413.175,33.833 C1534.147,7.943 1653.203,85.022 1679.093,205.994 L1883.552,1161.338 C1909.442,1282.311 1832.363,1401.366 1711.390,1427.256 ZM1245.105,1757.153 L1244.127,1757.363 C1203.623,1766.031 1163.761,1740.223 1155.092,1699.719 L888.264,452.952 C879.595,412.448 905.403,372.586 945.907,363.917 L946.885,363.708 C1067.857,337.818 1186.913,414.897 1212.803,535.870 L1417.267,1491.235 C1443.157,1612.208 1366.077,1731.263 1245.105,1757.153 ZM638.534,1426.779 L634.622,1427.616 C595.198,1436.054 556.399,1410.934 547.961,1371.510 L312.106,269.466 C286.100,147.954 363.524,28.367 485.036,2.361 L486.014,2.152 C525.978,-6.401 565.309,19.062 573.862,59.026 L809.927,1162.048 C835.701,1282.481 758.966,1401.005 638.534,1426.779 ZM375.240,1639.593 C383.562,1678.477 358.787,1716.745 319.903,1725.067 L309.146,1727.369 C191.954,1752.450 76.619,1677.779 51.538,1560.587 L2.569,1331.774 C-5.984,1291.810 19.479,1252.480 59.444,1243.927 L60.421,1243.717 C181.934,1217.712 301.521,1295.135 327.526,1416.648 L375.240,1639.593 Z"
+				></path>
+			</svg>
 		</a>
+
 		<div class="items-center space-x-2 nav-button sm:hidden md:flex">
 			<a class="group" href="/blog">Blog</a>
 			<a class="group" href="/projects">Projects</a>
 			<a class="group" href="/resources">Resources</a>
 			<ThemeIcon />
 		</div>
-	</div>
+	</nav>
 </header>
+
+<style>
+	#header {
+		transition: top ease-in-out 300ms;
+	}
+
+	#nav {
+		border-color: transparent;
+		border-width: 1px;
+		border-style: solid;
+
+		transition:
+			border-radius ease-in-out 300ms,
+			margin ease-out 200ms,
+			padding ease-in-out 300ms,
+			height 600ms,
+			box-shadow ease-in-out 300ms,
+			background-color 250ms,
+			border-color 250ms;
+	}
+
+	#header.detached {
+		top: theme("spacing.0") !important;
+	}
+
+	#nav.detached {
+		height: var(--nav-height) !important;
+		border-radius: var(--radius);
+		margin-top: 0.5rem;
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+		border: solid 1px hsl(var(--foreground) / 0.1);
+		--tw-shadow-color: hsla(var(--background) / 0.25) !important;
+		background-color: hsla(var(--background) / 0.5);
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+	}
+</style>
 
 <script is:inline>
 	function detachHeader() {

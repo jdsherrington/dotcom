@@ -23,7 +23,7 @@ const pageTitle = "Blog";
 		>
 			<FeaturedBlogPost
 				title={featuredPost.frontmatter.title}
-				desc={featuredPost.frontmatter.description}
+				description={featuredPost.frontmatter.description}
 				date={featuredPost.frontmatter.date}
 				url={featuredPost.url}
 				tags={featuredPost.frontmatter.tags}
@@ -35,7 +35,7 @@ const pageTitle = "Blog";
 				allPosts.map((post) => (
 					<BlogPost
 						title={post.frontmatter.title}
-						desc={post.frontmatter.description}
+						description={post.frontmatter.description}
 						date={post.frontmatter.date}
 						url={post.url}
 						tags={post.frontmatter.tags}

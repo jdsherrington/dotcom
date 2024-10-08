@@ -24,7 +24,7 @@ if (!images[frontmatter.imagePath])
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-	<div transition:name=`post-data-01${frontmatter.url}`
+	<div transition:name=`container-${frontmatter.url}`
 		class="bg-foreground/5 rounded-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] relative place-self-center"
 	>
     <div class="relative rounded-t-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)]">
@@ -61,26 +61,26 @@ if (!images[frontmatter.imagePath])
 			class="post-details pb-[var(--guide-gutter)] border-b-[2px]
             border-b-foreground/5"
 		>
-			<h1 transition:name=`post-data-03${frontmatter.url}`
+			<h1 transition:name=`title-${frontmatter.url}`
                 class="sm:text-2xl md:text-3xl font-bold mb-1 mx-[var(--guide-gutter)] tracking-tight transition-colors duration-300 text-foreground/90 transform-none">
 				{frontmatter.title}
 			</h1>
-			<p  transition:name=`post-data-04${frontmatter.url}`
-				class="text-xs font-semibold uppercase tracking-widest place-content-start text-foreground/40 mx-[var(--guide-gutter)] mb-3">
+			<p  transition:name=`date-${frontmatter.url}`
+				class="blog-post-date mx-[var(--guide-gutter)] mb-2">
 				{formattedDate}
 			</p>
-            <p  transition:name=`post-data-05${frontmatter.url}`
+            <p  transition:name=`description-${frontmatter.url}`
 				class="w-auto text-xs pr-4 place-content-start text-wrap text-foreground/90 h-min mx-[var(--guide-gutter)]">
 				{frontmatter.description}
 			</p>
-			<div transition:name=`post-data-06${frontmatter.url}` class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
+			<div transition:name=`tags-${frontmatter.url}` class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
 			>
 				{
 					frontmatter.tags?.map((tag: any) => (
 						<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
 							class:list={[
 								tag.toLowerCase().replaceAll(" ", "-"),
-								"post-tag bg-foreground/5 hover:bg-foreground/10 text-foreground/50 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300",
+								"blog-post-tag",
 							]}
 						>
 							{tag}

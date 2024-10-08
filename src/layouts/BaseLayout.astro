@@ -4,13 +4,14 @@ import NavFooter from "@/components/NavFooter.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import { ViewTransitions } from "astro:transitions";
+import { fade } from "astro:transitions";
 
 const { pageTitle, pageDesc } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8 " />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
@@ -62,9 +63,8 @@ const { pageTitle, pageDesc } = Astro.props;
 			});
 		</script>
 	</head>
-	<body class="z-20 flex flex-col min-h-dvh">
+	<body class="flex flex-col min-h-dvh">
 		<Header />
-		<NavFooter />
 		<!-- <div
 			id="grid-guide-container"
 			class="fixed flex h-svh w-svw top-0 left-0 z-30 justify-center items-center"
@@ -92,6 +92,7 @@ const { pageTitle, pageDesc } = Astro.props;
 		>
 			<slot />
 		</main>
+		<NavFooter />
 		<Footer />
 
 		<script>

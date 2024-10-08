@@ -7,12 +7,6 @@ import { slide } from 'astro:transitions';
 
 const { frontmatter } = Astro.props;
 
-const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-});
-
 const projectImages = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/projects/*.{jpeg,jpg,png,gif,webp}"
 );
@@ -24,7 +18,7 @@ if (!projectImages[frontmatter.imagePath])
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-	<div transition:name=`project-data-01${frontmatter.url}`
+	<div transition:name=`container-${frontmatter.url}`
 		class="bg-foreground/5 rounded-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] relative place-self-center"
 	>
     <div class="relative rounded-t-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)]">
@@ -33,7 +27,7 @@ if (!projectImages[frontmatter.imagePath])
 			alt={frontmatter.imageAlt}
 			class="w-[var(--full-w)] sm:h-20 md:h-28 lg:h-32 object-cover rounded-t-[var(--radius)] rounded-b-none blur-3xl -translate-y-10 pointer-events-none select-none opacity-60"
 		/>
-        <div transition:name=`project-data-02a${frontmatter.url}`
+        <div transition:name=`accent-${frontmatter.url}`
 			class="page-accent rounded-t-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100 transition-all duration-300"
 			data-accent={frontmatter.accentColor}
 		>
@@ -61,19 +55,19 @@ if (!projectImages[frontmatter.imagePath])
 			class="post-details pb-[var(--guide-gutter)] border-b-[2px]
             border-b-foreground/5"
 		>
-			<h1 transition:name=`project-data-03${frontmatter.url}`
+			<h1 transition:name=`title-${frontmatter.url}`
                 class="sm:text-2xl md:text-3xl font-bold mb-1 mx-[var(--guide-gutter)] tracking-tight transition-colors duration-300 text-foreground/90 transform-none">
 				{frontmatter.title}
 			</h1>
-			<p  transition:name=`project-data-04${frontmatter.url}`
+			<p  transition:name=`category-${frontmatter.url}`
 				class="text-xs font-semibold uppercase tracking-widest place-content-start text-foreground/40 mx-[var(--guide-gutter)] mb-3">
-				{frontmatter.type}
+				{frontmatter.category}
 			</p>
-            <p  transition:name=`project-data-05${frontmatter.url}`
+            <p  transition:name=`description-${frontmatter.url}`
 				class="w-auto text-xs pr-4 place-content-start overflow-hidden text-foreground/90 h-min mx-[var(--guide-gutter)]">
 				{frontmatter.description}
 			</p>
-			<div transition:name=`project-data-06${frontmatter.url}` class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
+			<div transition:name=`tags-${frontmatter.url}` class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
 			>
 				{
 					frontmatter.tags?.map((tag: any) => (
