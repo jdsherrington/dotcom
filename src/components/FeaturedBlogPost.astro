@@ -116,7 +116,7 @@ if (!images[imagePath])
 	</div> -->
 
     <div transition:name=`container-${url}`
-		class="blog-post grid sm:grid-cols-[var(--two-w)_1fr] md:grid-cols-[var(--four-w)_1fr] lg:grid-cols-[var(--three-w)_1fr]"
+		class="blog-post"
 		data-accent={accentColor}
 	>
         <a href={url}>
@@ -124,7 +124,7 @@ if (!images[imagePath])
             transition:name=`image-${url}`
 			src={images[imagePath]()}
 			alt={imageAlt}
-			class="blog-post-img h-56"
+			class="featured-post-img"
 		/>
         </a>
 		<div
@@ -134,9 +134,8 @@ if (!images[imagePath])
 		<div
 			class="blog-post-content">
             <p class="blog-post-featured">FEATURED POST</p>
-            <a href={url} class="blog-post-link cursor-pointer">
+            <a href={url} class="featured-post-title">
 				<h1 transition:name=`title-${url}`
-					class="w-auto sm:text-2xl md:text-3xl font-bold sm:leading-[1.1] tracking-tight pb-1 place-content-start text-foreground/90 transition-all text-wrap"
 				>
 					{title}
 				</h1>
@@ -145,13 +144,13 @@ if (!images[imagePath])
 				{formattedDate}
 			</p>
 			<p transition:name=`description-${url}`
-				class="w-auto text-xs place-content-start leading-normal text-wrap min-h-16 text-foreground/90 pb-4"
+				class="w-auto flex-grow text-xs h-full place-content-start leading-normal text-wrap min-h-16 text-foreground/90 pb-4"
 			>
 				{description}
 			</p>
 			<div class="flex flex-row">
 				<div transition:name=`tags-${url}`
-					class="w-full flex-wrap justify-start gap-1 align-self-end place-content-end pt-4 pb-4 sm:hidden md:flex"
+					class="w-full flex-wrap-reverse justify-start gap-1 align-self-end place-content-start pt-4 pb-4 sm:hidden md:flex"
 				>
 					{
 						tags?.map((tag: any) => (
@@ -168,7 +167,7 @@ if (!images[imagePath])
 				</div>
                 <a href={url} class="place-self-end align-self-end mb-4 sm:ml-[auto] md:ml-4 cursor-pointer">
 				<svg
-					class="nav-arrow h-6 w-min fill-foreground/25"
+					class="nav-arrow h-6 w-auto fill-foreground/25"
 					viewBox="0 0 492.004 492.004"
 				>
 					<g>
@@ -197,34 +196,6 @@ if (!images[imagePath])
 </style>
 
 <script>
-	function getContentHeight(post: HTMLElement) {
-		const contentHeight = post.querySelectorAll(
-			".blog-post-content > *"
-		) as NodeListOf<HTMLElement>;
-		let totalHeight = 0;
-        console.log(contentHeight);
-		contentHeight.forEach((element) => {
-			const style = window.getComputedStyle(element);
-			const elementHeight = element.offsetHeight;
-			const marginTop = parseFloat(style.marginTop);
-			const marginBottom = parseFloat(style.marginBottom);
-			totalHeight += elementHeight + marginTop + marginBottom;
-		});
-		return totalHeight;
-	}
-
-	function setImageHeight() {
-		const allposts: NodeListOf<HTMLElement> =
-			document.querySelectorAll(".blog-post");
-		allposts.forEach((post) => {
-			const height = getContentHeight(post);
-			const image = post.querySelector(".blog-post-img") as HTMLElement;
-			if (image) {
-				image.style.height = `${height}px`;
-			}
-		});
-	}
-
 	const handleOnMouseMove = (e) => {
 		const { currentTarget: target } = e;
 
@@ -264,8 +235,6 @@ if (!images[imagePath])
 				`${el.dataset.accent as string}33`
 			);
 		});
-
-		setImageHeight();
 	};
 
 	attachEventListeners();
@@ -273,6 +242,4 @@ if (!images[imagePath])
 	document.addEventListener("astro:after-swap", () => {
 		attachEventListeners();
 	});
-
-	window.addEventListener("resize", setImageHeight);
 </script>

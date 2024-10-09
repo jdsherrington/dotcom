@@ -110,9 +110,10 @@ if (!images[imagePath])
 	</div> -->
 
     <div transition:name=`container-${url}`
-    class="blog-post sm:grid-cols-[var(--one-w)_1fr] md:grid-cols-[var(--three-w)_1fr] lg:grid-cols-[var(--two-w)_1fr]"
+    class="blog-post"
     data-accent={accentColor}
 >
+<!-- sm:grid-cols-[var(--one-w)_1fr] md:grid-cols-[var(--three-w)_1fr] lg:grid-cols-[var(--two-w)_1fr] -->
     <a href={url}>
         <Image
             transition:name=`image-${url}`
@@ -131,33 +132,33 @@ if (!images[imagePath])
     <div
         class="blog-post-content"
     >
-        <a href={url} class="inline w-fit font-bold tracking-tight pb-1 text-foreground/85 hover:text-foreground transition-colors transform-none cursor-pointer h-min mt-[calc(var(--guide-gutter)*0.85)] sm:text-lg md:text-xl sm:leading-[1.2] md:leading-[1.2]">
-            <h1 transition:name=`title-${url}` class="blog-post-title">{title}</h1>
+        <a href={url} class="blog-post-title">
+            <h1 transition:name=`title-${url}`>{title}</h1>
         </a>
         
         <p transition:name=`date-${url}` class="blog-post-date">{formattedDate}</p>
         
-        <p transition:name=`description-${url}` class="w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] transform-none sm:mb-[var(--guide-gutter)] md:mb-0">
+        <p transition:name=`description-${url}` class="blog-post-description w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] sm:mb-[var(--guide-gutter)] md:mb-0">
             {description}
         </p>
 
-        <div class="flex-row w-[100%] sm:hidden md:flex sm:mb-0 md:mb-[calc(var(--guide-gutter)*0.75)]">
-            <div transition:name=`tags-${url}` class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end transform-none">
+        <div transition:name=`tags-${url}` class="blog-post-tags w-full sm:hidden md:flex sm:mb-0 md:mb-[calc(var(--guide-gutter)*0.75)] flex-row flex-wrap-reverse justify-start gap-1 align-end place-content-end">
                 {
-                    tags?.map((tag: any) => (
+                    tags?.map((tag: any, index: number) => (
                         <a href=`/blog/tagged/${tag.toLowerCase()}`
                             class:list={[
                                 tag.toLowerCase().replaceAll(" ", "-"),
                                 "blog-post-tag",
                             ]}
+                            style={`order: ${index}`}
                         >
                             {tag}
                         </a>
                     ))
                 }
-            </div>
-            <a href={url} class="place-self-end ml-[var(--guide-gutter)] cursor-pointer">
-                <svg class="nav-arrow h-6 w-min fill-foreground/25" viewBox="0 0 492.004 492.004">
+        </div>
+        <a href={url} class="blog-post-arrow">
+                <svg class="nav-arrow h-6 w-auto fill-foreground/25" viewBox="0 0 492.004 492.004">
                     <g>
                         <g>
                             <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
@@ -169,15 +170,15 @@ if (!images[imagePath])
                     </g>
                 </svg>
             </a>
-        </div>
     </div>
 </div>
 
 
 <script>
 	function getContentHeight(post: HTMLElement) {
+        const minHeight = 0;
 		const contentHeight = post.querySelectorAll(
-			".blog-post-content > *"
+			".blog-post-title, .featured-post-title, .blog-post-date, .blog-post-description, .blog-post-tags"
 		) as NodeListOf<HTMLElement>;
 		let totalHeight = 0;
         console.log(contentHeight);
@@ -188,17 +189,21 @@ if (!images[imagePath])
 			const marginBottom = parseFloat(style.marginBottom);
 			totalHeight += elementHeight + marginTop + marginBottom;
 		});
+        console.log(totalHeight);
+        if (totalHeight < minHeight) {
+            totalHeight = minHeight;
+        }
 		return totalHeight;
 	}
 
-	function setImageHeight() {
+	function setCardHeight() {
 		const allposts: NodeListOf<HTMLElement> =
 			document.querySelectorAll(".blog-post");
 		allposts.forEach((post) => {
 			const height = getContentHeight(post);
-			const image = post.querySelector(".blog-post-img") as HTMLElement;
-			if (image) {
-				image.style.height = `${height}px`;
+			const img = post.querySelector(".blog-post-img") as HTMLElement;
+			if (img) {
+				img.style.height = `${height}px`;
 			}
 		});
 	}
@@ -244,7 +249,7 @@ if (!images[imagePath])
 			);
 		});
 
-		setImageHeight();
+		setCardHeight();
 	};
 
 	attachEventListeners();
@@ -253,5 +258,5 @@ if (!images[imagePath])
 		attachEventListeners();
 	});
 
-	window.addEventListener("resize", setImageHeight);
+	window.addEventListener("resize", setCardHeight);
 </script>

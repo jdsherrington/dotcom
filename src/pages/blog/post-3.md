@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
-title: "The Perfect Example of a Sample Post"
+title: "The Perfect Example of a Blog Post"
 date: 2024-09-04
 description: "This is the third post of my new Astro blog."
 author: "Jordan Sherrington"
