@@ -113,7 +113,6 @@ if (!images[imagePath])
     class="blog-post"
     data-accent={accentColor}
 >
-<!-- sm:grid-cols-[var(--one-w)_1fr] md:grid-cols-[var(--three-w)_1fr] lg:grid-cols-[var(--two-w)_1fr] -->
     <a href={url}>
         <Image
             transition:name=`image-${url}`
@@ -138,11 +137,11 @@ if (!images[imagePath])
         
         <p transition:name=`date-${url}` class="blog-post-date">{formattedDate}</p>
         
-        <p transition:name=`description-${url}` class="blog-post-description w-auto text-xs pr-[var(--guide-gutter)] place-content-start leading-normal text-h-min text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] sm:mb-[var(--guide-gutter)] md:mb-0">
+        <p transition:name=`description-${url}` class="blog-post-description">
             {description}
         </p>
 
-        <div transition:name=`tags-${url}` class="blog-post-tags w-full sm:hidden md:flex sm:mb-0 md:mb-[calc(var(--guide-gutter)*0.75)] flex-row flex-wrap-reverse justify-start gap-1 align-end place-content-end">
+        <div transition:name=`tags-${url}` class="blog-post-tags">
                 {
                     tags?.map((tag: any, index: number) => (
                         <a href=`/blog/tagged/${tag.toLowerCase()}`
@@ -150,23 +149,20 @@ if (!images[imagePath])
                                 tag.toLowerCase().replaceAll(" ", "-"),
                                 "blog-post-tag",
                             ]}
-                            style={`order: ${index}`}
                         >
                             {tag}
                         </a>
                     ))
                 }
         </div>
-        <a href={url} class="blog-post-arrow">
-                <svg class="nav-arrow h-6 w-auto fill-foreground/25" viewBox="0 0 492.004 492.004">
+        <a href={url} class="blog-post-arrow-link">
+                <svg class="blog-post-arrow" viewBox="0 0 492 492">
                     <g>
-                        <g>
-                            <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
-                            c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
-                            v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
-                            c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
-                            l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"></path>
-                        </g>
+                        <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+                        c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+                        v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+                        c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+                        l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"></path>
                     </g>
                 </svg>
             </a>

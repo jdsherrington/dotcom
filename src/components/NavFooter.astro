@@ -8,56 +8,101 @@ import ThemeIcon from "./ThemeIcon.astro";
 > -->
 <nav
 	id="nav-footer"
-	class="fixed sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))] grid grid-cols-5 w-[calc(100%-var(--guide-gutter))] ml-[calc(var(--guide-gutter)/2)] mb-[calc(var(--guide-gutter)/2)] h-20 bg-background/50 rounded-[var(--radius)] border border-foreground/10 px-0.5 backdrop-blur-xl z-50 shadow-xl shadow-background"
+	class="fixed sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))] z-50 w-[calc(100%-var(--guide-gutter))] ml-[calc(var(--guide-gutter)/2)] mb-[calc(var(--guide-gutter)/2)] h-20 backdrop-blur-2xl shadow-2xl shadow-background"
 >
-	<a class="flex flex-col gap-2" href="/">
-		<svg
-			class="h-6 fill-foreground"
-			viewBox="0 0 1024 1024"
-			xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-			></path></svg
-		>
-		<span>Home</span>
-	</a>
-	<a class="flex flex-col gap-2" href="/blog"
-		><svg
-			class="h-6 fill-foreground"
-			viewBox="0 0 1024 1024"
-			xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-			></path></svg
-		>
-		<span>Blog</span>
-	</a>
-	<a class="flex flex-col gap-2" href="/projects"
-		><svg
-			class="h-6 fill-foreground"
-			viewBox="0 0 1024 1024"
-			xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-			></path></svg
-		>
-		<span>Projects</span></a
+	<div
+		class="nav-footer-menu relative grid grid-cols-5 bg-background/50 rounded-[var(--radius)] px-0.5 z-50 h-full w-full"
 	>
-	<a class="flex flex-col gap-2" href="/resources"
-		><svg
-			class="h-6 fill-foreground"
-			viewBox="0 0 1024 1024"
-			xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-			></path></svg
+		<a href="/">
+			<svg
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					d="M 15 22 L 15 14 C 15 13.447 14.552 13 14 13 L 10 13 C 9.448 13 9 13.447 9 14 L 9 22 M 3 10.421 C 3 9.801 3.259 9.213 3.709 8.813 L 10.709 2.498 C 11.454 1.835 12.546 1.835 13.291 2.498 L 20.291 8.813 C 20.741 9.213 21 9.801 21 10.421 L 21 19.895 C 21 21.057 20.105 22 19 22 L 5 22 C 3.895 22 3 21.057 3 19.895 L 3 10.421 Z"
+				></path>
+			</svg>
+
+			<span>Home</span>
+		</a>
+		<a href="/blog"
+			><svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					d="M 4 22 L 20 22 C 21.104569499661586 22 22 21.104569499661586 22 20 L 22 4 C 22 2.8954305003384135 21.104569499661586 2 20 2 L 8 2 C 6.8954305003384135 2 6 2.8954305003384135 6 4 L 6 20 C 6 21.104569499661586 5.1045694996615865 22 4 22 Z M 4 22 C 2.8954305003384135 22 2 21.104569499661586 2 20 L 2 11 C 2 9.9 2.9 9 4 9 L 6 9 M 18 14 L 10 14 M 15 18 L 10 18 M 10 6 L 18 6 L 18 10 L 10 10 L 10 6 Z"
+				></path>
+			</svg>
+			<span>Blog</span>
+		</a>
+		<a href="/projects"
+			><svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					d="M 13 7 L 8.7 2.7 C 7.76 1.764 6.24 1.764 5.3 2.7 L 2.7 5.3 C 1.764 6.24 1.764 7.76 2.7 8.7 L 7 13 M 8 6 L 10 4 M 18 16 L 20 14 M 17 11 L 21.3 15.3 C 22.24 16.24 22.24 17.76 21.3 18.7 L 18.7 21.3 C 17.76 22.24 16.24 22.24 15.3 21.3 L 11 17 M 21.174 6.812 C 22.709 5.2780000000000005 22.007 2.658 19.911 2.096 C 18.938 1.835 17.9 2.113 17.188 2.825 L 3.842 16.174 C 3.61 16.406 3.438 16.691 3.342 17.004 L 2.021 21.356 C 1.911 21.725 2.241 22.075 2.616 21.986 C 2.625 21.983 2.635 21.981 2.644 21.978 L 6.997 20.658 C 7.31 20.563 7.595 20.392 7.827 20.161 L 21.174 6.812 Z M 15 5 L 19 9"
+				></path>
+			</svg>
+			<span>Projects</span></a
 		>
-		<span>Resources</span></a
-	>
-	<a class="flex flex-col gap-2" href="#">
-		<ThemeIcon />
-		<span>Theme</span></a
-	>
+		<a href="/resources"
+			><svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					d="M 10 2 L 10 10 L 13 7 L 16 10 L 16 2 M 4 19.5 L 4 4.5 C 4 3.119288125423017 5.119288125423017 2.0000000000000004 6.5 2 L 19 2 C 19.552284749830793 2 20 2.4477152501692068 20 3 L 20 21 C 20 21.552284749830793 19.552284749830793 22 19 22 L 6.5 22 C 4.575499102701247 22 3.3726860418895273 19.916666666666668 4.334936490538903 18.25 C 4.781518477924108 17.476497308103742 5.606836025229591 17 6.5 17 L 20 17"
+				></path>
+			</svg>
+			<span>Resources</span></a
+		>
+		<a href="#">
+			<svg
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path
+					d="M 12 1.987 C 8.151 5.836 9.912 12.407 15.17 13.816 C 17.61 14.469 20.213 13.772 21.999 11.986 C 21.999 19.683 13.667 24.494 7 20.645 C 0.334 16.797 0.334 7.175 7 3.326 C 8.52 2.449 10.245 1.987 12 1.987 Z"
+				></path>
+			</svg>
+			<span>Theme</span></a
+		>
+	</div>
 </nav>
 <!-- </nav> -->
 
@@ -65,10 +110,6 @@ import ThemeIcon from "./ThemeIcon.astro";
 	#nav-footer {
 		view-transition-name: navfooter;
 		transition: ease-in-out bottom 200ms;
-		background-color: hsl(var(--background) / 0.5) !important;
-		backdrop-filter: blur(24px) !important;
-		-webkit-backdrop-filter: blur(24px) !important;
-		border-radius: var(--radius) !important;
 		z-index: 90 !important;
 		overflow: hidden !important;
 
@@ -84,45 +125,58 @@ import ThemeIcon from "./ThemeIcon.astro";
 			var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 	}
 
-	#nav-footer > a {
+	.nav-footer-menu::before {
+		content: "";
+		pointer-events: none;
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		border: 1px solid transparent;
+		background: linear-gradient(
+				0deg,
+				transparent,
+				hsl(var(--foreground) / 0.075)
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+		opacity: 1;
+		transition: opacity 300ms ease-in-out;
+	}
+
+	.nav-footer-menu > a {
 		@apply inline-flex
+        flex-col
+        gap-2.5
         my-1
         mx-0.5
         justify-center
         place-items-center
         font-normal
-        text-foreground/75
+        text-foreground/70
+        hover:text-foreground
+        active:text-foreground
         text-[0.75rem]
-        rounded-[var(--radius)]
+        rounded-md
         hover:bg-foreground/10
         focus:bg-foreground/10
+        active:bg-foreground/10
         focus:text-foreground
         focus:font-semibold
         focus:outline-none
         disabled:pointer-events-none
         disabled:opacity-50
-        leading-none
-        tracking-normal;
+        transition-colors
+        duration-150;
+	}
+
+	.nav-footer-menu span {
+		@apply text-xs font-mono uppercase tracking-wider inline-block leading-[0.9] -mb-[2px];
+	}
+
+	.nav-footer-menu svg {
+		@apply h-6;
 	}
 </style>
-
-<script>
-	const radius = "0.5rem";
-
-	document.addEventListener("astro:before-preparation", () => {
-		document.getElementById("nav-footer").style.borderRadius = radius;
-	});
-
-	document.addEventListener("astro:after-preparation", () => {
-		document.getElementById("nav-footer").style.borderRadius = radius;
-	});
-
-	document.addEventListener("astro:before-swap", (ev) => {
-		setTimeout(() => {
-			const oldElement = document.getElementById("nav-footer");
-			oldElement.style.borderRadius = radius;
-			const newElement = ev.newDocument.getElementById("nav-footer");
-			newElement.style.borderRadius = radius;
-		}, 1000);
-	});
-</script>

@@ -6,21 +6,16 @@ import ThemeIcon from "./ThemeIcon.astro";
 <header
 	transition:persist="header"
 	id="header"
-	class="flex h-[1px] sm:mb-28 md:mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sticky z-40 items-start justify-center top-0"
+	class="flex h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sticky z-40 items-start justify-center top-0"
 >
 	<nav
 		id="nav"
-		class="nav flex items-center sm:justify-center md:justify-between sm:h-[100px] md:h-[var(--nav-height)] sm:w-full md:w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-xl shadow-transparent sm:mt-0 md:mt-[var(--header-nav-diff)] pl-10 pr-10 bg-transparent rounded-lg"
+		class="nav flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 px-[calc(var(--guide-gutter)*1.25)] rounded-lg"
 	>
 		<a href="/">
-			<svg
-				class="h-8 header-logo fill-foreground/80 hover:fill-foreground transition-all duration-150"
-				xmlns="http://www.w3.org/2000/svg"
-				xmlns:xlink="http://www.w3.org/1999/xlink"
-				viewBox="0 0 3332 1739"
-			>
+			<svg class="header-logo" viewBox="0 0 61 32">
 				<path
-					d="M3209.549,1404.220 C3128.120,1419.459 3049.755,1365.801 3034.516,1284.372 L2965.533,915.766 C2950.294,834.337 3003.951,755.972 3085.380,740.733 C3166.809,725.494 3245.174,779.151 3260.413,860.580 L3329.396,1229.187 C3344.635,1310.616 3290.978,1388.981 3209.549,1404.220 ZM3030.196,445.858 C2948.767,461.097 2870.402,407.439 2855.163,326.010 L2827.570,178.570 C2812.331,97.141 2865.989,18.776 2947.418,3.537 C3028.847,-11.702 3107.212,41.956 3122.451,123.385 L3150.044,270.825 C3165.283,352.254 3111.625,430.619 3030.196,445.858 ZM2661.176,1735.751 C2579.747,1750.990 2501.382,1697.333 2486.143,1615.904 L2444.754,1394.743 C2429.515,1313.314 2483.173,1234.949 2564.602,1219.710 C2646.031,1204.471 2724.396,1258.129 2739.635,1339.558 L2781.024,1560.718 C2796.263,1642.147 2742.605,1720.512 2661.176,1735.751 ZM2509.417,924.829 C2427.988,940.069 2349.623,886.411 2334.384,804.982 L2279.198,510.101 C2263.959,428.672 2317.617,350.307 2399.046,335.068 C2480.475,319.829 2558.840,373.487 2574.079,454.916 L2629.264,749.796 C2644.503,831.225 2590.846,909.590 2509.417,924.829 ZM1988.635,1403.792 C1907.206,1419.031 1828.841,1365.374 1813.602,1283.945 L1606.661,178.164 C1591.422,96.735 1645.080,18.370 1726.509,3.131 C1807.938,-12.108 1886.303,41.550 1901.542,122.979 L2108.483,1228.759 C2123.722,1310.188 2070.064,1388.553 1988.635,1403.792 ZM1440.265,1735.332 C1358.836,1750.571 1280.471,1696.914 1265.232,1615.485 L1058.287,509.682 C1043.048,428.253 1096.705,349.888 1178.134,334.649 C1259.563,319.410 1337.928,373.068 1353.167,454.497 L1560.113,1560.299 C1575.352,1641.728 1521.694,1720.093 1440.265,1735.332 ZM767.726,1403.382 C686.297,1418.621 607.932,1364.964 592.693,1283.535 L385.747,177.732 C370.508,96.303 424.166,17.938 505.595,2.699 C587.024,-12.540 665.389,41.118 680.628,122.547 L887.573,1228.349 C902.812,1309.778 849.155,1388.143 767.726,1403.382 ZM219.353,1734.913 C137.924,1750.153 59.560,1696.495 44.320,1615.066 L2.933,1393.911 C-12.306,1312.482 41.351,1234.117 122.780,1218.878 C204.209,1203.639 282.574,1257.297 297.813,1338.726 L339.201,1559.880 C354.440,1641.309 300.782,1719.674 219.353,1734.913 Z"
+					d="M 58.625 25.724 C 57.138 26.002 55.709 25.023 55.43 23.537 L 54.172 16.81 C 53.893 15.324 54.873 13.894 56.359 13.615 C 57.846 13.337 59.275 14.317 59.554 15.803 L 60.812 22.529 C 61.091 24.016 60.111 25.445 58.625 25.724 Z M 55.352 8.234 C 53.865 8.512 52.436 7.533 52.157 6.046 L 51.654 3.356 C 51.376 1.87 52.355 0.44 53.842 0.162 C 55.327 -0.116 56.758 0.863 57.036 2.349 L 57.54 5.04 C 57.817 6.526 56.838 7.956 55.352 8.234 Z M 48.617 31.774 C 47.131 32.052 45.701 31.073 45.422 29.588 L 44.668 25.551 C 44.39 24.065 45.369 22.635 46.856 22.356 C 48.34 22.078 49.771 23.059 50.049 24.543 L 50.805 28.58 C 51.083 30.066 50.103 31.496 48.617 31.774 Z M 45.848 16.975 C 44.362 17.254 42.932 16.274 42.654 14.789 L 41.646 9.406 C 41.368 7.92 42.348 6.49 43.834 6.212 C 45.319 5.934 46.75 6.913 47.028 8.4 L 48.035 13.781 C 48.313 15.266 47.334 16.697 45.848 16.975 Z M 36.344 25.717 C 34.857 25.994 33.427 25.015 33.149 23.529 L 29.373 3.348 C 29.095 1.863 30.074 0.433 31.559 0.155 C 33.045 -0.123 34.475 0.855 34.753 2.342 L 38.53 22.522 C 38.809 24.008 37.83 25.438 36.344 25.717 Z M 26.336 31.767 C 24.849 32.045 23.42 31.065 23.141 29.579 L 19.365 9.399 C 19.087 7.913 20.066 6.483 21.551 6.205 C 23.038 5.927 24.467 6.906 24.746 8.392 L 28.523 28.572 C 28.801 30.059 27.822 31.489 26.336 31.767 Z M 14.062 25.709 C 12.575 25.987 11.146 25.008 10.867 23.522 L 7.09 3.34 C 6.812 1.855 7.793 0.424 9.278 0.146 C 10.764 -0.132 12.194 0.848 12.472 2.334 L 16.249 22.514 C 16.527 24.001 15.548 25.43 14.062 25.709 Z M 4.054 31.759 C 2.567 32.037 1.138 31.059 0.86 29.572 L 0.104 25.536 C -0.174 24.05 0.806 22.62 2.292 22.342 C 3.777 22.063 5.208 23.043 5.486 24.529 L 6.242 28.565 C 6.519 30.051 5.54 31.481 4.054 31.759 Z"
 				></path>
 			</svg>
 		</a>
@@ -31,65 +26,86 @@ import ThemeIcon from "./ThemeIcon.astro";
 			<a class="group" href="/resources">Resources</a>
 			<ThemeIcon />
 		</div>
+
+		<style>
+			#header {
+				transition: top ease-in-out 300ms;
+			}
+
+			#nav {
+				border-color: transparent;
+				border-width: 0px;
+				border-style: solid;
+				position: relative;
+
+				transition:
+					border-radius ease-in-out 300ms,
+					margin ease-out 200ms,
+					padding ease-in-out 300ms,
+					height 600ms,
+					box-shadow ease-in-out 300ms,
+					background-color 250ms,
+					border-color 250ms;
+			}
+
+			#header.detached {
+				top: theme("spacing.0") !important;
+			}
+
+			#nav.detached {
+				@apply mt-[calc(var(--guide-gutter)/2)] sm:backdrop-blur-none md:backdrop-blur-xl sm:bg-transparent md:bg-background/50 sm:shadow-transparent md:shadow-background/50;
+			}
+
+			#nav::before {
+				content: "";
+                pointer-events: none;
+				position: absolute;
+				inset: 0;
+				border-radius: inherit;
+				border: 1px solid transparent;
+				background: linear-gradient(180deg, transparent, hsl(var(--foreground)/0.075))
+					border-box;
+				mask:
+					linear-gradient(#fff 0 0) padding-box,
+					linear-gradient(#fff 0 0);
+				mask-composite: exclude;
+                opacity: 0;
+                transition: opacity 300ms ease-in-out;
+			}
+
+			#nav.detached::before {
+                @apply sm:opacity-0 md:opacity-100;
+			}
+
+			.header-logo {
+				@apply inline-block h-9 w-auto sm:fill-foreground md:fill-foreground md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
+			}
+
+			#nav.detached .header-logo {
+				@apply sm:fill-foreground/0 md:fill-foreground/80 md:hover:fill-foreground;
+			}
+		</style>
+
+		<script is:inline>
+			function detachHeader() {
+				const header = document.querySelector("#header"),
+					nav = document.querySelector("#nav");
+				setTimeout(() => {
+					if (header && nav) {
+						if (window.scrollY > 10) {
+							header.classList.add("detached");
+							nav.classList.add("detached");
+						} else {
+							header.classList.remove("detached");
+							nav.classList.remove("detached");
+						}
+					}
+				}, 150);
+			}
+
+			document.addEventListener("scroll", function () {
+				detachHeader();
+			});
+		</script>
 	</nav>
 </header>
-
-<style>
-	#header {
-		transition: top ease-in-out 300ms;
-	}
-
-	#nav {
-		border-color: transparent;
-		border-width: 1px;
-		border-style: solid;
-
-		transition:
-			border-radius ease-in-out 300ms,
-			margin ease-out 200ms,
-			padding ease-in-out 300ms,
-			height 600ms,
-			box-shadow ease-in-out 300ms,
-			background-color 250ms,
-			border-color 250ms;
-	}
-
-	#header.detached {
-		top: theme("spacing.0") !important;
-	}
-
-	#nav.detached {
-		height: var(--nav-height) !important;
-		border-radius: var(--radius);
-		margin-top: 0.5rem;
-		margin-left: 0.5rem;
-		margin-right: 0.5rem;
-		border: solid 1px hsl(var(--foreground) / 0.1);
-		--tw-shadow-color: hsla(var(--background) / 0.25) !important;
-		background-color: hsla(var(--background) / 0.5);
-		backdrop-filter: blur(24px);
-		-webkit-backdrop-filter: blur(24px);
-	}
-</style>
-
-<script is:inline>
-	function detachHeader() {
-		const header = document.querySelector("#header"),
-			nav = document.querySelector("#nav");
-		setTimeout(() => {
-			if (header && nav) {
-				if (window.scrollY > 10) {
-					header.classList.add("detached");
-					nav.classList.add("detached");
-				} else {
-					header.classList.remove("detached");
-					nav.classList.remove("detached");
-				}
-			}
-		}, 150);
-	}
-
-	document.addEventListener("scroll", function () {
-		detachHeader();
-	});
-</script>

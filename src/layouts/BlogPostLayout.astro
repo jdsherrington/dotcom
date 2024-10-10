@@ -27,20 +27,20 @@ if (!images[frontmatter.imagePath])
 	<div transition:name=`container-${frontmatter.url}`
 		class="bg-foreground/5 rounded-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] relative place-self-center"
 	>
-    <div class="relative rounded-t-[var(--radius)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)]">
+    <div class="blog-page-header" data-accent={frontmatter.accentColor}>
 		<Image 
 			src={images[frontmatter.imagePath]()}
 			alt={frontmatter.imageAlt}
-			class="w-[var(--full-w)] sm:h-20 md:h-28 lg:h-32 object-cover rounded-t-[var(--radius)] rounded-b-none blur-3xl -translate-y-10 pointer-events-none select-none opacity-60"
+			class="w-full sm:h-20 md:h-28 lg:h-32 object-cover rounded-t-[var(--radius)] rounded-b-none blur-3xl -translate-y-10 pointer-events-none select-none opacity-60"
 		/>
         <div 
-			class="page-accent rounded-t-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100 transition-all duration-300"
+			class="blog-page-accent rounded-t-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-75 md:opacity-100 transition-all duration-300"
 			data-accent={frontmatter.accentColor}
 		>
 		</div>
 		<a href="javascript:void(0);" onclick="history.back()">
 			<svg
-				class=`nav-arrow absolute top-0 left-0 h-6 w-min transition-colors duration-300 cursor-pointer fill-foreground/50 hover:fill-foreground/100 place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)]`
+				class=`nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-foreground/20 hover:fill-[var(--page-accent)] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)]`
 				viewBox="0 0 492 492"
 			>
 				<g>
@@ -62,18 +62,14 @@ if (!images[frontmatter.imagePath])
             border-b-foreground/5"
 		>
 			<h1 transition:name=`title-${frontmatter.url}`
-                class="sm:text-2xl md:text-3xl font-bold mb-1 mx-[var(--guide-gutter)] tracking-tight transition-colors duration-300 text-foreground/90 transform-none">
+                class="sm:text-2xl md:text-3xl font-bold mx-[var(--guide-gutter)] tracking-tight sm:leading-2xl md:leading-3xl transition-colors duration-300 text-foreground/90 transform-none sm:mb-0 md:mb-1 text-pretty">
 				{frontmatter.title}
 			</h1>
 			<p  transition:name=`date-${frontmatter.url}`
-				class="blog-post-date mx-[var(--guide-gutter)] mb-2">
+				class="blog-post-date mx-[var(--guide-gutter)] mb-1">
 				{formattedDate}
 			</p>
-            <p  transition:name=`description-${frontmatter.url}`
-				class="w-auto text-xs pr-4 place-content-start text-wrap text-foreground/90 h-min mx-[var(--guide-gutter)]">
-				{frontmatter.description}
-			</p>
-			<div transition:name=`tags-${frontmatter.url}` class="flex pt-4 w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
+			<div transition:name=`tags-${frontmatter.url}` class="flex w-full flex-wrap justify-start gap-1 align-self-end place-content-end mx-[var(--guide-gutter)]"
 			>
 				{
 					frontmatter.tags?.map((tag: any) => (
@@ -103,19 +99,68 @@ if (!images[frontmatter.imagePath])
 </BaseLayout>
 
 <script>
-    console.log("Script working")
-    function attachEventListeners() {
-		const post = document.querySelector(
-			".page-accent"
-		) as HTMLElement;
-        if (post) {
-            console.log(post.dataset.accent);
-		post.style.background = `radial-gradient(circle 250px at 100% 450%, ${post.dataset.accent} 0%, transparent 475%)`;
-        }
+	const handleOnMouseMove = (e) => {
+		const { currentTarget: target } = e;
+
+		const rect = target.getBoundingClientRect(),
+			x = e.clientX - rect.left,
+			y = e.clientY - rect.top;
+
+		target.style.setProperty("--mouse-x", `${x}px`);
+		target.style.setProperty("--mouse-y", `${y}px`);
+	};
+
+	const attachEventListeners = () => {
+		for (const post of document.querySelectorAll(".blog-page-header")) {
+			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
+		}
+
+		const posts = document.querySelectorAll(
+			".blog-page-accent"
+		) as NodeListOf<HTMLElement>;
+		posts.forEach(function (el) {
+			el.style.background = `radial-gradient(circle 250px at 0% 250%, ${el.dataset.accent} -50%, transparent 150%)`;
+		});
+
+		const postsBefore = document.querySelectorAll(
+			".blog-page-header"
+		) as NodeListOf<HTMLElement>;
+		postsBefore.forEach(function (el) {
+			el.style.setProperty(
+				"--page-accent",
+				`${el.dataset.accent as string}`
+			);
+			el.style.setProperty(
+				"--page-accent-border",
+				`${el.dataset.accent as string}55`
+			);
+			el.style.setProperty(
+				"--page-accent-glow",
+				`${el.dataset.accent as string}33`
+			);
+		});
+
 	};
 
 	attachEventListeners();
 
-	document.addEventListener("astro:after-swap", attachEventListeners);
-    document.addEventListener("DOMContentLoaded", attachEventListeners);
+	document.addEventListener("astro:after-swap", () => {
+		attachEventListeners();
+	});
+
+    // console.log("Script working")
+    // function attachEventListeners() {
+	// 	const post = document.querySelector(
+	// 		".page-accent"
+	// 	) as HTMLElement;
+    //     if (post) {
+    //         console.log(post.dataset.accent);
+	// 	post.style.background = `radial-gradient(circle 200px at 100% 450%, ${post.dataset.accent} 0%, transparent 475%)`;
+    //     }
+	// };
+
+	// attachEventListeners();
+
+	// document.addEventListener("astro:after-swap", attachEventListeners);
+    // document.addEventListener("DOMContentLoaded", attachEventListeners);
 </script>
