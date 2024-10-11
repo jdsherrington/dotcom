@@ -95,9 +95,28 @@ import ThemeIcon from "./ThemeIcon.astro";
 				stroke-width="1.5"
 				stroke-linecap="round"
 				stroke-linejoin="round"
+				class="dark-icon"
 			>
 				<path
 					d="M 12 1.987 C 8.151 5.836 9.912 12.407 15.17 13.816 C 17.61 14.469 20.213 13.772 21.999 11.986 C 21.999 19.683 13.667 24.494 7 20.645 C 0.334 16.797 0.334 7.175 7 3.326 C 8.52 2.449 10.245 1.987 12 1.987 Z"
+				></path>
+			</svg>
+			<svg
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="light-icon"
+			>
+				<defs>
+					<bx:grid x="0" y="0" width="100" height="100"></bx:grid>
+				</defs>
+				<path
+					d="M 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 C 14.761 7 17 9.239 17 12 Z M 12 2 L 12 4 M 12 20 L 12 22 M 4.93 4.93 L 6.34 6.34 M 17.66 17.66 L 19.07 19.07 M 2 12 L 4 12 M 20 12 L 22 12 M 6.34 17.66 L 4.93 19.07 M 19.07 4.93 L 17.66 6.34"
 				></path>
 			</svg>
 			<span>Theme</span></a
@@ -158,7 +177,6 @@ import ThemeIcon from "./ThemeIcon.astro";
         text-foreground/70
         hover:text-foreground
         active:text-foreground
-        text-[0.75rem]
         rounded-md
         hover:bg-foreground/10
         focus:bg-foreground/10
@@ -173,7 +191,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 	}
 
 	.nav-footer-menu span {
-		@apply text-xs font-mono uppercase tracking-wider inline-block leading-[0.9] -mb-[2px];
+		@apply text-2xs font-mono uppercase tracking-wider inline-block leading-[0.9] -mb-[2px];
 	}
 
 	.nav-footer-menu svg {

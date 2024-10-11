@@ -147,5 +147,21 @@ const { pageTitle, pageDesc } = Astro.props;
 			document.addEventListener("astro:after-swap", setActiveLink);
 			document.addEventListener("DOMContentLoaded", setActiveLink);
 		</script>
+
+		<script>
+			document.addEventListener("astro:page-load", () => {
+				const images = document.querySelectorAll("img");
+
+				images.forEach((image) => {
+					image.addEventListener("load", () => {
+						image.classList.add("loaded");
+					});
+
+					if (image.complete) {
+						image.classList.add("loaded");
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

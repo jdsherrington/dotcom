@@ -120,12 +120,14 @@ if (!images[imagePath])
 		data-accent={accentColor}
 	>
         <a href={url}>
-        <Image
-            transition:name=`image-${url}`
-			src={images[imagePath]()}
-			alt={imageAlt}
-			class="featured-post-img"
-		/>
+            <div class="featured-post-img">
+                <Image
+                transition:name=`image-${url}`
+                src={images[imagePath]()}
+                alt={imageAlt}
+                class="skeleton-load"/>
+                <div class="skeleton"></div>
+            </div>
         </a>
 		<div
 			class="featured-post-accent"

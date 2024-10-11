@@ -58,27 +58,31 @@ import ThemeIcon from "./ThemeIcon.astro";
 
 			#nav::before {
 				content: "";
-                pointer-events: none;
+				pointer-events: none;
 				position: absolute;
 				inset: 0;
 				border-radius: inherit;
 				border: 1px solid transparent;
-				background: linear-gradient(180deg, transparent, hsl(var(--foreground)/0.075))
+				background: linear-gradient(
+						180deg,
+						transparent,
+						hsl(var(--foreground) / 0.075)
+					)
 					border-box;
 				mask:
 					linear-gradient(#fff 0 0) padding-box,
 					linear-gradient(#fff 0 0);
 				mask-composite: exclude;
-                opacity: 0;
-                transition: opacity 300ms ease-in-out;
+				opacity: 0;
+				transition: opacity 300ms ease-in-out;
 			}
 
 			#nav.detached::before {
-                @apply sm:opacity-0 md:opacity-100;
+				@apply sm:opacity-0 md:opacity-100;
 			}
 
 			.header-logo {
-				@apply inline-block h-9 w-auto sm:fill-foreground md:fill-foreground md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
+				@apply inline-block h-9 w-auto fill-[var(--page-accent-logo)] md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
 			}
 
 			#nav.detached .header-logo {

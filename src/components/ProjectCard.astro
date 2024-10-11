@@ -33,11 +33,14 @@ if (!projectImages[imagePath])
 		data-accent={accentColor}
 	>
     <a href={url} class="post-link cursor-pointer sm:mx-0 sm:mt-0 md:mx-[var(--guide-gutter)] md:mt-[var(--guide-gutter)] z-20">
-		<Image transition:name=`image-${url}`
+        <div class="post-img relative sm:w-full sm:max-h-96 md:w-24 md:max-h-24 lg:w-28 lg:max-h-28 object-cover sm:rounded-[var(--radius)] sm:rounded-r-none md:rounded-[var(--radius)]">
+            <div class="skeleton"></div>
+            <Image transition:name=`image-${url}`
 			src={projectImages[imagePath]()}
 			alt={imageAlt}
-			class="post-img sm:w-full sm:max-h-96 md:w-24 md:max-h-24 lg:w-28 lg:max-h-28 object-cover sm:rounded-[var(--radius)] sm:rounded-r-none md:rounded-[var(--radius)]"
+			class="h-full w-full rounded-lg"
 		/>
+        </div>
         </a>
 		<div
             transition:name=`accent-${url}`
