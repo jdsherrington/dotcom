@@ -114,12 +114,10 @@ if (!images[frontmatter.imagePath])
 			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
 		}
 
-		const posts = document.querySelectorAll(
+		const pageAccent = document.querySelector(
 			".blog-page-accent"
-		) as NodeListOf<HTMLElement>;
-		posts.forEach(function (el) {
-			el.style.background = `radial-gradient(circle 250px at 0% 250%, ${el.dataset.accent} -50%, transparent 150%)`;
-		});
+		) as HTMLElement;
+			pageAccent.style.background = `radial-gradient(circle 250px at 50% 200%, ${pageAccent.dataset.accent} -50%, transparent 150%)`;
 
 		const header = document.querySelector(
 			".blog-page-header"
@@ -139,12 +137,12 @@ if (!images[frontmatter.imagePath])
 		);
 		html.style.setProperty(
 				"--page-accent-glow",
-				`${header.dataset.accent as string}33`
+				`${header.dataset.accent as string}4D`
                 // 20%
 		);
         html.style.setProperty(
 				"--page-accent-logo",
-				`color-mix(in srgb, ${header.dataset.accent as string} 75%, hsl(var(--foreground)) 25%)`
+				`${header.dataset.accent as string}`
 		);
 
 	};

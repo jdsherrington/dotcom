@@ -7,8 +7,9 @@ import ThemeIcon from "./ThemeIcon.astro";
 	class="nav-footer fixed sm:bottom-0 md:-bottom-20 sm:flex items-center h-20 w-full z-50 p-[calc(var(--guide-gutter)/2)]"
 > -->
 <nav
+	transition:persist="nav-footer"
 	id="nav-footer"
-	class="fixed sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))] z-50 w-[calc(100%-var(--guide-gutter))] ml-[calc(var(--guide-gutter)/2)] mb-[calc(var(--guide-gutter)/2)] h-20 backdrop-blur-2xl shadow-2xl shadow-background"
+	class="fixed sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))] z-50 w-[calc(100dvw-var(--guide-gutter))] ml-[calc(var(--guide-gutter)/2)] mb-[calc(var(--guide-gutter)/2)] h-20 backdrop-blur-2xl shadow-2xl shadow-background"
 >
 	<div
 		class="nav-footer-menu relative grid grid-cols-5 bg-background/50 rounded-[var(--radius)] px-0.5 z-50 h-full w-full"
@@ -85,7 +86,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 			</svg>
 			<span>Resources</span></a
 		>
-		<a href="#">
+		<a class="theme-toggle">
 			<svg
 				width="24"
 				height="24"
@@ -174,13 +175,13 @@ import ThemeIcon from "./ThemeIcon.astro";
         justify-center
         place-items-center
         font-normal
-        text-foreground/70
+        text-foreground/60
         hover:text-foreground
         active:text-foreground
         rounded-md
-        hover:bg-foreground/10
-        focus:bg-foreground/10
-        active:bg-foreground/10
+        hover:bg-foreground/5
+        focus:bg-foreground/5
+        active:bg-foreground/5
         focus:text-foreground
         focus:font-semibold
         focus:outline-none
@@ -191,7 +192,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 	}
 
 	.nav-footer-menu span {
-		@apply text-2xs font-mono uppercase tracking-wider inline-block leading-[0.9] -mb-[2px];
+		@apply text-2xs font-mono uppercase tracking-wider inline-block leading-[0.9] -mb-[2px] select-none;
 	}
 
 	.nav-footer-menu svg {

@@ -206,7 +206,6 @@ if (!images[imagePath])
 			".blog-post"
 		) as NodeListOf<HTMLElement>;
 		postsBefore.forEach(function (el) {
-			console.log(el.dataset.accent);
 			el.style.setProperty(
 				"--card-accent",
 				`${el.dataset.accent as string}`

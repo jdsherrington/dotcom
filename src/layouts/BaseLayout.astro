@@ -70,15 +70,15 @@ const { pageTitle, pageDesc } = Astro.props;
 			});
 		</script>
 	</head>
-	<body class="flex flex-col min-h-dvh">
+	<body class="flex flex-col min-h-dvh w-dvw overflow-x-hidden">
 		<Header />
 		<!-- <div
 			id="grid-guide-container"
-			class="fixed flex h-svh w-svw top-0 left-0 z-30 justify-center items-center"
+			class="fixed flex h-dvh w-dvw top-0 left-0 z-30 justify-center items-center pointer-events-none"
 		>
 			<div
 				id="grid-guide"
-				class="relative grid h-svh top-0 left-0 z-30 justify-stretch"
+				class="relative grid h-dvh top-0 left-0 z-30 justify-stretch"
 			>
 				<div></div>
 				<div></div>
@@ -162,6 +162,50 @@ const { pageTitle, pageDesc } = Astro.props;
 					}
 				});
 			});
+		</script>
+
+		<script>
+			function getCurrentTheme() {
+				const storedTheme = localStorage.getItem("theme");
+				if (storedTheme) {
+					return storedTheme;
+				}
+				return window.matchMedia("(prefers-color-scheme: light)")
+					.matches
+					? "light"
+					: "dark";
+			}
+
+			function setToggles() {
+				const themeToggles = document.querySelectorAll(".theme-toggle");
+				console.log(themeToggles);
+
+				function toggleTheme() {
+					console.log("THEME SWITCHED");
+					const newTheme =
+						getCurrentTheme() == "light" ? "dark" : "light";
+					console.log(newTheme);
+					localStorage.setItem("theme", newTheme);
+					document
+						.querySelector("html")
+						?.setAttribute("data-theme", newTheme);
+				}
+
+				themeToggles.forEach(function (toggle) {
+					toggle.removeEventListener("click", toggleTheme);
+					toggle.addEventListener("click", toggleTheme);
+				});
+			}
+
+			document.addEventListener("astro:after-swap", function () {
+				const theme = getCurrentTheme();
+				localStorage.setItem("theme", theme);
+				document
+					.querySelector("html")
+					?.setAttribute("data-theme", theme);
+			});
+
+			setToggles();
 		</script>
 	</body>
 </html>

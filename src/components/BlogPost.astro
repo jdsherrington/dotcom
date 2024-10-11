@@ -180,7 +180,7 @@ if (!images[imagePath])
 			".blog-post-title, .featured-post-title, .blog-post-date, .blog-post-description, .blog-post-tags"
 		) as NodeListOf<HTMLElement>;
 		let totalHeight = 0;
-        console.log(contentHeight);
+
 		contentHeight.forEach((element) => {
 			const style = window.getComputedStyle(element);
 			const elementHeight = element.offsetHeight;
@@ -188,7 +188,7 @@ if (!images[imagePath])
 			const marginBottom = parseFloat(style.marginBottom);
 			totalHeight += elementHeight + marginTop + marginBottom;
 		});
-        console.log(totalHeight);
+        
         if (totalHeight < minHeight) {
             totalHeight = minHeight;
         }
