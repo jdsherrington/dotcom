@@ -27,20 +27,179 @@ if (!projectImages[imagePath])
 	);
 ---
 
+<div transition:name=`project-card-${id}` class="project-card" data-accent={accentColor}>
 
-	<div transition:name=`container-${url}`
-		class="post relative grid sm:grid-cols-[var(--one-w)_var(--three-w)] md:grid-cols-1 sm:grid-rows-1 md:grid-rows-[auto_1fr] sm:gap-[calc(var(--guide-gutter)*1)] md:gap-[calc(var(--guide-gutter)*0.75)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--project-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 bg-foreground/5 h-full z-10 overflow-hidden duration-150"
+    <a href={url}>
+        <div class="project-card-img"> 
+            
+            <div class="project-card-logo">
+                <svg viewBox="0 0 61 32">
+                    <path
+                        d="M 58.625 25.724 C 57.138 26.002 55.709 25.023 55.43 23.537 L 54.172 16.81 C 53.893 15.324 54.873 13.894 56.359 13.615 C 57.846 13.337 59.275 14.317 59.554 15.803 L 60.812 22.529 C 61.091 24.016 60.111 25.445 58.625 25.724 Z M 55.352 8.234 C 53.865 8.512 52.436 7.533 52.157 6.046 L 51.654 3.356 C 51.376 1.87 52.355 0.44 53.842 0.162 C 55.327 -0.116 56.758 0.863 57.036 2.349 L 57.54 5.04 C 57.817 6.526 56.838 7.956 55.352 8.234 Z M 48.617 31.774 C 47.131 32.052 45.701 31.073 45.422 29.588 L 44.668 25.551 C 44.39 24.065 45.369 22.635 46.856 22.356 C 48.34 22.078 49.771 23.059 50.049 24.543 L 50.805 28.58 C 51.083 30.066 50.103 31.496 48.617 31.774 Z M 45.848 16.975 C 44.362 17.254 42.932 16.274 42.654 14.789 L 41.646 9.406 C 41.368 7.92 42.348 6.49 43.834 6.212 C 45.319 5.934 46.75 6.913 47.028 8.4 L 48.035 13.781 C 48.313 15.266 47.334 16.697 45.848 16.975 Z M 36.344 25.717 C 34.857 25.994 33.427 25.015 33.149 23.529 L 29.373 3.348 C 29.095 1.863 30.074 0.433 31.559 0.155 C 33.045 -0.123 34.475 0.855 34.753 2.342 L 38.53 22.522 C 38.809 24.008 37.83 25.438 36.344 25.717 Z M 26.336 31.767 C 24.849 32.045 23.42 31.065 23.141 29.579 L 19.365 9.399 C 19.087 7.913 20.066 6.483 21.551 6.205 C 23.038 5.927 24.467 6.906 24.746 8.392 L 28.523 28.572 C 28.801 30.059 27.822 31.489 26.336 31.767 Z M 14.062 25.709 C 12.575 25.987 11.146 25.008 10.867 23.522 L 7.09 3.34 C 6.812 1.855 7.793 0.424 9.278 0.146 C 10.764 -0.132 12.194 0.848 12.472 2.334 L 16.249 22.514 C 16.527 24.001 15.548 25.43 14.062 25.709 Z M 4.054 31.759 C 2.567 32.037 1.138 31.059 0.86 29.572 L 0.104 25.536 C -0.174 24.05 0.806 22.62 2.292 22.342 C 3.777 22.063 5.208 23.043 5.486 24.529 L 6.242 28.565 C 6.519 30.051 5.54 31.481 4.054 31.759 Z"
+                    ></path>
+			</svg>
+            </div>
+                <!-- <Image
+                transition:name=`image-${url}`
+                src={projectImages[imagePath]()} 
+                alt={imageAlt}
+                onload="this.parentElement.dataset.loaded = 'true'"
+            /> -->
+        </div>
+    </a>
+
+    <div
+        transition:name=`project-accent-${id}`
+        class="project-card-accent"
+        data-accent={accentColor}
+    >
+    </div>
+
+    <div
+        class="project-card-content"
+    >
+        <a href={url} class="project-card-title">
+            <h1 transition:name=`project-title-${id}`>{title}</h1>
+        </a>
+        
+        <p transition:name=`project-category-${id}` class="project-card-category">{category}</p>
+        
+        <p transition:name=`project-description-${id}` class="project-card-description">
+            {description}
+        </p>
+
+        <div transition:name=`project-tags-${id}` class="project-card-tags">
+                {
+                    tags?.map((tag: any, index: number) => (
+                        <a href=`/blog/tagged/${tag.toLowerCase()}`
+                            class:list={[
+                                tag.toLowerCase().replaceAll(" ", "-"),
+                                "project-card-tag",
+                            ]}
+                        >
+                            {tag}
+                        </a>
+                    ))
+                }
+        </div>
+        <a href={url} class="project-card-arrow-link">
+                <svg class="project-card-arrow" viewBox="0 0 492 492">
+                    <g>
+                        <path d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
+                        c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
+                        v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
+                        c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
+                        l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"></path>
+                    </g>
+                </svg>
+            </a>
+    </div>
+</div>
+
+
+<script>
+    // function getContentHeight(post: HTMLElement) {
+    //     const minHeight = 0;
+	// 	const contentHeight = post.querySelectorAll(
+	// 		".project-card-title, .project-card-title, .project-card-category, .project-card-description, .project-card-tags"
+	// 	) as NodeListOf<HTMLElement>;
+	// 	let totalHeight = 0;
+
+	// 	contentHeight.forEach((element) => {
+	// 		const style = window.getComputedStyle(element);
+	// 		const elementHeight = element.offsetHeight;
+	// 		const marginTop = parseFloat(style.marginTop);
+	// 		const marginBottom = parseFloat(style.marginBottom);
+	// 		totalHeight += elementHeight + marginTop + marginBottom;
+	// 	});
+        
+    //     if (totalHeight < minHeight) {
+    //         totalHeight = minHeight;
+    //     }
+	// 	return totalHeight;
+	// }
+
+	// function setCardHeight() {
+	// 	const allposts: NodeListOf<HTMLElement> =
+	// 		document.querySelectorAll(".project-card");
+	// 	allposts.forEach((post) => {
+	// 		const height = getContentHeight(post);
+	// 		const img = post.querySelector(".project-card-img") as HTMLElement;
+	// 		if (img) {
+	// 			img.style.height = `${height}px`;
+	// 		}
+	// 	});
+	// }
+    
+	const handleOnMouseMove = (e) => {
+		const { currentTarget: target } = e;
+
+		const rect = target.getBoundingClientRect(),
+			x = e.clientX - rect.left,
+			y = e.clientY - rect.top;
+
+		target.style.setProperty("--mouse-x", `${x}px`);
+		target.style.setProperty("--mouse-y", `${y}px`);
+	};
+
+	const attachEventListeners = () => {
+		for (const post of document.querySelectorAll(".project-card")) {
+			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
+		}
+
+		const projects = document.querySelectorAll(
+			".project-card-accent"
+		) as NodeListOf<HTMLElement>;
+		projects.forEach(function (el) {
+			el.style.background = `radial-gradient(circle 250px at 175% 175%, ${el.dataset.accent} -150%, transparent 250%)`;
+		});
+
+		const postsBefore = document.querySelectorAll(
+			".project-card"
+		) as NodeListOf<HTMLElement>;
+		postsBefore.forEach(function (el) {
+			el.style.setProperty(
+				"--project-accent",
+				`${el.dataset.accent as string}`
+                // 100%
+			);
+			el.style.setProperty(
+				"--project-accent-border",
+				`${el.dataset.accent as string}4D`
+                // 40%
+			);
+			el.style.setProperty(
+				"--project-accent-glow",
+				`${el.dataset.accent as string}33`
+                // 20%
+			);
+		});
+
+        // setCardHeight();
+
+	};
+
+	attachEventListeners();
+
+	document.addEventListener("astro:after-swap", () => {
+		attachEventListeners();
+	});
+
+    // document.addEventListener("resize", setCardHeight);
+</script>
+
+	<!-- <div transition:name=`container-${url}`
+		class="project-card"
 		data-accent={accentColor}
 	>
-    <a href={url} class="post-link cursor-pointer sm:mx-0 sm:mt-0 md:mx-[var(--guide-gutter)] md:mt-[var(--guide-gutter)] z-20">
-        <div class="post-img relative sm:w-full sm:max-h-96 md:w-24 md:max-h-24 lg:w-28 lg:max-h-28 object-cover sm:rounded-[var(--radius)] sm:rounded-r-none md:rounded-[var(--radius)]">
-            <div class="skeleton"></div>
-            <Image transition:name=`image-${url}`
-			src={projectImages[imagePath]()}
-			alt={imageAlt}
-			class="h-full w-full rounded-lg"
-		/>
-        </div>
+        <a href={url}>
+            <div class="project-card-img" data-loaded="false">
+                <Image transition:name=`image-${url}`
+                src={projectImages[imagePath]()}
+                alt={imageAlt}
+                onload="this.parentElement.dataset.loaded = 'true'"
+                />
+            </div>
         </a>
 		<div
             transition:name=`accent-${url}`
@@ -254,4 +413,4 @@ if (!projectImages[imagePath])
 	});
 
 	window.addEventListener("resize", getCombinedHeights);
-</script>
+</script> -->

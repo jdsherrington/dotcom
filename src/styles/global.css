@@ -389,33 +389,18 @@ a {
 	@apply inline-block;
 }
 
-.blog-post {
-	@apply relative flex gap-[var(--guide-gutter)] bg-foreground/5 rounded-lg border-transparent border-[1px] hover:border-[var(--card-accent-border)] transition-all duration-150 ease-in-out;
-	--card-accent: hsl(var(--foreground));
-}
-
-.blog-post::before {
-	@apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out pointer-events-none;
-	content: "";
-	background: radial-gradient(
-		600px circle at var(--mouse-x) var(--mouse-y),
-		var(--card-accent-glow) 0%,
-		transparent 35%
-	);
-}
-
-.blog-post:hover::before {
-	@apply opacity-40;
-}
-
-.blog-post:has(a:hover)::before {
-	@apply opacity-100 duration-300;
-}
-
+/* -------------------- IMAGE LOADING SKELETONS -------------------- */
 .skeleton {
-	@apply w-full h-full absolute top-0 left-0;
-	border-radius: inherit;
-	opacity: 1;
+    position: relative;
+}
+
+.skeleton::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 	background: linear-gradient(
 		90deg,
 		hsl(var(--foreground) / 0.1) 25%,
@@ -428,6 +413,8 @@ a {
 		sweep 1s linear infinite,
 		pause 1s infinite;
 	animation-timing-function: linear, steps(1);
+    transition: opacity 500ms ease-in-out;
+    opacity: 1;
 }
 
 @keyframes sweep {
@@ -444,22 +431,58 @@ a {
 	}
 }
 
-img {
-	opacity: 0;
-	transition: opacity 400ms ease-in-out;
+div[data-loaded] {
+	@apply skeleton;
+    transition: opacity 500ms ease-in-out;
 }
 
-img.loaded {
-	opacity: 1;
+.skeleton::before[data-loaded="true"] {
+    @apply opacity-0;
 }
 
-img.loaded + .skeleton {
-	opacity: 0;
+div[data-loaded] img {
+    transition: opacity 500ms ease-in-out;
 }
+
+div[data-loaded="false"] img {
+	@apply opacity-0;
+}
+
+div[data-loaded="true"] img {
+	@apply opacity-100;
+}
+/* ----------------------------------------------------------------- */
+
+/* ------------------------ BLOG POST STYLES ----------------------- */
+.blog-post {
+	@apply relative flex gap-[var(--guide-gutter)] bg-foreground/5 rounded-lg border-transparent border-[1px] hover:border-[var(--post-accent-border)] transition-all duration-150 ease-in-out;
+	--post-accent: hsl(var(--foreground));
+    --post-accent-border: hsl(var(--foreground)/0.4);
+    --post-accent-glow: hsl(var(--foreground)/0.2);
+}
+
+.blog-post::before {
+	@apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out pointer-events-none;
+	content: "";
+	background: radial-gradient(
+		600px circle at var(--mouse-x) var(--mouse-y),
+		var(--post-accent-glow) 0%,
+		transparent 35%
+	);
+}
+
+.blog-post:hover::before {
+	@apply opacity-40;
+}
+
+.blog-post:has(a:hover)::before {
+	@apply opacity-100 duration-300;
+}
+
 
 .blog-post-img,
 .featured-post-img {
-	@apply relative pointer-events-none h-full max-h-full rounded-l-lg overflow-hidden;
+	@apply pointer-events-none h-full max-h-full rounded-l-lg overflow-hidden;
 }
 
 .blog-post img {
@@ -494,7 +517,7 @@ img.loaded + .skeleton {
 /* grid-cols-[subgrid] */
 
 .blog-post-featured {
-	@apply max-w-full h-min font-mono text-sm uppercase tracking-widest place-content-start text-foreground/40 pt-[var(--guide-gutter)] pb-2;
+	@apply max-w-full h-min font-mono sm:text-xs md:text-sm uppercase tracking-widest place-content-start text-foreground/40 pt-[var(--guide-gutter)] pb-2;
 }
 
 .blog-post-title,
@@ -545,7 +568,7 @@ img.loaded + .skeleton {
 }
 
 .blog-post-arrow {
-	@apply nav-arrow h-6 w-auto fill-foreground/20;
+	@apply nav-arrow h-6 w-auto fill-foreground/20 hover:fill-[var(--post-accent)];
 }
 
 .inline-back-arrow {
@@ -559,81 +582,14 @@ img.loaded + .skeleton {
 .nav-arrow {
 	@apply ease-in-out transition-colors duration-150;
 }
+/* ----------------------------------------------------------------- */
 
-.nav-arrow:hover {
-	@apply fill-[var(--card-accent)];
-}
-
-.project-tag {
-	@apply bg-foreground/5 hover:bg-foreground/10 text-foreground/40 hover:text-foreground/80 backdrop-blur-xl rounded-[250px] px-2.5 py-0.5 text-[11px] font-mono uppercase whitespace-nowrap overflow-hidden place-self-end transition-all cursor-pointer font-normal tracking-wider;
-	/* @apply  text-foreground/75 hover:text-foreground backdrop-blur-xl rounded-[250px] pl-2.5 pr-2.5 pt-0.5 pb-0.5 text-[0.75rem] whitespace-nowrap overflow-hidden place-self-end transition-all duration-300 cursor-pointer; */
-	position: relative;
-	overflow: hidden;
-	color: hsl(var(--foreground) / 0.5);
-}
-
-.project-tag::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: hsla(var(--tag-color), 0); /* start with 0.5 opacity */
-	z-index: -1;
-	transition: background-color 150ms;
-}
-
-.project-tag:hover::before {
-	background-color: hsla(var(--tag-color), 0.25); /* full opacity on hover */
-}
-
-.project-tag:hover {
-	border-color: hsla(var(--tag-color), 0) !important;
-}
-
-/* Project Card Tag Colours */
-
-.html {
-	--tag-color: var(--tag-html);
-}
-.css {
-	--tag-color: var(--tag-css);
-}
-.javascript {
-	--tag-color: var(--tag-javascript);
-}
-.astro {
-	--tag-color: var(--tag-astro);
-}
-.tailwind-css {
-	--tag-color: var(--tag-tailwind);
-}
-.react {
-	--tag-color: var(--tag-react);
-}
-.sql {
-	--tag-color: var(--tag-sql);
-}
-.c\# {
-	--tag-color: var(--tag-csharp);
-}
-.\.net {
-	--tag-color: var(--tag-dotnet);
-}
-.azure-cosmos-db {
-	--tag-color: var(--tag-azure-cosmos);
-}
-.angular {
-	--tag-color: var(--tag-angular);
-}
-.supabase {
-	--tag-color: var(--tag-supabase);
-}
-
+/* ------------------------ BLOG PAGE STYLES ----------------------- */
 .blog-page-header {
 	@apply relative overflow-hidden bg-foreground/5 rounded-lg sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] shadow-2xl shadow-black/20;
-	--card-accent: hsl(var(--foreground));
+    --page-accent: hsl(var(--foreground));
+    --page-accent-border: hsl(var(--foreground)/0.4);
+    --page-accent-glow: hsl(var(--foreground)/0.2);
 }
 
 .blog-page-header::before {
@@ -729,4 +685,166 @@ img.loaded + .skeleton {
 
 .post-markdown blockquote * {
 	margin-bottom: 0rem;
+}
+/* ----------------------------------------------------------------- */
+
+/* ------------------------ PROJECT CARD STYLES ----------------------- */
+.project-card {
+	@apply relative flex flex-col gap-[var(--guide-gutter)] bg-foreground/5 rounded-lg border-transparent border-[1px] hover:border-[var(--project-accent-border)] transition-all duration-150 ease-in-out justify-items-start;
+	--project-accent: hsl(var(--foreground));
+    --project-accent-border: hsl(var(--foreground)/0.4);
+    --project-accent-glow: hsl(var(--foreground)/0.2);
+}
+
+.project-card::before {
+	@apply absolute rounded-[inherit] h-full w-full left-0 top-0 opacity-0 transition-opacity duration-500 ease-in-out pointer-events-none;
+	content: "";
+	background: radial-gradient(
+		600px circle at var(--mouse-x) var(--mouse-y),
+		var(--project-accent-glow) 0%,
+		transparent 35%
+	);
+}
+
+.project-card:hover::before {
+	@apply opacity-40;
+}
+
+.project-card:has(a:hover)::before {
+	@apply opacity-100 duration-300;
+}
+
+a:has(.project-card-img) {
+    @apply max-h-full sm:mt-0 sm:ml-0 md:mt-[var(--guide-gutter)] md:ml-[var(--guide-gutter)] sm:w-full sm:h-24 md:w-[var(--two-w)] md:h-[var(--two-w)] sm:rounded-t-lg sm:rounded-b-none md:rounded-lg;
+}
+
+.project-card-img {
+    @apply pointer-events-none w-full h-full overflow-hidden rounded-[inherit];
+}
+
+.project-card-logo {
+    @apply flex sm:justify-start md:justify-center items-center w-full h-full;
+    background: radial-gradient(
+		circle at 0% 100%,
+		var(--project-accent) -50%,
+		transparent 150%
+	);
+}
+
+.project-card-logo svg {
+    @apply fill-[hsl(var(--foreground)/0.8)] p-[calc(var(--guide-gutter)*1)] sm:ml-1 md:ml-0 md:max-w-36 max-h-full aspect-square;
+}
+
+/* .project-card-img img {
+	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit] opacity-10;  
+} */
+
+.project-card-accent {
+	@apply rounded-lg absolute bottom-0 left-0 pointer-events-none w-full h-full;
+}
+
+.project-card-content {
+	@apply grid w-full px-[var(--guide-gutter)] place-content-start content-center;
+}
+
+.project-card-content * {
+	@apply max-w-full;
+}
+
+.project-card-featured {
+	@apply max-w-full h-min font-mono sm:text-xs md:text-sm uppercase tracking-widest place-content-start text-foreground/40 pt-[var(--guide-gutter)] pb-2;
+}
+
+.project-card-title {
+	@apply inline h-min tracking-tight text-foreground/85 hover:text-foreground transition-colors duration-150 font-bold text-pretty w-fit sm:text-xl md:text-2xl mb-0 sm:leading-[1.25] md:leading-[1.25];
+}
+
+.project-card-category {
+	@apply w-auto h-min font-semibold sm:text-xs md:text-xs uppercase tracking-widest pt-0.5 pr-4 pb-2 place-content-start text-[var(--project-accent)] transform-none font-mono;
+}
+
+.project-card-description {
+	@apply h-min w-auto text-xs place-content-start leading-normal text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] sm:mb-[var(--guide-gutter)] md:mb-0 text-pretty;
+}
+
+.project-card-tags {
+	@apply h-min pb-[var(--guide-gutter)] pr-[calc(var(--guide-gutter)*2)] w-full flex flex-row flex-wrap-reverse justify-start gap-1 place-content-end;
+}
+
+.project-card-tag {
+	@apply bg-foreground/5 hover:bg-foreground/10 text-foreground/40 hover:text-foreground/80 backdrop-blur-xl rounded-[250px] px-2.5 py-0.5 sm:text-3xs md:text-2xs font-mono uppercase whitespace-nowrap overflow-hidden place-self-end transition-all cursor-pointer tracking-wider;
+	position: relative;
+	overflow: hidden;
+	color: hsl(var(--foreground) / 0.5);
+}
+
+.project-card-tag::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: hsla(var(--tag-color), 0.2); /* start with 0.5 opacity */
+	z-index: -1;
+	transition: background-color 150ms;
+}
+
+.project-card-tag:hover::before {
+	background-color: hsla(var(--tag-color), 0.35);
+}
+
+.project-card-tag:hover {
+	border-color: hsla(var(--tag-color), 0) !important;
+}
+
+/* Project Card Tag Colours */
+
+.html {
+	--tag-color: var(--tag-html);
+}
+.css {
+	--tag-color: var(--tag-css);
+}
+.javascript {
+	--tag-color: var(--tag-javascript);
+}
+.astro {
+	--tag-color: var(--tag-astro);
+}
+.tailwind-css {
+	--tag-color: var(--tag-tailwind);
+}
+.react {
+	--tag-color: var(--tag-react);
+}
+.sql {
+	--tag-color: var(--tag-sql);
+}
+.c\# {
+	--tag-color: var(--tag-csharp);
+}
+.\.net {
+	--tag-color: var(--tag-dotnet);
+}
+.azure-cosmos-db {
+	--tag-color: var(--tag-azure-cosmos);
+}
+.angular {
+	--tag-color: var(--tag-angular);
+}
+.supabase {
+	--tag-color: var(--tag-supabase);
+}
+
+.project-card-arrow-link {
+	@apply absolute bottom-[calc(var(--guide-gutter)*0.75)] right-[var(--guide-gutter)] place-self-end;
+}
+
+.project-card-arrow {
+	@apply nav-arrow h-6 w-auto fill-foreground/20 hover:fill-[var(--project-accent)];
+}
+
+.inline-back-arrow {
+	@apply nav-arrow inline-block h-5 w-auto fill-foreground/50 hover:fill-foreground/100 mr-[calc(var(--guide-gutter)/2)] mb-[4px];
 }

@@ -207,5 +207,26 @@ const { pageTitle, pageDesc } = Astro.props;
 
 			setToggles();
 		</script>
+
+		<script data-astro-rerun>
+            // Attach skeletons to loading elements
+			const observers = document.querySelectorAll(
+				'div[data-loaded="false"]'
+            );
+
+			observers.forEach((element) => {
+                element.classList.add('skeleton');
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							element.classList.remove('skeleton'); // image is loaded
+							observer.unobserve(element); // stop observing once loaded
+						}
+					});
+				});
+
+				observer.observe(element);
+			});
+		</script>
 	</body>
 </html>

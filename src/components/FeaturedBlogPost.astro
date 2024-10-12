@@ -32,101 +32,18 @@ if (!images[imagePath])
 	);
 ---
 
-
-	<!-- <div transition:name=`container-${url}`
-		class="blog-post relative grid sm:grid-cols-[var(--two-w)_var(--two-w)] md:grid-cols-[var(--four-w)_var(--four-w)] lg:grid-cols-[var(--three-w),var(--five-w)] gap-[var(--guide-gutter)] place-content-start rounded-[var(--radius)] border-transparent border-[1px] hover:border-[var(--card-accent-border)] shadow-l shadow-transparent hover:shadow-black/15 z-10 bg-foreground/5 h-auto overflow-hidden duration-150 ease-in-out"
-		data-accent={accentColor}
-	>
-        <a href={url} class="blog-post-link cursor-pointer">
-        <Image
-            transition:name=`image-${url}`
-			src={images[imagePath]()}
-			alt={imageAlt}
-			class="blog-post-img w-full h-56 object-cover rounded-l-[var(--radius)]"
-		/>
-        </a>
-		<div
-			class="featured-post-accent rounded-[var(--radius)] absolute bottom-0 left-0 w-full h-full sm:opacity-50 md:opacity-100"
-			data-accent={accentColor}
-		>
-		</div>
-		<div
-			class="blog-post-content grid grid-rows-[min-content_auto_auto_max-content_min-content] h-auto w-full align-items-start rounded-[var(--radius)] pr-[var(--guide-gutter)]">
-            <p
-				class="blog-post-featured"
-			>
-				FEATURED POST
-			</p>
-            <a href={url} class="blog-post-link cursor-pointer">
-			<h1 transition:name=`title-${url}`
-				class="w-auto sm:text-2xl md:text-3xl font-bold sm:leading-[1.1] tracking-tight pb-1 place-content-start text-foreground/90 transition-all text-wrap"
-			>
-				{title}
-				
-			</h1>
-            </a>
-            
-			<p  transition:name=`date-${url}`
-				class="blog-post-date"
-			>
-				{formattedDate}
-			</p>
-			<p transition:name=`description-${url}`
-				class="w-auto text-xs place-content-start leading-normal text-wrap min-h-16 text-foreground/90 pb-4"
-			>
-				{description}
-			</p>
-			<div class="flex flex-row">
-				<div transition:name=`tags-${url}`
-					class="w-full flex-wrap justify-start gap-1 align-self-end place-content-end pt-4 pb-4 sm:hidden md:flex"
-				>
-					{
-						tags?.map((tag: any) => (
-							<a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
-								class:list={[
-									tag.toLowerCase().replaceAll(" ", "-"),
-									"blog-post-tag",
-								]}
-							>
-								{tag}
-							</a>
-						))
-					}
-				</div>
-                <a href={url} class="place-self-end align-self-end mb-4 sm:ml-[auto] md:ml-4 cursor-pointer">
-				<svg
-					class="nav-arrow h-6 w-min fill-foreground/25"
-					viewBox="0 0 492.004 492.004"
-				>
-					<g>
-						<g>
-							<path
-								d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136
-			                    c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002
-			                    v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864
-			                    c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872
-			                    l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z"
-							></path>
-						</g>
-					</g>
-				</svg>
-                </a>
-			</div>
-		</div>
-	</div> -->
-
     <div transition:name=`container-${url}`
 		class="blog-post"
 		data-accent={accentColor}
 	>
         <a href={url}>
-            <div class="featured-post-img">
+            <div class="featured-post-img" data-loaded="false">
                 <Image
-                transition:name=`image-${url}`
-                src={images[imagePath]()}
-                alt={imageAlt}
-                class="skeleton-load"/>
-                <div class="skeleton"></div>
+                    transition:name=`image-${url}`
+                    src={images[imagePath]()}
+                    alt={imageAlt}
+                    onload="this.parentElement.dataset.loaded = 'true'"
+                />
             </div>
         </a>
 		<div
