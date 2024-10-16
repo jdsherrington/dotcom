@@ -8,12 +8,12 @@ import { slide } from 'astro:transitions';
 const { frontmatter } = Astro.props;
 
 const projectImages = import.meta.glob<{ default: ImageMetadata }>(
-	"/src/assets/projects/*.{jpeg,jpg,png,gif,webp}"
+	"/src/assets/projects/images/*.{jpeg,jpg,png,gif,webp}"
 );
 
 if (!projectImages[frontmatter.imagePath])
 	throw new Error(
-		`"${frontmatter.imagePath}" does not exist in glob: "src/assets/projects/*"`
+		`"${frontmatter.imagePath}" does not exist in glob: "src/assets/projects/images/*"`
 	);
 ---
 

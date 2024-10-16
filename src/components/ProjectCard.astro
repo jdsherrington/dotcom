@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Image from "astro:assets";
 
 interface Props {
     id: number;
@@ -9,22 +10,24 @@ interface Props {
 	description: string;
 	url: string;
 	tags: string[];
+    iconPath: string;
 	imagePath: string;
 	imageAlt: string;
 	accentColor: string;
 }
 
-const { id, title, category, description, url, tags, imagePath, imageAlt, accentColor } =
+const { id, title, category, description, url, tags, iconPath, imagePath, imageAlt, accentColor } =
 	Astro.props;
 
 const projectImages = import.meta.glob<{ default: ImageMetadata }>(
-	"/src/assets/projects/*.{jpeg,jpg,png,gif,webp}"
+	"/src/assets/projects/images/*.{jpeg,jpg,png,gif,webp}"
 );
 
 if (!projectImages[imagePath])
 	throw new Error(
-		`"${imagePath}" does not exist in glob: "src/assets/projects/*"`
+		`"${imagePath}" does not exist in glob: "src/assets/projects/images/*"`
 	);
+
 ---
 
 <div transition:name=`project-card-${id}` class="project-card" data-accent={accentColor}>
@@ -32,12 +35,8 @@ if (!projectImages[imagePath])
     <a href={url}>
         <div class="project-card-img"> 
             
-            <div class="project-card-logo">
-                <svg viewBox="0 0 61 32">
-                    <path
-                        d="M 58.625 25.724 C 57.138 26.002 55.709 25.023 55.43 23.537 L 54.172 16.81 C 53.893 15.324 54.873 13.894 56.359 13.615 C 57.846 13.337 59.275 14.317 59.554 15.803 L 60.812 22.529 C 61.091 24.016 60.111 25.445 58.625 25.724 Z M 55.352 8.234 C 53.865 8.512 52.436 7.533 52.157 6.046 L 51.654 3.356 C 51.376 1.87 52.355 0.44 53.842 0.162 C 55.327 -0.116 56.758 0.863 57.036 2.349 L 57.54 5.04 C 57.817 6.526 56.838 7.956 55.352 8.234 Z M 48.617 31.774 C 47.131 32.052 45.701 31.073 45.422 29.588 L 44.668 25.551 C 44.39 24.065 45.369 22.635 46.856 22.356 C 48.34 22.078 49.771 23.059 50.049 24.543 L 50.805 28.58 C 51.083 30.066 50.103 31.496 48.617 31.774 Z M 45.848 16.975 C 44.362 17.254 42.932 16.274 42.654 14.789 L 41.646 9.406 C 41.368 7.92 42.348 6.49 43.834 6.212 C 45.319 5.934 46.75 6.913 47.028 8.4 L 48.035 13.781 C 48.313 15.266 47.334 16.697 45.848 16.975 Z M 36.344 25.717 C 34.857 25.994 33.427 25.015 33.149 23.529 L 29.373 3.348 C 29.095 1.863 30.074 0.433 31.559 0.155 C 33.045 -0.123 34.475 0.855 34.753 2.342 L 38.53 22.522 C 38.809 24.008 37.83 25.438 36.344 25.717 Z M 26.336 31.767 C 24.849 32.045 23.42 31.065 23.141 29.579 L 19.365 9.399 C 19.087 7.913 20.066 6.483 21.551 6.205 C 23.038 5.927 24.467 6.906 24.746 8.392 L 28.523 28.572 C 28.801 30.059 27.822 31.489 26.336 31.767 Z M 14.062 25.709 C 12.575 25.987 11.146 25.008 10.867 23.522 L 7.09 3.34 C 6.812 1.855 7.793 0.424 9.278 0.146 C 10.764 -0.132 12.194 0.848 12.472 2.334 L 16.249 22.514 C 16.527 24.001 15.548 25.43 14.062 25.709 Z M 4.054 31.759 C 2.567 32.037 1.138 31.059 0.86 29.572 L 0.104 25.536 C -0.174 24.05 0.806 22.62 2.292 22.342 C 3.777 22.063 5.208 23.043 5.486 24.529 L 6.242 28.565 C 6.519 30.051 5.54 31.481 4.054 31.759 Z"
-                    ></path>
-			</svg>
+            <div class="project-card-icon">
+                <Icon name=`${url.slice(1)}` class="logo"/>
             </div>
                 <!-- <Image
                 transition:name=`image-${url}`
@@ -65,7 +64,7 @@ if (!projectImages[imagePath])
         <p transition:name=`project-category-${id}` class="project-card-category">{category}</p>
         
         <p transition:name=`project-description-${id}` class="project-card-description">
-            {description}
+            {description}{url}
         </p>
 
         <div transition:name=`project-tags-${id}` class="project-card-tags">
@@ -148,36 +147,66 @@ if (!projectImages[imagePath])
 		}
 
 		const projects = document.querySelectorAll(
-			".project-card-accent"
-		) as NodeListOf<HTMLElement>;
-		projects.forEach(function (el) {
-			el.style.background = `radial-gradient(circle 250px at 175% 175%, ${el.dataset.accent} -150%, transparent 250%)`;
-		});
-
-		const postsBefore = document.querySelectorAll(
 			".project-card"
 		) as NodeListOf<HTMLElement>;
-		postsBefore.forEach(function (el) {
-			el.style.setProperty(
-				"--project-accent",
-				`${el.dataset.accent as string}`
-                // 100%
-			);
-			el.style.setProperty(
-				"--project-accent-border",
-				`${el.dataset.accent as string}4D`
-                // 40%
-			);
-			el.style.setProperty(
-				"--project-accent-glow",
-				`${el.dataset.accent as string}33`
-                // 20%
-			);
-		});
+		
+        projects.forEach(function (card, index) {
+            const icon = card.querySelector(".project-card-icon [data-icon]") as HTMLElement;
+            const projectTags = card.querySelectorAll(
+            ".project-card-tag"
+            ) as NodeListOf<HTMLElement>;
+            projectTags.forEach(function (tag) {
+                const tagColor = getComputedStyle(tag).getPropertyValue('--tag-color').trim();
+                
+                tag.addEventListener('mouseenter', () => {
+                    card.style.setProperty('--project-accent', tagColor);
+                    icon.style.setProperty('--project-accent', tagColor);
+                    console.log("TESTING", getComputedStyle(icon).getPropertyValue('--project-accent').trim());
+                });
+                tag.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--project-accent', 'var(--foreground)');
+                    icon.style.setProperty('--project-accent', 'var(--foreground)');
+                    
+                });
+                
+            });
+        });
+
+		// const postsBefore = document.querySelectorAll(
+		// 	".project-card"
+		// ) as NodeListOf<HTMLElement>;
+		// postsBefore.forEach(function (el) {
+		// 	el.style.setProperty(
+		// 		"--project-accent",
+		// 		`${el.dataset.accent as string}`
+        //         // 100%
+		// 	);
+		// 	el.style.setProperty(
+		// 		"--project-accent-border",
+		// 		`${el.dataset.accent as string}4D`
+        //         // 40%
+		// 	);
+		// 	el.style.setProperty(
+		// 		"--project-accent-glow",
+		// 		`${el.dataset.accent as string}33`
+        //         // 20%
+		// 	);
+		// });
 
         // setCardHeight();
 
 	};
+
+    // const child = document.querySelector('.child');
+    // const parent = document.querySelector('.parent');
+
+    // child.addEventListener('mouseenter', () => {
+    //     parent.style.setProperty('--your-variable', 'new-value');
+    // });
+
+    // child.addEventListener('mouseleave', () => {
+    //     parent.style.setProperty('--your-variable', 'original-value');
+    // });
 
 	attachEventListeners();
 

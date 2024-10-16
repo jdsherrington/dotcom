@@ -4,7 +4,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 
 import { slide } from "astro:transitions";
 
-const allPosts = (await Astro.glob("./projects/*.md")).sort(
+const allProjects= (await Astro.glob("./projects/*.md")).sort(
 	(b, a) => b.frontmatter.id - a.frontmatter.id
 );
 
@@ -19,18 +19,19 @@ const pageTitle = "Projects";
 			class="sm:w-[--full-w] lg:w-[--two-thirds-w] grid sm:grid-cols-1 md:grid-cols-2 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
 		>
 			{
-				allPosts.map((post) => {
+				allProjects.map((project) => {
 					return (
 						<ProjectCard
-							id={post.frontmatter.id}
-							title={post.frontmatter.title}
-							category={post.frontmatter.category}
-							description={post.frontmatter.description}
-							url={post.url}
-							tags={post.frontmatter.tags}
-							imagePath={post.frontmatter.imagePath}
-							imageAlt={post.frontmatter.imageAlt}
-							accentColor={post.frontmatter.accentColor}
+							id={project.frontmatter.id}
+							title={project.frontmatter.title}
+							category={project.frontmatter.category}
+							description={project.frontmatter.description}
+							url={project.url}
+							tags={project.frontmatter.tags}
+							iconPath={project.frontmatter.iconPath}
+							imagePath={project.frontmatter.imagePath}
+							imageAlt={project.frontmatter.imageAlt}
+							accentColor={project.frontmatter.accentColor}
 						/>
 					);
 				})

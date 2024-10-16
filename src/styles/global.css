@@ -100,26 +100,26 @@
 
 /* webkit-based browsers */
 ::-webkit-scrollbar {
-  width: 5px;
+	width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+	background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: hsl(var(--foreground)/0.2);
-  border-radius: 100px;
+	background-color: hsl(var(--foreground) / 0.2);
+	border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: hsl(var(--foreground));
+	background-color: hsl(var(--foreground));
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: hsl(var(--foreground)/0.2) transparent;
+	scrollbar-width: thin;
+	scrollbar-color: hsl(var(--foreground) / 0.2) transparent;
 }
 
 :root {
-	font-family: "Inter", sans-serif;  
+	font-family: "Inter", sans-serif;
 }
 
 html {
@@ -208,18 +208,18 @@ html {
 		--tag-border-opacity: 0.5;
 		--tag-bg-opacity: 0.15;
 
-		--tag-html: 18, 81%, 54%;
-		--tag-css: 221, 82%, 53%;
-		--tag-javascript: 52, 84%, 63%;
-		--tag-astro: 340, 72%, 55%;
-		--tag-tailwind: 182, 83%, 60%;
-		--tag-react: 189, 100%, 52%;
-		--tag-sql: 24, 98%, 67%;
-		--tag-csharp: 264, 94%, 35%;
-		--tag-dotnet: 253, 66%, 52%;
-		--tag-azure-cosmos: 210, 55%, 54%;
-		--tag-angular: 346, 100%, 38%;
-		--tag-supabase: 153, 60%, 54%;
+		--tag-html: 18 81% 54%;
+		--tag-css: 221 82% 53%;
+		--tag-javascript: 52 84% 63%;
+		--tag-astro: 340 72% 55%;
+		--tag-tailwind: 182 83% 60%;
+		--tag-react: 189 100% 52%;
+		--tag-sql: 24 98% 67%;
+		--tag-csharp: 264 94% 35%;
+		--tag-dotnet: 253 66% 52%;
+		--tag-azure-cosmos: 210 55%, 54%;
+		--tag-angular: 346 100% 38%;
+		--tag-supabase: 153 60% 54%;
 	}
 
 	:root[data-theme="dark"] {
@@ -391,16 +391,16 @@ a {
 
 /* -------------------- IMAGE LOADING SKELETONS -------------------- */
 .skeleton {
-    position: relative;
+	position: relative;
 }
 
 .skeleton::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
 	background: linear-gradient(
 		90deg,
 		hsl(var(--foreground) / 0.1) 25%,
@@ -413,8 +413,8 @@ a {
 		sweep 1s linear infinite,
 		pause 1s infinite;
 	animation-timing-function: linear, steps(1);
-    transition: opacity 500ms ease-in-out;
-    opacity: 1;
+	transition: opacity 500ms ease-in-out;
+	opacity: 1;
 }
 
 @keyframes sweep {
@@ -433,15 +433,15 @@ a {
 
 div[data-loaded] {
 	@apply skeleton;
-    transition: opacity 500ms ease-in-out;
+	transition: opacity 500ms ease-in-out;
 }
 
 .skeleton::before[data-loaded="true"] {
-    @apply opacity-0;
+	@apply opacity-0;
 }
 
 div[data-loaded] img {
-    transition: opacity 500ms ease-in-out;
+	transition: opacity 500ms ease-in-out;
 }
 
 div[data-loaded="false"] img {
@@ -457,8 +457,8 @@ div[data-loaded="true"] img {
 .blog-post {
 	@apply relative flex gap-[var(--guide-gutter)] bg-foreground/5 rounded-lg border-transparent border-[1px] hover:border-[var(--post-accent-border)] transition-all duration-150 ease-in-out;
 	--post-accent: hsl(var(--foreground));
-    --post-accent-border: hsl(var(--foreground)/0.4);
-    --post-accent-glow: hsl(var(--foreground)/0.2);
+	--post-accent-border: hsl(var(--foreground) / 0.4);
+	--post-accent-glow: hsl(var(--foreground) / 0.2);
 }
 
 .blog-post::before {
@@ -478,7 +478,6 @@ div[data-loaded="true"] img {
 .blog-post:has(a:hover)::before {
 	@apply opacity-100 duration-300;
 }
-
 
 .blog-post-img,
 .featured-post-img {
@@ -587,9 +586,9 @@ div[data-loaded="true"] img {
 /* ------------------------ BLOG PAGE STYLES ----------------------- */
 .blog-page-header {
 	@apply relative overflow-hidden bg-foreground/5 rounded-lg sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] shadow-2xl shadow-black/20;
-    --page-accent: hsl(var(--foreground));
-    --page-accent-border: hsl(var(--foreground)/0.4);
-    --page-accent-glow: hsl(var(--foreground)/0.2);
+	--page-accent: hsl(var(--foreground));
+	--page-accent-border: hsl(var(--foreground) / 0.4);
+	--page-accent-glow: hsl(var(--foreground) / 0.2);
 }
 
 .blog-page-header::before {
@@ -690,49 +689,102 @@ div[data-loaded="true"] img {
 
 /* ------------------------ PROJECT CARD STYLES ----------------------- */
 .project-card {
-	@apply relative flex flex-col gap-[var(--guide-gutter)] bg-foreground/5 rounded-lg border-transparent border-[1px] hover:border-[var(--project-accent-border)] transition-all duration-150 ease-in-out justify-items-start;
-	--project-accent: hsl(var(--foreground));
-    --project-accent-border: hsl(var(--foreground)/0.4);
-    --project-accent-glow: hsl(var(--foreground)/0.2);
+	@apply relative flex flex-col gap-[var(--guide-gutter)] rounded-lg border-[1px] border-[var(--project-accent-border)] transition-all duration-300 ease-in-out justify-items-start hover:scale-105 shadow-xl shadow-transparent hover:shadow-foreground/5;
+	background: radial-gradient(
+		circle at 150% 150%,
+		hsla(var(--foreground) / 0.1) 0%,
+		hsla(var(--foreground) / 0.025) 100%
+	);
+	--project-accent: var(--foreground);
+	--project-accent-border: hsl(var(--project-accent) / 0.025);
+	--project-accent-border-glow: hsl(var(--project-accent) / 0.5);
+    --project-accent-bg-glow: hsl(var(--project-accent) / 0.1);
 }
 
 .project-card::before {
 	@apply absolute rounded-[inherit] h-full w-full left-0 top-0 opacity-0 transition-opacity duration-500 ease-in-out pointer-events-none;
 	content: "";
 	background: radial-gradient(
-		600px circle at var(--mouse-x) var(--mouse-y),
-		var(--project-accent-glow) 0%,
-		transparent 35%
+		250px circle at var(--mouse-x) var(--mouse-y),
+		var(--project-accent-bg-glow) 0%,
+		transparent 100%
 	);
+}
+
+.project-card::after {
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	border: 1px solid transparent;
+	background: radial-gradient(
+			200px circle at var(--mouse-x) var(--mouse-y),
+			var(--project-accent-border-glow) 0%,
+			transparent 100%
+		)
+		border-box;
+	mask:
+		linear-gradient(#fff 0 0) padding-box,
+		linear-gradient(#fff 0 0);
+	mask-composite: exclude;
+	opacity: 0;
+	transition: opacity 300ms ease-in-out;
+}
+
+.project-card:hover::after {
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	border: 1px solid transparent;
+	background: radial-gradient(
+			200px circle at var(--mouse-x) var(--mouse-y),
+			var(--project-accent-border-glow) 0%,
+			transparent 100%
+		)
+		border-box;
+
+	mask:
+		linear-gradient(#fff 0 0) padding-box,
+		linear-gradient(#fff 0 0);
+	mask-composite: exclude;
+	opacity: 1;
+	transition: opacity 300ms ease-in-out;
 }
 
 .project-card:hover::before {
-	@apply opacity-40;
+	@apply opacity-50;
 }
 
-.project-card:has(a:hover)::before {
+ .project-card:has(.project-card-content .project-card-arrow-link .project-card-arrow:hover)::before {
 	@apply opacity-100 duration-300;
-}
+ }
 
 a:has(.project-card-img) {
-    @apply max-h-full sm:mt-0 sm:ml-0 md:mt-[var(--guide-gutter)] md:ml-[var(--guide-gutter)] sm:w-full sm:h-24 md:w-[var(--two-w)] md:h-[var(--two-w)] sm:rounded-t-lg sm:rounded-b-none md:rounded-lg;
+	@apply max-h-full sm:mt-0 sm:ml-0 md:mt-[var(--guide-gutter)] md:ml-[var(--guide-gutter)] sm:w-full sm:h-24 md:w-[var(--one-w)] md:h-[var(--one-w)] min-w-16 min-h-16 sm:rounded-t-lg sm:rounded-b-none md:rounded-lg;
 }
 
 .project-card-img {
-    @apply pointer-events-none w-full h-full overflow-hidden rounded-[inherit];
+	@apply pointer-events-none w-full h-full overflow-hidden rounded-[inherit];
 }
 
-.project-card-logo {
-    @apply flex sm:justify-start md:justify-center items-center w-full h-full;
-    background: radial-gradient(
+.project-card-icon {
+	@apply flex sm:justify-start md:justify-center p-3 items-center w-full h-full pointer-events-none;
+	background: radial-gradient(
 		circle at 0% 100%,
-		var(--project-accent) -50%,
-		transparent 150%
+		hsl(var(--foreground) / 0.1) -20%,
+		transparent 170%
 	);
 }
 
-.project-card-logo svg {
-    @apply fill-[hsl(var(--foreground)/0.8)] p-[calc(var(--guide-gutter)*1)] sm:ml-1 md:ml-0 md:max-w-36 max-h-full aspect-square;
+.project-card-icon [data-icon] {
+	@apply text-[2rem] sm:text-[hsl(var(--project-accent)/0.9)] md:text-[hsl(var(--project-accent)/0.6)] max-h-full aspect-square transition-colors duration-300 ease-in-out;
+}
+
+a:hover .project-card-icon [data-icon] {
+	@apply text-[hsl(var(--foreground)/0.9)];
 }
 
 /* .project-card-img img {
@@ -768,11 +820,11 @@ a:has(.project-card-img) {
 }
 
 .project-card-tags {
-	@apply h-min pb-[var(--guide-gutter)] pr-[calc(var(--guide-gutter)*2)] w-full flex flex-row flex-wrap-reverse justify-start gap-1 place-content-end;
+	@apply h-min pb-[var(--guide-gutter)] pr-[calc(var(--guide-gutter)*2)] w-full flex flex-row flex-wrap-reverse justify-start gap-0 place-content-end;
 }
 
 .project-card-tag {
-	@apply bg-foreground/5 hover:bg-foreground/10 text-foreground/40 hover:text-foreground/80 backdrop-blur-xl rounded-[250px] px-2.5 py-0.5 sm:text-3xs md:text-2xs font-mono uppercase whitespace-nowrap overflow-hidden place-self-end transition-all cursor-pointer tracking-wider;
+	@apply bg-foreground/0 hover:bg-foreground/0 text-foreground/40 hover:text-foreground/80 backdrop-blur-xl rounded-[250px] px-2.5 py-0.5 sm:text-3xs md:text-2xs font-mono uppercase whitespace-nowrap overflow-hidden place-self-end transition-all cursor-pointer tracking-wider border-2 border-transparent;
 	position: relative;
 	overflow: hidden;
 	color: hsl(var(--foreground) / 0.5);
@@ -785,17 +837,18 @@ a:has(.project-card-img) {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: hsla(var(--tag-color), 0.2); /* start with 0.5 opacity */
+	background-color: hsl(var(--tag-color)/0.2); /* start with 0.5 opacity */
 	z-index: -1;
 	transition: background-color 150ms;
 }
 
 .project-card-tag:hover::before {
-	background-color: hsla(var(--tag-color), 0.35);
+	background-color: hsl(var(--tag-color)/0.35);
+    
 }
 
 .project-card-tag:hover {
-	border-color: hsla(var(--tag-color), 0) !important;
+	border-color: transparent;
 }
 
 /* Project Card Tag Colours */
@@ -842,7 +895,7 @@ a:has(.project-card-img) {
 }
 
 .project-card-arrow {
-	@apply nav-arrow h-6 w-auto fill-foreground/20 hover:fill-[var(--project-accent)];
+	@apply nav-arrow h-6 w-auto fill-foreground/20 hover:fill-[hsl(var(--project-accent))];
 }
 
 .inline-back-arrow {
