@@ -6,8 +6,12 @@ import ThemeIcon from "./ThemeIcon.astro";
 <header
 	transition:persist="header"
 	id="header"
-	class="flex h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sticky z-40 items-start justify-center top-0"
+	class="flex relative h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sm:static md:sticky z-40 items-start justify-center top-0"
 >
+	<div
+		class="header-gradient absolute bg-[hsl(var(--page-accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full"
+	>
+	</div>
 	<nav
 		id="nav"
 		class="nav flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 px-[calc(var(--guide-gutter)*1.25)] rounded-lg"
@@ -65,11 +69,21 @@ import ThemeIcon from "./ThemeIcon.astro";
 					transition: top ease-in-out 300ms;
 				}
 
+				.header-gradient {
+					transition: all 500ms ease-in-out !important;
+					mask-image: radial-gradient(
+						ellipse at top,
+						rgba(0, 0, 0, 1) -200%,
+						rgba(0, 0, 0, 0) 75%
+					);
+				}
+
 				#nav {
 					border-color: transparent;
 					border-width: 0px;
 					border-style: solid;
 					position: relative;
+                    backdrop-filter: blur(0px);
 
 					transition:
 						border-radius ease-in-out 300ms,
@@ -83,6 +97,10 @@ import ThemeIcon from "./ThemeIcon.astro";
 
 				#header.detached {
 					top: theme("spacing.0") !important;
+				}
+
+				#header.detached .header-gradient {
+					opacity: 0;
 				}
 
 				#nav.detached {
@@ -115,7 +133,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 				}
 
 				.header-logo {
-					@apply inline-block h-9 w-auto fill-[var(--page-accent-logo)] md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
+					@apply inline-block h-9 w-auto fill-[hsl(var(--page-accent))] md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
 				}
 
 				#nav.detached .header-logo {

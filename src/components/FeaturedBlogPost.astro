@@ -17,9 +17,9 @@ const { title, description, date, url, tags, imagePath, imageAlt, accentColor } 
 	Astro.props;
 
 const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-US", {
-	year: "numeric",
+    year: "numeric",
 	month: "long",
-	day: "numeric",
+	day: "2-digit",
 });
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -33,7 +33,7 @@ if (!images[imagePath])
 ---
 
     <div transition:name=`container-${url}`
-		class="blog-post"
+		class="blog-post featured-blog-post"
 		data-accent={accentColor}
 	>
         <a href={url}>
@@ -51,7 +51,7 @@ if (!images[imagePath])
 			data-accent={accentColor}
 		></div>
 		<div
-			class="blog-post-content">
+			class="featured-post-content">
             <p class="blog-post-featured">FEATURED POST</p>
             <a href={url} class="featured-post-title">
 				<h1 transition:name=`title-${url}`
@@ -117,7 +117,7 @@ if (!images[imagePath])
 		const post = document.querySelector(
 			".featured-post-accent"
 		) as HTMLElement;
-		post.style.background = `radial-gradient(circle 250px at 100% 325%, ${post.dataset.accent} 0%, transparent 300%)`;
+		post.style.background = `radial-gradient(circle 250px at 100% 325%, hsl(${post.dataset.accent}/0.5) 0%, transparent 300%)`;
 
 		const postsBefore = document.querySelectorAll(
 			".blog-post"
@@ -126,14 +126,6 @@ if (!images[imagePath])
 			el.style.setProperty(
 				"--card-accent",
 				`${el.dataset.accent as string}`
-			);
-			el.style.setProperty(
-				"--card-accent-border",
-				`${el.dataset.accent as string}55`
-			);
-			el.style.setProperty(
-				"--card-accent-glow",
-				`${el.dataset.accent as string}33`
 			);
 		});
 	};

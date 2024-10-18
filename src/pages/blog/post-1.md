@@ -7,7 +7,7 @@ author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost1.jpg"
 imageAlt: "The first blog post"
 tags: ["astro", "blogging", "learning in public", "test tag", "123"]
-accentColor: "#9c8146"
+accentColor: "41 38% 50%"
 ---
 
 # Welcome to My Blog!

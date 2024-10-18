@@ -10,7 +10,7 @@ const { frontmatter } = Astro.props;
 const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
 	year: "numeric",
 	month: "long",
-	day: "numeric",
+	day: "2-digit",
 });
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -31,16 +31,16 @@ if (!images[frontmatter.imagePath])
 		<Image 
 			src={images[frontmatter.imagePath]()}
 			alt={frontmatter.imageAlt}
-			class="w-full sm:h-20 md:h-28 lg:h-32 object-cover rounded-lg blur-3xl -translate-y-10 pointer-events-none select-none opacity-60"
+			class="blog-page-img absolute top-0 left-0 w-full h-full object-cover rounded-lg blur-2xl scale-110 pointer-events-none select-none opacity-100"
 		/>
         <div 
-			class="blog-page-accent rounded-lg absolute bottom-0 left-0 w-full h-full sm:opacity-75 md:opacity-100 transition-all duration-300"
+			class="blog-page-accent rounded-lg absolute bottom-0 left-0 w-full h-full opacity-0 transition-all duration-300"
 			data-accent={frontmatter.accentColor}
 		>
 		</div>
 		<a href="javascript:void(0);" onclick="history.back()">
 			<svg
-				class=`nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-foreground/20 hover:fill-[var(--page-accent)] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)]`
+				class=`nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-foreground/30 hover:fill-[hsl(var(--page-accent))] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)]`
 				viewBox="0 0 492 492"
 			>
 				<g>
@@ -58,10 +58,10 @@ if (!images[frontmatter.imagePath])
 			</svg>
 		</a>
 		<div
-			class="post-details pb-[var(--guide-gutter)]"
+			class="post-details pb-[var(--guide-gutter)] sm:pt-20 md:pt-28 lg:pt-30"
 		>
 			<h1 transition:name=`title-${frontmatter.url}`
-                class="sm:text-2xl md:text-3xl font-bold mx-[var(--guide-gutter)] tracking-tight sm:leading-2xl md:leading-3xl transition-colors duration-300 text-foreground/90 transform-none sm:mb-0 md:mb-1 text-pretty">
+                class="sm:text-3xl md:text-4xl font-semibold mx-[var(--guide-gutter)] tracking-tight sm:leading-2xl md:leading-3xl transition-colors duration-300 text-foreground/90 transform-none sm:mb-0 md:mb-1 text-pretty lowercase">
 				{frontmatter.title}
 			</h1>
 			<p  transition:name=`date-${frontmatter.url}`
@@ -97,7 +97,7 @@ if (!images[frontmatter.imagePath])
     
 </BaseLayout>
 
-<script>
+<script data-astro-rerun>
 	const handleOnMouseMove = (e) => {
 		const { currentTarget: target } = e;
 
@@ -111,40 +111,35 @@ if (!images[frontmatter.imagePath])
 
 	const attachEventListeners = () => {
 		for (const post of document.querySelectorAll(".blog-page-header")) {
-			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
+			(post).onmousemove = (e) => handleOnMouseMove(e);
 		}
 
 		const pageAccent = document.querySelector(
 			".blog-page-accent"
-		) as HTMLElement;
+		);
 			pageAccent.style.background = `radial-gradient(circle 250px at 50% 200%, ${pageAccent.dataset.accent} -50%, transparent 150%)`;
 
 		const header = document.querySelector(
 			".blog-page-header"
-		) as HTMLElement;
+		);
         const html = document.querySelector(
 			"html"
-		) as HTMLElement;
-		html.style.setProperty(
+		);
+		header.style.setProperty(
 				"--page-accent",
-				`${header.dataset.accent as string}`
+				`${header.dataset.accent}`
                 // 100%
 		);
-		html.style.setProperty(
-				"--page-accent-border",
-				`${header.dataset.accent as string}4D`
-                // 30%
-		);
-		html.style.setProperty(
-				"--page-accent-glow",
-				`${header.dataset.accent as string}4D`
-                // 20%
+        html.style.setProperty(
+				"--page-accent",
+				`${header.dataset.accent}`
+                // 100%
 		);
         html.style.setProperty(
-				"--page-accent-logo",
-				`${header.dataset.accent as string}`
+				"--page-accent-gradient",
+				`${header.dataset.accent}`
+                // 100%
 		);
-
 	};
 
 	attachEventListeners();
