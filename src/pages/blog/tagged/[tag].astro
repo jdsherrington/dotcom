@@ -54,9 +54,7 @@ const filteredPosts = posts.filter((post) =>
 ---
 
 <BaseLayout pageTitle={tag}>
-	<section
-		class="sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] place-self-center"
-	>
+	<section class="sm:w-[var(--full-w)] place-self-center">
 		<div class="flex place-items-center gap-[calc(var(--guide-gutter)/2)]">
 			<a href="javascript:void(0);" onclick="history.back()">
 				<svg class="inline-back-arrow" viewBox="0 0 492 492">
@@ -94,7 +92,7 @@ const filteredPosts = posts.filter((post) =>
 		</div>
 		<div class="grid items-start mt-[var(--guide-gutter)] gap-12 pb-48">
 			<div
-				class="grid xl:grid-cols-1 grid-flow-row gap-[var(--guide-gutter)] sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)]"
+				class="sm:w-[--full-w] grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
 			>
 				{
 					posts.map((post) => (

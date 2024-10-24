@@ -86,7 +86,7 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				sans: ["Inter"],
+				sans: ["Fluent", "Inter"],
 				mono: ["JetBrainsMono"],
 				pixel: ["DepartureMono"],
 			},

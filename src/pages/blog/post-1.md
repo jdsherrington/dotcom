@@ -2,7 +2,7 @@
 layout: ../../layouts/BlogPostLayout.astro
 title: "Implementing a Custom Dark Mode in Astro"
 date: 2024-09-01
-description: "This is the first post of my new Astro blog. This text is a test to see if the text gets cut off at a certain point, or if it breaks the bounds of the cards. Let's find out!"
+description: "This is the first post of my new Astro blog."
 author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost1.jpg"
 imageAlt: "The first blog post"

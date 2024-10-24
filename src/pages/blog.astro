@@ -19,7 +19,8 @@ const pageTitle = "Blog";
 		class="grid grid-cols-[auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
 	>
 		<div
-			class="sm:w-[--full-w] lg:w-[--two-thirds-w] grid grid-cols-1 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
+			id="post-list"
+			class="sm:w-[--full-w] grid sm:grid-cols-[1fr] md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
 		>
 			<FeaturedBlogPost
 				title={featuredPost.frontmatter.title}
@@ -45,6 +46,44 @@ const pageTitle = "Blog";
 					/>
 				))
 			}
+			<!-- <div
+				class="blog-newsletter w-full h-full bg-[hsl(var(--foreground)/0.02)] border-2 border-foreground/10 rounded-lg min-h-[calc(var(--one-w)*1.5)]"
+			>
+				<span>Testing</span>
+			</div> -->
 		</div>
 	</section>
 </BaseLayout>
+
+<!-- <script>
+	function adjustColSpan() {
+		const postList = document.querySelector("#post-list") as HTMLElement;
+		const allPosts = postList.children;
+		const columns = getComputedStyle(postList)
+			.getPropertyValue("grid-template-columns")
+			.split(" ").length;
+		console.log(columns);
+
+		const spanAmount = columns - ((allPosts.length - 2) % columns);
+		console.log("Columns", columns);
+		console.log("Posts length", allPosts.length - 2);
+		console.log("LastRowItem", spanAmount);
+
+		// clear any previous col-span classes before adding new ones
+		allPosts[allPosts.length - 1].classList.remove(
+			"sm:col-span-1",
+			"md:col-span-2",
+			"md:col-span-3"
+		);
+		if (columns == 1) {
+			allPosts[allPosts.length - 1].classList.add(`sm:col-span-1`);
+		} else {
+			allPosts[allPosts.length - 1].classList.add(
+				`md:col-span-${spanAmount}`
+			);
+		}
+	}
+
+	window.addEventListener("resize", adjustColSpan);
+	window.addEventListener("load", adjustColSpan);
+</script> -->

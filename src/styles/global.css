@@ -120,19 +120,50 @@
 }
 
 :root {
-	font-family: "Inter", sans-serif;
+	@apply font-sans;
 }
 
 html {
 	--page-accent: var(--foreground);
-    --page-accent-gradient: var(--background);
+	--page-accent-gradient: var(--background);
 }
 
 @supports (font-variation-settings: normal) {
 	:root {
-		font-family: "Inter", sans-serif;
 		font-optical-sizing: auto;
 	}
+}
+
+@font-face {
+	font-family: Fluent;
+	font-style: normal;
+	font-weight: 100 400;
+	font-display: swap;
+	src: url("/fonts/Fluent-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: Fluent;
+	font-style: normal;
+	font-weight: 500 900;
+	font-display: swap;
+	src: url("/fonts/Fluent-Bold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: Fluent;
+	font-style: italic;
+	font-weight: 100 400;
+	font-display: swap;
+	src: url("/fonts/Fluent-RegularItalic.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: Fluent;
+	font-style: italic;
+	font-weight: 500 900;
+	font-display: swap;
+	src: url("/fonts/Fluent-BoldItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -165,14 +196,6 @@ html {
 	font-weight: 100 900;
 	font-display: swap;
 	src: url("/fonts/JetBrainsMonoVariable-Italic.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: DepartureMono;
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/DepartureMono-Regular.woff2") format("woff2");
 }
 
 @layer base {
@@ -454,7 +477,7 @@ div[data-loaded="true"] img {
 
 /* ------------------------ BLOG POST STYLES ----------------------- */
 .blog-post {
-	@apply relative flex sm:gap-[calc(var(--guide-gutter)*1.25)] md:gap-[var(--guide-gutter)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] hover:scale-[1.02] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center;
+	@apply relative flex sm:flex-row md:flex-col sm:gap-[calc(var(--guide-gutter)*1.25)] md:gap-[calc(var(--guide-gutter)*0.5)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] hover:scale-[1.02] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center;
 	background: radial-gradient(
 		circle at 150% 150%,
 		hsla(var(--foreground) / 0.1) 0%,
@@ -467,6 +490,14 @@ div[data-loaded="true"] img {
 	--post-accent-bg-glow: hsl(var(--post-accent) / 0.1);
 }
 
+.featured-blog-post {
+	@apply sm:col-span-1 md:col-span-2 lg:col-span-3 flex-row gap-[var(--guide-gutter)];
+    background: radial-gradient(
+		circle at 50% 0%,
+		hsla(var(--foreground) / 0.01) -50%,
+		hsla(var(--foreground) / 0.075) 125%
+	);
+}
 
 .blog-post::before {
 	@apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out pointer-events-none;
@@ -534,7 +565,7 @@ div[data-loaded="true"] img {
 	@apply pointer-events-none overflow-hidden;
 }
 
-.blog-post img {
+/* .blog-post img {
 	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit];
 	mask-image: radial-gradient(
 		circle at top left,
@@ -544,11 +575,11 @@ div[data-loaded="true"] img {
 }
 
 a:has(.featured-post-img) {
-	@apply h-[calc(100%-)] rounded-lg my-[var(--guide-gutter-offset)] ml-[calc(var(--guide-gutter-offset)-1px)] shadow-2xl shadow-transparent transition-all opacity-80 duration-300;
+	@apply h-auto rounded-lg my-[calc(var(--guide-gutter-offset)/2)] ml-[calc((var(--guide-gutter-offset)/2)-1px)] shadow-2xl shadow-transparent transition-all opacity-80 duration-300;
 }
 
 a:has(.blog-post-img) {
-	@apply h-[calc(100%-)] rounded-lg my-[var(--guide-gutter-offset)] ml-[calc(var(--guide-gutter-offset)-1px)] shadow-2xl shadow-transparent transition-all opacity-80 duration-300;
+	@apply sm:h-auto md:h-[var(--two-w)] rounded-lg sm:my-[calc(var(--guide-gutter)/2)] sm:ml-[calc((var(--guide-gutter)/2)-1px)] md:ml-[calc(var(--guide-gutter)-1px)] md:mt-[var(--guide-gutter)] shadow-2xl shadow-transparent transition-all opacity-80 duration-300;
 }
 
 a:has(.featured-post-img):hover {
@@ -571,21 +602,64 @@ a:has(.blog-post-img):hover {
     sm:h-full md:h-full lg:h-[calc(var(--four-w)-var(--guide-gutter-offset))]
     
     sm:min-h-0 md:min-h-72;
+} */
+
+a:has(.blog-post-img) {
+	@apply sm:rounded-l-lg md:rounded-lg shadow-2xl shadow-transparent transition-all opacity-80 duration-300 w-min
+    
+    sm:h-auto
+    sm:m-0
+    
+    md:mt-[var(--guide-gutter)]
+    md:mb-0
+    md:ml-[calc(var(--guide-gutter)-1px)];
+}
+
+a:has(.featured-post-img) {
+	@apply rounded-l-lg shadow-2xl shadow-transparent transition-all opacity-80 duration-300 w-min;
+}
+
+.featured-post-img {
+	@apply rounded-[inherit] 
+    
+    sm:h-full
+    sm:min-h-[var(--half-w)]
+    sm:w-[calc(var(--half-w))]
+    
+    lg:min-h-[var(--four-w)];
+}
+
+.blog-post-img {
+	@apply rounded-[inherit] 
+
+    sm:h-full
+    sm:w-[calc(var(--one-w)-1px)]
+    
+    md:h-[calc(var(--one-w))];
+}
+
+.blog-post-img img,
+.featured-post-img img {
+	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit];
 }
 
 .blog-post-accent,
 .featured-post-accent {
-	@apply rounded-lg absolute bottom-0 left-0 pointer-events-none w-full h-full sm:opacity-50 md:opacity-100;
+	@apply rounded-lg absolute bottom-0 left-0 pointer-events-none w-full h-full sm:opacity-100 md:opacity-100;
 }
 
-.blog-post-content, .featured-post-content {
+.blog-post-content,
+.featured-post-content {
 	@apply grid w-full sm:pr-[calc(var(--guide-gutter)*1)] md:pr-[var(--guide-gutter)] place-content-start content-center;
+}
+
+.blog-post-content {
+	@apply flex flex-col justify-between w-full h-full sm:pl-0 md:pl-[var(--guide-gutter)];
 }
 
 .blog-post-content * {
 	@apply max-w-full;
 }
-/* grid-cols-[subgrid] */
 
 .blog-post-featured {
 	@apply max-w-full h-min font-mono sm:text-xs md:text-sm uppercase tracking-widest place-content-start text-foreground/40 pt-[var(--guide-gutter)] pb-2;
@@ -593,28 +667,28 @@ a:has(.blog-post-img):hover {
 
 .blog-post-title,
 .featured-post-title {
-	@apply inline h-min tracking-tight mb-1 text-foreground/85 hover:text-foreground transition-colors duration-150 font-semibold text-pretty w-fit lowercase;
+	@apply inline h-min tracking-tight mb-1 text-foreground/85 hover:text-foreground transition-colors duration-150 font-semibold text-pretty w-fit;
 }
 
 .blog-post-title {
-	@apply sm:text-xl md:text-2xl mt-[calc(var(--guide-gutter)*0.85)] mb-0 sm:leading-[1.25] md:leading-[1.25];
+	@apply sm:text-xl md:text-2xl sm:mt-[calc(var(--guide-gutter)*0.85)] md:mt-0 mb-0 sm:leading-[1.25];
 }
 
 .featured-post-title {
-	@apply sm:text-3xl md:text-4xl sm:leading-[1.25] md:leading-[1.25];
+	@apply sm:text-3xl md:text-4xl sm:leading-[1.25] md:leading-[1.15];
 }
 
 .blog-post-date {
-	@apply w-auto h-min font-semibold sm:text-2xs md:text-xs uppercase tracking-widest pt-0.5 pr-4 pb-2 place-content-start text-foreground/30 transform-none font-mono;
+	@apply w-auto h-min font-semibold sm:text-2xs md:text-xs uppercase tracking-widest pt-[calc(var(--guide-gutter)*0.15)] pr-4 sm:pb-[calc(var(--guide-gutter)*0.75)] md:pb-[calc(var(--guide-gutter)*0.5)] place-content-start text-foreground/30 transform-none font-mono;
 }
 
 .blog-post-description,
 .featured-post-description {
-	@apply h-min w-auto text-xs place-content-start leading-normal text-foreground/90 md:pb-[calc(var(--guide-gutter)*0.75)] sm:mb-[var(--guide-gutter)] md:mb-0 text-pretty;
+	@apply h-min w-auto text-sm place-content-start leading-normal text-foreground/80 md:pb-[calc(var(--guide-gutter)*0.75)] sm:mb-[var(--guide-gutter)] md:mb-0 text-pretty;
 }
 
 .blog-post-description {
-	@apply sm:pr-[calc(var(--guide-gutter)*2.5)] md:sm:pr-[calc(var(--guide-gutter)*1)];
+	@apply sm:hidden md:block sm:pr-[calc(var(--guide-gutter)*2.5)] md:sm:pr-[calc(var(--guide-gutter)*1)] text-xs text-foreground/70;
 }
 
 .featured-post-description {
@@ -623,7 +697,7 @@ a:has(.blog-post-img):hover {
 
 .blog-post-tags,
 .featured-post-tags {
-	@apply h-min pr-[calc(var(--guide-gutter)*2)] w-full sm:hidden md:flex sm:mb-0 md:mb-[calc(var(--guide-gutter)*1)] flex-row flex-wrap-reverse justify-start gap-1 place-content-end;
+	@apply flex-1 h-min pr-[calc(var(--guide-gutter)*2)] w-full flex mb-[calc(var(--guide-gutter)*1)] flex-row flex-wrap-reverse justify-start gap-1 place-content-end;
 }
 
 .featured-post-tags {
@@ -635,13 +709,13 @@ a:has(.blog-post-img):hover {
 }
 
 .blog-post-tag:hover {
-    @apply hover:text-foreground/100 bg-foreground/15;
-    
+	@apply hover:text-foreground/100 bg-foreground/15;
 }
 
-.blog-post-tag:hover ~ .blog-post-tag, .blog-post-tag:has(~ .blog-post-tag:hover) {
-    color: hsl(var(--foreground)/0.5);
-    background-color: hsl(var(--foreground) / 0.06);
+.blog-post-tag:hover ~ .blog-post-tag,
+.blog-post-tag:has(~ .blog-post-tag:hover) {
+	color: hsl(var(--foreground) / 0.5);
+	background-color: hsl(var(--foreground) / 0.06);
 }
 
 .blog-post-arrow-link {
@@ -760,8 +834,7 @@ a:has(.blog-post-img):hover {
 }
 
 .post-markdown pre {
-	border-radius: var(--radius);
-	padding: 1rem;
+	@apply text-sm rounded-lg p-[var(--guide-gutter)];
 	background-color: hsla(var(--foreground) / 0.05) !important;
 }
 
@@ -783,14 +856,18 @@ a:has(.blog-post-img):hover {
 }
 /* ----------------------------------------------------------------- */
 
-/* ------------------------ PROJECT CARD STYLES ----------------------- */
-.project-card {
-	@apply relative flex sm:flex-row md:flex-col h-full p-[var(--guide-gutter)] sm:gap-[var(--guide-gutter)] md:gap-[calc(var(--guide-gutter)*0.75)] rounded-lg border border-[var(--project-accent-border)] transition-all duration-300 ease-in-out justify-items-start hover:scale-[1.02] shadow-xl shadow-transparent hover:shadow-foreground/5;
-	background: radial-gradient(
+.card {
+    @apply flex relative h-full border border-[var(--project-accent-border)] transition-all duration-300 ease-in-out rounded-lg;
+    background: radial-gradient(
 		circle at 150% 150%,
 		hsla(var(--foreground) / 0.1) 0%,
 		hsla(var(--foreground) / 0.025) 100%
 	);
+}
+
+/* ------------------------ PROJECT CARD STYLES ----------------------- */
+.project-card {
+	@apply card relative flex sm:flex-row md:flex-col h-full pt-[var(--guide-gutter)] px-0 pb-[calc(var(--guide-gutter)*0.75)] sm:gap-[var(--guide-gutter)] md:gap-[calc(var(--guide-gutter)*0.66)]   justify-items-start hover:scale-[1.02] shadow-xl shadow-transparent hover:shadow-foreground/5;
 	--project-accent: var(--foreground);
 	--project-accent-border: hsl(var(--project-accent) / 0.025);
 	--project-accent-border-glow: hsl(var(--project-accent) / 0.5);
@@ -861,7 +938,7 @@ a:has(.blog-post-img):hover {
 }
 
 a:has(.project-card-img) {
-	@apply max-h-full -ml-[1px] w-min justify-self-end sm:h-full md:h-auto rounded-lg transition-all duration-300 opacity-80 leading-none;
+	@apply max-h-full w-min justify-self-end sm:h-full md:h-auto rounded-lg transition-all duration-300 opacity-80 leading-none ml-[calc(var(--guide-gutter)-1px)];
 }
 
 a:has(.project-card-img):hover {
@@ -910,19 +987,19 @@ a:hover .project-card-icon [data-icon] {
 }
 
 .project-card-title {
-	@apply inline h-min tracking-tight text-foreground/85 hover:text-foreground transition-colors duration-150 font-semibold text-pretty w-fit sm:text-2xl md:text-3xl mb-0 sm:leading-[1.25] md:leading-[1.25];
+	@apply inline h-min tracking-tight text-foreground/85 hover:text-foreground transition-colors duration-150 font-semibold text-pretty w-fit sm:text-2xl md:text-2xl mb-0 sm:leading-[1.25] md:leading-[1.25] mx-[calc(var(--guide-gutter))];
 }
 
 .project-card-category {
-	@apply w-auto h-min font-semibold sm:text-xs md:text-xs uppercase tracking-widest pt-0 pl-[2px] pb-3 place-content-start text-foreground/50 transform-none font-mono;
+	@apply w-auto h-min font-semibold sm:text-xs md:text-xs uppercase tracking-widest pt-0 pb-3 place-content-start text-foreground/50 transform-none font-mono mx-[calc(var(--guide-gutter)+1px)];
 }
 
 .project-card-description {
-	@apply h-min w-auto text-xs place-content-start leading-normal text-foreground/90 pb-[calc(var(--guide-gutter)*0.75)] text-pretty;
+	@apply h-min w-auto text-xs place-content-start leading-normal text-foreground/70 pb-[calc(var(--guide-gutter)*0.75)] mx-[calc(var(--guide-gutter))] text-pretty;
 }
 
 .project-card-tags {
-	@apply flex-1 pr-[calc(var(--guide-gutter)*2)] w-full flex flex-row flex-wrap-reverse gap-0 self-end;
+	@apply flex-1 pr-[calc(var(--guide-gutter)*2.5)] pl-[calc(var(--guide-gutter)-2px)] w-full flex flex-row flex-wrap-reverse gap-0 self-end content-start;
 }
 
 .project-card-tag {
