@@ -83,7 +83,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 					border-width: 0px;
 					border-style: solid;
 					position: relative;
-                    backdrop-filter: blur(0px);
+					backdrop-filter: blur(0px);
 
 					transition:
 						border-radius ease-in-out 300ms,
@@ -95,15 +95,15 @@ import ThemeIcon from "./ThemeIcon.astro";
 						border-color 250ms;
 				}
 
-				#header.detached {
+				body.scrolled #header {
 					top: theme("spacing.0") !important;
 				}
 
-				#header.detached .header-gradient {
+				body.scrolled #header .header-gradient {
 					opacity: 0;
 				}
 
-				#nav.detached {
+				body.scrolled #nav {
 					@apply mt-[calc(var(--guide-gutter)/2)] sm:backdrop-blur-none md:backdrop-blur-xl sm:bg-transparent md:bg-background/50 sm:shadow-transparent md:shadow-background/50;
 				}
 
@@ -128,7 +128,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 					transition: opacity 300ms ease-in-out;
 				}
 
-				#nav.detached::before {
+				body.scrolled #nav::before {
 					@apply sm:opacity-0 md:opacity-100;
 				}
 
@@ -136,12 +136,12 @@ import ThemeIcon from "./ThemeIcon.astro";
 					@apply inline-block h-9 w-auto fill-[hsl(var(--page-accent))] md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
 				}
 
-				#nav.detached .header-logo {
+				body.scrolled #nav .header-logo {
 					@apply sm:fill-foreground/0 md:fill-foreground/80 md:hover:fill-foreground;
 				}
 			</style>
 
-			<script is:inline>
+			<!-- <script is:inline>
 				function detachHeader() {
 					const header = document.querySelector("#header"),
 						nav = document.querySelector("#nav");
@@ -161,7 +161,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 				document.addEventListener("scroll", function () {
 					detachHeader();
 				});
-			</script>
+			</script> -->
 		</div>
 	</nav>
 </header>

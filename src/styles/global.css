@@ -365,8 +365,9 @@ html {
 	}
 }
 
-* {
+*, *::before, *::after {
 	transition: background ease-in-out 0.2s;
+    box-sizing: border-box;
 }
 
 a {
@@ -466,18 +467,11 @@ div[data-loaded] {
 	transition: opacity 500ms ease-in-out;
 } */
 
-div[data-loaded="false"] img {
-	@apply opacity-0;
-}
-
-div[data-loaded="true"] img {
-	@apply opacity-100;
-}
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ BLOG POST STYLES ----------------------- */
 .blog-post {
-	@apply relative flex sm:flex-row md:flex-col sm:gap-[calc(var(--guide-gutter)*1.25)] md:gap-[calc(var(--guide-gutter)*0.5)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] hover:scale-[1.02] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center;
+	@apply relative flex sm:flex-row md:flex-col gap-[calc(var(--guide-gutter)*1)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center;
 	background: radial-gradient(
 		circle at 150% 150%,
 		hsla(var(--foreground) / 0.1) 0%,
@@ -487,25 +481,25 @@ div[data-loaded="true"] img {
 	--post-accent: var(--foreground);
 	--post-accent-border: hsl(var(--foreground) / 0.025);
 	--post-accent-border-glow: hsl(var(--post-accent) / 0.75);
-	--post-accent-bg-glow: hsl(var(--post-accent) / 0.1);
+	--post-accent-bg-glow: hsl(var(--post-accent) / 0.135);
 }
 
 .featured-blog-post {
 	@apply sm:col-span-1 md:col-span-2 lg:col-span-3 flex-row gap-[var(--guide-gutter)];
     background: radial-gradient(
-		circle at 50% 0%,
-		hsla(var(--foreground) / 0.01) -50%,
-		hsla(var(--foreground) / 0.075) 125%
+		circle at 125% 125%,
+		hsla(var(--foreground) / 0.1) 0%,
+		hsla(var(--foreground) / 0.025) 50%
 	);
 }
 
 .blog-post::before {
-	@apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out pointer-events-none;
+	@apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out pointer-events-none z-50;
 	content: "";
 	background: radial-gradient(
 		600px circle at var(--mouse-x) var(--mouse-y),
 		var(--post-accent-bg-glow) 0%,
-		transparent 35%
+		transparent 50%
 	);
 }
 
@@ -565,58 +559,20 @@ div[data-loaded="true"] img {
 	@apply pointer-events-none overflow-hidden;
 }
 
-/* .blog-post img {
-	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit];
-	mask-image: radial-gradient(
-		circle at top left,
-		rgba(0, 0, 0, 0) -50%,
-		rgba(0, 0, 0, 1) 100%
-	);
-}
-
-a:has(.featured-post-img) {
-	@apply h-auto rounded-lg my-[calc(var(--guide-gutter-offset)/2)] ml-[calc((var(--guide-gutter-offset)/2)-1px)] shadow-2xl shadow-transparent transition-all opacity-80 duration-300;
-}
-
 a:has(.blog-post-img) {
-	@apply sm:h-auto md:h-[var(--two-w)] rounded-lg sm:my-[calc(var(--guide-gutter)/2)] sm:ml-[calc((var(--guide-gutter)/2)-1px)] md:ml-[calc(var(--guide-gutter)-1px)] md:mt-[var(--guide-gutter)] shadow-2xl shadow-transparent transition-all opacity-80 duration-300;
-}
-
-a:has(.featured-post-img):hover {
-	@apply shadow-black/5 opacity-100 scale-[102%] rounded-md;
-}
-
-a:has(.blog-post-img):hover {
-	@apply shadow-black/5 opacity-100 scale-[102%] rounded-md;
-}
-
-.blog-post-img {
-	@apply rounded-[inherit] sm:w-[calc(var(--one-w)-var(--guide-gutter-offset))] md:w-[calc(var(--two-w)-var(--guide-gutter-offset))] lg:w-[calc(var(--two-w)-var(--guide-gutter-offset))]
-
-    sm:h-full md:h-full lg:h-full;
-}
-
-.featured-post-img {
-    @apply rounded-[inherit] sm:w-[calc(var(--two-w)-var(--guide-gutter-offset))] md:w-[calc(var(--four-w)-var(--guide-gutter-offset))] lg:w-[calc(var(--four-w)-var(--guide-gutter-offset))]
-    
-    sm:h-full md:h-full lg:h-[calc(var(--four-w)-var(--guide-gutter-offset))]
-    
-    sm:min-h-0 md:min-h-72;
-} */
-
-a:has(.blog-post-img) {
-	@apply sm:rounded-l-lg md:rounded-lg shadow-2xl shadow-transparent transition-all opacity-80 duration-300 w-min
+	@apply sm:rounded-l-lg md:rounded-t-lg md:rounded-b-none shadow-2xl shadow-transparent transition-all duration-300 w-min
     
     sm:h-auto
     sm:m-0
     
-    md:mt-[var(--guide-gutter)]
+    md:w-auto
+    md:mt-0
     md:mb-0
-    md:ml-[calc(var(--guide-gutter)-1px)];
+    md:ml-0;
 }
 
 a:has(.featured-post-img) {
-	@apply rounded-l-lg shadow-2xl shadow-transparent transition-all opacity-80 duration-300 w-min;
+	@apply rounded-l-lg shadow-2xl shadow-transparent transition-all duration-300 w-min;
 }
 
 .featured-post-img {
@@ -626,26 +582,32 @@ a:has(.featured-post-img) {
     sm:min-h-[var(--half-w)]
     sm:w-[calc(var(--half-w))]
     
-    lg:min-h-[var(--four-w)];
+    lg:min-h-[var(--five-w)];
 }
 
 .blog-post-img {
-	@apply rounded-[inherit] 
+	@apply rounded-[inherit]
 
     sm:h-full
     sm:w-[calc(var(--one-w)-1px)]
     
-    md:h-[calc(var(--one-w))];
+    md:max-h-36
+    md:h-[calc(var(--two-w)-1px)]
+    md:w-full;
 }
 
 .blog-post-img img,
 .featured-post-img img {
-	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit];
+	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit] transition-all duration-500 ease-in-out sm:saturate-100 md:saturate-[0.9];
+}
+
+.blog-post:hover img {
+    @apply scale-105 saturate-[1.1];
 }
 
 .blog-post-accent,
 .featured-post-accent {
-	@apply rounded-lg absolute bottom-0 left-0 pointer-events-none w-full h-full sm:opacity-100 md:opacity-100;
+	@apply rounded-lg absolute bottom-0 left-0 pointer-events-none w-full h-full sm:opacity-50 md:opacity-100;
 }
 
 .blog-post-content,
@@ -662,7 +624,7 @@ a:has(.featured-post-img) {
 }
 
 .blog-post-featured {
-	@apply max-w-full h-min font-mono sm:text-xs md:text-sm uppercase tracking-widest place-content-start text-foreground/40 pt-[var(--guide-gutter)] pb-2;
+	@apply max-w-full h-min font-mono sm:text-xs md:text-sm uppercase tracking-widest place-content-start text-foreground/50 pt-[var(--guide-gutter)] pb-[calc(var(--guide-gutter)*0.25)];
 }
 
 .blog-post-title,
@@ -671,28 +633,28 @@ a:has(.featured-post-img) {
 }
 
 .blog-post-title {
-	@apply sm:text-xl md:text-2xl sm:mt-[calc(var(--guide-gutter)*0.85)] md:mt-0 mb-0 sm:leading-[1.25];
+	@apply sm:text-lg md:text-xl sm:mt-[calc(var(--guide-gutter)*1)] md:mt-0 mb-[calc(var(--guide-gutter)*0.25)] sm:leading-[1.25];
 }
 
 .featured-post-title {
-	@apply sm:text-3xl md:text-4xl sm:leading-[1.25] md:leading-[1.15];
+	@apply sm:text-3xl md:text-4xl sm:leading-[1.25] md:leading-[1.15] mb-[calc(var(--guide-gutter)*0.25)];
 }
 
 .blog-post-date {
-	@apply w-auto h-min font-semibold sm:text-2xs md:text-xs uppercase tracking-widest pt-[calc(var(--guide-gutter)*0.15)] pr-4 sm:pb-[calc(var(--guide-gutter)*0.75)] md:pb-[calc(var(--guide-gutter)*0.5)] place-content-start text-foreground/30 transform-none font-mono;
+	@apply w-auto h-min font-semibold sm:text-2xs md:text-2xs uppercase tracking-widest pr-4 sm:pb-[calc(var(--guide-gutter)*0.75)] md:pb-[calc(var(--guide-gutter)*0.5)] pt-0 place-content-start text-foreground/50 transform-none font-mono;
 }
-
+ 
 .blog-post-description,
 .featured-post-description {
-	@apply h-min w-auto text-sm place-content-start leading-normal text-foreground/80 md:pb-[calc(var(--guide-gutter)*0.75)] sm:mb-[var(--guide-gutter)] md:mb-0 text-pretty;
+	@apply h-min w-auto place-content-start leading-[1.4] text-foreground/80 sm:mb-[var(--guide-gutter)] md:mb-[calc(var(--guide-gutter)*1)] text-pretty;
 }
 
 .blog-post-description {
-	@apply sm:hidden md:block sm:pr-[calc(var(--guide-gutter)*2.5)] md:sm:pr-[calc(var(--guide-gutter)*1)] text-xs text-foreground/70;
+	@apply sm:hidden md:line-clamp-3 sm:pr-[calc(var(--guide-gutter)*2.5)] md:sm:pr-[calc(var(--guide-gutter)*1)] text-sm text-foreground/60;
 }
 
 .featured-post-description {
-	@apply pr-[var(--guide-gutter)];
+	@apply pr-[var(--guide-gutter)] line-clamp-3 sm:text-xs md:text-sm;
 }
 
 .blog-post-tags,
@@ -740,8 +702,12 @@ a:has(.featured-post-img) {
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ BLOG PAGE STYLES ----------------------- */
+.blog-page {
+    @apply flex flex-col items-center content-start rounded-[var(--radius)] w-[var(--full-w)] relative place-self-center;
+}
+
 .blog-page-header {
-	@apply relative overflow-hidden rounded-lg sm:w-[var(--full-w)] lg:w-[var(--two-thirds-w)] shadow-2xl shadow-transparent bg-transparent;
+	@apply relative flex flex-col rounded-lg w-full bg-transparent sm:h-[calc(75dvh)] mt-0 place-content-center transition-all duration-500 ease-in-out -mb-[calc(40dvh)];
 
 	/* --page-accent: hsl(var(--foreground));
 	--page-accent-border: hsl(var(--foreground) / 0.4);
@@ -750,16 +716,16 @@ a:has(.featured-post-img) {
 	--page-accent: var(--foreground);
 	--page-accent-border: hsl(var(--foreground) / 0.025);
 	--page-accent-border-glow: hsl(var(--page-accent) / 0.75);
-	--page-accent-bg-glow: hsl(var(--page-accent) / 0.1);
+	--page-accent-bg-glow: hsl(var(--page-accent) / 0.15);
 }
 
 .blog-page-header::before {
-	@apply absolute rounded-[inherit] h-full w-full left-0 top-0 opacity-0 transition-opacity duration-500 ease-in-out pointer-events-none z-50;
+	@apply absolute rounded-[inherit] h-full w-full left-0 top-0 opacity-0 transition-opacity duration-500 ease-in-out pointer-events-none;
 	content: "";
 	background: radial-gradient(
 		600px circle at var(--mouse-x) var(--mouse-y),
 		var(--page-accent-bg-glow) 0%,
-		transparent 35%
+		transparent 50%
 	);
 }
 
@@ -771,12 +737,69 @@ a:has(.featured-post-img) {
 	@apply opacity-100 duration-300;
 }
 
+body.scrolled .blog-page-header {
+    @apply scale-150 -translate-y-40 blur-3xl opacity-50;
+}
+
 .blog-page-img {
-	mask-image: linear-gradient(
-		to top,
-		rgba(0, 0, 0, 0) 15%,
-		rgba(0, 0, 0, 1) 100%
-	);
+    @apply absolute w-full h-full object-cover object-center rounded-lg pointer-events-none select-none;
+}
+
+.blog-page-img img, .blog-page-img-blur img{
+    @apply w-full h-full object-cover object-center rounded-lg pointer-events-none select-none opacity-100;
+}
+
+.blog-page-img::after {
+    @apply absolute w-full h-full top-0 left-0 opacity-100 rounded-lg;
+    content: "";
+    background: radial-gradient(
+		circle at 100% 100%,
+		hsla(var(--background) / 0.8) 0%,
+		hsla(var(--background) / 0) 200%);
+}
+
+.blog-page-accent {
+    @apply rounded-lg absolute bottom-0 left-0 w-full h-full opacity-0 transition-all duration-300
+}
+
+.blog-page-nav-arrow {
+    @apply nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-foreground/30 hover:fill-[hsl(var(--page-accent))] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)];
+}
+
+.blog-page-details {
+    @apply flex-col justify-center place-items-center transition-opacity duration-500 ease-in-out;
+}
+
+body.scrolled .blog-page-details {
+    @apply opacity-0;
+}
+
+.blog-page-title {
+    @apply inline-block text-center sm:text-4xl md:text-5xl font-semibold mx-[var(--guide-gutter)] tracking-tight sm:leading-4xl md:leading-5xl transition-colors duration-300 text-foreground/90 transform-none sm:mb-0 md:mb-1 text-balance
+}
+
+.blog-page-date {
+    @apply blog-post-date w-min mx-[var(--guide-gutter)] mb-1;
+}
+
+.blog-page-tags {
+    @apply flex max-w-80 flex-wrap justify-center gap-1 place-content-end mx-[var(--guide-gutter)];
+}
+
+.blog-post-title-body {
+    @apply inline-block sm:text-3xl md:text-4xl font-semibold px-[var(--guide-gutter)] tracking-tight sm:leading-3xl md:leading-4xl transition-all duration-500 text-foreground transform-none sm:mb-0 md:mb-1 text-balance z-50
+}
+
+.blog-post-img-body {
+
+}
+
+.post-markdown {
+    @apply w-[var(--full-w)] max-w-[80ch] px-[var(--guide-gutter)] pt-[calc(var(--guide-gutter)*2)] opacity-0 z-50 transition-opacity duration-500 ease-in-out;
+}
+
+body.scrolled .post-markdown {
+    @apply opacity-100;
 }
 
 .post-markdown p {

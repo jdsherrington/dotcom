@@ -95,11 +95,31 @@ const { pageTitle, pageDesc } = Astro.props;
 			</div>
 		</div> -->
 		<main
-			class="flex flex-col self-center justify-self-start min-h-[var(--page-height)] justify-start items-start w-[var(--full-w)]"		>
+			class="flex flex-col self-center justify-self-start min-h-[var(--page-height)] justify-start items-start w-[var(--full-w)]"
+		>
 			<slot />
 		</main>
 		<NavFooter />
 		<Footer />
+
+		<script>
+			function detachHeader() {
+				const body = document.querySelector("body");
+				setTimeout(() => {
+					if (body) {
+						if (window.scrollY > 10) {
+							body.classList.add("scrolled");
+						} else {
+							body.classList.remove("scrolled");
+						}
+					}
+				}, 150);
+			}
+
+			document.addEventListener("scroll", function () {
+				detachHeader();
+			});
+		</script>
 
 		<script>
 			function contentChange() {
@@ -208,17 +228,17 @@ const { pageTitle, pageDesc } = Astro.props;
 		</script>
 
 		<script data-astro-rerun>
-            // Attach skeletons to loading elements
+			// Attach skeletons to loading elements
 			const observers = document.querySelectorAll(
 				'div[data-loaded="false"]'
-            );
+			);
 
 			observers.forEach((element) => {
-                element.classList.add('skeleton');
+				element.classList.add("skeleton");
 				const observer = new IntersectionObserver((entries) => {
 					entries.forEach((entry) => {
 						if (entry.isIntersecting) {
-							element.classList.remove('skeleton'); // image is loaded
+							element.classList.remove("skeleton"); // image is loaded
 							observer.unobserve(element); // stop observing once loaded
 						}
 					});

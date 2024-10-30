@@ -2,12 +2,13 @@
 layout: ../../layouts/BlogPostLayout.astro
 title: "Implementing a Custom Dark Mode in Astro"
 date: 2024-09-01
-description: "This is the first post of my new Astro blog."
+description: "This is the first post of my new Astro blog. This is a test to see how well the line clamping works, let's see how it goes!"
 author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost1.jpg"
 imageAlt: "The first blog post"
 tags: ["astro", "blogging", "learning in public", "test tag", "123"]
 accentColor: "41 38% 50%"
+wordCount: 263
 ---
 
 # Welcome to My Blog!

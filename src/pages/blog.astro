@@ -31,6 +31,7 @@ const pageTitle = "Blog";
 				imagePath={featuredPost.frontmatter.imagePath}
 				imageAlt={featuredPost.frontmatter.imageAlt}
 				accentColor={featuredPost.frontmatter.accentColor}
+				wordCount={featuredPost.frontmatter.wordCount}
 			/>
 			{
 				allPosts.map((post) => (
@@ -43,6 +44,7 @@ const pageTitle = "Blog";
 						imagePath={post.frontmatter.imagePath}
 						imageAlt={post.frontmatter.imageAlt}
 						accentColor={post.frontmatter.accentColor}
+						wordCount={post.frontmatter.wordCount}
 					/>
 				))
 			}

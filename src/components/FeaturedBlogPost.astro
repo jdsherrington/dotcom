@@ -11,16 +11,19 @@ interface Props {
 	imagePath: string;
 	imageAlt: string;
 	accentColor: string;
+    wordCount: number;
 }
 
 const { title, description, date, url, tags, imagePath, imageAlt, accentColor } =
 	Astro.props;
 
-const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-US", {
+const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-AU", {
     year: "numeric",
-	month: "long",
+	month: "short",
 	day: "2-digit",
 });
+
+const readTime = Math.round(Astro.props.wordCount / 250);
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}"
@@ -60,7 +63,7 @@ if (!images[imagePath])
 				</h1>
             </a>
             <p transition:name=`date-${url}` class="blog-post-date">
-				{formattedDate}
+				{formattedDate} — {readTime} min read
 			</p>
 			<p transition:name=`description-${url}`
 				class="featured-post-description"
