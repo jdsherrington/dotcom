@@ -255,6 +255,12 @@ html {
 		--foreground: var(--theme-hue) var(--theme-saturation)
 			var(--theme-lightness);
 
+		--header: color-mix(
+			in srgb,
+			hsl(var(--foreground) / 0.05),
+			hsl(var(--background) / 1)
+		);
+
 		--css-background: var(--theme-hue), var(--theme-saturation),
 			var(--theme-darkness);
 		--css-foreground: var(--theme-hue), var(--theme-saturation),
@@ -299,6 +305,12 @@ html {
 			var(--theme-lightness);
 		--foreground: var(--theme-hue) var(--theme-saturation)
 			var(--theme-darkness);
+
+		--header: color-mix(
+			in srgb,
+			hsl(var(--foreground) / 0.05),
+			hsl(var(--background) / 1)
+		);
 
 		--css-background: var(--theme-hue), var(--theme-saturation),
 			var(--theme-lightness);
@@ -365,9 +377,11 @@ html {
 	}
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
 	transition: background ease-in-out 0.2s;
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 a {
@@ -471,7 +485,8 @@ div[data-loaded] {
 
 /* ------------------------ BLOG POST STYLES ----------------------- */
 .blog-post {
-	@apply relative flex sm:flex-row md:flex-col gap-[calc(var(--guide-gutter)*1)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center;
+	@apply relative flex sm:flex-row md:flex-col sm:gap-[calc(var(--guide-gutter)*1)] md:gap-[calc(var(--guide-gutter)*0.9)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center
+    sm:max-w-[var(--full-w)] md:max-w-none;
 	background: radial-gradient(
 		circle at 150% 150%,
 		hsla(var(--foreground) / 0.1) 0%,
@@ -486,7 +501,7 @@ div[data-loaded] {
 
 .featured-blog-post {
 	@apply sm:col-span-1 md:col-span-2 lg:col-span-3 flex-row gap-[var(--guide-gutter)];
-    background: radial-gradient(
+	background: radial-gradient(
 		circle at 125% 125%,
 		hsla(var(--foreground) / 0.1) 0%,
 		hsla(var(--foreground) / 0.025) 50%
@@ -602,7 +617,7 @@ a:has(.featured-post-img) {
 }
 
 .blog-post:hover img {
-    @apply scale-105 saturate-[1.1];
+	@apply scale-105 saturate-[1.1];
 }
 
 .blog-post-accent,
@@ -633,7 +648,7 @@ a:has(.featured-post-img) {
 }
 
 .blog-post-title {
-	@apply sm:text-lg md:text-xl sm:mt-[calc(var(--guide-gutter)*1)] md:mt-0 mb-[calc(var(--guide-gutter)*0.25)] sm:leading-[1.25];
+	@apply sm:text-xl md:text-2xl sm:mt-[calc(var(--guide-gutter)*1)] md:mt-0 mb-[calc(var(--guide-gutter)*0.25)] sm:leading-[1.25];
 }
 
 .featured-post-title {
@@ -643,7 +658,7 @@ a:has(.featured-post-img) {
 .blog-post-date {
 	@apply w-auto h-min font-semibold sm:text-2xs md:text-2xs uppercase tracking-widest pr-4 sm:pb-[calc(var(--guide-gutter)*0.75)] md:pb-[calc(var(--guide-gutter)*0.5)] pt-0 place-content-start text-foreground/50 transform-none font-mono;
 }
- 
+
 .blog-post-description,
 .featured-post-description {
 	@apply h-min w-auto place-content-start leading-[1.4] text-foreground/80 sm:mb-[var(--guide-gutter)] md:mb-[calc(var(--guide-gutter)*1)] text-pretty;
@@ -703,7 +718,7 @@ a:has(.featured-post-img) {
 
 /* ------------------------ BLOG PAGE STYLES ----------------------- */
 .blog-page {
-    @apply flex flex-col items-center content-start rounded-[var(--radius)] w-[var(--full-w)] relative place-self-center;
+	@apply flex flex-col items-center content-start rounded-[var(--radius)] w-[var(--full-w)] relative place-self-center;
 }
 
 .blog-page-header {
@@ -738,68 +753,69 @@ a:has(.featured-post-img) {
 }
 
 body.scrolled .blog-page-header {
-    @apply scale-150 -translate-y-40 blur-3xl opacity-50;
+	@apply scale-150 -translate-y-40 blur-3xl opacity-50;
 }
 
 .blog-page-img {
-    @apply absolute w-full h-full object-cover object-center rounded-lg pointer-events-none select-none;
+	@apply absolute w-full h-full object-cover object-center rounded-lg pointer-events-none select-none;
 }
 
-.blog-page-img img, .blog-page-img-blur img{
-    @apply w-full h-full object-cover object-center rounded-lg pointer-events-none select-none opacity-100;
+.blog-page-img img,
+.blog-page-img-blur img {
+	@apply w-full h-full object-cover object-center rounded-lg pointer-events-none select-none opacity-100;
 }
 
 .blog-page-img::after {
-    @apply absolute w-full h-full top-0 left-0 opacity-100 rounded-lg;
-    content: "";
-    background: radial-gradient(
+	@apply absolute w-full h-full top-0 left-0 opacity-100 rounded-lg;
+	content: "";
+	background: radial-gradient(
 		circle at 100% 100%,
 		hsla(var(--background) / 0.8) 0%,
-		hsla(var(--background) / 0) 200%);
+		hsla(var(--background) / 0) 200%
+	);
 }
 
 .blog-page-accent {
-    @apply rounded-lg absolute bottom-0 left-0 w-full h-full opacity-0 transition-all duration-300
+	@apply rounded-lg absolute bottom-0 left-0 w-full h-full opacity-0 transition-all duration-300;
 }
 
 .blog-page-nav-arrow {
-    @apply nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-foreground/30 hover:fill-[hsl(var(--page-accent))] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)];
+	@apply nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-foreground/30 hover:fill-[hsl(var(--page-accent))] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)];
 }
 
 .blog-page-details {
-    @apply flex-col justify-center place-items-center transition-opacity duration-500 ease-in-out;
+	@apply flex-col justify-center place-items-center transition-opacity duration-500 ease-in-out;
 }
 
 body.scrolled .blog-page-details {
-    @apply opacity-0;
+	@apply opacity-0;
 }
 
 .blog-page-title {
-    @apply inline-block text-center sm:text-4xl md:text-5xl font-semibold mx-[var(--guide-gutter)] tracking-tight sm:leading-4xl md:leading-5xl transition-colors duration-300 text-foreground/90 transform-none sm:mb-0 md:mb-1 text-balance
+	@apply inline-block text-center sm:text-4xl md:text-5xl font-semibold mx-[var(--guide-gutter)] tracking-tight sm:leading-4xl md:leading-5xl transition-colors duration-300 text-foreground/90 transform-none sm:mb-0 md:mb-1 text-balance;
 }
 
 .blog-page-date {
-    @apply blog-post-date w-min mx-[var(--guide-gutter)] mb-1;
+	@apply blog-post-date w-min mx-[var(--guide-gutter)] mb-1;
 }
 
 .blog-page-tags {
-    @apply flex max-w-80 flex-wrap justify-center gap-1 place-content-end mx-[var(--guide-gutter)];
+	@apply flex max-w-80 flex-wrap justify-center gap-1 place-content-end mx-[var(--guide-gutter)];
 }
 
 .blog-post-title-body {
-    @apply inline-block sm:text-3xl md:text-4xl font-semibold px-[var(--guide-gutter)] tracking-tight sm:leading-3xl md:leading-4xl transition-all duration-500 text-foreground transform-none sm:mb-0 md:mb-1 text-balance z-50
+	@apply inline-block sm:text-3xl md:text-4xl font-semibold px-[var(--guide-gutter)] tracking-tight sm:leading-3xl md:leading-4xl transition-all duration-500 text-foreground transform-none sm:mb-0 md:mb-1 text-balance z-50;
 }
 
 .blog-post-img-body {
-
 }
 
 .post-markdown {
-    @apply w-[var(--full-w)] max-w-[80ch] px-[var(--guide-gutter)] pt-[calc(var(--guide-gutter)*2)] opacity-0 z-50 transition-opacity duration-500 ease-in-out;
+	@apply w-[var(--full-w)] max-w-[80ch] px-[var(--guide-gutter)] pt-[calc(var(--guide-gutter)*2)] opacity-0 z-50 transition-opacity duration-500 ease-in-out;
 }
 
 body.scrolled .post-markdown {
-    @apply opacity-100;
+	@apply opacity-100;
 }
 
 .post-markdown p {
@@ -880,8 +896,8 @@ body.scrolled .post-markdown {
 /* ----------------------------------------------------------------- */
 
 .card {
-    @apply flex relative h-full border border-[var(--project-accent-border)] transition-all duration-300 ease-in-out rounded-lg;
-    background: radial-gradient(
+	@apply flex relative h-full border border-[var(--project-accent-border)] transition-all duration-300 ease-in-out rounded-lg;
+	background: radial-gradient(
 		circle at 150% 150%,
 		hsla(var(--foreground) / 0.1) 0%,
 		hsla(var(--foreground) / 0.025) 100%
@@ -1101,4 +1117,8 @@ a:hover .project-card-icon [data-icon] {
 
 .inline-back-arrow {
 	@apply nav-arrow inline-block h-5 w-auto fill-foreground/50 hover:fill-foreground/100 mr-[calc(var(--guide-gutter)/2)] mb-[4px];
+}
+
+.view-transition.wrapper {
+	z-index: 1 !important;
 }

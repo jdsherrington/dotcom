@@ -35,7 +35,15 @@ const { pageTitle, pageDesc } = Astro.props;
 			crossorigin
 		/>
 
+		<style is:global>
+			html::view-transition,
+			html::view-transition * {
+				z-index: 1 !important;
+			}
+		</style>
+
 		<ViewTransitions />
+
 		<script is:inline>
 			// Determines the initial theme, based on user preferences
 			function currentTheme() {
@@ -70,8 +78,9 @@ const { pageTitle, pageDesc } = Astro.props;
 			});
 		</script>
 	</head>
+
 	<body class="flex flex-col min-h-dvh w-dvw overflow-x-hidden">
-		<Header />
+		<Header transition:persist />
 		<!-- <div
 			id="grid-guide-container"
 			class="fixed flex h-dvh w-dvw top-0 left-0 z-30 justify-center items-center pointer-events-none"
@@ -95,6 +104,7 @@ const { pageTitle, pageDesc } = Astro.props;
 			</div>
 		</div> -->
 		<main
+			transition:name="main-content"
 			class="flex flex-col self-center justify-self-start min-h-[var(--page-height)] justify-start items-start w-[var(--full-w)]"
 		>
 			<slot />
@@ -102,15 +112,15 @@ const { pageTitle, pageDesc } = Astro.props;
 		<NavFooter />
 		<Footer />
 
-		<script>
+		<script data-astro-rerun>
 			function detachHeader() {
-				const body = document.querySelector("body");
+				const header = document.querySelector("#header");
 				setTimeout(() => {
-					if (body) {
+					if (header) {
 						if (window.scrollY > 10) {
-							body.classList.add("scrolled");
+							header.classList.add("scrolled");
 						} else {
-							body.classList.remove("scrolled");
+							header.classList.remove("scrolled");
 						}
 					}
 				}, 150);
@@ -118,6 +128,10 @@ const { pageTitle, pageDesc } = Astro.props;
 
 			document.addEventListener("scroll", function () {
 				detachHeader();
+			});
+
+			document.addEventListener("astro:before-swap", (event) => {
+				event;
 			});
 		</script>
 
@@ -138,33 +152,17 @@ const { pageTitle, pageDesc } = Astro.props;
 								return;
 							} else {
 								// If the user is not at the top, prevent the default action and scroll to the top
+
 								event.preventDefault();
-								window.scrollTo({ top: 0, behavior: "smooth" });
+								// window.scrollTo({ top: 0, behavior: "smooth" });
 							}
 						}
 					});
 				});
 			}
-			document.addEventListener("DOMContentLoaded", contentChange);
-		</script>
 
-		<script>
-			function setActiveLink() {
-				const currentPath =
-					"/" + window.location.pathname.split("/")[1];
-
-				// Remove active class from all links
-				document.querySelectorAll(".nav-button > a").forEach((link) => {
-					if (link.getAttribute("href") == currentPath) {
-						link.classList.add("active-link");
-					} else {
-						link.classList.remove("active-link");
-					}
-				});
-			}
-
-			document.addEventListener("astro:after-swap", setActiveLink);
-			document.addEventListener("DOMContentLoaded", setActiveLink);
+			document.addEventListener("astro:after-swap", contentChange);
+			document.addEventListener("astro:page-load", contentChange);
 		</script>
 
 		<script>

@@ -1,37 +1,21 @@
----
-// import Hamburger from "./Hamburger.astro";
-import ThemeIcon from "./ThemeIcon.astro";
----
-
-<header
-	transition:persist="header"
-	id="header"
-	class="flex relative h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sm:static md:sticky z-40 items-start justify-center top-0"
->
-	<div
-		class="header-gradient absolute bg-[hsl(var(--page-accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full"
-	>
-	</div>
-	<nav
-		id="nav"
-		class="nav flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 px-[calc(var(--guide-gutter)*1.25)] rounded-lg"
-	>
-		<a href="/">
+<header transition:persist="header" id="header" class="header">
+	<div class="header-gradient"></div>
+	<nav id="nav" class="nav">
+		<a href="/" class="isolate">
 			<svg class="header-logo" viewBox="0 0 61 32">
 				<path
+					id="logo"
 					d="M 58.625 25.724 C 57.138 26.002 55.709 25.023 55.43 23.537 L 54.172 16.81 C 53.893 15.324 54.873 13.894 56.359 13.615 C 57.846 13.337 59.275 14.317 59.554 15.803 L 60.812 22.529 C 61.091 24.016 60.111 25.445 58.625 25.724 Z M 55.352 8.234 C 53.865 8.512 52.436 7.533 52.157 6.046 L 51.654 3.356 C 51.376 1.87 52.355 0.44 53.842 0.162 C 55.327 -0.116 56.758 0.863 57.036 2.349 L 57.54 5.04 C 57.817 6.526 56.838 7.956 55.352 8.234 Z M 48.617 31.774 C 47.131 32.052 45.701 31.073 45.422 29.588 L 44.668 25.551 C 44.39 24.065 45.369 22.635 46.856 22.356 C 48.34 22.078 49.771 23.059 50.049 24.543 L 50.805 28.58 C 51.083 30.066 50.103 31.496 48.617 31.774 Z M 45.848 16.975 C 44.362 17.254 42.932 16.274 42.654 14.789 L 41.646 9.406 C 41.368 7.92 42.348 6.49 43.834 6.212 C 45.319 5.934 46.75 6.913 47.028 8.4 L 48.035 13.781 C 48.313 15.266 47.334 16.697 45.848 16.975 Z M 36.344 25.717 C 34.857 25.994 33.427 25.015 33.149 23.529 L 29.373 3.348 C 29.095 1.863 30.074 0.433 31.559 0.155 C 33.045 -0.123 34.475 0.855 34.753 2.342 L 38.53 22.522 C 38.809 24.008 37.83 25.438 36.344 25.717 Z M 26.336 31.767 C 24.849 32.045 23.42 31.065 23.141 29.579 L 19.365 9.399 C 19.087 7.913 20.066 6.483 21.551 6.205 C 23.038 5.927 24.467 6.906 24.746 8.392 L 28.523 28.572 C 28.801 30.059 27.822 31.489 26.336 31.767 Z M 14.062 25.709 C 12.575 25.987 11.146 25.008 10.867 23.522 L 7.09 3.34 C 6.812 1.855 7.793 0.424 9.278 0.146 C 10.764 -0.132 12.194 0.848 12.472 2.334 L 16.249 22.514 C 16.527 24.001 15.548 25.43 14.062 25.709 Z M 4.054 31.759 C 2.567 32.037 1.138 31.059 0.86 29.572 L 0.104 25.536 C -0.174 24.05 0.806 22.62 2.292 22.342 C 3.777 22.063 5.208 23.043 5.486 24.529 L 6.242 28.565 C 6.519 30.051 5.54 31.481 4.054 31.759 Z"
 				></path>
 			</svg>
 		</a>
 
-		<div class="items-center gap-1 nav-button sm:hidden md:flex">
-			<a class="group" href="/blog">Blog</a>
-			<a class="group" href="/projects">Projects</a>
-			<a class="group" href="/resources">Resources</a>
-			<a class="theme-toggle">
+		<div class="nav-items">
+			<a class="nav-button" href="/blog">Blog</a>
+			<a class="nav-button" href="/projects">Projects</a>
+			<a class="nav-button" href="/resources">Resources</a>
+			<a class="nav-button theme-toggle">
 				<svg
-					width="24"
-					height="24"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -63,105 +47,185 @@ import ThemeIcon from "./ThemeIcon.astro";
 					></path>
 				</svg>
 			</a>
-
-			<style>
-				#header {
-					transition: top ease-in-out 300ms;
-				}
-
-				.header-gradient {
-					transition: all 500ms ease-in-out !important;
-					mask-image: radial-gradient(
-						ellipse at top,
-						rgba(0, 0, 0, 1) -200%,
-						rgba(0, 0, 0, 0) 75%
-					);
-				}
-
-				#nav {
-					border-color: transparent;
-					border-width: 0px;
-					border-style: solid;
-					position: relative;
-					backdrop-filter: blur(0px);
-
-					transition:
-						border-radius ease-in-out 300ms,
-						margin ease-out 200ms,
-						padding ease-in-out 300ms,
-						height 600ms,
-						box-shadow ease-in-out 300ms,
-						background-color 250ms,
-						border-color 250ms;
-				}
-
-				body.scrolled #header {
-					top: theme("spacing.0") !important;
-				}
-
-				body.scrolled #header .header-gradient {
-					opacity: 0;
-				}
-
-				body.scrolled #nav {
-					@apply mt-[calc(var(--guide-gutter)/2)] sm:backdrop-blur-none md:backdrop-blur-xl sm:bg-transparent md:bg-background/50 sm:shadow-transparent md:shadow-background/50;
-				}
-
-				#nav::before {
-					content: "";
-					pointer-events: none;
-					position: absolute;
-					inset: 0;
-					border-radius: inherit;
-					border: 1px solid transparent;
-					background: linear-gradient(
-							180deg,
-							transparent,
-							hsl(var(--foreground) / 0.075)
-						)
-						border-box;
-					mask:
-						linear-gradient(#fff 0 0) padding-box,
-						linear-gradient(#fff 0 0);
-					mask-composite: exclude;
-					opacity: 0;
-					transition: opacity 300ms ease-in-out;
-				}
-
-				body.scrolled #nav::before {
-					@apply sm:opacity-0 md:opacity-100;
-				}
-
-				.header-logo {
-					@apply inline-block h-9 w-auto fill-[hsl(var(--page-accent))] md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50;
-				}
-
-				body.scrolled #nav .header-logo {
-					@apply sm:fill-foreground/0 md:fill-foreground/80 md:hover:fill-foreground;
-				}
-			</style>
-
-			<!-- <script is:inline>
-				function detachHeader() {
-					const header = document.querySelector("#header"),
-						nav = document.querySelector("#nav");
-					setTimeout(() => {
-						if (header && nav) {
-							if (window.scrollY > 10) {
-								header.classList.add("detached");
-								nav.classList.add("detached");
-							} else {
-								header.classList.remove("detached");
-								nav.classList.remove("detached");
-							}
-						}
-					}, 150);
-				}
-
-				document.addEventListener("scroll", function () {
-					detachHeader();
-				});
-			</script> -->
+			<div class="nav-button-underline"></div>
+			<div class="nav-button-hover"></div>
 		</div>
 	</nav>
 </header>
+
+<style>
+	#header {
+		@apply flex relative h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sm:static md:sticky items-start justify-center top-0;
+		transition: top ease-in-out 300ms;
+		z-index: 1000 !important;
+	}
+
+	#header.scrolled {
+		top: 0px !important;
+	}
+
+	.header-gradient {
+		@apply absolute bg-[hsl(var(--page-accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full transition-all duration-500 ease-in-out;
+		mask-image: radial-gradient(
+			ellipse at top,
+			rgba(0, 0, 0, 1) -200%,
+			rgba(0, 0, 0, 0) 75%
+		);
+	}
+
+	#header.scrolled .header-gradient {
+		opacity: 0;
+	}
+
+	.nav {
+		@apply flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] rounded-lg backdrop-blur-none;
+
+		border-color: transparent;
+		border-width: 0px;
+		border-style: solid;
+		position: relative;
+		z-index: 1000 !important;
+
+		transition:
+			border-radius ease-in-out 300ms,
+			margin ease-out 200ms,
+			padding ease-in-out 300ms,
+			height 600ms,
+			box-shadow ease-in-out 300ms,
+			background-color 250ms,
+			border-color 250ms,
+			backdrop-filter 200ms ease-in-out;
+	}
+
+	#header.scrolled .nav {
+		@apply mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent md:bg-[var(--header)] sm:shadow-transparent md:shadow-background/50 sm:backdrop-blur-none md:backdrop-blur-2xl;
+	}
+
+	.nav::after {
+		@apply pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent opacity-0 transition-opacity duration-300 ease-in-out;
+		content: "";
+		background: linear-gradient(
+				180deg,
+				transparent,
+				hsl(var(--foreground) / 0.05)
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+	}
+
+	#header.scrolled .nav::after {
+		@apply sm:opacity-0 md:opacity-100;
+	}
+
+	.header-logo {
+		@apply inline-block h-9 w-auto md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50 fill-[hsl(var(--page-accent))];
+	}
+
+	#header.scrolled .header-logo {
+		@apply sm:fill-foreground/0 md:fill-foreground/100;
+	}
+
+	.nav-items {
+		@apply items-center gap-0 sm:hidden md:flex relative;
+	}
+
+	.nav-items .nav-button {
+		@apply font-mono uppercase text-sm pb-[calc(0.5rem-2px)] pt-2 px-4 text-foreground/70;
+	}
+
+	.nav-items .theme-toggle {
+		@apply font-mono uppercase text-sm pb-2.5 pt-2 px-2.5 text-foreground/70;
+	}
+
+	.nav-items .theme-toggle svg {
+		@apply w-[24px] h-[20px];
+	}
+
+	.nav-button.active {
+		color: hsl(var(--foreground)) !important;
+	}
+
+	.nav-button-underline {
+		@apply opacity-0 bg-transparent h-full absolute top-0 left-0 border-b border-foreground/50 pointer-events-none transition-all duration-200 ease-in-out;
+	}
+
+	.nav-button-hover {
+		@apply bg-foreground/5 h-full absolute top-0 pointer-events-none rounded-lg opacity-0;
+	}
+</style>
+
+<script>
+	function setActiveLink() {
+		const underline = document.querySelector(
+			".nav-button-underline"
+		) as HTMLElement;
+		const hover = document.querySelector(
+			".nav-button-hover"
+		) as HTMLElement;
+
+		const currentPath = "/" + window.location.pathname.split("/")[1];
+
+		// Remove active class from all links
+		document.querySelectorAll(".nav a").forEach((btn) => {
+			btn.classList.remove("active");
+			if (btn.getAttribute("href") === currentPath) {
+				btn.classList.add("active");
+			}
+			// btn.addEventListener("click", () => {
+			// 	const newPage = btn.getAttribute("href") as string;
+			//     sessionStorage.setItem("oldPage", currentPath)
+			// 	sessionStorage.setItem("newPage", newPage);
+			// });
+		});
+
+		const activeButton = document.querySelector(
+			".nav-button.active"
+		) as HTMLElement;
+		if (activeButton) {
+			const activeRect = activeButton.getBoundingClientRect();
+
+			underline.style.width = `${activeRect.width - 32}px`;
+			underline.style.left = `${activeButton.offsetLeft + 16}px`;
+			underline.style.opacity = "1";
+		} else {
+			underline.style.opacity = "0";
+		}
+
+		const navItems = document.querySelector(".nav-items") as HTMLElement;
+		navItems.addEventListener("mouseenter", () => {
+			hover.style.transition = "opacity 0.2s ease";
+			setTimeout(() => {
+				hover.style.transition =
+					"transform 0.2s ease, width 0.2s ease, opacity 0.2s ease";
+			}, 100);
+		});
+		navItems.addEventListener("mouseleave", () => {
+			hover.style.transition = "opacity 0.2s ease";
+		});
+
+		document.querySelectorAll(".nav-button").forEach((button) => {
+			const btn = button as HTMLElement;
+			btn.addEventListener("mouseenter", () => {
+				const btnRect = btn.getBoundingClientRect();
+				const parentRect = btn.parentElement!.getBoundingClientRect();
+
+				hover.style.width = `${btnRect.width}px`;
+				hover.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+
+				requestAnimationFrame(() => {
+					hover.style.opacity = "1";
+					hover.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+				});
+			});
+
+			btn.addEventListener("mouseleave", () => {
+				hover.style.opacity = "0";
+			});
+		});
+	}
+
+	document.addEventListener("astro:page-load", setActiveLink);
+</script>
