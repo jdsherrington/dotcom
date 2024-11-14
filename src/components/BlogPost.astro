@@ -12,9 +12,10 @@ interface Props {
 	imageAlt: string;
 	accentColor: string;
     wordCount: number;
+    type: string;
 }
 
-const { title, description, date, url, tags, imagePath, imageAlt, accentColor } =
+const { title, description, date, url, tags, imagePath, imageAlt, accentColor, type } =
 	Astro.props;
 
 const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-AU", {
@@ -38,6 +39,7 @@ if (!images[imagePath])
     <div transition:name=`container-${url}`
     class="blog-post"
     data-accent={accentColor}
+    data-type={type}
 >
     <a href={url}>
         <div class="blog-post-img" data-loaded="false">  
@@ -59,6 +61,8 @@ if (!images[imagePath])
     <div
         class="blog-post-content"
     >
+
+        <p class="blog-post-featured">FEATURED POST</p>
     
         <a href={url} class="blog-post-title">
             <h1 transition:name=`title-${url}`>{title}</h1>
@@ -155,6 +159,9 @@ if (!images[imagePath])
 			el.style.background = `radial-gradient(circle at 0% 30%, hsl(${el.dataset.accent}) -350%, transparent 70%)`;
 		});
 
+        const featuredPost = document.querySelector(".blog-post[data-type='featured'] .blog-post-accent") as HTMLElement;
+        featuredPost.style.background = `radial-gradient(circle 250px at 100% 325%, hsl(${featuredPost.dataset.accent}/0.5) 0%, transparent 300%)`;
+
 		const postsBefore = document.querySelectorAll(
 			".blog-post"
 		) as NodeListOf<HTMLElement>;
@@ -164,8 +171,6 @@ if (!images[imagePath])
 				`${el.dataset.accent as string}`
             )
 		});
-
-		// setPostHeight();
 	};
 
 	attachEventListeners();
@@ -173,6 +178,4 @@ if (!images[imagePath])
 	document.addEventListener("astro:after-swap", () => {
 		attachEventListeners();
 	});
-
-	// window.addEventListener("resize", setPostHeight);
 </script>

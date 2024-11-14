@@ -6,7 +6,7 @@ description: "This is the first post of my new Astro blog. This is a test to see
 author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost1.jpg"
 imageAlt: "The first blog post"
-tags: ["astro", "blogging", "learning in public", "test tag", "123"]
+tags: ["astro", "blogging", "learning in public", "test tag"]
 accentColor: "41 38% 50%"
 wordCount: 263
 ---

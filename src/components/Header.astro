@@ -1,6 +1,6 @@
 <header transition:persist="header" id="header" class="header">
 	<div class="header-gradient"></div>
-	<nav id="nav" class="nav">
+	<nav>
 		<a href="/" class="isolate">
 			<svg class="header-logo" viewBox="0 0 61 32">
 				<path
@@ -54,13 +54,13 @@
 </header>
 
 <style>
-	#header {
+	header {
 		@apply flex relative h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sm:static md:sticky items-start justify-center top-0;
 		transition: top ease-in-out 300ms;
 		z-index: 1000 !important;
 	}
 
-	#header.scrolled {
+	header.scrolled {
 		top: 0px !important;
 	}
 
@@ -73,11 +73,11 @@
 		);
 	}
 
-	#header.scrolled .header-gradient {
+	header.scrolled .header-gradient {
 		opacity: 0;
 	}
 
-	.nav {
+	nav {
 		@apply flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] rounded-lg backdrop-blur-none;
 
 		border-color: transparent;
@@ -97,11 +97,11 @@
 			backdrop-filter 200ms ease-in-out;
 	}
 
-	#header.scrolled .nav {
+	header.scrolled nav {
 		@apply mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent md:bg-[var(--header)] sm:shadow-transparent md:shadow-background/50 sm:backdrop-blur-none md:backdrop-blur-2xl;
 	}
 
-	.nav::after {
+	nav::after {
 		@apply pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent opacity-0 transition-opacity duration-300 ease-in-out;
 		content: "";
 		background: linear-gradient(
@@ -116,7 +116,7 @@
 		mask-composite: exclude;
 	}
 
-	#header.scrolled .nav::after {
+	header.scrolled nav::after {
 		@apply sm:opacity-0 md:opacity-100;
 	}
 
@@ -124,7 +124,7 @@
 		@apply inline-block h-9 w-auto md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50 fill-[hsl(var(--page-accent))];
 	}
 
-	#header.scrolled .header-logo {
+	header.scrolled .header-logo {
 		@apply sm:fill-foreground/0 md:fill-foreground/100;
 	}
 
@@ -169,7 +169,7 @@
 		const currentPath = "/" + window.location.pathname.split("/")[1];
 
 		// Remove active class from all links
-		document.querySelectorAll(".nav a").forEach((btn) => {
+		document.querySelectorAll("nav a").forEach((btn) => {
 			btn.classList.remove("active");
 			if (btn.getAttribute("href") === currentPath) {
 				btn.classList.add("active");

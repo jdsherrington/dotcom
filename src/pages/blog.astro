@@ -3,11 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FeaturedBlogPost from "../components/FeaturedBlogPost.astro";
 import BlogPost from "../components/BlogPost.astro";
 
-import { slide } from "astro:transitions";
-
-// import { getCollection } from "astro:content";
-// const allPosts = await getCollection("posts");
-
 const [featuredPost, ...allPosts] = (await Astro.glob("./blog/*.md")).sort(
 	(a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
 );
@@ -15,51 +10,53 @@ const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-	<section
-		class="grid grid-cols-[auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
-	>
-		<div
-			id="post-list"
-			class="sm:w-[--full-w] grid sm:grid-cols-[1fr] md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
-		>
-			<FeaturedBlogPost
-				title={featuredPost.frontmatter.title}
-				description={featuredPost.frontmatter.description}
-				date={featuredPost.frontmatter.date}
-				url={featuredPost.url}
-				tags={featuredPost.frontmatter.tags}
-				imagePath={featuredPost.frontmatter.imagePath}
-				imageAlt={featuredPost.frontmatter.imageAlt}
-				accentColor={featuredPost.frontmatter.accentColor}
-				wordCount={featuredPost.frontmatter.wordCount}
-			/>
-			{
-				allPosts.map((post) => (
-					<BlogPost
-						title={post.frontmatter.title}
-						description={post.frontmatter.description}
-						date={post.frontmatter.date}
-						url={post.url}
-						tags={post.frontmatter.tags}
-						imagePath={post.frontmatter.imagePath}
-						imageAlt={post.frontmatter.imageAlt}
-						accentColor={post.frontmatter.accentColor}
-						wordCount={post.frontmatter.wordCount}
-					/>
-				))
-			}
-			<!-- <div
-				class="blog-newsletter w-full h-full bg-[hsl(var(--foreground)/0.02)] border-2 border-foreground/10 rounded-lg min-h-[calc(var(--one-w)*1.5)]"
-			>
-				<span>Testing</span>
-			</div> -->
-		</div>
+	<section id="blog-posts">
+		<BlogPost
+			title={featuredPost.frontmatter.title}
+			description={featuredPost.frontmatter.description}
+			date={featuredPost.frontmatter.date}
+			url={featuredPost.url}
+			tags={featuredPost.frontmatter.tags}
+			imagePath={featuredPost.frontmatter.imagePath}
+			imageAlt={featuredPost.frontmatter.imageAlt}
+			accentColor={featuredPost.frontmatter.accentColor}
+			wordCount={featuredPost.frontmatter.wordCount}
+			type="featured"
+		/>
+		{
+			allPosts.map((post) => (
+				<BlogPost
+					title={post.frontmatter.title}
+					description={post.frontmatter.description}
+					date={post.frontmatter.date}
+					url={post.url}
+					tags={post.frontmatter.tags}
+					imagePath={post.frontmatter.imagePath}
+					imageAlt={post.frontmatter.imageAlt}
+					accentColor={post.frontmatter.accentColor}
+					wordCount={post.frontmatter.wordCount}
+					type="standard"
+				/>
+			))
+		}
+		<div id="empty-blog-post" class="card"></div>
 	</section>
 </BaseLayout>
 
-<!-- <script>
-	function adjustColSpan() {
-		const postList = document.querySelector("#post-list") as HTMLElement;
+<style>
+	#blog-posts {
+		@apply grid sm:grid-cols-[1fr] md:grid-cols-2 lg:grid-cols-3 grid-flow-row w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96;
+	}
+
+	#empty-blog-post {
+		@apply opacity-25;
+		--project-accent-border: transparent;
+	}
+</style>
+
+<script>
+	function adjustEmptyPost() {
+		const postList = document.querySelector("#blog-posts") as HTMLElement;
 		const allPosts = postList.children;
 		const columns = getComputedStyle(postList)
 			.getPropertyValue("grid-template-columns")
@@ -86,6 +83,6 @@ const pageTitle = "Blog";
 		}
 	}
 
-	window.addEventListener("resize", adjustColSpan);
-	window.addEventListener("load", adjustColSpan);
-</script> -->
+	window.addEventListener("resize", adjustEmptyPost);
+	window.addEventListener("load", adjustEmptyPost);
+</script>

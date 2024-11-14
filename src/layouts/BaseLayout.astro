@@ -1,18 +1,17 @@
 ---
-import Header from "../components/Header.astro";
+import "@/styles/global.css";
+
+import Header from "@/components/Header.astro";
 import NavFooter from "@/components/NavFooter.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
+import Footer from "@/components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
-import { fade } from "astro:transitions";
 
 const { pageTitle, pageDesc } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
-		<meta charset="utf-8 " />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
@@ -20,230 +19,132 @@ const { pageTitle, pageDesc } = Astro.props;
 		<meta name="title" content={pageTitle} />
 		<meta name="description" content={pageDesc} />
 
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
 		<link
 			rel="preload"
-			href="/fonts/InterVariable.woff2"
+			href="/fonts/Fluent-Regular.woff2"
 			as="font"
 			type="font/woff2"
-			crossorigin
+			crossorigin="anonymous"
 		/>
+
+		<link
+			rel="preload"
+			href="/fonts/Fluent-Bold.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin="anonymous"
+		/>
+
 		<link
 			rel="preload"
 			href="/fonts/JetBrainsMonoVariable.woff2"
 			as="font"
 			type="font/woff2"
-			crossorigin
+			crossorigin="anonymous"
 		/>
 
-		<style is:global>
-			html::view-transition,
-			html::view-transition * {
-				z-index: 1 !important;
-			}
-		</style>
-
 		<ViewTransitions />
-
-		<script is:inline>
-			// Determines the initial theme, based on user preferences
-			function currentTheme() {
-				const storedTheme = localStorage.getItem("theme");
-				if (storedTheme) {
-					return storedTheme;
-				}
-				return window.matchMedia("(prefers-color-scheme: light)")
-					.matches
-					? "light"
-					: "dark";
-			}
-
-			// Updates the site with the correct theme
-			function updateTheme() {
-				const theme = currentTheme();
-				localStorage.setItem("theme", theme);
-				document.documentElement.setAttribute("data-theme", theme);
-			}
-
-			// Immediately invoke function before content and styles load
-			updateTheme();
-
-			// Updates site theme on page transition
-			document.addEventListener("astro:before-swap", (ev) => {
-				const theme = currentTheme();
-				localStorage.setItem("theme", theme);
-				ev.newDocument.documentElement.setAttribute(
-					"data-theme",
-					theme
-				);
-			});
-		</script>
 	</head>
 
-	<body class="flex flex-col min-h-dvh w-dvw overflow-x-hidden">
-		<Header transition:persist />
-		<!-- <div
-			id="grid-guide-container"
-			class="fixed flex h-dvh w-dvw top-0 left-0 z-30 justify-center items-center pointer-events-none"
-		>
-			<div
-				id="grid-guide"
-				class="relative grid h-dvh top-0 left-0 z-30 justify-stretch"
-			>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div> -->
-		<main
-			transition:name="main-content"
-			class="flex flex-col self-center justify-self-start min-h-[var(--page-height)] justify-start items-start w-[var(--full-w)]"
-		>
+	<body>
+		<Header />
+		<main>
 			<slot />
 		</main>
 		<NavFooter />
 		<Footer />
-
-		<script data-astro-rerun>
-			function detachHeader() {
-				const header = document.querySelector("#header");
-				setTimeout(() => {
-					if (header) {
-						if (window.scrollY > 10) {
-							header.classList.add("scrolled");
-						} else {
-							header.classList.remove("scrolled");
-						}
-					}
-				}, 150);
-			}
-
-			document.addEventListener("scroll", function () {
-				detachHeader();
-			});
-
-			document.addEventListener("astro:before-swap", (event) => {
-				event;
-			});
-		</script>
-
-		<script>
-			function contentChange() {
-				// Causes a scroll to top when clicking the nav link for the current page
-				function isSamePage(link) {
-					return (
-						link.pathname === window.location.pathname &&
-						link.search === window.location.search
-					);
-				}
-				document.querySelectorAll(".nav-button a").forEach((link) => {
-					link.addEventListener("click", (event) => {
-						if (isSamePage(link)) {
-							if (window.scrollY === 0) {
-								// If the user is already at the top, allow the default action (page reload)
-								return;
-							} else {
-								// If the user is not at the top, prevent the default action and scroll to the top
-
-								event.preventDefault();
-								// window.scrollTo({ top: 0, behavior: "smooth" });
-							}
-						}
-					});
-				});
-			}
-
-			document.addEventListener("astro:after-swap", contentChange);
-			document.addEventListener("astro:page-load", contentChange);
-		</script>
-
-		<script>
-			document.addEventListener("astro:page-load", () => {
-				const images = document.querySelectorAll("img");
-
-				images.forEach((image) => {
-					image.addEventListener("load", () => {
-						image.classList.add("loaded");
-					});
-
-					if (image.complete) {
-						image.classList.add("loaded");
-					}
-				});
-			});
-		</script>
-
-		<script>
-			function getCurrentTheme() {
-				const storedTheme = localStorage.getItem("theme");
-				if (storedTheme) {
-					return storedTheme;
-				}
-				return window.matchMedia("(prefers-color-scheme: light)")
-					.matches
-					? "light"
-					: "dark";
-			}
-
-			function setToggles() {
-				const themeToggles = document.querySelectorAll(".theme-toggle");
-				console.log(themeToggles);
-
-				function toggleTheme() {
-					console.log("THEME SWITCHED");
-					const newTheme =
-						getCurrentTheme() == "light" ? "dark" : "light";
-					console.log(newTheme);
-					localStorage.setItem("theme", newTheme);
-					document
-						.querySelector("html")
-						?.setAttribute("data-theme", newTheme);
-				}
-
-				themeToggles.forEach(function (toggle) {
-					toggle.removeEventListener("click", toggleTheme);
-					toggle.addEventListener("click", toggleTheme);
-				});
-			}
-
-			document.addEventListener("astro:after-swap", function () {
-				const theme = getCurrentTheme();
-				localStorage.setItem("theme", theme);
-				document
-					.querySelector("html")
-					?.setAttribute("data-theme", theme);
-			});
-
-			setToggles();
-		</script>
-
-		<script data-astro-rerun>
-			// Attach skeletons to loading elements
-			const observers = document.querySelectorAll(
-				'div[data-loaded="false"]'
-			);
-
-			observers.forEach((element) => {
-				element.classList.add("skeleton");
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							element.classList.remove("skeleton"); // image is loaded
-							observer.unobserve(element); // stop observing once loaded
-						}
-					});
-				});
-
-				observer.observe(element);
-			});
-		</script>
 	</body>
 </html>
+
+<style>
+	body {
+		@apply flex flex-col;
+	}
+
+	main {
+		@apply self-center;
+	}
+</style>
+
+<!-- Theme Switching -->
+<script is:inline>
+	(function setToggles() {
+		const toggleTheme = () => {
+			const theme =
+				localStorage.getItem("theme") === "light" ? "dark" : "light";
+			localStorage.setItem("theme", theme);
+			document.documentElement.setAttribute("data-theme", theme);
+		};
+
+		document.querySelectorAll(".theme-toggle").forEach((btn) => {
+			btn.removeEventListener("click", toggleTheme);
+			btn.addEventListener("click", toggleTheme);
+		});
+
+		document.addEventListener("astro:after-swap", () => {
+			document.documentElement.setAttribute(
+				"data-theme",
+				localStorage.getItem("theme")
+			);
+		});
+	})();
+
+	const applyTheme = (theme, document) =>
+		document.documentElement.setAttribute("data-theme", theme);
+
+	(function updateTheme() {
+		const theme =
+			localStorage.getItem("theme") ||
+			(window.matchMedia("(prefers-color-scheme: light)").matches
+				? "light"
+				: "dark");
+		localStorage.setItem("theme", theme);
+		applyTheme(theme, document);
+	})();
+
+	document.addEventListener("astro:before-swap", (ev) => {
+		applyTheme(localStorage.getItem("theme"), ev.newDocument);
+	});
+</script>
+
+<!-- Add "On Scroll" Logic -->
+<script is:inline>
+	const header = document.querySelector("header");
+	const setScrolled = () =>
+		setTimeout(() => {
+			header?.classList.toggle("scrolled", window.scrollY > 10);
+		}, 150);
+
+	document.addEventListener("scroll", setScrolled);
+	document.addEventListener("astro:before-swap", setScrolled);
+</script>
+
+<!-- Display Images When Loaded -->
+<script>
+	document.addEventListener("astro:page-load", () => {
+		document.querySelectorAll("img").forEach((image) => {
+			image.onload = () => image.classList.add("loaded");
+			if (image.complete) image.classList.add("loaded");
+		});
+	});
+</script>
+
+<!-- Attach Skeletons To Loading Images -->
+<script data-astro-rerun>
+	document.querySelectorAll('div[data-loaded="false"]').forEach((element) => {
+		element.classList.add("skeleton");
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					element.classList.remove("skeleton");
+					observer.unobserve(element);
+				}
+			});
+		});
+
+		observer.observe(element);
+	});
+</script>

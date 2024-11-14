@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import BlogPost from "../../../components/BlogPost.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogPost from "@/components/BlogPost.astro";
 
 export async function getStaticPaths() {
 	const allPosts = (await Astro.glob("../*.md")).sort(
@@ -45,6 +45,7 @@ const {
 			imagePath: string;
 			imageAlt: string;
 			accentColor: string;
+            type: string;
 		};
 	}[];
 } = Astro.props;
@@ -105,6 +106,7 @@ const filteredPosts = posts.filter((post) =>
 							imagePath={post.frontmatter.imagePath}
 							imageAlt={post.frontmatter.imageAlt}
 							accentColor={post.frontmatter.accentColor}
+							type="standard"
 						/>
 					))
 				}
