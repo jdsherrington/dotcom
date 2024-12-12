@@ -62,11 +62,8 @@
 
 	header::after {
 		content: "";
-		@apply absolute w-full sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] md:h-full top-0 left-0 bg-background/75 backdrop-blur-md sm:opacity-100 md:opacity-100;
-		mask-image: linear-gradient(
-			rgba(0, 0, 0, 1) 0%,
-			rgba(0, 0, 0, 0) 100%
-		);
+		@apply absolute w-full sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] md:h-full top-0 left-0 bg-background/75 backdrop-blur-md sm:opacity-100 md:opacity-100 pointer-events-none;
+		mask-image: linear-gradient(rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 	}
 
 	header.scrolled {
@@ -88,7 +85,7 @@
 	}
 
 	nav {
-		@apply flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] rounded-lg backdrop-blur-none;
+		@apply flex items-center sm:justify-center md:justify-between h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] shadow-2xl shadow-transparent m-[calc(var(--guide-gutter)/2)] mt-[calc(var(--guide-gutter))] mb-0 pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] rounded-lg backdrop-blur-none pointer-events-auto;
 
 		border-color: transparent;
 		border-width: 0px;
