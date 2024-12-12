@@ -42,7 +42,7 @@ if (!images[imagePath])
     data-type={type}
 >
     <a href={url}>
-        <div class="blog-post-img" data-loaded="false">  
+        <div transition:name=`image${url}` class="blog-post-img" data-loaded="false">  
             <Image
                 transition:name=`image-${url}`
                 src={images[imagePath]()} 
@@ -103,79 +103,60 @@ if (!images[imagePath])
 
 
 <script>
-	// function getContentHeight(post: HTMLElement) {
-    //     const minHeight = 0;
-	// 	const contentHeight = post.querySelectorAll(
-	// 		".blog-post-title, .blog-post-title, .blog-post-date, .blog-post-description, .blog-post-tags"
-	// 	) as NodeListOf<HTMLElement>;
-	// 	let totalHeight = 0;
+    const handleOnMouseMove = (e: MouseEvent) => {
+    const target = e.currentTarget as HTMLElement;
 
-	// 	contentHeight.forEach((element) => {
-	// 		const style = window.getComputedStyle(element);
-	// 		const elementHeight = element.offsetHeight;
-	// 		const marginTop = parseFloat(style.marginTop);
-	// 		const marginBottom = parseFloat(style.marginBottom);
-	// 		totalHeight += elementHeight + marginTop + marginBottom;
-	// 	});
-        
-    //     if (totalHeight < minHeight) {
-    //         totalHeight = minHeight;
-    //     }
-	// 	return totalHeight;
-	// }
+    if (!target) return;
 
-	// function setPostHeight() {
-	// 	const allposts: NodeListOf<HTMLElement> =
-	// 		document.querySelectorAll(".blog-post");
-	// 	allposts.forEach((post) => {
-	// 		const height = getContentHeight(post);
-	// 		const img = post.querySelector(".blog-post-img") as HTMLElement;
-	// 		if (img) {
-	// 			img.style.height = `${height}px`;
-	// 		}
-	// 	});
-	// }
+    const rect = target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-	const handleOnMouseMove = (e) => {
-		const { currentTarget: target } = e;
+    target.style.setProperty("--mouse-x", `${x}px`);
+    target.style.setProperty("--mouse-y", `${y}px`);
+};
 
-		const rect = target.getBoundingClientRect(),
-			x = e.clientX - rect.left,
-			y = e.clientY - rect.top;
+const attachEventListeners = () => {
+    // Add mousemove event listeners to blog posts
+    document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
+        post.onmousemove = (e) => handleOnMouseMove(e);
+    });
 
-		target.style.setProperty("--mouse-x", `${x}px`);
-		target.style.setProperty("--mouse-y", `${y}px`);
-	};
+    // Style blog-post accents
+    const accentPosts = document.querySelectorAll<HTMLElement>(".blog-post-accent");
+    accentPosts.forEach((el) => {
+        const accent = el.dataset.accent;
+        if (accent) {
+            el.style.background = `radial-gradient(circle at 0% 30%, hsl(${accent}) -350%, transparent 70%)`;
+        }
+    });
 
-	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".blog-post")) {
-			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
-		}
+    // Style featured post accent
+    const featuredPost = document.querySelector<HTMLElement>(".blog-post[data-type='featured'] .blog-post-accent");
+    if (featuredPost) {
+        const accent = featuredPost.dataset.accent;
+        if (accent) {
+            featuredPost.style.background = `radial-gradient(circle 250px at 100% 325%, hsl(${accent}/0.5) 0%, transparent 300%)`;
+        }
+    }
 
-		const posts = document.querySelectorAll(
-			".blog-post-accent"
-		) as NodeListOf<HTMLElement>;
-		posts.forEach(function (el) {
-			el.style.background = `radial-gradient(circle at 0% 30%, hsl(${el.dataset.accent}) -350%, transparent 70%)`;
-		});
+    // Set post accents
+    document.querySelectorAll<HTMLElement>(".blog-post").forEach((el) => {
+        const accent = el.dataset.accent;
+        if (accent) {
+            el.style.setProperty("--post-accent", `${accent}`);
+        }
+    });
+};
 
-        const featuredPost = document.querySelector(".blog-post[data-type='featured'] .blog-post-accent") as HTMLElement;
-        featuredPost.style.background = `radial-gradient(circle 250px at 100% 325%, hsl(${featuredPost.dataset.accent}/0.5) 0%, transparent 300%)`;
+// Attach initial event listeners
+attachEventListeners();
 
-		const postsBefore = document.querySelectorAll(
-			".blog-post"
-		) as NodeListOf<HTMLElement>;
-		postsBefore.forEach(function (el) {
-			el.style.setProperty(
-				"--post-accent",
-				`${el.dataset.accent as string}`
-            )
-		});
-	};
+document.addEventListener("astro:page-load", () => {
+    attachEventListeners();
+});
 
-	attachEventListeners();
-
-	document.addEventListener("astro:after-swap", () => {
-		attachEventListeners();
-	});
+document.addEventListener("astro:after-swap", () => {
+    attachEventListeners();
+});
 </script>

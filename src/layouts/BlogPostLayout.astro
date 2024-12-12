@@ -19,25 +19,87 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}"
 );
 
-if (!images[frontmatter.imagePath])
+if (!images[frontmatter.imagePath]) {
 	throw new Error(
 		`"${frontmatter.imagePath}" does not exist in glob: "src/assets/blog/posts/*"`
 	);
+}
+
+
+const rawContent = Astro.slots.has("default") ? await Astro.slots.render("default") : "";
+
+const headingRegex = /<h([1-2])[^>]*>(.*?)<\/h\1>/gi;
+const headings = [];
+let match;
+
+while ((match = headingRegex.exec(rawContent)) !== null) {
+  const headingLevel = `${match[1]}`;
+  const headingText = match[2].trim();
+  headings.push([headingLevel, headingText]);
+}
+
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-	<div transition:name=`container-${frontmatter.url}` class="blog-page">
-        <div class="blog-page-header" data-accent={frontmatter.accentColor}>
-            <div class="blog-page-img">
+	<div class="blog-page" data-accent={frontmatter.accentColor}>
+        <div transition:name=`image${frontmatter.url}` class="blog-page-img">
                 <Image 
                 src={images[frontmatter.imagePath]()}
                 alt={frontmatter.imageAlt}/>
+        </div>
+        <div class="blog-page-content">
+            <div class="blog-page-panel">
+                <div class="blog-page-details" transition:name=`container${frontmatter.url}`>
+                    <div 
+                    class="blog-page-accent"
+                    data-accent={frontmatter.accentColor}>
+                    </div>
+                    <div class="blog-page-details-img">
+                        <Image 
+                        src={images[frontmatter.imagePath]()}
+                        alt={frontmatter.imageAlt}/>
+                    </div>
+                    <h1 transition:name=`title-${frontmatter.url}` class="blog-page-title">
+                            {frontmatter.title}
+                    </h1>
+                    <p  transition:name=`date-${frontmatter.url}` class="blog-page-date">
+                        {formattedDate} — {readTime} min read
+                    </p>
+                    <div transition:name=`tags-${frontmatter.url}` class="blog-page-tags"
+                    >
+                        {
+                            frontmatter.tags?.map((tag: any) => (
+                                <a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
+                                    class:list={[
+                                        tag.toLowerCase().replaceAll(" ", "-"),
+                                        "blog-post-tag",
+                                    ]}
+                                >
+                                    {tag}
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div class="blog-page-toc">
+                    <ul>
+                        {
+                            headings.map(([level, text]) => (
+                                <a href={`#${text.replace(/\s+/g, "-").toLowerCase()}`}>
+                                    <li class={`toc-${level}`}>
+                                        {text}
+                                    </li>
+                                </a>
+                            ))
+                        }
+                    </ul>
+                </div>
             </div>
-            <div 
-                class="blog-page-accent"
-                data-accent={frontmatter.accentColor}>
+            <div class="post-markdown">
+                <slot />
             </div>
-            <a href="javascript:void(0);" onclick="history.back()">
+        </div>
+        <a href="javascript:void(0);" onclick="history.back()">
                 <svg
                     class="blog-page-nav-arrow"
                     viewBox="0 0 492 492"
@@ -56,46 +118,7 @@ if (!images[frontmatter.imagePath])
                     </g>
                 </svg>
             </a>
-            <div class="blog-page-details">
-                <h1 transition:name=`title-${frontmatter.url}` class="blog-page-title">
-                    {frontmatter.title}
-                </h1>
-                <p  transition:name=`date-${frontmatter.url}` class="blog-page-date">
-                    {formattedDate} — {readTime} min read
-                </p>
-                <div transition:name=`tags-${frontmatter.url}` class="blog-page-tags"
-                >
-                    {
-                        frontmatter.tags?.map((tag: any) => (
-                            <a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
-                                class:list={[
-                                    tag.toLowerCase().replaceAll(" ", "-"),
-                                    "blog-post-tag",
-                                ]}
-                            >
-                                {tag}
-                            </a>
-                        ))
-                    }
-                </div>
-                
-            </div>
-        </div>
-        <!-- <div class="blog-post-img-body">
-            <Image 
-                src={images[frontmatter.imagePath]()}
-                alt={frontmatter.imageAlt}/>
-        </div>
-            <h1 class="blog-post-title-body">
-                    {frontmatter.title}
-                </h1> -->
-        <div class="post-markdown">
-            <slot />
-        </div>
 	</div>
-    
-        
-    
     
 </BaseLayout>
 
@@ -112,7 +135,7 @@ if (!images[frontmatter.imagePath])
 	};
 
 	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".blog-page-header")) {
+		for (const post of document.querySelectorAll(".blog-page-details")) {
 			(post).onmousemove = (e) => handleOnMouseMove(e);
 		}
 
@@ -121,25 +144,25 @@ if (!images[frontmatter.imagePath])
 		);
 			pageAccent.style.background = `radial-gradient(circle 250px at 50% 200%, ${pageAccent.dataset.accent} -50%, transparent 150%)`;
 
-		const header = document.querySelector(
-			".blog-page-header"
+		const page = document.querySelector(
+			".blog-page"
 		);
         const html = document.querySelector(
 			"html"
 		);
-		header.style.setProperty(
+		page.style.setProperty(
 				"--page-accent",
-				`${header.dataset.accent}`
+				`${page.dataset.accent}`
                 // 100%
 		);
         html.style.setProperty(
 				"--page-accent",
-				`${header.dataset.accent}`
+				`${page.dataset.accent}`
                 // 100%
 		);
         html.style.setProperty(
 				"--page-accent-gradient",
-				`${header.dataset.accent}`
+				`${page.dataset.accent}`
                 // 100%
 		);
 	};

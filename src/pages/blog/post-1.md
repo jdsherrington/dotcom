@@ -11,7 +11,7 @@ accentColor: "41 38% 50%"
 wordCount: 263
 ---
 
-# Welcome to My Blog!
+# Welcome to My Blog
 
 Welcome to my personal blog where I share **insights**, _opinions_, and stories about _technology_, **life**, and everything in between.
 

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import FeaturedBlogPost from "../components/FeaturedBlogPost.astro";
 import BlogPost from "../components/BlogPost.astro";
 
 const [featuredPost, ...allPosts] = (await Astro.glob("./blog/*.md")).sort(
@@ -39,7 +38,6 @@ const pageTitle = "Blog";
 				/>
 			))
 		}
-		<div id="empty-blog-post" class="card"></div>
 	</section>
 </BaseLayout>
 
@@ -47,42 +45,4 @@ const pageTitle = "Blog";
 	#blog-posts {
 		@apply grid sm:grid-cols-[1fr] md:grid-cols-2 lg:grid-cols-3 grid-flow-row w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96;
 	}
-
-	#empty-blog-post {
-		@apply opacity-25;
-		--project-accent-border: transparent;
-	}
 </style>
-
-<script>
-	function adjustEmptyPost() {
-		const postList = document.querySelector("#blog-posts") as HTMLElement;
-		const allPosts = postList.children;
-		const columns = getComputedStyle(postList)
-			.getPropertyValue("grid-template-columns")
-			.split(" ").length;
-		console.log(columns);
-
-		const spanAmount = columns - ((allPosts.length - 2) % columns);
-		console.log("Columns", columns);
-		console.log("Posts length", allPosts.length - 2);
-		console.log("LastRowItem", spanAmount);
-
-		// clear any previous col-span classes before adding new ones
-		allPosts[allPosts.length - 1].classList.remove(
-			"sm:col-span-1",
-			"md:col-span-2",
-			"md:col-span-3"
-		);
-		if (columns == 1) {
-			allPosts[allPosts.length - 1].classList.add(`sm:col-span-1`);
-		} else {
-			allPosts[allPosts.length - 1].classList.add(
-				`md:col-span-${spanAmount}`
-			);
-		}
-	}
-
-	window.addEventListener("resize", adjustEmptyPost);
-	window.addEventListener("load", adjustEmptyPost);
-</script>

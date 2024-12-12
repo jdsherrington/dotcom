@@ -112,13 +112,28 @@ const { pageTitle, pageDesc } = Astro.props;
 <!-- Add "On Scroll" Logic -->
 <script is:inline>
 	const header = document.querySelector("header");
-	const setScrolled = () =>
+	const setHeaderScrolled = () =>
 		setTimeout(() => {
 			header?.classList.toggle("scrolled", window.scrollY > 10);
 		}, 150);
 
-	document.addEventListener("scroll", setScrolled);
-	document.addEventListener("astro:before-swap", setScrolled);
+	document.addEventListener("scroll", setHeaderScrolled);
+	document.addEventListener("astro:before-swap", setHeaderScrolled);
+</script>
+
+<script is:inline>
+	const setBodyScrolled = () => {
+		let body = document.querySelector("body");
+		setTimeout(() => {
+			body?.classList.toggle("scrolled", window.scrollY > 300);
+		}, 150);
+	};
+
+	document.removeEventListener("astro:scroll", setBodyScrolled);
+	document.removeEventListener("astro:before-swap", setBodyScrolled);
+
+	document.addEventListener("scroll", setBodyScrolled);
+	document.addEventListener("astro:before-swap", setBodyScrolled);
 </script>
 
 <!-- Display Images When Loaded -->

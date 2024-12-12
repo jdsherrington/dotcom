@@ -55,9 +55,18 @@
 
 <style>
 	header {
-		@apply flex relative h-[1px] mb-[calc(var(--nav-height)+var(--guide-gutter)*2)] sm:static md:sticky items-start justify-center top-0;
+		@apply flex h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] sticky items-start justify-center top-0 pointer-events-none;
 		transition: top ease-in-out 300ms;
 		z-index: 1000 !important;
+	}
+
+	header::after {
+		content: "";
+		@apply absolute w-full sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] md:h-full top-0 left-0 bg-background/75 backdrop-blur-md sm:opacity-100 md:opacity-100;
+		mask-image: linear-gradient(
+			rgba(0, 0, 0, 1) 0%,
+			rgba(0, 0, 0, 0) 100%
+		);
 	}
 
 	header.scrolled {
@@ -65,16 +74,17 @@
 	}
 
 	.header-gradient {
-		@apply absolute bg-[hsl(var(--page-accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full transition-all duration-500 ease-in-out;
+		@apply absolute bg-[hsl(var(--page-accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full transition-all duration-200 ease-in-out;
 		mask-image: radial-gradient(
 			ellipse at top,
 			rgba(0, 0, 0, 1) -200%,
 			rgba(0, 0, 0, 0) 75%
 		);
+		z-index: 1001;
 	}
 
 	header.scrolled .header-gradient {
-		opacity: 0;
+		opacity: 0.5;
 	}
 
 	nav {
@@ -84,7 +94,7 @@
 		border-width: 0px;
 		border-style: solid;
 		position: relative;
-		z-index: 1000 !important;
+		z-index: 1002 !important;
 
 		transition:
 			border-radius ease-in-out 300ms,
@@ -106,8 +116,8 @@
 		content: "";
 		background: linear-gradient(
 				180deg,
-				transparent,
-				hsl(var(--foreground) / 0.05)
+				hsl(var(--foreground) / 0.08) 0%,
+				hsl(var(--foreground) / 0.03) 100%
 			)
 			border-box;
 		mask:
@@ -137,7 +147,7 @@
 	}
 
 	.nav-items .theme-toggle {
-		@apply font-mono uppercase text-sm pb-2.5 pt-2 px-2.5 text-foreground/70;
+		@apply font-mono uppercase text-sm pb-2.5 pt-2 px-3 text-foreground/70;
 	}
 
 	.nav-items .theme-toggle svg {
