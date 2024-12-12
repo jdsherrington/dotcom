@@ -36,11 +36,10 @@ if (!images[imagePath])
 	);
 ---
 
-    <div transition:name=`container-${url}`
-    class="blog-post"
-    data-accent={accentColor}
-    data-type={type}
->
+<div transition:name=`container-${url}`
+class="blog-post card"
+data-accent={accentColor}
+data-type={type}>
     <a href={url}>
         <div transition:name=`image${url}` class="blog-post-img" data-loaded="false">  
             <Image
@@ -51,17 +50,14 @@ if (!images[imagePath])
             />
         </div>
     </a>
-
     <div
         transition:name=`accent-${url}`
-        class="blog-post-accent"
+        class="card-accent"
         data-accent={accentColor}
     ></div>
-
     <div
         class="blog-post-content"
     >
-
         <p class="blog-post-featured">FEATURED POST</p>
     
         <a href={url} class="blog-post-title">
@@ -122,29 +118,33 @@ const attachEventListeners = () => {
         post.onmousemove = (e) => handleOnMouseMove(e);
     });
 
-    // Style blog-post accents
-    const accentPosts = document.querySelectorAll<HTMLElement>(".blog-post-accent");
-    accentPosts.forEach((el) => {
-        const accent = el.dataset.accent;
-        if (accent) {
-            el.style.background = `radial-gradient(circle at 0% 30%, hsl(${accent}) -350%, transparent 70%)`;
-        }
-    });
+    // // Style blog-post accents
+    // const accentPosts = document.querySelectorAll<HTMLElement>(".blog-post-accent");
+    // accentPosts.forEach((el) => {
+    //     const accent = el.dataset.accent;
+    //     if (accent) {
+    //         el.style.background = `radial-gradient(circle at 0% 30%, hsl(${accent}) -350%, transparent 70%)`;
+    //     }
+    // });
 
     // Style featured post accent
-    const featuredPost = document.querySelector<HTMLElement>(".blog-post[data-type='featured'] .blog-post-accent");
-    if (featuredPost) {
-        const accent = featuredPost.dataset.accent;
-        if (accent) {
-            featuredPost.style.background = `radial-gradient(circle 250px at 100% 325%, hsl(${accent}/0.5) 0%, transparent 300%)`;
-        }
+    const featuredCard = document.querySelector<HTMLElement>(".card[data-type='featured']");
+    if (featuredCard) {
+        featuredCard.classList.add("card-alt");
+        featuredCard.classList.remove("card");
+    }
+
+    const featuredAccent = document.querySelector<HTMLElement>(".blog-post[data-type='featured'] .card-accent");
+    if (featuredAccent) {
+        featuredAccent.classList.add("card-accent-alt");
+        featuredAccent.classList.remove("card-accent");
     }
 
     // Set post accents
     document.querySelectorAll<HTMLElement>(".blog-post").forEach((el) => {
         const accent = el.dataset.accent;
         if (accent) {
-            el.style.setProperty("--post-accent", `${accent}`);
+            el.style.setProperty("--accent", `${accent}`);
         }
     });
 };

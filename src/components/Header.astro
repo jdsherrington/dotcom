@@ -62,7 +62,7 @@
 
 	header::after {
 		content: "";
-		@apply absolute w-full sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] md:h-full top-0 left-0 bg-background/75 backdrop-blur-md sm:opacity-100 md:opacity-100 pointer-events-none;
+		@apply absolute w-full sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] md:h-full top-0 left-0 backdrop-blur-md sm:opacity-100 md:opacity-100 pointer-events-none;
 		mask-image: linear-gradient(rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 	}
 
@@ -71,7 +71,7 @@
 	}
 
 	.header-gradient {
-		@apply absolute bg-[hsl(var(--page-accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full transition-all duration-200 ease-in-out;
+		@apply absolute bg-[hsl(var(--accent-gradient))] h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full transition-all duration-200 ease-in-out;
 		mask-image: radial-gradient(
 			ellipse at top,
 			rgba(0, 0, 0, 1) -200%,
@@ -128,7 +128,7 @@
 	}
 
 	.header-logo {
-		@apply inline-block h-9 w-auto md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50 fill-[hsl(var(--page-accent))];
+		@apply inline-block h-9 w-auto md:hover:fill-foreground transition-colors ease-in-out duration-500 z-50 fill-[hsl(var(--accent))];
 	}
 
 	header.scrolled .header-logo {

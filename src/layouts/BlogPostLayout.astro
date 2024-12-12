@@ -49,12 +49,12 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
         </div>
         <div class="blog-page-content">
             <div class="blog-page-panel">
-                <div class="blog-page-details" transition:name=`container${frontmatter.url}`>
+                <div class="blog-page-card card" transition:name=`container${frontmatter.url}`>
                     <div 
-                    class="blog-page-accent"
+                    class="blog-page-accent card-accent"
                     data-accent={frontmatter.accentColor}>
                     </div>
-                    <div class="blog-page-details-img">
+                    <div class="blog-page-card-img">
                         <Image 
                         src={images[frontmatter.imagePath]()}
                         alt={frontmatter.imageAlt}/>
@@ -135,33 +135,40 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	};
 
 	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".blog-page-details")) {
+		for (const post of document.querySelectorAll(".blog-page-card")) {
 			(post).onmousemove = (e) => handleOnMouseMove(e);
 		}
-
-		const pageAccent = document.querySelector(
-			".blog-page-accent"
-		);
-			pageAccent.style.background = `radial-gradient(circle 250px at 50% 200%, ${pageAccent.dataset.accent} -50%, transparent 150%)`;
 
 		const page = document.querySelector(
 			".blog-page"
 		);
+
+        const card = document.querySelector(
+            ".blog-page-card"
+        );
+
         const html = document.querySelector(
 			"html"
 		);
+
 		page.style.setProperty(
-				"--page-accent",
+				"--accent",
+				`${page.dataset.accent}`
+                // 100%
+		);
+
+        card.style.setProperty(
+            	"--accent",
+				`${page.dataset.accent}`
+        )
+
+        html.style.setProperty(
+				"--accent",
 				`${page.dataset.accent}`
                 // 100%
 		);
         html.style.setProperty(
-				"--page-accent",
-				`${page.dataset.accent}`
-                // 100%
-		);
-        html.style.setProperty(
-				"--page-accent-gradient",
+				"--accent-gradient",
 				`${page.dataset.accent}`
                 // 100%
 		);

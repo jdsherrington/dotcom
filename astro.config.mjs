@@ -5,10 +5,22 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-    devToolbar: {
-        enabled: false,
-    },
-    integrations: [tailwind({
-        applyBaseStyles: false,
-		}), react(), icon()],
+	markdown: {
+		shikiConfig: {
+			themes: {
+				light: "github-light",
+				dark: "github-dark",
+			},
+		},
+	},
+	devToolbar: {
+		enabled: false,
+	},
+	integrations: [
+		tailwind({
+			applyBaseStyles: false,
+		}),
+		react(),
+		icon(),
+	],
 });

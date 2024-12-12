@@ -254,8 +254,6 @@
 		--secondary-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
 		--muted: var(--theme-hue) 6.5% 15.1%;
 		--muted-foreground: var(--theme-hue) 5.4% 63.9%;
-		--accent: var(--theme-hue) 6.5% 15.1%;
-		--accent-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
 		--destructive: 1 62.8% 30.6%;
 		--destructive-foreground: 1 9.1% var(--theme-lightness);
 		--border: var(--theme-hue) 6.5% 15.1%;
@@ -272,6 +270,13 @@
 		--card-brightness: 250%;
 		--card-contrast: 100%;
 		--card-hue: 90deg;
+
+        --shiki: var(--shiki-dark) !important;
+        --shiki-bg: var(--shiki-dark-bg) !important;
+        --shiki-font-style: var(--shiki-dark-font-style) !important;
+        --shiki-weight: var(--shiki-dark-font-weight) !important;
+        --shiki-decoration: var(--shiki-dark-text-decoration) !important;
+
 	}
 
 	:root[data-theme="light"] {
@@ -305,8 +310,6 @@
 		--secondary-foreground: var(--theme-hue) 9.8% 10%;
 		--muted: var(--theme-hue) 4.8% 95.9%;
 		--muted-foreground: var(--theme-hue) 5.3% 44.7%;
-		--accent: var(--theme-hue) 4.8% 85.9%;
-		--accent-foreground: var(--theme-hue) 9.8% 10%;
 		--destructive: 1 84.2% 60.2%;
 		--destructive-foreground: 1 9.1% var(--theme-lightness);
 		--border: var(--theme-hue) 5.9% var(--theme-lightness);
@@ -322,6 +325,12 @@
 		--card-brightness: 88%;
 		--card-contrast: 200%;
 		--card-hue: 90deg;
+
+        --shiki: var(--shiki-light) !important;
+        --shiki-bg: var(--shiki-light-bg) !important;
+        --shiki-font-style: var(--shiki-light-font-style) !important;
+        --shiki-weight: var(--shiki-light-font-weight) !important;
+        --shiki-decoration: var(--shiki-light-text-decoration) !important;
 	}
 }
 /* ----------------------------------------------------------------- */
@@ -329,8 +338,8 @@
 /* ------------------------ GLOBAL STYLES -------------------------- */
 @layer base {
 	:root {
-		--page-accent: var(--foreground);
-		--page-accent-gradient: var(--background);
+		--accent: var(--foreground);
+		--accent-gradient: var(--background);
 
 		@apply scroll-smooth font-sans;
 	}
@@ -372,14 +381,102 @@
 		@apply inline-block;
 	}
 
-	.card {
-		@apply flex relative h-full border border-[var(--project-accent-border)] transition-all duration-300 ease-in-out rounded-lg;
-		background: radial-gradient(
-			circle at 150% 150%,
-			hsla(var(--foreground) / 0.1) 0%,
-			hsla(var(--foreground) / 0.025) 100%
-		);
+	.card, .card-alt {
+        --accent: var(--foreground);
+        --accent-border: hsl(var(--foreground) / 0.025);
+        --accent-border-glow: hsl(var(--accent) / 0.75);
+        --accent-bg-glow: hsl(var(--accent) / 0.135);
+
+        @apply relative rounded-lg border-[var(--accent-border)] border hover:border-[var(--accent-border)] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full bg-transparent;
 	}
+    
+    .card::before {
+        @apply absolute w-full h-full top-0 left-0 rounded-lg;
+        content: "";
+        background: radial-gradient(circle at 0% 100%, hsl(var(--foreground)/0.1) 0%, hsl(var(--foreground)/0.025) 66%);
+    }
+
+    .card-alt::before {
+        @apply absolute w-full h-full top-0 left-0 rounded-lg;
+        content: "";
+        background: radial-gradient(circle at 50% 100%, hsl(var(--foreground)/0.1) 0%, hsl(var(--foreground)/0.025) 80%);
+    }
+
+    .card::after, .card-alt::after {
+        content: "";
+        @apply absolute inset-0 rounded-lg border border-transparent opacity-100 transition-opacity duration-300 ease-in-out pointer-events-none;
+   
+        background: linear-gradient(-45deg, hsl(var(--foreground)/0.05) 0%,
+                hsl(var(--foreground)/0) 50%, hsl(var(--foreground)/0.1) 100%
+            )
+            border-box;
+        mask:
+            linear-gradient(#fff 0 0) padding-box,
+            linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+    }
+
+    
+    .card-accent {
+        @apply rounded-lg absolute top-0 left-0 w-full h-full;
+        background: radial-gradient(circle at 100% 100%, hsl(var(--accent)) -300%, transparent 50%);
+    }
+
+    .card-accent-alt {
+        @apply rounded-lg absolute top-0 left-0 w-full h-full;
+        background: radial-gradient(circle at 100% 100%, hsl(var(--accent)) -150%, transparent 25%);
+    }
+
+    .card-accent::after, .card-accent-alt::after {
+        content: "";
+        @apply absolute inset-0 rounded-lg border border-transparent opacity-0 transition-opacity duration-300 ease-in-out;
+   
+        background: radial-gradient(
+                200px circle at var(--mouse-x) var(--mouse-y),
+                var(--accent-border-glow) 0%,
+                transparent 100%
+            )
+            border-box;
+        mask:
+            linear-gradient(#fff 0 0) padding-box,
+            linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+    }
+
+    .card:hover > .card-accent::after, .card-alt:hover > .card-accent-alt::after {
+        @apply opacity-100;
+    }
+
+    .card-accent::before {
+        @apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out;
+
+        content: "";
+        background: radial-gradient(
+            500px circle at var(--mouse-x) var(--mouse-y),
+            var(--accent-bg-glow) 0%,
+            transparent 50%
+        );
+    }
+
+    .card-accent-alt::before {
+        @apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out;
+
+        content: "";
+        background: radial-gradient(
+            700px circle at var(--mouse-x) var(--mouse-y),
+            var(--accent-bg-glow) 0%,
+            transparent 50%
+        );
+    }
+
+    .card:hover .card-accent::before, .card-alt:hover .card-accent-alt::before {
+        @apply opacity-50;
+    }
+
+    .card:has(a:hover) .card-accent::before, .card-alt:has(a:hover) .card-accent-alt::before {
+        @apply opacity-100;
+    }
+
 }
 
 @layer components {
@@ -449,85 +546,12 @@ div[data-loaded] {
 
 /* ------------------------ BLOG POST STYLES ----------------------- */
 .blog-post {
-	@apply relative flex sm:flex-row md:flex-col sm:gap-[calc(var(--guide-gutter)*1)] md:gap-[calc(var(--guide-gutter)*0.9)] rounded-lg border-[var(--post-accent-border)] border hover:border-[var(--post-accent-border)] transition-all duration-300 ease-in-out shadow-xl shadow-transparent hover:shadow-foreground/5 w-full justify-self-center
+	@apply flex sm:flex-row md:flex-col sm:gap-[calc(var(--guide-gutter)*1)] md:gap-[calc(var(--guide-gutter)*0.9)] justify-self-center
     sm:max-w-[var(--full-w)] md:max-w-none;
-
-	background: radial-gradient(
-		circle at 150% 150%,
-		hsla(var(--foreground) / 0.1) 0%,
-		hsla(var(--foreground) / 0.025) 100%
-	);
-
-	--post-accent: var(--foreground);
-	--post-accent-border: hsl(var(--foreground) / 0.025);
-	--post-accent-border-glow: hsl(var(--post-accent) / 0.75);
-	--post-accent-bg-glow: hsl(var(--post-accent) / 0.135);
 }
 
 .blog-post[data-type="featured"] {
 	@apply sm:col-span-1 md:col-span-2 lg:col-span-3 flex-row gap-[var(--guide-gutter)];
-	background: radial-gradient(
-		circle at 125% 125%,
-		hsla(var(--foreground) / 0.1) 0%,
-		hsla(var(--foreground) / 0.025) 50%
-	);
-}
-
-.blog-post::before {
-	@apply rounded-[inherit] h-full w-full left-0 top-0 opacity-0 absolute transition-opacity duration-500 ease-in-out pointer-events-none z-50;
-	content: "";
-	background: radial-gradient(
-		600px circle at var(--mouse-x) var(--mouse-y),
-		var(--post-accent-bg-glow) 0%,
-		transparent 50%
-	);
-}
-
-.blog-post::after {
-	content: "";
-	pointer-events: none;
-	position: absolute;
-	inset: 0;
-	border-radius: inherit;
-	border: 1px solid transparent;
-	background: radial-gradient(
-			200px circle at var(--mouse-x) var(--mouse-y),
-			var(--post-accent-border-glow) 0%,
-			transparent 100%
-		)
-		border-box;
-	mask:
-		linear-gradient(#fff 0 0) padding-box,
-		linear-gradient(#fff 0 0);
-	mask-composite: exclude;
-	opacity: 0;
-	transition: opacity 300ms ease-in-out;
-}
-
-.blog-post:hover::after {
-	content: "";
-	pointer-events: none;
-	position: absolute;
-	inset: 0;
-	border-radius: inherit;
-	border: 1px solid transparent;
-	background: radial-gradient(
-			200px circle at var(--mouse-x) var(--mouse-y),
-			var(--post-accent-border-glow) 0%,
-			transparent 100%
-		)
-		border-box;
-
-	mask:
-		linear-gradient(#fff 0 0) padding-box,
-		linear-gradient(#fff 0 0);
-	mask-composite: exclude;
-	opacity: 1;
-	transition: opacity 300ms ease-in-out;
-}
-
-.blog-post:hover::before {
-	@apply opacity-50;
 }
 
 .blog-post:has(a:hover)::before {
@@ -581,7 +605,7 @@ a:has(.blog-post-img) {
 }
 
 .blog-post-accent {
-	@apply rounded-lg absolute bottom-0 left-0 pointer-events-none w-full h-full sm:opacity-50 md:opacity-100;
+	@apply card-accent;
 }
 
 .blog-post[data-type="featured"] .blog-post-content {
@@ -645,19 +669,19 @@ a:has(.blog-post-img) {
 }
 
 .blog-post-arrow {
-	@apply nav-arrow h-6 w-auto fill-foreground/20 hover:fill-[hsl(var(--post-accent))];
+	@apply nav-btn h-5 !fill-foreground/25 hover:!fill-[hsl(var(--accent))]/100;
 }
 
 .inline-back-arrow {
-	@apply nav-arrow inline-block h-5 w-auto fill-foreground/50 hover:fill-foreground/100 mr-[calc(var(--guide-gutter)/2)] mb-[4px];
+	@apply nav-btn h-5 mr-[calc(var(--guide-gutter)/2)] mb-[4px];
 }
 
 .tag-close-button {
-	@apply nav-arrow inline-block h-4 w-auto stroke-foreground/50 hover:stroke-red-600 ml-[2px] mb-[2px] transition-all duration-150;
+	@apply nav-btn h-4 stroke-foreground/50 hover:stroke-red-600 ml-[2px] mb-[2px] fill-none;
 }
 
-.nav-arrow {
-	@apply ease-in-out transition-colors duration-150;
+.nav-btn {
+	@apply inline-block w-auto ease-in-out transition-all duration-200 fill-foreground/50 hover:fill-foreground/100;
 }
 /* ----------------------------------------------------------------- */
 
@@ -665,10 +689,10 @@ a:has(.blog-post-img) {
 .blog-page {
 	@apply flex flex-col place-items-center content-start rounded-[var(--radius)] w-[var(--full-w)] relative place-self-center gap-[var(--guide-gutter)];
     
-    --page-accent: var(--foreground);
-	--page-accent-border: hsl(var(--foreground) / 0.025);
-	--page-accent-border-glow: hsl(var(--page-accent) / 0.75);
-	--page-accent-bg-glow: hsl(var(--page-accent) / 0.15);
+    --accent: var(--foreground);
+	--accent-border: hsl(var(--foreground) / 0.025);
+	--accent-border-glow: hsl(var(--page-accent) / 0.75);
+	--accent-bg-glow: hsl(var(--page-accent) / 0.15);
 }
 
 /* .blog-page * {
@@ -708,53 +732,59 @@ body.scrolled .blog-page-panel {
     @apply lg:gap-[calc(var(--guide-gutter)*0.5)];
 }
 
-.blog-page-details {
-	@apply relative flex flex-col transition-all duration-500 ease-in-out sm:w-[var(--full-w)] lg:w-full h-min sm:bg-foreground/5 lg:bg-transparent rounded-lg overflow-hidden;
+.blog-page-card {
+	@apply relative flex flex-col transition-all duration-500 ease-in-out sm:w-[var(--full-w)] lg:w-full h-min rounded-lg overflow-hidden border border-transparent card;
 }
 
-body.scrolled .blog-page-details {
-    @apply bg-foreground/5;
+.blog-page-card:hover {
+    @apply shadow-transparent lg:border-transparent;
 }
 
-.blog-page-details::before {
-	@apply absolute rounded-[inherit] h-full w-full left-0 top-0 opacity-0 transition-opacity duration-500 ease-in-out pointer-events-none;
-	content: "";
-	background: radial-gradient(
-		600px circle at var(--mouse-x) var(--mouse-y),
-		var(--page-accent-bg-glow) 0%,
-		transparent 50%
-	);
+.blog-page-card::before {
+    @apply transition-all duration-500 ease-in-out sm:opacity-100 lg:opacity-0;
 }
 
-.blog-page-details:hover::before {
-	@apply opacity-0;
+body.scrolled .blog-page-card::before {
+    @apply opacity-100;
 }
 
-body.scrolled .blog-page-details:hover::before {
-	@apply opacity-50;
+.blog-page-card::after {
+    @apply transition-all duration-500 ease-in-out sm:opacity-100 lg:opacity-0 lg:border-transparent;
 }
 
-.blog-page-details:has(a:hover)::before {
-	@apply opacity-0 duration-300;
+body.scrolled .blog-page-card::after {
+    @apply opacity-100;
 }
 
-body.scrolled .blog-page-details:has(a:hover)::before {
+.blog-page-card:hover::before {
+	@apply sm:opacity-100 lg:opacity-0;
+}
+
+.blog-page-card:has(a:hover)::before {
+	@apply sm:opacity-100 lg:opacity-0 duration-300;
+}
+
+body.scrolled .blog-page-card:has(a:hover)::before {
 	@apply opacity-100 duration-300;
 }
 
 .blog-page-accent {
-	@apply absolute rounded-lg top-0 left-0 w-full h-full opacity-0 transition-all duration-300;
+	@apply sm:opacity-100 lg:opacity-0 transition-all duration-500 ease-in-out;
 }
 
-.blog-page-details-img {
+body.scrolled .blog-page-accent {
+	@apply opacity-100;
+}
+
+.blog-page-card-img {
 	@apply rounded-[inherit] w-full h-auto transition-all duration-500 ease-in-out;
 }
 
-.blog-page-details-img img {
+.blog-page-card-img img {
     @apply w-full sm:h-[var(--two-w)] md:sm:h-[var(--three-w)] lg:h-0 object-cover rounded-t-lg transition-all duration-500 ease-in-out;
 }
 
-body.scrolled .blog-page-details-img img {
+body.scrolled .blog-page-card-img img {
     @apply sm:h-[var(--two-w)] md:sm:h-[var(--three-w)] lg:h-24;
 }
 
@@ -767,12 +797,12 @@ body.scrolled .blog-page-title {
 }
 
 .blog-page-date {
-	@apply blog-post-date my-2 w-auto px-[calc(var(--guide-gutter))] sm:text-foreground/50 lg:text-[hsl(var(--page-accent)/0.75)] sm:text-left lg:text-right;
+	@apply blog-post-date my-2 w-auto px-[calc(var(--guide-gutter))] sm:text-foreground/50 lg:text-[hsl(var(--accent)/0.75)] sm:text-left lg:text-right;
     padding-right: var(--guide-gutter);
 }
 
 body.scrolled .blog-page-date {
-    @apply text-foreground/50
+    @apply text-foreground/50;
 }
 
 .blog-page-tags {
@@ -780,11 +810,11 @@ body.scrolled .blog-page-date {
 }
 
 .blog-page-tags * {
-    @apply sm:bg-foreground/5 lg:bg-[hsl(var(--page-accent)/0.2)];
+    @apply sm:bg-foreground/5 lg:bg-[hsl(var(--accent)/0.2)];
 }
 
 .blog-page-tags *:hover {
-    @apply sm:bg-foreground/10 lg:bg-[hsl(var(--page-accent)/0.4)];
+    @apply sm:bg-foreground/10 lg:bg-[hsl(var(--accent)/0.4)];
 }
 
 body.scrolled .blog-page-tags * {
@@ -808,7 +838,7 @@ body.scrolled .blog-page-toc {
 }
 
 .blog-page-toc ul a {
-    @apply inline-block sm:text-left lg:text-right transition-all duration-150 ease-in-out sm:border-l lg:border-r lg:border-l-0 border-foreground/20 px-0.5 leading-none;
+    @apply inline-block sm:text-left lg:text-right transition-all duration-150 ease-in-out sm:border-l lg:border-r lg:border-l-0 border-[hsl(var(--accent)/0.5)] px-0.5 leading-none;
 }
 
 .blog-page-toc ul a:has(.toc-1) {
@@ -816,7 +846,7 @@ body.scrolled .blog-page-toc {
 }
 
 .blog-page-toc ul li {
-    @apply inline-block sm:text-left lg:text-right rounded-lg hover:bg-foreground/5 hover:text-foreground transition-all duration-150 ease-in-out px-2 leading-normal;
+    @apply inline-block sm:text-left lg:text-right rounded-lg hover:bg-[hsl(var(--accent)/0.2)] hover:text-foreground transition-all duration-150 ease-in-out px-2 leading-normal;
 }
 
 .toc-1 {
@@ -832,7 +862,7 @@ body.scrolled .blog-page-toc {
 }
 
 .blog-page-nav-arrow {
-	@apply nav-arrow absolute top-0 left-0 h-6 w-auto transition-colors duration-300 cursor-pointer fill-[hsl(var(--background)/1)] hover:fill-[hsl(var(--page-accent))] place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)];
+	@apply nav-btn !fill-[hsl(var(--dark-bg)/0.5)] hover:!fill-[hsl(var(--dark-bg)/0.8)] absolute top-0 left-0 sm:h-6 md:h-5 cursor-pointer place-self-end mt-[var(--guide-gutter)] ml-[var(--guide-gutter)];
 }
 
 .post-markdown {
@@ -852,25 +882,28 @@ body.scrolled .post-markdown::after {
 .post-markdown p {
 	font-size: 1rem;
 	font-weight: normal;
-	margin-bottom: 1rem;
+    line-height: 1.5;
+	margin-bottom: 1.5rem;
 }
 
 .post-markdown h1 {
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	font-weight: 700;
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.7rem;
     scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
 }
 
 .post-markdown h2 {
-	font-size: 1.3rem;
-	font-weight: 700;
+    @apply font-mono uppercase text-foreground/50;
+	font-weight: 500;
+    margin-bottom: 0.75rem;
     scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
 }
 
 .post-markdown h3 {
-	font-size: 1.3rem;
-	font-weight: 700;
+	font-size: 0.9rem;
+	font-weight: 500;
+    margin-bottom: 0.75rem;
     scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
 }
 
@@ -912,6 +945,7 @@ body.scrolled .post-markdown::after {
 .post-markdown pre {
 	@apply text-sm rounded-lg p-[var(--guide-gutter)];
 	background-color: hsla(var(--foreground) / 0.05) !important;
+    margin-bottom: 2rem;
 }
 
 .post-markdown hr {
@@ -924,12 +958,28 @@ body.scrolled .post-markdown::after {
 	border-radius: var(--radius);
 	padding: 1rem;
 	background-color: hsla(var(--foreground) / 0.05) !important;
-	margin-bottom: 1rem;
+	margin-bottom: 1.5rem;
 }
 
 .post-markdown blockquote * {
 	margin-bottom: 0rem;
 }
+
+.post-markdown blockquote > blockquote {
+    margin-top: 1rem;
+}
+
+.astro-code,
+.astro-code span {
+    color: var(--shiki) !important;
+    background-color: var(--shiki-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-font-style) !important;
+    font-weight: var(--shiki-font-weight) !important;
+    text-decoration: var(--shiki-text-decoration) !important;
+}
+
+
 
 /* ------------------------ PROJECT CARD STYLES ----------------------- */
 .project-card {
@@ -1139,9 +1189,9 @@ a:hover .project-card-icon [data-icon] {
 }
 
 .project-card-arrow {
-	@apply nav-arrow h-6 w-auto fill-foreground/20 hover:fill-[hsl(var(--project-accent))];
+	@apply nav-btn h-6 hover:fill-[hsl(var(--project-accent))];
 }
 
 .inline-back-arrow {
-	@apply nav-arrow inline-block h-5 w-auto fill-foreground/50 hover:fill-foreground/100 mr-[calc(var(--guide-gutter)/2)] mb-[4px];
+	@apply nav-btn h-5 mr-[calc(var(--guide-gutter)/2)] mb-[4px];
 }
