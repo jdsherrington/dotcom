@@ -30,7 +30,7 @@ if (!projectImages[imagePath])
 
 ---
 
-<div transition:name=`project-card-${id}` class="project-card" data-accent={accentColor}>
+<div transition:name=`project-card-${id}` class="project-card card" data-accent={accentColor}>
 
     <a href={url}>
         <div class="project-card-img"> 
@@ -49,7 +49,7 @@ if (!projectImages[imagePath])
 
     <div
         transition:name=`project-accent-${id}`
-        class="project-card-accent"
+        class="project-card-accent card-accent"
         data-accent={accentColor}
     >
     </div>
@@ -70,7 +70,7 @@ if (!projectImages[imagePath])
         <div transition:name=`project-tags-${id}` class="project-card-tags">
                 {
                     tags?.map((tag: any, index: number) => (
-                        <a href=`/blog/tagged/${tag.toLowerCase()}`
+                        <a href=`/projects/tagged/${tag.toLowerCase()}`
                             class:list={[
                                 tag.toLowerCase().replaceAll(" ", "-"),
                                 "project-card-tag",
@@ -97,39 +97,6 @@ if (!projectImages[imagePath])
 
 
 <script>
-    // function getContentHeight(post: HTMLElement) {
-    //     const minHeight = 0;
-	// 	const contentHeight = post.querySelectorAll(
-	// 		".project-card-title, .project-card-title, .project-card-category, .project-card-description, .project-card-tags"
-	// 	) as NodeListOf<HTMLElement>;
-	// 	let totalHeight = 0;
-
-	// 	contentHeight.forEach((element) => {
-	// 		const style = window.getComputedStyle(element);
-	// 		const elementHeight = element.offsetHeight;
-	// 		const marginTop = parseFloat(style.marginTop);
-	// 		const marginBottom = parseFloat(style.marginBottom);
-	// 		totalHeight += elementHeight + marginTop + marginBottom;
-	// 	});
-        
-    //     if (totalHeight < minHeight) {
-    //         totalHeight = minHeight;
-    //     }
-	// 	return totalHeight;
-	// }
-
-	// function setCardHeight() {
-	// 	const allposts: NodeListOf<HTMLElement> =
-	// 		document.querySelectorAll(".project-card");
-	// 	allposts.forEach((post) => {
-	// 		const height = getContentHeight(post);
-	// 		const img = post.querySelector(".project-card-img") as HTMLElement;
-	// 		if (img) {
-	// 			img.style.height = `${height}px`;
-	// 		}
-	// 	});
-	// }
-    
 	const handleOnMouseMove = (e) => {
 		const { currentTarget: target } = e;
 
@@ -159,13 +126,12 @@ if (!projectImages[imagePath])
                 const tagColor = getComputedStyle(tag).getPropertyValue('--tag-color').trim();
                 
                 tag.addEventListener('mouseenter', () => {
-                    card.style.setProperty('--project-accent', tagColor);
-                    icon.style.setProperty('--project-accent', tagColor);
-                    console.log("TESTING", getComputedStyle(icon).getPropertyValue('--project-accent').trim());
+                    card.style.setProperty('--accent', tagColor);
+                    icon.style.setProperty('--accent', tagColor);
                 });
                 tag.addEventListener('mouseleave', () => {
-                    card.style.setProperty('--project-accent', 'var(--foreground)');
-                    icon.style.setProperty('--project-accent', 'var(--foreground)');
+                    card.style.setProperty('--accent', 'var(--foreground)');
+                    icon.style.setProperty('--accent', 'var(--foreground)');
                     
                 });
                 
@@ -336,7 +302,7 @@ if (!projectImages[imagePath])
 	}
 
     .post-link:hover h1 {
-        color: hsl(var(--css-foreground));
+        color: oklch(var(--css-foreground));
     }
 
 	.project-accent {

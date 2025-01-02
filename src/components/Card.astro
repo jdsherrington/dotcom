@@ -80,7 +80,7 @@ const { href, title, desc, tags, image } = Astro.props;
 	.card::before {
 		background: radial-gradient(
 			600px circle at var(--mouse-x) var(--mouse-y),
-			hsla(var(--foreground) / 0.08) 0%,
+			oklch(var(--foreground) / 0.08) 0%,
 			transparent 35%
 		);
 		z-index: 3;

@@ -13,6 +13,9 @@ export default defineConfig({
 			},
 		},
 	},
+    experimental: {
+        contentIntellisense: true,
+    },
 	devToolbar: {
 		enabled: false,
 	},

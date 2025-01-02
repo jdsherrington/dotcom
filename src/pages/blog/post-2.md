@@ -7,6 +7,6 @@ author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost2.jpg"
 imageAlt: "The second blog post"
 tags: ["astro", "blogging", "learning in public"]
-accentColor: "12 70% 50%"
+accentColor: "60% 46% 35"
 wordCount: 0
 ---

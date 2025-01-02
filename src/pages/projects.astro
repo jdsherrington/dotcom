@@ -2,8 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
-import { slide } from "astro:transitions";
-
 const allProjects= (await Astro.glob("./projects/*.md")).sort(
 	(b, a) => b.frontmatter.id - a.frontmatter.id
 );
@@ -16,7 +14,7 @@ const pageTitle = "Projects";
 		class="grid grid-cols-[auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
 	>
 		<div
-			class="sm:w-[--full-w] lg:w-[--two-thirds-w] grid sm:grid-cols-1 md:grid-cols-2 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
+			class="sm:w-[--full-w] lg:w-[--full-w] grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
 		>
 			{
 				allProjects.map((project) => {

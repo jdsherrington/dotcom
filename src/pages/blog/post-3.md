@@ -7,6 +7,6 @@ author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost3.jpg"
 imageAlt: "The Astro logo on a dark background with a pink glow."
 tags: ["astro", "blogging", "learning in public"]
-accentColor: "214 10% 50%"
+accentColor: "59% 6% 255"
 wordCount: 0
 ---

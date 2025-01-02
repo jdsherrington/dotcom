@@ -8,5 +8,5 @@ iconPath: "projects/personal-website"
 imagePath: "/src/assets/projects/images/project4.jpg"
 imageAlt: "Jordan Sherrington Bible Scraper"
 tags: ["Python", "API"]
-accentColor: "#836e50"
+accentColor: "#856075"
 ---
