@@ -7,6 +7,6 @@ description: "You are here! A static site built from scratch using Astro, Tailwi
 iconPath: "projects/personal-website"
 imagePath: "/src/assets/projects/images/project1.jpg"
 imageAlt: "Jordan Sherrington personal website"
-tags: ["Tailwind CSS", "JavaScript", "Astro", "React"]
+tags: ["tailwind", "javascript", "astro", "react"]
 accentColor: "#807d42"
 ---

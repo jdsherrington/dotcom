@@ -7,6 +7,6 @@ description: "A gift registry web app built with Angular, using Supabase as a ba
 iconPath: "projects/personal-website"
 imagePath: "/src/assets/projects/images/project2.jpg"
 imageAlt: "Jordan Sherrington Gratis Registry"
-tags: ["Angular", "HTML", "CSS", "Supabase"]
+tags: ["angular", "html", "css", "supabase"]
 accentColor: "#856075"
 ---

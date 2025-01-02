@@ -242,7 +242,7 @@
 		--tag-bg-opacity: 0.15;
 
 		--tag-html: 66% 45% 41;
-		--tag-css: 55% 53% 263;
+		--tag-css: 44% 23% 303;
 		--tag-javascript: 88% 39% 100;
 		--tag-astro: 61% 51% 6;
 		--tag-tailwind: 85% 33% 198;
@@ -264,6 +264,7 @@
 
 		--shade-background: 0.33;
 		--shade-foreground: 0.8;
+        --shade-chroma: 0.15;
 
 		--background: var(--theme-lightness) var(--theme-chroma)
 			var(--theme-hue);
@@ -323,6 +324,7 @@
 
 		--shade-background: 0.85;
 		--shade-foreground: 0.5;
+        --shade-chroma: 0.25;
 
 		--background: var(--theme-lightness) var(--theme-chroma)
 			var(--theme-hue);
@@ -374,6 +376,23 @@
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ GLOBAL STYLES -------------------------- */
+@keyframes astroFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes astroFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @layer base {
 	:root {
 		--accent: var(--foreground);
@@ -398,6 +417,10 @@
 	*::after {
 		@apply m-0 box-border p-0;
 	}
+
+    html {
+        scrollbar-gutter: stable;
+    }
 
 	body {
 		@apply bg-background text-foreground transition-colors duration-200 ease-in-out;
@@ -689,9 +712,9 @@ a:has(.blog-post-img) {
 	@apply h-min w-auto transform-none place-content-start pr-4 pt-0 font-mono font-semibold uppercase tracking-widest text-[oklch(var(--foreground)/0.5)] transition-colors duration-500 ease-in-out sm:pb-[calc(var(--guide-gutter)*0.75)] sm:text-3xs md:pb-[calc(var(--guide-gutter)*0.5)] md:text-2xs;
 }
 
-.blog-post:hover .blog-post-date {
+/* .blog-post:hover .blog-post-date {
 	@apply text-[oklch(var(--accent)/0.8)];
-}
+} */
 
 .blog-post[data-type="featured"] .blog-post-description {
 	@apply line-clamp-3 pr-[var(--guide-gutter)] sm:text-xs md:text-sm;
@@ -1080,15 +1103,16 @@ body.scrolled .post-markdown::after {
 }
 
 .project-card:has(.project-card-tag:hover)::before {
-	background-color: oklch(var(--accent)) !important;
+	/* background-color: oklch(var(--accent)) !important; */
+    @apply bg-[oklch(from_oklch(var(--accent))_var(--shade-background)_var(--shade-chroma)_h)];
+}
+
+.project-card:has(.project-card-tag:hover) .project-card-accent::before {
+    @apply bg-[oklch(from_oklch(var(--accent))_var(--shade-foreground)_var(--shade-chroma)_h/0.15)];
 }
 
 a:has(.project-card-img) {
 	@apply z-20 max-h-full w-min justify-self-end leading-none transition-all duration-300 sm:ml-0 sm:mt-0 sm:h-full sm:rounded-l-lg md:ml-[calc(var(--guide-gutter))] md:mt-[var(--guide-gutter)] md:h-auto md:rounded-lg;
-}
-
-a:has(.project-card-img):hover {
-	@apply scale-[102%] opacity-100;
 }
 
 .project-card-img {
@@ -1100,7 +1124,7 @@ a:has(.project-card-img):hover {
 }
 
 .project-card:has(.project-card-tag:hover) .project-card-icon {
-	@apply bg-[oklch(var(--accent-background))];
+	@apply bg-[oklch(from_oklch(var(--accent))_var(--shade-background)_var(--shade-chroma)_h)];
 }
 
 .project-card-icon [data-icon] {
@@ -1108,7 +1132,7 @@ a:has(.project-card-img):hover {
 }
 
 .project-card:has(.project-card-tag:hover) .project-card-icon [data-icon] {
-	@apply text-[oklch(var(--accent-foreground))];
+	@apply text-foreground;
 }
 
 .project-card-content {
@@ -1131,10 +1155,6 @@ a:has(.project-card-img):hover {
 	@apply h-min w-auto transform-none place-content-start pb-3 pt-0 font-mono font-semibold uppercase tracking-widest text-[oklch(var(--foreground)/0.5)] transition-colors duration-500 ease-in-out sm:text-xs md:text-xs;
 }
 
-.project-card:has(.project-card-tag:hover) .project-card-category {
-	@apply text-[oklch(var(--accent-foreground))];
-}
-
 .project-card-description {
 	@apply h-min w-auto place-content-start text-pretty pb-[calc(var(--guide-gutter)*0.75)] text-xs leading-normal text-[oklch(var(--foreground)/0.7)];
 }
@@ -1144,19 +1164,17 @@ a:has(.project-card-img):hover {
 }
 
 .project-card-tag {
-	position: relative;
-	overflow: hidden;
-	@apply cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] border-2 border-transparent bg-[oklch(var(--foreground)/0)] px-2.5 py-0.5 font-mono uppercase tracking-wider text-[oklch(var(--foreground)/0.6)] backdrop-blur-xl transition-all hover:bg-[oklch(var(--foreground)/0)] hover:text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_c_h)] sm:text-3xs md:text-2xs;
+	@apply relative overflow-hidden cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] border-2 border-transparent bg-[oklch(var(--foreground)/0)] px-2.5 py-0.5 font-mono uppercase tracking-wider text-[oklch(var(--foreground)/0.6)] backdrop-blur-xl transition-all hover:bg-[oklch(var(--foreground)/0)] hover:text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)] sm:text-3xs md:text-2xs;
 }
 
 .project-card-tag::before {
 	content: "";
 
-	@apply absolute bottom-0 left-0 right-0 top-0 z-[-1] bg-[oklch(from_oklch(var(--tag-color))_l_c_h/0.25)] transition-colors duration-200 ease-in-out;
+	@apply absolute bottom-0 left-0 right-0 top-0 z-[-1] bg-[oklch(from_oklch(var(--tag-color))_l_var(--shade-chroma)_h/0.2)] transition-colors duration-200 ease-in-out;
 }
 
 .project-card-tag:hover::before {
-	@apply bg-[oklch(from_oklch(var(--tag-color))_var(--shade-background)_c_h)];
+	@apply bg-[oklch(from_oklch(var(--tag-color))_var(--shade-background)_var(--shade-chroma)_h)];
 }
 
 .project-card-tag:hover {
@@ -1177,7 +1195,7 @@ a:has(.project-card-img):hover {
 .astro {
 	--tag-color: var(--tag-astro);
 }
-.tailwind-css {
+.tailwind {
 	--tag-color: var(--tag-tailwind);
 }
 .react {
@@ -1211,7 +1229,7 @@ a:has(.project-card-img):hover {
 }
 
 .project-card:has(.project-card-tag:hover) .project-card-arrow {
-	@apply fill-[oklch(var(--accent-foreground))];
+	@apply fill-[oklch(from_oklch(var(--accent))_var(--shade-foreground)_var(--shade-chroma)_h)];
 }
 
 .inline-back-arrow {
