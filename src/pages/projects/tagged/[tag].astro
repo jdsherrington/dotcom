@@ -4,7 +4,7 @@ import ProjectCard from "@/components/ProjectCard.astro";
 
 export async function getStaticPaths() {
 	const allProjects = (await Astro.glob("../*.md")).sort(
-		(a, b) => b.frontmatter.id - a.frontmatter.id
+		(b, a) => b.frontmatter.id - a.frontmatter.id
 	);
 
 	const uniqueTags = [
@@ -17,17 +17,6 @@ export async function getStaticPaths() {
 				.flat()
 		),
 	];
-
-	console.log(
-		uniqueTags.map((tag) => ({
-			params: { tag },
-			props: {
-				posts: allProjects.filter((post) =>
-					post.frontmatter.tags.includes(tag)
-				),
-			},
-		}))
-	);
 
 	return uniqueTags.map((tag: any) => {
 		const filteredPosts = allProjects.filter(

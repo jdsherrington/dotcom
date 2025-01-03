@@ -80,9 +80,9 @@
 	}
 
 	.header-gradient::after {
-		@apply absolute top-0 h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full bg-[oklch(var(--accent-gradient))] opacity-25 transition-all duration-500 ease-in-out;
+		@apply absolute top-0 h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full bg-[oklch(var(--accent-gradient)/0.75)] opacity-25 transition-all duration-500 ease-in-out;
 
-        content: '';
+		content: "";
 		z-index: 1001;
 	}
 
@@ -134,7 +134,7 @@
 	}
 
 	.header-logo {
-		@apply z-50 inline-block h-9 w-auto fill-[oklch(var(--accent))] transition-colors duration-500 ease-in-out md:hover:fill-foreground;
+		@apply z-50 inline-block h-9 w-auto fill-[oklch(var(--accent))] transition-colors duration-500 ease-in-out md:hover:fill-[oklch(from_oklch(var(--accent))_var(--shade-foreground)_c_h)];
 	}
 
 	header.scrolled .header-logo {
@@ -162,7 +162,11 @@
 	}
 
 	.nav-button-underline {
-		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-[oklch(var(--foreground)/0.5)] bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-[oklch(var(--accent)/0.5)] bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+	}
+
+	header.scrolled .nav-button-underline {
+		@apply border-[oklch(var(--foreground)/1)];
 	}
 
 	.nav-button-hover {
@@ -180,6 +184,7 @@
 		) as HTMLElement;
 
 		const currentPath = "/" + window.location.pathname.split("/")[1];
+		// "/projects"
 
 		// Remove active class from all links
 		document.querySelectorAll("nav a").forEach((btn) => {
@@ -197,12 +202,17 @@
 		const activeButton = document.querySelector(
 			".nav-button.active"
 		) as HTMLElement;
-		if (activeButton) {
-			const activeRect = activeButton.getBoundingClientRect();
 
-			underline.style.width = `${activeRect.width - 32}px`;
-			underline.style.left = `${activeButton.offsetLeft + 16}px`;
-			underline.style.opacity = "1";
+		if (activeButton) {
+			setTimeout(() => {
+				const activeRect = activeButton.getBoundingClientRect();
+
+				underline.style.width = `${activeRect.width - 32}px`;
+				underline.style.left = `${activeButton.offsetLeft + 16}px`;
+				setTimeout(() => {
+					underline.style.opacity = "1"
+				}, 100);
+			}, 10);
 		} else {
 			underline.style.opacity = "0";
 		}
@@ -239,6 +249,6 @@
 			});
 		});
 	}
-
+	document.addEventListener("astro:after-swap", setActiveLink);
 	document.addEventListener("astro:page-load", setActiveLink);
 </script>
