@@ -14,39 +14,84 @@
 			<a class="nav-button" href="/blog">Blog</a>
 			<a class="nav-button" href="/projects">Projects</a>
 			<a class="nav-button" href="/resources">Resources</a>
-			<a class="nav-button theme-toggle">
-				<svg
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1.5"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="dark-icon"
-				>
-					<path
-						d="M 12 1.987 C 8.151 5.836 9.912 12.407 15.17 13.816 C 17.61 14.469 20.213 13.772 21.999 11.986 C 21.999 19.683 13.667 24.494 7 20.645 C 0.334 16.797 0.334 7.175 7 3.326 C 8.52 2.449 10.245 1.987 12 1.987 Z"
-					></path>
-				</svg>
-				<svg
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1.5"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="light-icon"
-				>
-					<defs>
-						<bx:grid x="0" y="0" width="100" height="100"></bx:grid>
-					</defs>
-					<path
-						d="M 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 C 14.761 7 17 9.239 17 12 Z M 12 2 L 12 4 M 12 20 L 12 22 M 4.93 4.93 L 6.34 6.34 M 17.66 17.66 L 19.07 19.07 M 2 12 L 4 12 M 20 12 L 22 12 M 6.34 17.66 L 4.93 19.07 M 19.07 4.93 L 17.66 6.34"
-					></path>
-				</svg>
-			</a>
+			<div class="nav-button menu-btn">
+				<a class="theme-toggle">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="dark-icon"
+					>
+						<path
+							d="M 12 1.987 C 8.151 5.836 9.912 12.407 15.17 13.816 C 17.61 14.469 20.213 13.772 21.999 11.986 C 21.999 19.683 13.667 24.494 7 20.645 C 0.334 16.797 0.334 7.175 7 3.326 C 8.52 2.449 10.245 1.987 12 1.987 Z"
+						></path>
+					</svg>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="light-icon"
+					>
+						<path
+							d="M 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 C 14.761 7 17 9.239 17 12 Z M 12 2 L 12 4 M 12 20 L 12 22 M 4.93 4.93 L 6.34 6.34 M 17.66 17.66 L 19.07 19.07 M 2 12 L 4 12 M 20 12 L 22 12 M 6.34 17.66 L 4.93 19.07 M 19.07 4.93 L 17.66 6.34"
+						></path>
+					</svg>
+				</a>
+				<div class="theme-drawer menu">
+					<ul>
+						<li class="light">
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 C 14.761 7 17 9.239 17 12 Z M 12 2 L 12 4 M 12 20 L 12 22 M 4.93 4.93 L 6.34 6.34 M 17.66 17.66 L 19.07 19.07 M 2 12 L 4 12 M 20 12 L 22 12 M 6.34 17.66 L 4.93 19.07 M 19.07 4.93 L 17.66 6.34"
+								></path>
+							</svg><span>Light</span>
+						</li>
+						<li class="dark">
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M 12 1.987 C 8.151 5.836 9.912 12.407 15.17 13.816 C 17.61 14.469 20.213 13.772 21.999 11.986 C 21.999 19.683 13.667 24.494 7 20.645 C 0.334 16.797 0.334 7.175 7 3.326 C 8.52 2.449 10.245 1.987 12 1.987 Z"
+								></path>
+							</svg><span>Dark</span>
+						</li>
+						<li class="system">
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.5"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M 12 1.987 C 8.151 5.836 9.912 12.407 15.17 13.816 C 17.61 14.469 20.213 13.772 21.999 11.986 C 21.999 19.683 13.667 24.494 7 20.645 C 0.334 16.797 0.334 7.175 7 3.326 C 8.52 2.449 10.245 1.987 12 1.987 Z"
+								></path>
+							</svg><span>System</span>
+						</li>
+					</ul>
+				</div>
+			</div>
 			<div class="nav-button-underline"></div>
 			<div class="nav-button-hover"></div>
 		</div>
@@ -91,7 +136,7 @@
 	}
 
 	nav {
-		@apply pointer-events-auto m-[calc(var(--guide-gutter)/2)] mb-0 mt-[calc(var(--guide-gutter))] flex h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] items-center rounded-lg pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] shadow-2xl shadow-transparent backdrop-blur-none sm:justify-center md:justify-between;
+		@apply pointer-events-auto m-[calc(var(--guide-gutter)/2)] mb-0 mt-[calc(var(--guide-gutter))] flex h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] items-center rounded-lg pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] shadow-2xl shadow-transparent sm:justify-center md:justify-between;
 
 		border-color: transparent;
 		border-width: 0px;
@@ -111,7 +156,17 @@
 	}
 
 	header.scrolled nav {
-		@apply mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent sm:shadow-transparent sm:backdrop-blur-none md:bg-[var(--header)] md:shadow-[oklch(var(--background)/0.5)] md:backdrop-blur-2xl;
+		@apply md:shadow-background/50 mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent sm:shadow-transparent md:bg-[var(--header)];
+	}
+
+	nav::before {
+		content: "";
+		z-index: -1;
+		@apply absolute left-0 top-0 h-full w-full rounded-lg backdrop-blur-none;
+	}
+
+	header.scrolled nav::before {
+		@apply sm:backdrop-blur-none md:backdrop-blur-2xl;
 	}
 
 	nav::after {
@@ -138,7 +193,7 @@
 	}
 
 	header.scrolled .header-logo {
-		@apply sm:fill-[oklch(var(--background)/0)] md:fill-foreground;
+		@apply sm:fill-background/0 md:fill-foreground;
 	}
 
 	.nav-items {
@@ -146,11 +201,15 @@
 	}
 
 	.nav-items .nav-button {
-		@apply px-4 pb-[calc(0.5rem-2px)] pt-2 font-mono text-sm uppercase text-[oklch(var(--foreground)/0.7)];
+		@apply text-foreground/70 cursor-pointer px-4 pb-[calc(0.5rem-2px)] pt-2 font-mono text-sm uppercase;
+	}
+
+	.nav-items .nav-button:has(.theme-toggle) {
+		@apply p-0;
 	}
 
 	.nav-items .theme-toggle {
-		@apply px-3 pb-2.5 pt-2 font-mono text-sm uppercase text-[oklch(var(--foreground)/0.7)];
+		@apply text-foreground/70 px-3 font-mono text-sm uppercase;
 	}
 
 	.nav-items .theme-toggle svg {
@@ -162,19 +221,142 @@
 	}
 
 	.nav-button-underline {
-		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-[oklch(var(--accent)/0.5)] bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+		@apply border-accent/50 pointer-events-none absolute left-0 top-0 h-full border-b bg-transparent opacity-0 transition-all duration-200 ease-in-out;
 	}
 
 	header.scrolled .nav-button-underline {
-		@apply border-[oklch(var(--foreground)/1)];
+		@apply border-foreground/50;
 	}
 
 	.nav-button-hover {
-		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-[oklch(var(--foreground)/0.05)] opacity-0;
+		@apply bg-foreground/5 pointer-events-none absolute top-0 h-full rounded-lg opacity-0;
+	}
+
+	.theme-drawer {
+		@apply border-foreground/5 pointer-events-none absolute right-0 top-1/2 z-10 rounded-lg opacity-0 transition-all duration-200 ease-in-out;
+	}
+
+	.theme-drawer::before {
+		content: "";
+		background: radial-gradient(
+			50px circle at 100% 0%,
+			oklch(var(--accent)) -500%,
+			var(--header) 100%
+		);
+
+		z-index: -1;
+		@apply shadow-foreground/5 absolute h-full w-full rounded-lg shadow-lg backdrop-blur-xl;
+	}
+
+	.theme-drawer::after {
+		content: "";
+		background: radial-gradient(
+				50px circle at 100% 0%,
+				oklch(var(--accent)) 0%,
+				oklch(var(--foreground) / 0.05) 100%
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+
+		@apply pointer-events-none absolute inset-0 z-20 w-full rounded-lg border border-transparent;
+	}
+
+	.theme-drawer ul {
+		@apply flex gap-2 p-1.5;
+	}
+
+	.theme-drawer li {
+		@apply hover:bg-foreground/5 flex flex-col place-items-center gap-2 rounded-md p-2.5 pb-2 transition-colors duration-200 ease-in-out;
+	}
+
+	.theme-drawer.open {
+		@apply pointer-events-auto top-[calc(100%+0.25rem)] opacity-100;
+	}
+
+	.menu-btn::before {
+		content: "";
+		background: radial-gradient(
+			50px circle at 100% 100%,
+			oklch(var(--accent)) -500%,
+			transparent 100%
+		);
+		@apply pointer-events-none absolute left-0 top-0 h-full w-full rounded-lg opacity-0 transition-opacity duration-200 ease-in-out;
+	}
+
+	.menu-btn:has(.menu.open)::before {
+		@apply opacity-100;
+	}
+
+	.menu-btn::after {
+		content: "";
+		background: radial-gradient(
+				50px circle at 100% 100%,
+				oklch(var(--accent)) 0%,
+				oklch(var(--foreground) / 0.05) 100%
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+
+		@apply pointer-events-none absolute inset-0 z-20 w-full rounded-lg border border-transparent opacity-0 transition-opacity duration-200 ease-in-out;
+	}
+
+	.menu-btn:has(.menu.open)::after {
+		@apply opacity-100;
+	}
+
+	.menu-btn:has(.menu.open:hover) ~ .nav-button-hover {
+		@apply !opacity-0;
+	}
+
+	.dark-icon,
+	.light-icon {
+		@apply hidden;
+	}
+
+	:root[data-theme="light"] .light-icon {
+		@apply inline-block;
+	}
+
+	:root[data-theme="dark"] .dark-icon {
+		@apply inline-block;
 	}
 </style>
 
+<script data-astro-rerun>
+	document.addEventListener("click", (e) => {
+		if (
+			!document.querySelector(".menu-btn").contains(e.target) &&
+			document.querySelector(".menu-btn .menu").classList.contains("open")
+		) {
+			document.querySelector(".menu").classList.remove("open");
+		}
+	});
+</script>
+
 <script>
+	function openThemeDrawer() {
+		const themeToggle = document.querySelector(
+			".theme-toggle"
+		) as HTMLElement;
+		const themeDrawer = document.querySelector(
+			".theme-drawer"
+		) as HTMLElement;
+
+		themeToggle.addEventListener("click", () => {
+			if (themeDrawer.classList.contains("open")) {
+				themeDrawer.classList.remove("open");
+			} else {
+				themeDrawer.classList.add("open");
+			}
+		});
+	}
+
 	function setActiveLink() {
 		const underline = document.querySelector(
 			".nav-button-underline"
@@ -192,11 +374,6 @@
 			if (btn.getAttribute("href") === currentPath) {
 				btn.classList.add("active");
 			}
-			// btn.addEventListener("click", () => {
-			// 	const newPage = btn.getAttribute("href") as string;
-			//     sessionStorage.setItem("oldPage", currentPath)
-			// 	sessionStorage.setItem("newPage", newPage);
-			// });
 		});
 
 		const activeButton = document.querySelector(
@@ -207,11 +384,11 @@
 			setTimeout(() => {
 				const activeRect = activeButton.getBoundingClientRect();
 
-				underline.style.width = `${activeRect.width - 32}px`;
-				underline.style.left = `${activeButton.offsetLeft + 16}px`;
+				underline.style.width = `${activeRect.width - 30}px`;
+				underline.style.left = `${activeButton.offsetLeft + 15}px`;
 				setTimeout(() => {
-					underline.style.opacity = "1"
-				}, 100);
+					underline.style.opacity = "1";
+				}, 150);
 			}, 10);
 		} else {
 			underline.style.opacity = "0";
@@ -249,6 +426,9 @@
 			});
 		});
 	}
+	document.addEventListener("astro:after-swap", openThemeDrawer);
+	document.addEventListener("astro:page-load", openThemeDrawer);
+
 	document.addEventListener("astro:after-swap", setActiveLink);
 	document.addEventListener("astro:page-load", setActiveLink);
 </script>

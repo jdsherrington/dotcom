@@ -12,7 +12,7 @@ const { pageTitle, pageDesc } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 
@@ -69,6 +69,62 @@ const { pageTitle, pageDesc } = Astro.props;
 </style>
 
 <!-- Theme Switching -->
+<script astro-data-rerun>
+	function loadTheme(document) {
+		let currentTheme = localStorage.getItem("theme");
+
+		if (!currentTheme) {
+			localStorage.setItem("theme", "system");
+			currentTheme = "system";
+		}
+
+		let appliedTheme = currentTheme;
+
+		if (appliedTheme == "system") {
+			appliedTheme = window.matchMedia("(prefers-color-scheme: light)")
+				.matches
+				? "light"
+				: "dark";
+		}
+
+		document.documentElement.setAttribute("data-theme", appliedTheme);
+	}
+
+	(function createToggles() {
+		document.querySelectorAll(".theme-drawer li").forEach((themeBtn) => {
+			themeBtn.addEventListener("click", (e) => {
+				const newTheme = themeBtn.getAttribute("class");
+				localStorage.setItem("theme", newTheme);
+
+				loadTheme(document);
+			});
+		});
+	})();
+
+	document.addEventListener("astro:before-swap", (ev) => {
+		loadTheme(ev.newDocument);
+	});
+	document.addEventListener("astro:page-load", loadTheme(document));
+
+	// const applyTheme = (theme, document) =>
+	// 	document.documentElement.setAttribute("data-theme", theme);
+
+	// (function updateTheme() {
+	// 	const theme =
+	// 		localStorage.getItem("theme") ||
+	// 		(window.matchMedia("(prefers-color-scheme: light)").matches
+	// 			? "light"
+	// 			: "dark");
+	// 	localStorage.setItem("theme", theme);
+	// 	applyTheme(theme, document);
+	// })();
+
+	// document.addEventListener("astro:before-swap", (ev) => {
+	// 	applyTheme(localStorage.getItem("theme"), ev.newDocument);
+	// });
+</script>
+
+<!-- Theme Switching
 <script data-astro-rerun>
 	(function setToggles() {
 		const toggleTheme = () => {
@@ -107,7 +163,7 @@ const { pageTitle, pageDesc } = Astro.props;
 	document.addEventListener("astro:before-swap", (ev) => {
 		applyTheme(localStorage.getItem("theme"), ev.newDocument);
 	});
-</script>
+</script> -->
 
 <!-- Add "On Scroll" Logic -->
 <script is:inline>

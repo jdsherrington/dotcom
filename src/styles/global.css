@@ -5,6 +5,7 @@
 /* ------------------ RESPONSIVE DISPLAY SCALING ------------------- */
 /* Large Desktop - 1440px+ */
 :root {
+	font-size: 14px;
 	--guide-count: 12;
 	--guide-type: center;
 	--guide-grid-width: auto;
@@ -43,6 +44,20 @@
 	--five-w: calc((var(--guide-true-width) * 5) + (var(--guide-gutter) * 4));
 	--six-w: calc((var(--guide-true-width) * 6) + (var(--guide-gutter) * 5));
 	--seven-w: calc((var(--guide-true-width) * 7) + (var(--guide-gutter) * 6));
+
+	--typescale-ratio: 1.125;
+	/* minor third */
+
+	--p-size: 1rem;
+	--small-size: calc(var(--p-size) / var(--typescale-ratio));
+	--caption-size: calc(var(--small-size) / var(--typescale-ratio));
+	--h6-size: calc(var(--p-size));
+	--h5-size: calc(var(--h6-size));
+	--h4-size: calc(var(--h5-size) * var(--typescale-ratio));
+	--h3-size: calc(var(--h4-size) * var(--typescale-ratio));
+	--h2-size: calc(var(--h3-size) * var(--typescale-ratio));
+	--h1-size: calc(var(--h2-size) * var(--typescale-ratio));
+	--featured-size: calc(var(--h1-size) * var(--typescale-ratio));
 }
 
 /* Medium Desktop - 905px-1439px */
@@ -92,6 +107,9 @@
 /* Mobile - 0-599px */
 @media screen and (max-width: 599px) {
 	:root {
+		font-size: 13px;
+		--typescale-ratio: 1.125;
+
 		--guide-count: 4;
 		--guide-type: stretch;
 		--guide-grid-width: 100%;
@@ -264,7 +282,7 @@
 
 		--shade-background: 0.33;
 		--shade-foreground: 0.8;
-        --shade-chroma: 0.15;
+		--shade-chroma: 0.15;
 
 		--background: var(--theme-lightness) var(--theme-chroma)
 			var(--theme-hue);
@@ -324,7 +342,7 @@
 
 		--shade-background: 0.85;
 		--shade-foreground: 0.5;
-        --shade-chroma: 0.25;
+		--shade-chroma: 0.25;
 
 		--background: var(--theme-lightness) var(--theme-chroma)
 			var(--theme-hue);
@@ -377,20 +395,20 @@
 
 /* ------------------------ GLOBAL STYLES -------------------------- */
 @keyframes astroFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 @keyframes astroFadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 @layer base {
@@ -418,9 +436,9 @@
 		@apply m-0 box-border p-0;
 	}
 
-    html {
-        scrollbar-gutter: stable;
-    }
+	html {
+		scrollbar-gutter: stable;
+	}
 
 	body {
 		@apply bg-background text-foreground transition-colors duration-200 ease-in-out;
@@ -434,19 +452,46 @@
 		@apply max-w-none;
 	}
 
-	.dark-icon,
-	.light-icon {
-		@apply hidden;
+	small {
+		font-size: var(--small-size);
 	}
 
-	:root[data-theme="light"] .light-icon {
-		@apply inline-block;
+	p {
+		font-size: var(--p-size);
 	}
 
-	:root[data-theme="dark"] .dark-icon {
-		@apply inline-block;
+	h1 {
+		font-size: var(--h1-size);
+		line-height: 1.1;
+		font-weight: 500;
 	}
 
+	h2 {
+		font-size: var(--h2-size);
+	}
+
+	h3 {
+		font-size: var(--h3-size);
+	}
+
+	h4 {
+		font-size: var(--h4-size);
+	}
+
+	h5 {
+		font-size: var(--h5-size);
+	}
+
+	h6 {
+		font-size: var(--h6-size);
+	}
+
+    .menu-btn {
+        @apply rounded-lg border border-transparent relative;
+    }
+}
+
+@layer components {
 	.card,
 	.card-alt {
 		--accent: var(--foreground);
@@ -483,32 +528,7 @@
 		@apply absolute left-0 top-0 h-full w-full rounded-lg bg-[oklch(var(--card-gradient))] transition-colors duration-500 ease-in-out hover:bg-accent;
 	}
 
-	/* .card::after,
-	.card-alt::after {
-		content: "";
-		background: linear-gradient(
-				-45deg,
-				oklch(var(--card-border)) 0%,
-				oklch(var(--card-border) / 0) 40%,
-				oklch(var(--card-border) / 0) 60%,
-				oklch(var(--card-border)) 100%
-			)
-			border-box;
-		mask:
-			linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		mask-composite: exclude;
-
-		@apply pointer-events-none absolute inset-0 rounded-lg border border-transparent opacity-100 transition-opacity duration-300 ease-in-out;
-	} */
-
 	.card-accent {
-		/* background: radial-gradient(
-			circle at 100% 100%,
-			oklch(var(--accent)) -300%,
-			transparent 50%
-		); */
-
 		@apply absolute left-0 top-0 z-10 h-full w-full rounded-lg transition-all duration-500 ease-in-out;
 	}
 
@@ -572,15 +592,17 @@
 	.card-alt:has(a:hover) .card-accent-alt::before {
 		@apply opacity-100;
 	}
-}
 
-@layer components {
 	.nav-button a {
 		@apply inline-flex h-12 w-max place-items-center rounded-[var(--radius)] bg-transparent px-4 py-2 font-mono text-sm uppercase tracking-wider hover:bg-[oklch(var(--foreground)/0)] focus:bg-[oklch(var(--foreground)/0.1)] focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50;
 	}
 
 	.active-link {
 		background-color: oklch(var(--foreground) / 0.07) !important;
+	}
+
+	.nav-btn {
+		@apply inline-block w-auto fill-[oklch(var(--foreground)/0.5)] transition-all duration-200 ease-in-out hover:fill-foreground;
 	}
 
 	#nav-footer {
@@ -640,129 +662,7 @@ div[data-loaded] {
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ BLOG POST STYLES ----------------------- */
-.blog-post {
-	@apply flex justify-self-center sm:max-w-[var(--full-w)] sm:flex-row sm:gap-[calc(var(--guide-gutter)*1)] md:max-w-none md:flex-col md:gap-[calc(var(--guide-gutter)*0.9)];
-}
 
-.blog-post[data-type="featured"] {
-	@apply flex-row gap-[var(--guide-gutter)] sm:col-span-1 md:col-span-2 lg:col-span-3;
-}
-
-.blog-post:has(a:hover)::before {
-	@apply opacity-100 duration-300;
-}
-
-.blog-post[data-type="featured"] a:has(.blog-post-img) {
-	@apply w-min rounded-l-lg rounded-r-none shadow-2xl shadow-transparent transition-all duration-300;
-}
-
-a:has(.blog-post-img) {
-	@apply w-min shadow-2xl shadow-transparent transition-all duration-300 sm:m-0 sm:h-auto sm:rounded-l-lg md:mb-0 md:ml-0 md:mt-0 md:w-auto md:rounded-b-none md:rounded-t-lg;
-}
-
-.blog-post[data-type="featured"] .blog-post-img {
-	@apply rounded-[inherit] sm:h-full sm:min-h-[var(--half-w)] sm:w-[calc(var(--half-w))] md:max-h-none lg:min-h-[var(--five-w)];
-}
-
-.blog-post-img {
-	@apply pointer-events-none overflow-hidden rounded-[inherit] sm:h-full sm:w-[calc(var(--one-w)-1px)] md:h-[calc(var(--two-w)-1px)] md:max-h-36 md:w-full;
-}
-
-.blog-post-img img {
-	@apply absolute left-0 top-0 h-full max-h-full w-full rounded-[inherit] object-cover transition-all duration-500 ease-in-out sm:saturate-100 md:saturate-[0.8];
-}
-
-.blog-post:hover img {
-	@apply saturate-[1.1];
-}
-
-.blog-post-accent {
-	@apply card-accent;
-}
-
-.blog-post[data-type="featured"] .blog-post-content {
-	@apply justify-center pl-0;
-}
-
-.blog-post-content {
-	@apply z-20 flex h-full w-full flex-col place-content-start content-center justify-between sm:pl-0 sm:pr-[calc(var(--guide-gutter)*1)] md:pl-[var(--guide-gutter)] md:pr-[var(--guide-gutter)];
-}
-
-.blog-post-content * {
-	@apply max-w-full;
-}
-
-.blog-post[data-type="featured"] .blog-post-featured {
-	@apply block h-min max-w-full place-content-start pb-[calc(var(--guide-gutter)*0.25)] pt-[var(--guide-gutter)] font-mono uppercase tracking-widest text-[oklch(var(--foreground)/0.5)] sm:text-2xs md:text-xs lg:text-sm;
-}
-
-.blog-post-featured {
-	@apply hidden;
-}
-
-.blog-post[data-type="featured"] .blog-post-title {
-	@apply mb-[calc(var(--guide-gutter)*0.4)] sm:mt-[calc(var(--guide-gutter)*0.1)] sm:text-2xl sm:leading-[1.25] md:text-4xl md:leading-[1.15];
-}
-
-.blog-post-title {
-	@apply mb-[calc(var(--guide-gutter)*0.25)] inline h-min w-fit text-pretty font-semibold tracking-tight text-[oklch(var(--foreground)/0.85)] transition-colors duration-150 hover:text-foreground sm:mt-[calc(var(--guide-gutter)*1)] sm:text-xl sm:leading-[1.25] md:mt-0 md:text-2xl;
-}
-
-.blog-post-date {
-	@apply h-min w-auto transform-none place-content-start pr-4 pt-0 font-mono font-semibold uppercase tracking-widest text-[oklch(var(--foreground)/0.5)] transition-colors duration-500 ease-in-out sm:pb-[calc(var(--guide-gutter)*0.75)] sm:text-3xs md:pb-[calc(var(--guide-gutter)*0.5)] md:text-2xs;
-}
-
-/* .blog-post:hover .blog-post-date {
-	@apply text-[oklch(var(--accent)/0.8)];
-} */
-
-.blog-post[data-type="featured"] .blog-post-description {
-	@apply line-clamp-3 pr-[var(--guide-gutter)] sm:text-xs md:text-sm;
-}
-
-.blog-post-description {
-	@apply h-min w-auto place-content-start text-pretty text-sm leading-[1.4] text-[oklch(var(--foreground)/0.6)] sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:pr-[calc(var(--guide-gutter)*1)] md:mb-[calc(var(--guide-gutter)*1)] md:line-clamp-3;
-}
-
-.blog-post[data-type="featured"] .blog-post-tags {
-	@apply flex-grow-0 sm:mb-[calc(var(--guide-gutter)*1)] sm:flex;
-}
-
-.blog-post-tags {
-	@apply mb-[calc(var(--guide-gutter)*1)] flex h-min w-full flex-1 flex-row flex-wrap-reverse place-content-end justify-start gap-1 pr-[calc(var(--guide-gutter)*2)];
-}
-
-.blog-post-tag {
-	@apply cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] bg-[oklch(var(--foreground)/0.05)] px-2.5 py-0.5 font-mono font-normal uppercase tracking-wider text-[oklch(var(--foreground)/0.4)] backdrop-blur-xl transition-all duration-300 sm:text-3xs md:text-2xs;
-}
-
-.blog-post:hover .blog-post-tag {
-	@apply bg-[oklch(var(--accent)/0.1)];
-}
-
-.blog-post:hover .blog-post-tag:hover {
-	@apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
-}
-
-.blog-post-arrow-link {
-	@apply absolute bottom-[calc(var(--guide-gutter)*0.75)] right-[var(--guide-gutter)] place-self-end;
-}
-
-.blog-post-arrow {
-	@apply nav-btn h-5 !fill-[oklch(var(--foreground)/0.25)] hover:!fill-[oklch(var(--accent-foreground))];
-}
-
-.inline-back-arrow {
-	@apply nav-btn mb-[4px] mr-[calc(var(--guide-gutter)/2)] h-5;
-}
-
-.tag-close-button {
-	@apply nav-btn mb-[2px] ml-[2px] h-4 fill-none stroke-[oklch(var(--foreground)/0.5)] hover:stroke-red-600;
-}
-
-.nav-btn {
-	@apply inline-block w-auto fill-[oklch(var(--foreground)/0.5)] transition-all duration-200 ease-in-out hover:fill-foreground;
-}
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ BLOG PAGE STYLES ----------------------- */
@@ -786,7 +686,7 @@ body.scrolled .blog-page-banner {
 }
 
 .blog-page-banner img {
-	@apply w-full rounded-lg object-cover h-full sm:opacity-0 lg:opacity-100;
+	@apply h-full w-full rounded-lg object-cover sm:opacity-0 lg:opacity-100;
 }
 
 /* .blog-page-banner img {
@@ -815,19 +715,23 @@ body.scrolled .blog-page-body {
 }
 
 .blog-page-thumbnail img {
-	@apply mb-[var(--guide-gutter)] w-full rounded-lg object-cover transition-all duration-500 ease-in-out sm:h-[var(--two-w)] lg:-mt-[var(--two-w)] md:opacity-100 lg:opacity-0;
+	@apply mb-[var(--guide-gutter)] w-full rounded-lg object-cover transition-all duration-500 ease-in-out sm:h-[var(--two-w)] md:opacity-100 lg:-mt-[var(--two-w)] lg:opacity-0;
 
-    transition: opacity 200ms ease-in-out, margin-top 300ms 100ms ease;
+	transition:
+		opacity 200ms ease-in-out,
+		margin-top 300ms 100ms ease;
 }
 
 body.scrolled .blog-page-thumbnail img {
-	@apply sm:h-[var(--two-w)] lg:mt-0 md:opacity-100;
+	@apply sm:h-[var(--two-w)] md:opacity-100 lg:mt-0;
 
-    transition: opacity 300ms 150ms ease-in-out, margin-top 300ms ease;
+	transition:
+		opacity 300ms 150ms ease-in-out,
+		margin-top 300ms ease;
 }
 
 .blog-page-title {
-	@apply sm:px-[var(--guide-gutter)] lg:px-0 z-20 inline-block w-auto transform-none text-pretty font-semibold tracking-tight text-[oklch(var(--foreground)/0.9)] transition-all duration-500 ease-in-out sm:mb-0 sm:text-left sm:text-3xl sm:leading-3xl md:mb-1 md:text-4xl md:leading-[1] lg:text-right lg:text-5xl;
+	@apply z-20 inline-block w-auto transform-none text-pretty font-semibold tracking-tight text-[oklch(var(--foreground)/0.9)] transition-all duration-500 ease-in-out sm:mb-0 sm:px-[var(--guide-gutter)] sm:text-left sm:text-3xl sm:leading-3xl md:mb-1 md:text-4xl md:leading-[1] lg:px-0 lg:text-right lg:text-5xl;
 }
 
 body.scrolled .blog-page-title {
@@ -835,11 +739,11 @@ body.scrolled .blog-page-title {
 }
 
 .blog-page-date {
-	@apply z-20 my-2 w-auto sm:px-[var(--guide-gutter)] lg:px-0 font-mono font-semibold uppercase tracking-widest text-[oklch(var(--accent-foreground)/0.8)] transition-colors duration-200 ease-in-out sm:pb-[calc(var(--guide-gutter)*0.75)] sm:text-left sm:text-3xs md:pb-[calc(var(--guide-gutter)*0.33)] md:text-2xs lg:text-right;
+	@apply z-20 my-2 w-auto font-mono font-semibold uppercase tracking-widest text-[oklch(var(--accent-foreground)/0.8)] transition-colors duration-200 ease-in-out sm:px-[var(--guide-gutter)] sm:pb-[calc(var(--guide-gutter)*0.75)] sm:text-left sm:text-3xs md:pb-[calc(var(--guide-gutter)*0.33)] md:text-2xs lg:px-0 lg:text-right;
 }
 
 .blog-page-tags {
-	@apply z-20 flex w-auto flex-wrap place-content-end gap-1 sm:px-[var(--guide-gutter)] lg:px-0 pb-[var(--guide-gutter)] sm:justify-start lg:justify-end;
+	@apply z-20 flex w-auto flex-wrap place-content-end gap-1 pb-[var(--guide-gutter)] sm:justify-start sm:px-[var(--guide-gutter)] lg:justify-end lg:px-0;
 }
 
 .blog-page-tags * {
@@ -847,7 +751,7 @@ body.scrolled .blog-page-title {
 }
 
 .blog-page-toc {
-	@apply z-50 rounded-lg sm:px-[var(--guide-gutter)] lg:px-0 transition-all duration-300 ease-in-out sm:py-[var(--guide-gutter)] lg:py-0;
+	@apply z-50 rounded-lg transition-all duration-300 ease-in-out sm:px-[var(--guide-gutter)] sm:py-[var(--guide-gutter)] lg:px-0 lg:py-0;
 }
 
 .blog-page-toc ul {
@@ -874,12 +778,13 @@ body.scrolled .blog-page-title {
 	@apply relative z-50 w-full min-w-0 max-w-[var(--article-width)] transition-all duration-500 ease-in-out sm:px-[var(--guide-gutter)] sm:pt-0 sm:text-foreground lg:px-0 lg:pt-[var(--guide-gutter)];
 }
 
-::-moz-selection { /* Code for Firefox */
-  @apply bg-[oklch(var(--accent-foreground))] text-[oklch(var(--accent-background))];
+::-moz-selection {
+	/* Code for Firefox */
+	@apply bg-[oklch(var(--accent-foreground))] text-[oklch(var(--accent-background))];
 }
 
 ::selection {
-  @apply bg-[oklch(var(--accent-foreground))] text-[oklch(var(--accent-background))];
+	@apply bg-[oklch(var(--accent-foreground))] text-[oklch(var(--accent-background))];
 }
 
 .post-markdown::after {
@@ -897,21 +802,21 @@ body.scrolled .post-markdown::after {
 }
 
 @keyframes headerHighlightFade {
-  0% {
-    @apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
-  }
+	0% {
+		@apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
+	}
 
-  50% {
-    @apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
-  }
+	50% {
+		@apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
+	}
 
-  100% {
-    @apply bg-transparent text-foreground;
-  }
+	100% {
+		@apply bg-transparent text-foreground;
+	}
 }
 
 .post-markdown .header-highlight {
-    animation: headerHighlightFade 2s ease;
+	animation: headerHighlightFade 2s ease;
 }
 
 .post-markdown p {
@@ -934,8 +839,7 @@ body.scrolled .post-markdown::after {
 	margin-bottom: 0.8rem;
 	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
 
-    @apply -ml-3 pl-3 rounded-lg py-1;
-    
+	@apply -ml-3 rounded-lg py-1 pl-3;
 }
 
 .post-markdown h3 {
@@ -988,7 +892,8 @@ body.scrolled .post-markdown::after {
 	@apply relative rounded-lg p-[var(--guide-gutter)] text-sm;
 }
 
-.post-markdown pre::before, .post-markdown blockquote::before {
+.post-markdown pre::before,
+.post-markdown blockquote::before {
 	content: "";
 	background: radial-gradient(
 		circle at 90% 200%,
@@ -996,23 +901,24 @@ body.scrolled .post-markdown::after {
 		transparent 66%
 	);
 
-	@apply absolute left-0 top-0 h-full w-full pointer-events-none;
+	@apply pointer-events-none absolute left-0 top-0 h-full w-full;
 }
 
-.post-markdown pre::after, .post-markdown blockquote::after {
-    content: "";
-    background: radial-gradient(
-            200px circle at 100% 100%,
-            oklch(var(--accent)) 0%,
-            transparent 100%
-        )
-        border-box;
-    mask:
-        linear-gradient(#fff 0 0) padding-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
+.post-markdown pre::after,
+.post-markdown blockquote::after {
+	content: "";
+	background: radial-gradient(
+			200px circle at 100% 100%,
+			oklch(var(--accent)) 0%,
+			transparent 100%
+		)
+		border-box;
+	mask:
+		linear-gradient(#fff 0 0) padding-box,
+		linear-gradient(#fff 0 0);
+	mask-composite: exclude;
 
-    @apply absolute inset-0 z-20 w-full rounded-lg border border-transparent pointer-events-none;
+	@apply pointer-events-none absolute inset-0 z-20 w-full rounded-lg border border-transparent;
 }
 
 .post-markdown hr {
@@ -1032,16 +938,14 @@ body.scrolled .post-markdown::after {
 	margin-top: 1rem;
 }
 
-
 :root[data-theme="dark"] .astro-code,
 :root[data-theme="dark"] .astro-code span {
 	color: var(--shiki-dark) !important;
-    /* Optional, if you also want font styles */
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
+	/* Optional, if you also want font styles */
+	font-style: var(--shiki-dark-font-style) !important;
+	font-weight: var(--shiki-dark-font-weight) !important;
+	text-decoration: var(--shiki-dark-text-decoration) !important;
 }
-
 
 /* ------------------------ PROJECT CARD STYLES ----------------------- */
 .project-card {
@@ -1068,11 +972,11 @@ body.scrolled .post-markdown::after {
 
 .project-card:has(.project-card-tag:hover)::before {
 	/* background-color: oklch(var(--accent)) !important; */
-    @apply bg-[oklch(from_oklch(var(--accent))_var(--shade-background)_var(--shade-chroma)_h)];
+	@apply bg-[oklch(from_oklch(var(--accent))_var(--shade-background)_var(--shade-chroma)_h)];
 }
 
 .project-card:has(.project-card-tag:hover) .project-card-accent::before {
-    @apply bg-[oklch(from_oklch(var(--accent))_var(--shade-foreground)_var(--shade-chroma)_h/0.15)];
+	@apply bg-[oklch(from_oklch(var(--accent))_var(--shade-foreground)_var(--shade-chroma)_h/0.15)];
 }
 
 a:has(.project-card-img) {
@@ -1128,7 +1032,7 @@ a:has(.project-card-img) {
 }
 
 .project-card-tag {
-	@apply relative overflow-hidden cursor-pointer place-self-end whitespace-nowrap rounded-[250px] border-2 border-transparent bg-[oklch(var(--foreground)/0)] px-2.5 py-0.5 font-mono uppercase tracking-wider text-[oklch(var(--foreground)/0.6)] backdrop-blur-xl transition-all hover:bg-[oklch(var(--foreground)/0)] hover:text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)] sm:text-3xs md:text-2xs;
+	@apply relative cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] border-2 border-transparent bg-[oklch(var(--foreground)/0)] px-2.5 py-0.5 font-mono uppercase tracking-wider text-[oklch(var(--foreground)/0.6)] backdrop-blur-xl transition-all hover:bg-[oklch(var(--foreground)/0)] hover:text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)] sm:text-3xs md:text-2xs;
 }
 
 .project-card-tag::before {
