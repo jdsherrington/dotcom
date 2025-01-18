@@ -1,133 +1,15 @@
+/* Design Tokens */
+@import url(./variables/breakpoints.css);
+/* @import url(./variables/colors.css); */
+@import url(./variables/typography.css);
+/* @import url(./variables/spacing.css);
+@import url(./variables/widths.css); */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------ RESPONSIVE DISPLAY SCALING ------------------- */
-/* Large Desktop - 1440px+ */
-:root {
-	font-size: 14px;
-	--guide-count: 12;
-	--guide-type: center;
-	--guide-grid-width: auto;
-	--guide-width: 72px;
-	--guide-margin: 0px;
-	--guide-gutter: 24px;
-	--guide-true-width: var(--guide-width);
-	--guide-true-margin: calc((100% - var(--full-w)) / 2);
 
-	--full-w: calc(
-		(var(--guide-true-width) * var(--guide-count)) +
-			(var(--guide-gutter) * (var(--guide-count) - 1))
-	);
-	--half-w: calc(
-		(var(--guide-true-width) * (var(--guide-count) / 2)) +
-			(var(--guide-gutter) * ((var(--guide-count) / 2) - 1))
-	);
-	--two-thirds-w: calc((var(--third-w) * 2) + var(--guide-gutter));
-	--quarter-w: calc(
-		(var(--guide-true-width) * (var(--guide-count) / 4)) +
-			(var(--guide-gutter) * ((var(--guide-count) / 4) - 1))
-	);
-	--quarter-w: calc(
-		(var(--guide-true-width) * (var(--guide-count) / 4)) +
-			(var(--guide-gutter) * ((var(--guide-count) / 4) - 1))
-	);
-	--third-w: calc(
-		(var(--guide-true-width) * (var(--guide-count) / 3)) +
-			(var(--guide-gutter) * ((var(--guide-count) / 3) - 1))
-	);
-
-	--one-w: calc(var(--guide-true-width) * 1);
-	--two-w: calc((var(--guide-true-width) * 2) + var(--guide-gutter));
-	--three-w: calc((var(--guide-true-width) * 3) + (var(--guide-gutter) * 2));
-	--four-w: calc((var(--guide-true-width) * 4) + (var(--guide-gutter) * 3));
-	--five-w: calc((var(--guide-true-width) * 5) + (var(--guide-gutter) * 4));
-	--six-w: calc((var(--guide-true-width) * 6) + (var(--guide-gutter) * 5));
-	--seven-w: calc((var(--guide-true-width) * 7) + (var(--guide-gutter) * 6));
-
-	--typescale-ratio: 1.125;
-	/* minor third */
-
-	--p-size: 1rem;
-	--small-size: calc(var(--p-size) / var(--typescale-ratio));
-	--caption-size: calc(var(--small-size) / var(--typescale-ratio));
-	--h6-size: calc(var(--p-size));
-	--h5-size: calc(var(--h6-size));
-	--h4-size: calc(var(--h5-size) * var(--typescale-ratio));
-	--h3-size: calc(var(--h4-size) * var(--typescale-ratio));
-	--h2-size: calc(var(--h3-size) * var(--typescale-ratio));
-	--h1-size: calc(var(--h2-size) * var(--typescale-ratio));
-	--featured-size: calc(var(--h1-size) * var(--typescale-ratio));
-}
-
-/* Medium Desktop - 905px-1439px */
-@media screen and (min-width: 905px) and (max-width: 1439px) {
-	:root {
-		--guide-count: 12;
-		--guide-type: stretch;
-		--guide-grid-width: 100%;
-		--guide-width: auto;
-		--guide-margin: 48px;
-		--guide-gutter: 24px;
-		--guide-true-width: calc(
-			(
-					(
-							100dvw -
-								(var(--guide-gutter) * (var(--guide-count) - 1))
-						) -
-						(var(--guide-margin) * 2)
-				) /
-				var(--guide-count)
-		);
-	}
-}
-
-/* Tablet - 600-904px */
-@media screen and (min-width: 600px) and (max-width: 904px) {
-	:root {
-		--guide-count: 8;
-		--guide-type: stretch;
-		--guide-grid-width: 100%;
-		--guide-width: auto;
-		--guide-margin: 24px;
-		--guide-gutter: 24px;
-		--guide-true-width: calc(
-			(
-					(
-							100dvw -
-								(var(--guide-gutter) * (var(--guide-count) - 1))
-						) -
-						(var(--guide-margin) * 2)
-				) /
-				var(--guide-count)
-		);
-	}
-}
-
-/* Mobile - 0-599px */
-@media screen and (max-width: 599px) {
-	:root {
-		font-size: 13px;
-		--typescale-ratio: 1.125;
-
-		--guide-count: 4;
-		--guide-type: stretch;
-		--guide-grid-width: 100%;
-		--guide-width: auto;
-		--guide-margin: 16px;
-		--guide-gutter: 16px;
-		--guide-true-width: calc(
-			(
-					(
-							100dvw -
-								(var(--guide-gutter) * (var(--guide-count) - 1))
-						) -
-						(var(--guide-margin) * 2)
-				) /
-				var(--guide-count)
-		);
-	}
-}
 /* ----------------------------------------------------------------- */
 
 /* ----------------------- SCROLLBAR STYLES ------------------------ */
@@ -185,19 +67,28 @@
 }
 
 @font-face {
+	font-family: DisketMono;
+	font-style: normal;
+	font-weight: normal;
+	font-display: swap;
+	src: url("/fonts/Carbon-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: DisketMono;
+	font-style: normal;
+	font-weight: bold;
+	font-display: swap;
+	src: url("/fonts/Carbon-Bold.woff2") format("woff2");
+}
+
+
+@font-face {
 	font-family: JetBrainsMono;
 	font-style: normal;
 	font-weight: 100 900;
 	font-display: swap;
 	src: url("/fonts/JetBrainsMonoVariable.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: JetBrainsMono;
-	font-style: italic;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("/fonts/JetBrainsMonoVariable-Italic.woff2") format("woff2");
 }
 /* ----------------------------------------------------------------- */
 
@@ -231,6 +122,13 @@
 
 		--theme-contrast-light: -0.02;
 		--theme-contrast-dark: 0.03;
+
+        --accent-primary: var(--foreground);
+        --accent-primary-foreground: from oklch(var(--accent-primary)) var(--shade-foreground) c h;
+        --accent-primary-background: from oklch(var(--accent-primary)) var(--shade-background) c h;;
+        --accent-secondary: var(--foreground);
+        --accent-secondary-foreground: from oklch(var(--accent-secondary)) var(--shade-foreground) c h;
+        --accent-secondary-background: from oklch(var(--accent-secondary)) var(--shade-background) c h;
 
 		--light-bg: var(--theme-lightness-light) var(--theme-chroma)
 			var(--theme-hue);
@@ -280,7 +178,7 @@
 		--theme-lightness: var(--theme-lightness-dark);
 		--theme-contrast: var(--theme-contrast-dark);
 
-		--shade-background: 0.33;
+		--shade-background: 0.4;
 		--shade-foreground: 0.8;
 		--shade-chroma: 0.15;
 
@@ -306,12 +204,6 @@
 		--popover: var(--theme-hue) var(--theme-saturation)
 			var(--theme-darkness);
 		--popover-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
-		--primary: var(--theme-hue) 9.1% var(--theme-lightness);
-		--primary-foreground: 24 9.8% 10%;
-		--secondary: 12 6.5% 15.1%;
-		--secondary-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
-		--muted: var(--theme-hue) 6.5% 15.1%;
-		--muted-foreground: var(--theme-hue) 5.4% 63.9%;
 		--destructive: 1 62.8% 30.6%;
 		--destructive-foreground: 1 9.1% var(--theme-lightness);
 		--border: var(--theme-hue) 6.5% 15.1%;
@@ -340,8 +232,8 @@
 		--theme-lightness: var(--theme-lightness-light);
 		--theme-contrast: var(--theme-contrast-light);
 
-		--shade-background: 0.85;
-		--shade-foreground: 0.5;
+		--shade-background: 0.9;
+		--shade-foreground: 0.4;
 		--shade-chroma: 0.25;
 
 		--background: var(--theme-lightness) var(--theme-chroma)
@@ -413,7 +305,6 @@
 
 @layer base {
 	:root {
-		--accent: var(--foreground);
 		--accent-gradient: var(--background);
 
 		@apply scroll-smooth font-sans;
@@ -486,25 +377,19 @@
 		font-size: var(--h6-size);
 	}
 
-    .menu-btn {
-        @apply rounded-lg border border-transparent relative;
-    }
+	.menu-btn {
+		@apply relative rounded border border-transparent;
+	}
 }
 
 @layer components {
-	.card,
-	.card-alt {
-		--accent: var(--foreground);
-		--accent-border: oklch(var(--foreground) / 0.025);
-		--accent-border-glow: oklch(var(--accent) / 0.75);
-		--accent-bg-glow: oklch(var(--accent) / 0.135);
-		--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
-			h;
-		--accent-background: from oklch(var(--accent)) var(--shade-background) c
-			h;
-
-		@apply relative w-full rounded-lg bg-[oklch(var(--card))] shadow-2xl shadow-transparent transition-all duration-300 ease-in-out hover:shadow-[oklch(var(--accent-foreground)/0.075)];
+	.card {
+		@apply relative w-full rounded bg-[oklch(var(--card))] shadow-2xl shadow-transparent transition-all duration-300 ease-in-out hover:shadow-accent-secondary/10;
 	}
+
+    .card:has(a:hover) {
+        @apply shadow-accent-primary/25;
+    }
 
 	.card::before {
 		content: "";
@@ -514,34 +399,18 @@
 			rgba(0, 0, 0, 0) 50%
 		);
 
-		@apply absolute left-0 top-0 h-full w-full rounded-lg bg-[oklch(var(--card-gradient))] transition-colors duration-500 ease-in-out hover:bg-accent;
-	}
-
-	.card-alt::before {
-		content: "";
-		mask-image: radial-gradient(
-			circle at 100% 100%,
-			rgba(0, 0, 0, 1) -200%,
-			rgba(0, 0, 0, 0) 50%
-		);
-
-		@apply absolute left-0 top-0 h-full w-full rounded-lg bg-[oklch(var(--card-gradient))] transition-colors duration-500 ease-in-out hover:bg-accent;
+		@apply absolute left-0 top-0 h-full w-full rounded bg-[oklch(var(--card-gradient))] transition-colors duration-500 ease-in-out hover:bg-accent-secondary;
 	}
 
 	.card-accent {
-		@apply absolute left-0 top-0 z-10 h-full w-full rounded-lg transition-all duration-500 ease-in-out;
+		@apply absolute left-0 top-0 z-10 h-full w-full rounded transition-all duration-500 ease-in-out;
 	}
 
-	.card-accent-alt {
-		@apply absolute left-0 top-0 z-10 h-full w-full rounded-lg transition-all duration-500 ease-in-out;
-	}
-
-	.card-accent::after,
-	.card-accent-alt::after {
+	.card-accent::after {
 		content: "";
 		background: radial-gradient(
-				200px circle at var(--mouse-x) var(--mouse-y),
-				var(--accent-border-glow) 0%,
+				250px circle at var(--mouse-x) var(--mouse-y),
+				oklch(var(--accent-primary)) 0%,
 				transparent 100%
 			)
 			border-box;
@@ -550,11 +419,10 @@
 			linear-gradient(#fff 0 0);
 		mask-composite: exclude;
 
-		@apply absolute inset-0 z-20 w-full rounded-lg border border-transparent opacity-0 transition-opacity duration-300 ease-in-out;
+		@apply absolute inset-0 z-20 w-full rounded border border-transparent opacity-0 transition-opacity duration-300 ease-in-out;
 	}
 
-	.card:hover > .card-accent::after,
-	.card-alt:hover > .card-accent-alt::after {
+	.card:hover > .card-accent::after {
 		@apply opacity-100;
 	}
 
@@ -565,40 +433,44 @@
 			background-color 300ms ease-in-out;
 		mask: radial-gradient(
 			500px circle at var(--mouse-x) var(--mouse-y),
-			rgb(39, 26, 26) 0%,
+			rgb(39, 26, 26) -50%,
 			rgba(0, 0, 0, 0) 50%
 		);
 
-		@apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-[var(--accent-bg-glow)] opacity-0;
+		@apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-primary-background opacity-0;
+	}
+    
+    .card-accent.featured::before {
+		content: "";
+		transition:
+			opacity 500ms ease-in-out,
+			background-color 300ms ease-in-out;
+		mask: radial-gradient(
+			700px circle at var(--mouse-x) var(--mouse-y),
+			rgb(39, 26, 26) -50%,
+			rgba(0, 0, 0, 0) 50%
+		);
+
+		@apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-primary-background opacity-0;
 	}
 
-	.card-accent-alt::before {
+	/* .card-accent-alt::before {
 		content: "";
 		background: radial-gradient(
 			700px circle at var(--mouse-x) var(--mouse-y),
-			var(--accent-bg-glow) 0%,
+			oklch(var(--accent-primary)) -50%,
 			transparent 50%
 		);
 
 		@apply absolute left-0 top-0 h-full w-full rounded-[inherit] opacity-0 transition-all duration-500 ease-in-out;
-	}
+	} */
 
-	.card:hover .card-accent::before,
-	.card-alt:hover .card-accent-alt::before {
+	.card:hover .card-accent::before {
 		@apply opacity-50;
 	}
 
-	.card:has(a:hover) .card-accent::before,
-	.card-alt:has(a:hover) .card-accent-alt::before {
+	.card:has(a:hover) .card-accent::before {
 		@apply opacity-100;
-	}
-
-	.nav-button a {
-		@apply inline-flex h-12 w-max place-items-center rounded-[var(--radius)] bg-transparent px-4 py-2 font-mono text-sm uppercase tracking-wider hover:bg-[oklch(var(--foreground)/0)] focus:bg-[oklch(var(--foreground)/0.1)] focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50;
-	}
-
-	.active-link {
-		background-color: oklch(var(--foreground) / 0.07) !important;
 	}
 
 	.nav-btn {
@@ -663,289 +535,12 @@ div[data-loaded] {
 
 /* ------------------------ BLOG POST STYLES ----------------------- */
 
+
+
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ BLOG PAGE STYLES ----------------------- */
-.blog-page {
-	@apply relative flex w-[var(--full-w)] flex-col place-items-center content-start gap-[var(--guide-gutter)] place-self-center rounded-[var(--radius)];
 
-	--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
-	--accent-background: from oklch(var(--accent)) var(--shade-background) c h;
-}
-
-/* .blog-page * {
-    @apply bg-red-500/10;
-} */
-
-.blog-page-banner {
-	@apply absolute left-0 top-0 w-full rounded-[inherit] transition-all duration-500 ease-in-out sm:h-[var(--three-w)] md:h-[var(--five-w)];
-}
-
-body.scrolled .blog-page-banner {
-	@apply opacity-0;
-}
-
-.blog-page-banner img {
-	@apply h-full w-full rounded-lg object-cover sm:opacity-0 lg:opacity-100;
-}
-
-/* .blog-page-banner img {
-	@apply absolute top-0 left-0 object-cover w-full h-full max-h-full rounded-[inherit] transition-all duration-500 ease-in-out;
-} */
-
-.blog-page-body {
-	--details-width: 50%;
-	@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--guide-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--guide-gutter)*2)] lg:pt-[calc(var(--five-w)+var(--guide-gutter))];
-}
-
-body.scrolled .blog-page-body {
-	--details-width: 330px;
-}
-
-.blog-page-sidebar {
-	@apply flex h-min flex-col gap-0 transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--guide-gutter)*1.5))];
-}
-
-/* body.scrolled .blog-page-sidebar {
-	@apply lg:gap-[calc(var(--guide-gutter)*0.5)];
-} */
-
-.blog-page-thumbnail {
-	@apply h-auto w-full rounded-[inherit] transition-all duration-500 ease-in-out lg:place-items-end;
-}
-
-.blog-page-thumbnail img {
-	@apply mb-[var(--guide-gutter)] w-full rounded-lg object-cover transition-all duration-500 ease-in-out sm:h-[var(--two-w)] md:opacity-100 lg:-mt-[var(--two-w)] lg:opacity-0;
-
-	transition:
-		opacity 200ms ease-in-out,
-		margin-top 300ms 100ms ease;
-}
-
-body.scrolled .blog-page-thumbnail img {
-	@apply sm:h-[var(--two-w)] md:opacity-100 lg:mt-0;
-
-	transition:
-		opacity 300ms 150ms ease-in-out,
-		margin-top 300ms ease;
-}
-
-.blog-page-title {
-	@apply z-20 inline-block w-auto transform-none text-pretty font-semibold tracking-tight text-[oklch(var(--foreground)/0.9)] transition-all duration-500 ease-in-out sm:mb-0 sm:px-[var(--guide-gutter)] sm:text-left sm:text-3xl sm:leading-3xl md:mb-1 md:text-4xl md:leading-[1] lg:px-0 lg:text-right lg:text-5xl;
-}
-
-body.scrolled .blog-page-title {
-	@apply sm:text-3xl sm:leading-3xl md:text-4xl md:leading-[1] lg:text-3xl;
-}
-
-.blog-page-date {
-	@apply z-20 my-2 w-auto font-mono font-semibold uppercase tracking-widest text-[oklch(var(--accent-foreground)/0.8)] transition-colors duration-200 ease-in-out sm:px-[var(--guide-gutter)] sm:pb-[calc(var(--guide-gutter)*0.75)] sm:text-left sm:text-3xs md:pb-[calc(var(--guide-gutter)*0.33)] md:text-2xs lg:px-0 lg:text-right;
-}
-
-.blog-page-tags {
-	@apply z-20 flex w-auto flex-wrap place-content-end gap-1 pb-[var(--guide-gutter)] sm:justify-start sm:px-[var(--guide-gutter)] lg:justify-end lg:px-0;
-}
-
-.blog-page-tags * {
-	@apply bg-[oklch(var(--accent-foreground)/0.1)] hover:bg-[oklch(var(--accent-background))] hover:text-[oklch(var(--accent-foreground))];
-}
-
-.blog-page-toc {
-	@apply z-50 rounded-lg transition-all duration-300 ease-in-out sm:px-[var(--guide-gutter)] sm:py-[var(--guide-gutter)] lg:px-0 lg:py-0;
-}
-
-.blog-page-toc ul {
-	@apply flex flex-col sm:place-items-start lg:place-items-end;
-}
-
-.blog-page-toc ul a {
-	@apply inline-block border-[oklch(var(--accent-foreground)/0.5)] px-1.5 leading-none transition-all duration-150 ease-in-out sm:border-l sm:text-left lg:border-l-0 lg:border-r lg:text-right;
-}
-
-.blog-page-toc ul li {
-	@apply inline-block rounded-lg px-2 leading-normal transition-all duration-150 ease-in-out hover:bg-[oklch(var(--accent-background))] hover:text-[oklch(var(--accent-foreground))] active:bg-[oklch(from_oklch(var(--accent-background))_calc(l*1.25)_c_h)] sm:text-left lg:text-right;
-}
-
-.toc-heading {
-	@apply px-3 py-1.5 font-mono text-xs uppercase text-[oklch(var(--foreground)/0.5)];
-}
-
-.blog-page-nav-arrow {
-	@apply nav-btn absolute left-0 top-0 ml-[var(--guide-gutter)] mt-[var(--guide-gutter)] cursor-pointer place-self-end !fill-[oklch(var(--dark-bg)/0.5)] hover:!fill-[oklch(var(--dark-bg)/0.8)] sm:h-6 md:h-5;
-}
-
-.post-markdown {
-	@apply relative z-50 w-full min-w-0 max-w-[var(--article-width)] transition-all duration-500 ease-in-out sm:px-[var(--guide-gutter)] sm:pt-0 sm:text-foreground lg:px-0 lg:pt-[var(--guide-gutter)];
-}
-
-::-moz-selection {
-	/* Code for Firefox */
-	@apply bg-[oklch(var(--accent-foreground))] text-[oklch(var(--accent-background))];
-}
-
-::selection {
-	@apply bg-[oklch(var(--accent-foreground))] text-[oklch(var(--accent-background))];
-}
-
-.post-markdown::after {
-	content: "";
-	background: linear-gradient(
-		oklch(var(--background) / 0) 0%,
-		oklch(var(--background) / 1) 800px
-	);
-
-	@apply pointer-events-none absolute left-0 top-0 h-full w-full transition-all duration-500 ease-in-out;
-}
-
-body.scrolled .post-markdown::after {
-	@apply opacity-0;
-}
-
-@keyframes headerHighlightFade {
-	0% {
-		@apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
-	}
-
-	50% {
-		@apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
-	}
-
-	100% {
-		@apply bg-transparent text-foreground;
-	}
-}
-
-.post-markdown .header-highlight {
-	animation: headerHighlightFade 2s ease;
-}
-
-.post-markdown p {
-	font-size: 1rem;
-	font-weight: normal;
-	line-height: 1.5;
-	margin-bottom: 1.5rem;
-}
-
-.post-markdown h1 {
-	font-size: 2rem;
-	font-weight: 700;
-	margin-bottom: 0.7rem;
-	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
-}
-
-.post-markdown h2 {
-	font-size: 1.25rem;
-	font-weight: 500;
-	margin-bottom: 0.8rem;
-	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
-
-	@apply -ml-3 rounded-lg py-1 pl-3;
-}
-
-.post-markdown h3 {
-	font-size: 0.9rem;
-	font-weight: 500;
-	margin-bottom: 0.7rem;
-	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
-	@apply font-mono uppercase text-[oklch(var(--foreground)/0.6)];
-}
-
-.post-markdown h4 {
-	font-size: 1.3rem;
-	font-weight: 700;
-	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
-}
-
-.post-markdown h5 {
-	font-size: 1.3rem;
-	font-weight: 700;
-	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
-}
-
-.post-markdown h6 {
-	font-size: 0.9rem;
-	font-weight: 700;
-	scroll-margin-top: calc(var(--nav-height) + var(--guide-gutter) + 15px);
-}
-
-.post-markdown ul,
-.post-markdown ol {
-	margin-bottom: 1.75rem;
-}
-
-.post-markdown ul > li {
-	margin-left: var(--guide-gutter);
-	list-style: disc;
-	margin-bottom: 0.75rem;
-}
-
-.post-markdown ol > li {
-	margin-left: var(--guide-gutter);
-	list-style: decimal;
-	margin-bottom: 0.75rem;
-}
-
-.post-markdown pre {
-	background-color: oklch(var(--foreground) / 0.05) !important;
-	margin-bottom: 2rem;
-
-	@apply relative rounded-lg p-[var(--guide-gutter)] text-sm;
-}
-
-.post-markdown pre::before,
-.post-markdown blockquote::before {
-	content: "";
-	background: radial-gradient(
-		circle at 90% 200%,
-		oklch(var(--accent)) -400%,
-		transparent 66%
-	);
-
-	@apply pointer-events-none absolute left-0 top-0 h-full w-full;
-}
-
-.post-markdown pre::after,
-.post-markdown blockquote::after {
-	content: "";
-	background: radial-gradient(
-			200px circle at 100% 100%,
-			oklch(var(--accent)) 0%,
-			transparent 100%
-		)
-		border-box;
-	mask:
-		linear-gradient(#fff 0 0) padding-box,
-		linear-gradient(#fff 0 0);
-	mask-composite: exclude;
-
-	@apply pointer-events-none absolute inset-0 z-20 w-full rounded-lg border border-transparent;
-}
-
-.post-markdown hr {
-	@apply my-12 border-[oklch(var(--foreground)/0.2)];
-}
-
-.post-markdown blockquote {
-	border-left: var(--radius) solid oklch(var(--accent));
-	@apply relative mb-6 rounded-lg bg-[oklch(var(--foreground)/0.05)] p-4;
-}
-
-.post-markdown blockquote * {
-	margin-bottom: 0rem;
-}
-
-.post-markdown blockquote > blockquote {
-	margin-top: 1rem;
-}
-
-:root[data-theme="dark"] .astro-code,
-:root[data-theme="dark"] .astro-code span {
-	color: var(--shiki-dark) !important;
-	/* Optional, if you also want font styles */
-	font-style: var(--shiki-dark-font-style) !important;
-	font-weight: var(--shiki-dark-font-weight) !important;
-	text-decoration: var(--shiki-dark-text-decoration) !important;
-}
 
 /* ------------------------ PROJECT CARD STYLES ----------------------- */
 .project-card {
@@ -980,7 +575,7 @@ body.scrolled .post-markdown::after {
 }
 
 a:has(.project-card-img) {
-	@apply z-20 max-h-full w-min justify-self-end leading-none transition-all duration-300 sm:ml-0 sm:mt-0 sm:h-full sm:rounded-l-lg md:ml-[calc(var(--guide-gutter))] md:mt-[var(--guide-gutter)] md:h-auto md:rounded-lg;
+	@apply z-20 max-h-full w-min justify-self-end leading-none transition-all duration-300 sm:ml-0 sm:mt-0 sm:h-full sm:rounded-l-lg md:ml-[calc(var(--guide-gutter))] md:mt-[var(--guide-gutter)] md:h-auto md:rounded;
 }
 
 .project-card-img {
@@ -1032,7 +627,7 @@ a:has(.project-card-img) {
 }
 
 .project-card-tag {
-	@apply relative cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] border-2 border-transparent bg-[oklch(var(--foreground)/0)] px-2.5 py-0.5 font-mono uppercase tracking-wider text-[oklch(var(--foreground)/0.6)] backdrop-blur-xl transition-all hover:bg-[oklch(var(--foreground)/0)] hover:text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)] sm:text-3xs md:text-2xs;
+	@apply relative cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] border-2 border-transparent bg-[oklch(var(--foreground)/0)] px-2.5 py-0.5 font-mono uppercase tracking-wider text-[oklch(var(--foreground)/0.6)] backdrop-blur-xl transition-all hover:bg-[oklch(var(--foreground)/0)] hover:text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)] sm:text-xs md:text-xs;
 }
 
 .project-card-tag::before {

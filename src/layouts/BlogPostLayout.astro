@@ -1,8 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CardTag from "@/components/CardTag.astro";
+import NavigationButton from "@/components/NavigationButton.astro";
 
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+import { extractOKLCHColors } from "../lib/extractOKLCHColors";
 
 const { frontmatter } = Astro.props;
 
@@ -11,6 +16,10 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-AU", {
 	month: "short",
 	day: "2-digit",
 });
+
+const accentPalette: any = await extractOKLCHColors(frontmatter.imagePath);
+const accentPrimary = accentPalette[0];
+const accentSecondary = accentPalette[1];
 
 const readTime = Math.round(frontmatter.wordCount / 250);
 
@@ -24,159 +33,542 @@ if (!images[frontmatter.imagePath]) {
 	);
 }
 
-
-const rawContent = Astro.slots.has("default") ? await Astro.slots.render("default") : "";
+const rawContent = Astro.slots.has("default")
+	? await Astro.slots.render("default")
+	: "";
 
 const headingRegex = /<h([1-2])[^>]*>(.*?)<\/h\1>/gi;
 const headings = [];
 let match;
 
 while ((match = headingRegex.exec(rawContent)) !== null) {
-  const headingLevel = `${match[1]}`;
-  const headingText = match[2].trim();
-  headings.push([headingLevel, headingText]);
+	const headingLevel = `${match[1]}`;
+	const headingText = match[2].trim();
+	headings.push([headingLevel, headingText]);
 }
-
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-	<div class="blog-page" data-accent={frontmatter.accentColor}>
-        <div transition:name=`image${frontmatter.url}` class="blog-page-banner">
-                <Image 
-                src={images[frontmatter.imagePath]()}
-                alt={frontmatter.imageAlt}/>
-        </div>
-        <div class="blog-page-body">
-            <div class="blog-page-sidebar">
-                <div class="blog-page-thumbnail">
-                        <Image 
-                        src={images[frontmatter.imagePath]()}
-                        alt={frontmatter.imageAlt}/>
-                    </div>
-                    <h1 transition:name=`title-${frontmatter.url}` class="blog-page-title">
-                            {frontmatter.title}
-                    </h1>
-                    <p  transition:name=`date-${frontmatter.url}` class="blog-page-date">
-                        {formattedDate} — {readTime} min read
-                    </p>
-                    <div transition:name=`tags-${frontmatter.url}` class="blog-page-tags"
-                    >
-                        {
-                            frontmatter.tags?.map((tag: any) => (
-                                <a href=`/blog/tagged/${tag.toLowerCase().replaceAll(" ", " ")}`
-                                    class:list={[
-                                        tag.toLowerCase().replaceAll(" ", "-"),
-                                        "blog-post-tag",
-                                    ]}
-                                >
-                                    {tag}
-                                </a>
-                            ))
-                        }
-                    </div>
-                <div class="blog-page-toc">
-                    <ul>
-                        {
-                            headings.map(([level, text]) => (
-                                <a href={`#${text.replace(/\s+/g, "-").toLowerCase()}`}>
-                                    <li class={`toc-heading`}>
-                                        {text}
-                                    </li>
-                                </a>
-                            ))
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div class="post-markdown">
-                <slot />
-            </div>
-        </div>
-        <a href="javascript:void(0);" onclick="history.back()">
-                <svg
-                    class="blog-page-nav-arrow"
-                    viewBox="0 0 492 492"
-                >
-                    <g>
-                        <g>
-                            <path
-                                d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
+	<div
+		class="blog-page"
+		data-primary={accentPrimary}
+		data-secondary={accentSecondary}
+	>
+		<div transition:name=`image${frontmatter.url}` class="blog-page-banner">
+            <NavigationButton text="Back" direction="back" />
+			<Image
+				src={images[frontmatter.imagePath]()}
+				alt={frontmatter.imageAlt}
+			/>
+		</div>
+		<div class="blog-page-body">
+			<div class="blog-page-sidebar">
+				<div class="blog-page-thumbnail">
+					<Image
+						src={images[frontmatter.imagePath]()}
+						alt={frontmatter.imageAlt}
+					/>
+				</div>
+				<div class="blog-page-sidebar-info">
+					<h1
+						transition:name=`title-${frontmatter.url}`
+						class="blog-page-title"
+					>
+						{frontmatter.title}
+					</h1>
+					<p
+						transition:name=`date-${frontmatter.url}`
+						class="blog-page-date"
+					>
+						{formattedDate} // {readTime} min read
+					</p>
+					<div
+						transition:name=`tags-${frontmatter.url}`
+						class="blog-page-tags"
+					>
+						{
+							frontmatter.tags?.map((tag: any) => (
+								<CardTag text={tag} collection="blog" />
+							))
+						}
+					</div>
+					<div class="blog-page-share">
+						<div class="blog-page-share-copy">
+							<span>Share</span>
+							<a class="copy-link"><Icon name="social/copylink" /></a>
+						</div>
+						<div class="blog-page-share-socials">
+							<a class="x-link"><Icon name="social/x" /></a>
+							<a class="threads-link"
+								><Icon name="social/threads" /></a
+							>
+							<a class="bluesky-link"
+								><Icon name="social/bluesky" /></a
+							>
+							<a class="reddit-link"
+								><Icon name="social/reddit" /></a
+							>
+							<a class="linkedin-link"
+								><Icon name="social/linkedin" /></a
+							>
+						</div>
+					</div>
+					<div class="blog-page-toc">
+						<div class="scroll-progress"></div>
+						<ul>
+							{
+								headings.map(([level, text]) => (
+									<a
+										href={`#${text.replace(/\s+/g, "-").toLowerCase()}`}
+									>
+										<li class={`toc-heading`}>{text}</li>
+									</a>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="post-markdown">
+				<slot />
+			</div>
+		</div>
+		<a href="javascript:void(0);" onclick="history.back()">
+			<svg class="blog-page-nav-arrow" viewBox="0 0 492 492">
+				<g>
+					<g>
+						<path
+							d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
                 c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
                 L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
                 c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
                 c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
                 C492,219.198,479.172,207.418,464.344,207.418z"
-                            ></path>
-                        </g>
-                    </g>
-                </svg>
-            </a>
+						></path>
+					</g>
+				</g>
+			</svg>
+		</a>
 	</div>
-    
 </BaseLayout>
 
+<style is:global>
+	.blog-page {
+		@apply relative flex w-[var(--full-w)] flex-col place-items-center content-start gap-[var(--guide-gutter)] place-self-center rounded;
+	}
+
+	.blog-page-banner {
+		@apply absolute left-0 top-0 w-full rounded transition-all duration-500 ease-in-out sm:h-[var(--three-w)] md:h-[var(--five-w)];
+	}
+
+	body.scrolled .blog-page-banner {
+		@apply opacity-0;
+	}
+
+	.blog-page-banner img {
+		@apply h-full w-full rounded object-cover sm:opacity-0 lg:opacity-100;
+	}
+
+	.blog-page-body {
+		--details-width: 50%;
+		@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--guide-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--guide-gutter)*2)] lg:pt-[calc(var(--five-w)+var(--guide-gutter))];
+	}
+
+	body.scrolled .blog-page-body {
+		--details-width: 330px;
+	}
+
+	.blog-page-sidebar {
+		@apply flex h-min flex-col pt-[var(--guide-gutter)] transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--guide-gutter)))];
+	}
+
+	.blog-page-sidebar-info {
+		@apply inline-flex flex-col sm:place-items-start sm:px-[var(--guide-gutter)] lg:place-items-end lg:px-2;
+	}
+
+	.blog-page-thumbnail {
+		@apply relative h-auto w-full overflow-hidden rounded transition-all duration-500 ease-in-out lg:place-items-end;
+	}
+
+	.blog-page-thumbnail img {
+		@apply mb-[var(--guide-gutter)] h-[var(--two-w)] w-full rounded object-cover transition-all duration-500 ease-in-out md:opacity-100 lg:-mt-[calc(var(--two-w)+var(--guide-gutter))] lg:opacity-0;
+
+		transition:
+			opacity 200ms ease-in-out,
+			margin-top 300ms 100ms ease;
+	}
+
+	body.scrolled .blog-page-thumbnail img {
+		@apply sm:h-[var(--two-w)] md:opacity-100 lg:mt-0;
+
+		transition:
+			opacity 300ms 150ms ease-in-out,
+			margin-top 300ms ease;
+	}
+
+	.blog-page-title {
+		@apply text-foreground/90 z-20 mb-1.5 inline-block w-auto transform-none text-pretty font-semibold tracking-tight transition-all duration-500 ease-in-out sm:text-left sm:text-3xl sm:leading-3xl md:text-4xl md:leading-[1] lg:text-right lg:text-5xl;
+	}
+
+	body.scrolled .blog-page-title {
+		@apply lg:leading-1 sm:text-3xl sm:leading-3xl md:text-4xl lg:text-4xl;
+	}
+
+	.blog-page-date {
+		@apply text-accent-primary-foreground/80 leading-1 z-20 mb-2.5 w-auto font-mono uppercase tracking-wide transition-all duration-200 ease-in-out sm:text-left lg:text-right;
+	}
+
+	.blog-page-tags {
+		@apply mb-3 w-auto flex-wrap sm:justify-start lg:justify-end;
+	}
+
+	.blog-page-share {
+		@apply bg-foreground/5 leading-1 text-foreground/50 mb-5 inline-flex w-auto place-items-center rounded px-3 font-mono uppercase tracking-wide sm:h-9 sm:justify-start md:h-7 lg:justify-end duration-200;
+	}
+
+	.blog-page-share-copy {
+		@apply border-r-foreground/20 inline-flex w-auto place-items-center gap-3 border-r pr-3.5;
+	}
+
+	.blog-page-share-socials {
+		@apply inline-flex w-auto place-items-center gap-4 pl-3.5;
+	}
+
+    .blog-page-share span {
+		@apply select-none text-sm;
+	}
+
+	.blog-page-share svg {
+		@apply sm:text-xl md:text-lg cursor-pointer duration-200;
+	}
+
+    .copy-link {
+        @apply hover:text-foreground;
+    }
+
+	.x-link {
+        @apply hover:text-foreground;
+    }
+
+    .threads-link {
+        @apply hover:text-foreground;
+    }
+
+    .bluesky-link {
+        @apply hover:text-[oklch(63.55%_0.1974_254.71)];
+    }
+
+    .reddit-link {
+        @apply hover:text-[oklch(66.02%_0.2293_35.4)];
+    }
+
+    .linkedin-link {
+        @apply hover:text-[oklch(54.58%_0.1301_242.27)];
+    }
+
+    .blog-page-share:has(.x-link:hover), .blog-page-share:has(.threads-link:hover) {
+        @apply bg-foreground/10;
+    }
+
+    .blog-page-share:has(.bluesky-link:hover) {
+        @apply bg-[oklch(63.55%_0.1974_254.71/0.1)]
+    }
+
+    .blog-page-share:has(.reddit-link:hover) {
+        @apply bg-[oklch(66.02%_0.2293_35.4/0.1)]
+    }
+
+    .blog-page-share:has(.linkedin-link:hover) {
+        @apply bg-[oklch(54.58%_0.1301_242.27/0.1)]
+    }
+
+	.blog-page-toc {
+		@apply relative z-50 inline-block w-auto overflow-hidden rounded px-0 transition-all duration-300 ease-in-out sm:mx-[var(--guide-gutter)] lg:mx-0;
+	}
+
+	body.scrolled .blog-page-toc {
+		@apply px-2 lg:mx-2;
+	}
+
+	.scroll-progress {
+		@apply bg-accent-secondary-foreground/10 absolute h-full w-[var(--radius)] opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
+
+		--scroll-progress: 0%;
+	}
+
+	body.scrolled .scroll-progress {
+		@apply w-[var(--radius)] opacity-100;
+	}
+
+	.scroll-progress::after {
+		content: "";
+		@apply bg-accent-primary-foreground absolute top-0 h-full w-full rounded-[inherit] sm:left-0 lg:left-auto lg:right-0;
+
+		transform: translate(0, calc(-100% + var(--scroll-progress)));
+	}
+
+	.blog-page-toc ul {
+		@apply flex flex-col gap-0.5 sm:place-items-start lg:place-items-end;
+	}
+
+	.blog-page-toc ul a {
+		@apply inline-block px-0 leading-none transition-all duration-150 ease-in-out lg:text-right;
+	}
+
+	body.scrolled .blog-page-toc ul a {
+		@apply px-2;
+	}
+
+	.blog-page-toc ul li {
+		@apply hover:bg-accent-primary-background hover:text-accent-primary-foreground active:bg-accent-primary-foreground/50 inline-block rounded leading-normal transition-all duration-150 ease-in-out sm:text-left lg:text-right;
+	}
+
+	.toc-heading {
+		@apply text-foreground/70 px-3 pb-1 pt-1.5 font-mono text-base font-normal uppercase leading-xs tracking-wide;
+	}
+
+	.blog-page-nav-arrow {
+		@apply absolute left-0 top-0 ml-[var(--guide-gutter)] mt-[var(--guide-gutter)] cursor-pointer place-self-end !fill-[oklch(var(--dark-bg)/0.5)] hover:!fill-[oklch(var(--dark-bg)/0.8)] sm:h-6 md:h-5;
+	}
+
+	.post-markdown {
+		@apply relative z-50 w-full min-w-0 max-w-[var(--article-width)] transition-all duration-500 ease-in-out sm:px-[var(--guide-gutter)] sm:pt-0 sm:text-foreground lg:px-0 lg:pt-[var(--guide-gutter)];
+	}
+
+	::-moz-selection {
+		/* Code for Firefox */
+		@apply bg-accent-primary-background text-accent-primary-foreground;
+	}
+
+	::selection {
+		@apply bg-accent-primary-background text-accent-primary-foreground;
+	}
+
+	@keyframes headerHighlightFade {
+		0% {
+			@apply bg-accent-primary-background text-accent-primary-foreground;
+		}
+
+		50% {
+			@apply bg-accent-primary-background text-accent-primary-foreground;
+		}
+
+		100% {
+			@apply bg-transparent text-foreground;
+		}
+	}
+
+	.post-markdown .header-highlight {
+		animation: headerHighlightFade 2s ease;
+	}
+
+	.post-markdown p {
+		font-size: 1rem;
+		font-weight: normal;
+		line-height: 1.5;
+		margin-bottom: 1.5rem;
+	}
+
+	.post-markdown h1 {
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 0.7rem;
+		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+	}
+
+	.post-markdown h2 {
+		font-size: 1.25rem;
+		font-weight: 500;
+		margin-bottom: 0.8rem;
+		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+
+		@apply -ml-3 rounded py-1 pl-3;
+	}
+
+	.post-markdown h3 {
+		font-size: 0.9rem;
+		font-weight: 500;
+		margin-bottom: 0.7rem;
+		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		@apply font-mono text-base uppercase tracking-wide text-[oklch(var(--accent-primary-foreground))];
+	}
+
+	.post-markdown h4 {
+		font-size: 1.3rem;
+		font-weight: 700;
+		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+	}
+
+	.post-markdown h5 {
+		font-size: 1.3rem;
+		font-weight: 700;
+		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+	}
+
+	.post-markdown h6 {
+		font-size: 0.9rem;
+		font-weight: 700;
+		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+	}
+
+	.post-markdown ul,
+	.post-markdown ol {
+		margin-bottom: 1.75rem;
+	}
+
+	.post-markdown ul > li {
+		margin-left: var(--guide-gutter);
+		list-style: disc;
+		margin-bottom: 0.75rem;
+	}
+
+	.post-markdown ol > li {
+		margin-left: var(--guide-gutter);
+		list-style: decimal;
+		margin-bottom: 0.75rem;
+	}
+
+	.post-markdown pre {
+		background-color: oklch(var(--foreground) / 0.025) !important;
+		margin-bottom: 2rem;
+
+		@apply !font-code relative rounded p-[var(--guide-gutter)];
+	}
+
+	code {
+		@apply !font-code;
+	}
+
+	.post-markdown pre::before,
+	.post-markdown blockquote::before {
+		content: "";
+		background: radial-gradient(
+			circle at 90% 200%,
+			oklch(var(--accent)) -400%,
+			transparent 66%
+		);
+
+		@apply pointer-events-none absolute left-0 top-0 h-full w-full;
+	}
+
+	.post-markdown pre::after,
+	.post-markdown blockquote::after {
+		content: "";
+		background: radial-gradient(
+				200px circle at 100% 100%,
+				oklch(var(--accent)) 0%,
+				transparent 100%
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+
+		@apply pointer-events-none absolute inset-0 z-20 w-full rounded border border-transparent;
+	}
+
+	.post-markdown hr {
+		@apply my-12 border-[oklch(var(--foreground)/0.2)];
+	}
+
+	.post-markdown blockquote {
+		border-left: var(--radius) solid oklch(var(--accent));
+		@apply relative mb-6 rounded bg-[oklch(var(--foreground)/0.025)] p-4;
+	}
+
+	.post-markdown blockquote * {
+		margin-bottom: 0rem;
+	}
+
+	.post-markdown blockquote > blockquote {
+		margin-top: 1rem;
+	}
+
+	:root[data-theme="dark"] .astro-code,
+	:root[data-theme="dark"] .astro-code span {
+		color: var(--shiki-dark) !important;
+		/* Optional, if you also want font styles */
+		font-style: var(--shiki-dark-font-style) !important;
+		font-weight: var(--shiki-dark-font-weight) !important;
+		text-decoration: var(--shiki-dark-text-decoration) !important;
+	}
+</style>
+
 <script is:inline>
-     document.querySelectorAll('.blog-page-toc a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+	window.onscroll = function () {
+		scrollProgress();
+	};
 
-                const targetId = this.getAttribute('href').slice(1);
-                const targetElement = document.getElementById(targetId);
+	function scrollProgress() {
+		let scroll =
+			document.querySelector(".post-markdown").scrollTop ||
+			document.documentElement.scrollTop;
+		let height =
+			document.documentElement.scrollHeight -
+			document.documentElement.clientHeight;
+		let scrolled = (scroll / height) * 100;
+		document
+			.querySelector(".scroll-progress")
+			.style.setProperty("--scroll-progress", `${scrolled}%`);
+	}
+</script>
 
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+<script is:inline>
+	document.querySelectorAll(".blog-page-toc a").forEach((anchor) => {
+		anchor.addEventListener("click", function (e) {
+			e.preventDefault();
 
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                targetElement.classList.remove('header-highlight');
+			const targetId = this.getAttribute("href").slice(1);
+			const targetElement = document.getElementById(targetId);
 
-                                void targetElement.offsetWidth;
+			if (targetElement) {
+				targetElement.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+				});
 
-                                targetElement.classList.add('header-highlight');
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							targetElement.classList.remove("header-highlight");
 
-                                setTimeout(() => {
-                                    targetElement.classList.add('header-highlight');
-                                }, 20);
+							void targetElement.offsetWidth;
 
-                                observer.disconnect();
-                            }
-                        });
-                    });
+							targetElement.classList.add("header-highlight");
 
-                    observer.observe(targetElement);
+							setTimeout(() => {
+								targetElement.classList.add("header-highlight");
+							}, 20);
 
-                    
-                }
-            });
-        });
+							observer.disconnect();
+						}
+					});
+				});
+
+				observer.observe(targetElement);
+			}
+		});
+	});
 </script>
 
 <script data-astro-rerun>
 	const attachEventListeners = () => {
-        const page = document.querySelector(
-			".blog-page"
+		const page = document.querySelector(".blog-page");
+
+		const html = document.querySelector("html");
+
+		html.style.setProperty("--accent-primary", `${page.dataset.primary}`);
+
+		html.style.setProperty(
+			"--accent-secondary",
+			`${page.dataset.secondary}`
 		);
 
-        const html = document.querySelector(
-			"html"
-		);
-
-		page.style.setProperty(
-				"--accent",
-				`${page.dataset.accent}`
-                // 100%
-		);
-
-        html.style.setProperty(
-				"--accent",
-				`${page.dataset.accent}`
-                // 100%
-		);
-        html.style.setProperty(
-				"--accent-gradient",
-				`${page.dataset.accent}`
-                // 100%
+		html.style.setProperty(
+			"--accent-gradient",
+			`${page.dataset.primary}`
+			// 100%
 		);
 	};
 
@@ -185,20 +577,4 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	document.addEventListener("astro:after-swap", () => {
 		attachEventListeners();
 	});
-
-    // console.log("Script working")
-    // function attachEventListeners() {
-	// 	const post = document.querySelector(
-	// 		".page-accent"
-	// 	) as HTMLElement;
-    //     if (post) {
-    //         console.log(post.dataset.accent);
-	// 	post.style.background = `radial-gradient(circle 200px at 100% 450%, ${post.dataset.accent} 0%, transparent 475%)`;
-    //     }
-	// };
-
-	// attachEventListeners();
-
-	// document.addEventListener("astro:after-swap", attachEventListeners);
-    // document.addEventListener("DOMContentLoaded", attachEventListeners);
 </script>

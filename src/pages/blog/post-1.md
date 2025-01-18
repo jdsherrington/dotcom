@@ -7,9 +7,9 @@ author: "Jordan Sherrington"
 imagePath: "/src/assets/blog/posts/blogpost1.jpg"
 imageAlt: "The first blog post"
 tags: ["astro", "blogging", "learning in public", "test tag"]
-accentColor: "66% 23% 85"
 wordCount: 263
 ---
+accentColor: "66% 23% 85"
 
 Welcome to my personal blog where I share **insights**, _opinions_, and stories about _technology_, **life**, and everything in between.
 

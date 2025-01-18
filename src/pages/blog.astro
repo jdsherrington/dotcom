@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogPost from "../components/BlogPost.astro";
+import BlogCard from "../components/BlogCard.astro";
 
 const [featuredPost, ...allPosts] = (await Astro.glob("./blog/*.md")).sort(
 	(a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
@@ -10,7 +10,7 @@ const pageTitle = "Blog";
 
 <BaseLayout pageTitle={pageTitle}>
 	<section id="blog-posts">
-		<BlogPost
+		<BlogCard
 			title={featuredPost.frontmatter.title}
 			description={featuredPost.frontmatter.description}
 			date={featuredPost.frontmatter.date}
@@ -18,13 +18,12 @@ const pageTitle = "Blog";
 			tags={featuredPost.frontmatter.tags}
 			imagePath={featuredPost.frontmatter.imagePath}
 			imageAlt={featuredPost.frontmatter.imageAlt}
-			accentColor={featuredPost.frontmatter.accentColor}
 			wordCount={featuredPost.frontmatter.wordCount}
 			type="featured"
 		/>
 		{
 			allPosts.map((post) => (
-				<BlogPost
+				<BlogCard
 					title={post.frontmatter.title}
 					description={post.frontmatter.description}
 					date={post.frontmatter.date}
@@ -32,7 +31,6 @@ const pageTitle = "Blog";
 					tags={post.frontmatter.tags}
 					imagePath={post.frontmatter.imagePath}
 					imageAlt={post.frontmatter.imageAlt}
-					accentColor={post.frontmatter.accentColor}
 					wordCount={post.frontmatter.wordCount}
 					type="standard"
 				/>

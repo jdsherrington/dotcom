@@ -1,0 +1,39 @@
+---
+interface Props {
+	text: string;
+	collection: string;
+}
+
+const { text, collection } = Astro.props;
+
+const textCleaned = text.toLowerCase().replaceAll(" ", "-");
+---
+
+<a
+	href=`/${collection}/tagged/${textCleaned}`
+	class=`${textCleaned}-${collection}-tag card-tag hover`
+>
+	<span class="card-tag-text-offset">{text}</span>
+</a>
+
+<style is:global>
+	*:has(> .card-tag) {
+		@apply flex h-min w-full flex-1 flex-row flex-wrap-reverse place-content-end justify-start gap-1;
+	}
+
+	.card-tag {
+		@apply md:bg-foreground/5 sm:text-foreground/60 md:text-foreground/50 place-self-end overflow-hidden whitespace-nowrap rounded-lg px-3 h-7 font-mono text-xs uppercase leading-1 tracking-wide backdrop-blur-xl transition-all duration-300 sm:bg-[oklch(var(--foreground)/0.05)] flex place-items-center;
+	}
+
+    .card-tag.hover {
+        @apply hover:!bg-accent-primary-background hover:!text-accent-primary-foreground cursor-pointer;
+    }
+
+	:not(.card) > * > * > .card-tag {
+		@apply bg-accent-secondary-foreground/10 text-accent-secondary-foreground/60;
+	}
+
+	.card:hover .card-tag {
+		@apply bg-accent-secondary-foreground/10 text-accent-secondary-foreground/60;
+	}
+</style>

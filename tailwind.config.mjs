@@ -11,18 +11,16 @@ export default {
 			sm: "0px", // 4 columns
 		},
 		fontSize: {
-			"3xs": "calc(calc(calc(calc(var(--p-size) / var(--typescale-ratio)) / var(--typescale-ratio)) / var(--typescale-ratio)) / var(--typescale-ratio))",
-			"2xs": "calc(calc(calc(var(--p-size) / var(--typescale-ratio)) / var(--typescale-ratio)) / var(--typescale-ratio))",
-			xs: "calc(calc(var(--p-size) / var(--typescale-ratio)) / var(--typescale-ratio))",
-			sm: "calc(var(--p-size) / var(--typescale-ratio))",
-			base: "var(--p-size)",
-			lg: "calc(var(--p-size) * var(--typescale-ratio))",
-			xl: "calc(calc(var(--p-size) * var(--typescale-ratio)) * var(--typescale-ratio))",
-			"2xl": "calc(calc(calc(var(--p-size) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio))",
-			"3xl": "calc(calc(calc(calc(var(--p-size) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio))",
-			"4xl": "calc(calc(calc(calc(calc(var(--p-size) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio))",
-			"5xl": "calc(calc(calc(calc(calc(calc(var(--p-size) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio))",
-			"6xl": "calc(calc(calc(calc(calc(calc(calc(var(--p-size) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio)) * var(--typescale-ratio))",
+			xs: "0.75rem",
+			sm: "0.875rem",
+			base: "1rem",
+			lg: "1.125rem",
+			xl: "1.25rem",
+			"2xl": "1.5rem",
+			"3xl": "1.875rem",
+			"4xl": "2.25rem",
+			"5xl": "3rem",
+            "6xl": "3.75rem",
 		},
 		lineHeight: {
 			"3xs": "0.7rem",
@@ -31,14 +29,24 @@ export default {
 			sm: "1.25rem",
 			base: "1.5rem",
 			lg: "1.75rem",
-			xl: "1.75rem",
+			xl: "1.85rem",
 			"2xl": "2rem",
 			"3xl": "2.25rem",
 			"4xl": "2.5rem",
-			"5xl": "1",
-			"6xl": "1",
+			1: "1",
 			none: "0",
 			normal: "1.5",
+		},
+		letterSpacing: {
+			extratight: "-0.15rem",
+			tightest: "-0.1rem",
+			tighter: "-0.05rem",
+			tight: "-0.025rem",
+			base: "0rem",
+			wide: "0.05rem",
+			wider: "0.1rem",
+			widest: "0.15rem",
+			extrawide: "0.2rem",
 		},
 		container: {
 			center: true,
@@ -73,8 +81,21 @@ export default {
 				},
 				accent: {
 					DEFAULT: "oklch(var(--accent) / <alpha-value>)",
-					foreground:
-						"oklch(var(--accent-foreground) / <alpha-value>)",
+					primary: {
+						DEFAULT: "oklch(var(--accent-primary) / <alpha-value>)",
+						foreground:
+							"oklch(var(--accent-primary-foreground) / <alpha-value>)",
+						background:
+							"oklch(var(--accent-primary-background) / <alpha-value>)",
+					},
+					secondary: {
+						DEFAULT:
+							"oklch(var(--accent-secondary) / <alpha-value>)",
+						foreground:
+							"oklch(var(--accent-secondary-foreground) / <alpha-value>)",
+						background:
+							"oklch(var(--accent-secondary-background) / <alpha-value>)",
+					},
 				},
 				popover: {
 					DEFAULT: "oklch(var(--popover) / <alpha-value>)",
@@ -87,14 +108,15 @@ export default {
 				},
 			},
 			borderRadius: {
+				DEFAULT: "var(--radius)",
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
 				sans: ["Fluent"],
-				mono: ["JetBrainsMono"],
-				pixel: ["DepartureMono"],
+				mono: ["DisketMono"],
+				code: ["JetBrainsMono"],
 			},
 			keyframes: {
 				"accordion-down": {

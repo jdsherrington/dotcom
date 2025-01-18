@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import BlogPost from "@/components/BlogPost.astro";
+import BlogCard from "@/components/BlogCard.astro";
 
 export async function getStaticPaths() {
 	const allPosts = (await Astro.glob("../*.md")).sort(
@@ -23,8 +23,9 @@ export async function getStaticPaths() {
 			(post: { frontmatter: { tags: string | any[] } }) =>
 				post.frontmatter.tags.includes(tag)
 		);
+        const cleanedTag = tag.toLowerCase().replaceAll(" ", "-");
 		return {
-			params: { tag },
+			params: { tag: cleanedTag },
 			props: { posts: filteredPosts },
 		};
 	});
@@ -52,7 +53,10 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout pageTitle={tag}>
+<BaseLayout
+	pageTitle=`JDS - ${tag.toLowerCase().replace(/\b(\s\w|^\w)/g, function (text: any) { return text.toUpperCase(); })} Posts`
+	`
+>
 	<section class="sm:w-[var(--full-w)] place-self-center">
 		<div class="flex place-items-center gap-[calc(var(--guide-gutter)/2)]">
 			<a href="javascript:void(0);" onclick="history.back()">
@@ -72,7 +76,7 @@ const {
 				</svg>
 			</a>
 			<span
-				class="font-mono uppercase tracking-widest text-xs text-[oklch(var(--foreground)/0.66)] rounded-full bg-[oklch(var(--foreground)/0.1)] pl-3.5 pr-2.5 pb-1 pt-1.5 select-none"
+				class="!text-foreground/70 bg-foreground/10 cursor-default select-none card-tag flex gap-0.5"
 				>{tag}<a href="/blog" class="ml-1.5"
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +99,7 @@ const {
 			>
 				{
 					posts.map((post) => (
-						<BlogPost
+						<BlogCard
 							title={post.frontmatter.title}
 							description={post.frontmatter.description}
 							date={post.frontmatter.date}
@@ -113,3 +117,9 @@ const {
 		</div>
 	</section>
 </BaseLayout>
+
+<style>
+	.tag-close-button {
+		@apply duration-200 ease-in-out stroke-foreground/50 sm:w-5 md:w-4 fill-none hover:stroke-red-600;
+	}
+</style>

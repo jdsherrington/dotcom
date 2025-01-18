@@ -45,6 +45,14 @@ const { pageTitle, pageDesc } = Astro.props;
 			crossorigin="anonymous"
 		/>
 
+		<link
+			rel="preload"
+			href="/fonts/Carbon-Regular.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin="anonymous"
+		/>
+
 		<ClientRouter />
 	</head>
 
@@ -88,12 +96,20 @@ const { pageTitle, pageDesc } = Astro.props;
 		}
 
 		document.documentElement.setAttribute("data-theme", appliedTheme);
+
+		document.querySelectorAll(".theme-drawer li").forEach((themeBtn) => {
+			themeBtn.classList.remove("active");
+			if (themeBtn.classList.contains(currentTheme))
+				themeBtn.classList.add("active");
+		});
+
+		themeBtn.classList.add("active");
 	}
 
 	(function createToggles() {
 		document.querySelectorAll(".theme-drawer li").forEach((themeBtn) => {
 			themeBtn.addEventListener("click", (e) => {
-				const newTheme = themeBtn.getAttribute("class");
+				const newTheme = themeBtn.getAttribute("class").split(" ")[0];
 				localStorage.setItem("theme", newTheme);
 
 				loadTheme(document);
@@ -181,7 +197,7 @@ const { pageTitle, pageDesc } = Astro.props;
 	const setBodyScrolled = () => {
 		let body = document.querySelector("body");
 		setTimeout(() => {
-			body?.classList.toggle("scrolled", window.scrollY > 300);
+			body?.classList.toggle("scrolled", window.scrollY > 350);
 		}, 150);
 	};
 

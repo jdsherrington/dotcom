@@ -1,6 +1,8 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import { extractOKLCHColors } from "../lib/extractOKLCHColors"
+import CardTag from "./CardTag.astro";
 
 interface Props {
 	title: string;
@@ -10,21 +12,24 @@ interface Props {
 	tags: string[];
 	imagePath: string;
 	imageAlt: string;
-	accentColor: string;
     wordCount: number;
     type: string;
 }
 
-const { title, description, date, url, tags, imagePath, imageAlt, accentColor, type } =
+const { title, description, date, url, tags, imagePath, imageAlt, type, wordCount } =
 	Astro.props;
 
-const formattedDate = new Date(Astro.props.date).toLocaleDateString("en-AU", {
+const formattedDate = new Date(date).toLocaleDateString("en-AU", {
 	year: "numeric",
 	month: "short",
 	day: "2-digit",
 });
 
-const readTime = Math.round(Astro.props.wordCount / 250);
+const accentPalette: any = await extractOKLCHColors(imagePath);
+const accentPrimary = accentPalette[0];
+const accentSecondary = accentPalette[1];
+    
+const readTime = Math.round(wordCount / 250);
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}"
@@ -35,15 +40,13 @@ if (!images[imagePath])
 		`"${imagePath}" does not exist in glob: "src/assets/blog/posts/*"`
 	);
 ---
-
 <div transition:name=`container-${url}`
 class="blog-post card"
-data-accent={accentColor}
+data-primary={accentPrimary} data-secondary={accentSecondary}
 data-type={type}>
-    <a href={url}>
+    <a href={url} class="z-20">
         <div transition:name=`image${url}` class="blog-post-img" data-loaded="false">  
             <Image
-                transition:name=`image-${url}`
                 src={images[imagePath]()} 
                 alt={imageAlt}
                 onload="this.parentElement.dataset.loaded = 'true'"
@@ -53,7 +56,6 @@ data-type={type}>
     <div
         transition:name=`accent-${url}`
         class="card-accent"
-        data-accent={accentColor}
     ></div>
     <div
         class="blog-post-content"
@@ -64,23 +66,16 @@ data-type={type}>
             <h1 class="blog-post-title" transition:name=`title-${url}`>{title}</h1>
         </a>
 
-        <small transition:name=`date-${url}` class="blog-post-date">{formattedDate} — {readTime} min read</small>
+        <small transition:name=`date-${url}` class="blog-post-date">{formattedDate} // {readTime} min read</small>
 
         <p transition:name=`description-${url}` class="blog-post-description">{description}</p>
         
 
         <div transition:name=`tags-${url}` class="blog-post-tags">
                 {
-                    tags?.map((tag: any, index: number) => (
-                        <a href=`/blog/tagged/${tag.toLowerCase()}`
-                            class:list={[
-                                tag.toLowerCase().replaceAll(" ", "-"),
-                                "blog-post-tag",
-                            ]}
-                        >
-                            {tag}
-                        </a>
-                    ))
+                    tags?.map((tag: any) =>
+                        <CardTag text={tag} collection="blog" />
+                    )
                 }
         </div>
         <a href={url} class="blog-post-arrow-link">
@@ -97,9 +92,14 @@ data-type={type}>
     </div>
 </div>
 
-<style>
+<style is:global>
     .blog-post {
         @apply flex justify-self-center sm:max-w-[var(--full-w)] sm:flex-row sm:gap-[calc(var(--guide-gutter)*1)] md:max-w-none md:flex-col md:gap-[calc(var(--guide-gutter)*0.9)];
+
+        --accent-primary-foreground: from oklch(var(--accent-primary)) var(--shade-foreground) c h;
+        --accent-primary-background: from oklch(var(--accent-primary)) var(--shade-background) c h;
+        --accent-secondary-foreground: from oklch(var(--accent-secondary)) var(--shade-foreground) c h;
+        --accent-secondary-background: from oklch(var(--accent-secondary)) var(--shade-background) c h;
     }
 
     .blog-post[data-type="featured"] {
@@ -151,24 +151,31 @@ data-type={type}>
     }
 
     .blog-post[data-type="featured"] .blog-post-featured {
-        @apply block h-min max-w-full place-content-start pb-[calc(var(--guide-gutter)*0.25)] pt-[var(--guide-gutter)] text-foreground/50 font-mono tracking-wide;
+        @apply block h-min max-w-full place-content-start pb-1.5 text-foreground/50 font-mono tracking-wider text-base;
     }
 
     .blog-post-featured {
         @apply hidden;
     }
 
+    .blog-post[data-type="featured"] a:has(.blog-post-title) {
+        @apply pb-[calc(var(--guide-gutter)*0.1)];
+    }
+
     .blog-post[data-type="featured"] .blog-post-title {
-        font-size: var(--featured-size) !important;
-        @apply mb-[calc(var(--guide-gutter)*0.4)] sm:mt-[calc(var(--guide-gutter)*0.1)];
+        @apply sm:text-3xl md:text-4xl sm:mt-[calc(var(--guide-gutter)*0.1)];
     }
 
     .blog-post-title {
-        @apply inline h-min w-fit text-pretty text-[oklch(var(--foreground)/0.85)] transition-colors duration-150 hover:text-foreground;
+        @apply text-2xl inline h-min w-fit text-pretty text-[oklch(var(--foreground)/0.85)] transition-colors duration-300 ease-in-out hover:text-foreground;
     }
 
     .blog-post-date {
-        @apply font-mono uppercase tracking-wider my-2 sm:text-xs md:text-sm h-min w-auto transform-none place-content-start pr-4 text-[oklch(var(--foreground)/0.5)] transition-colors duration-500 ease-in-out;
+        @apply font-mono uppercase tracking-wide my-0.5 pb-1 text-base h-min w-auto transform-none place-content-start pr-4 text-foreground/50 transition-colors duration-300 ease-in-out;
+    }
+
+    .blog-post:hover .blog-post-date {
+        @apply text-accent-primary-foreground/70;
     }
 
     .blog-post[data-type="featured"] .blog-post-description {
@@ -176,27 +183,15 @@ data-type={type}>
     }
 
     .blog-post-description {
-        @apply pt-1 h-min w-auto place-content-start text-pretty text-[oklch(var(--foreground)/0.6)] sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:pr-[calc(var(--guide-gutter)*1)] md:mb-[calc(var(--guide-gutter)*1)] md:line-clamp-3;
+        @apply h-min w-auto place-content-start text-pretty text-foreground/60 sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:pr-[calc(var(--guide-gutter)*1)] md:mb-[calc(var(--guide-gutter)*0.5)] md:line-clamp-3;
     }
 
     .blog-post[data-type="featured"] .blog-post-tags {
-        @apply flex-grow-0 sm:mb-[calc(var(--guide-gutter)*1)] sm:flex;
+        @apply flex-grow-0 sm:mb-[calc(var(--guide-gutter)*1)] md:mb-0 sm:pb-0 sm:flex;
     }
 
     .blog-post-tags {
-        @apply mb-[calc(var(--guide-gutter)*1)] flex h-min w-full flex-1 flex-row flex-wrap-reverse place-content-end justify-start gap-1 pr-[calc(var(--guide-gutter)*2)];
-    }
-
-    .blog-post-tag {
-        @apply cursor-pointer place-self-end overflow-hidden whitespace-nowrap rounded-[250px] bg-[oklch(var(--foreground)/0.05)] px-2.5 py-0.5 font-mono font-normal uppercase tracking-wider text-[oklch(var(--foreground)/0.4)] backdrop-blur-xl transition-all duration-300 sm:text-xs md:text-xs;
-    }
-
-    .blog-post:hover .blog-post-tag {
-        @apply bg-[oklch(var(--accent)/0.1)];
-    }
-
-    .blog-post:hover .blog-post-tag:hover {
-        @apply bg-[oklch(var(--accent-background))] text-[oklch(var(--accent-foreground))];
+        @apply pr-[var(--guide-gutter)] pb-[var(--guide-gutter)]
     }
 
     .blog-post-arrow-link {
@@ -204,21 +199,20 @@ data-type={type}>
     }
 
     .blog-post-arrow {
-        @apply nav-btn h-5 !fill-[oklch(var(--foreground)/0.25)] hover:!fill-[oklch(var(--accent-foreground))];
+        @apply transition-colors duration-300 ease-in-out h-5 !fill-foreground/25 hover:!fill-accent-primary-foreground;
+    }
+
+    .blog-post:hover .blog-post-arrow {
+        @apply !fill-accent-secondary-foreground/50 hover:!fill-accent-primary-foreground;
     }
 
     .inline-back-arrow {
         @apply nav-btn mb-[4px] mr-[calc(var(--guide-gutter)/2)] h-5;
     }
-
-    .tag-close-button {
-        @apply nav-btn mb-[2px] ml-[2px] h-4 fill-none stroke-[oklch(var(--foreground)/0.5)] hover:stroke-red-600;
-    }
 </style>
 
-
 <script>
-    const handleOnMouseMove = (e: MouseEvent) => {
+const handleOnMouseMove = (e: MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
 
     if (!target) return;
@@ -237,35 +231,22 @@ const attachEventListeners = () => {
         post.onmousemove = (e) => handleOnMouseMove(e);
     });
 
-    // // Style blog-post accents
-    // const accentPosts = document.querySelectorAll<HTMLElement>(".blog-post-accent");
-    // accentPosts.forEach((el) => {
-    //     const accent = el.dataset.accent;
-    //     if (accent) {
-    //         el.style.background = `radial-gradient(circle at 0% 30%, oklch(${accent}) -350%, transparent 70%)`;
-    //     }
-    // });
+    // Set post accents
+    document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
+        post.style.setProperty("--accent-primary", `${post.dataset.primary}`);
+        post.style.setProperty("--accent-secondary", `${post.dataset.secondary}`);
+    });
 
     // Style featured post accent
     const featuredCard = document.querySelector<HTMLElement>(".card[data-type='featured']");
     if (featuredCard) {
-        featuredCard.classList.add("card-alt");
-        featuredCard.classList.remove("card");
+        featuredCard.classList.add("featured");
     }
 
     const featuredAccent = document.querySelector<HTMLElement>(".blog-post[data-type='featured'] .card-accent");
     if (featuredAccent) {
-        featuredAccent.classList.add("card-accent-alt");
-        featuredAccent.classList.remove("card-accent");
+        featuredAccent.classList.add("featured");
     }
-
-    // Set post accents
-    document.querySelectorAll<HTMLElement>(".blog-post").forEach((el) => {
-        const accent = el.dataset.accent;
-        if (accent) {
-            el.style.setProperty("--accent", `${accent}`);
-        }
-    });
 };
 
 // Attach initial event listeners
