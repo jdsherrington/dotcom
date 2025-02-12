@@ -1,14 +1,14 @@
 /* TYPOGRAPHY */
 
-:root {
-    --p-size: 1rem;
-	--small-size: calc(var(--p-size) / var(--typescale-ratio));
-	--caption-size: calc(var(--small-size) / var(--typescale-ratio));
-	--h6-size: calc(var(--p-size));
-	--h5-size: calc(var(--h6-size));
-	--h4-size: calc(var(--h5-size) * var(--typescale-ratio));
-	--h3-size: calc(var(--h4-size) * var(--typescale-ratio));
-	--h2-size: calc(var(--h3-size) * var(--typescale-ratio));
-	--h1-size: calc(var(--h2-size) * var(--typescale-ratio));
-	--featured-size: calc(var(--h1-size) * var(--typescale-ratio));
-}
+/* :root { */
+/*     --p-size: 1rem; */
+/*     --small-size: calc(var(--p-size) / var(--typescale-ratio)); */
+/* 	--caption-size: calc(var(--small-size) / var(--typescale-ratio)); */
+/* 	--h6-size: calc(var(--p-size)); */
+/* 	--h5-size: calc(var(--h6-size)); */
+/* 	--h4-size: calc(var(--h5-size) * var(--typescale-ratio)); */
+/* 	--h3-size: calc(var(--h4-size) * var(--typescale-ratio)); */
+/* 	--h2-size: calc(var(--h3-size) * var(--typescale-ratio)); */
+/* 	--h1-size: calc(var(--h2-size) * var(--typescale-ratio)); */
+/* 	--featured-size: calc(var(--h1-size) * var(--typescale-ratio)); */
+/* } */

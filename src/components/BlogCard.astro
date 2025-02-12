@@ -12,8 +12,8 @@ interface Props {
 	tags: string[];
 	imagePath: string;
 	imageAlt: string;
-    wordCount: number;
-    type: string;
+        wordCount: number;
+        type: string;
 }
 
 const { title, description, date, url, tags, imagePath, imageAlt, type, wordCount } =
@@ -151,19 +151,15 @@ data-type={type}>
     }
 
     .blog-post[data-type="featured"] .blog-post-featured {
-        @apply block h-min max-w-full place-content-start pb-1.5 text-foreground/50 font-mono tracking-wider text-base;
+        @apply block h-min max-w-full place-content-start pb-2 text-foreground/50 font-mono tracking-wider text-sm;
     }
 
     .blog-post-featured {
         @apply hidden;
     }
 
-    .blog-post[data-type="featured"] a:has(.blog-post-title) {
-        @apply pb-[calc(var(--guide-gutter)*0.1)];
-    }
-
     .blog-post[data-type="featured"] .blog-post-title {
-        @apply sm:text-3xl md:text-4xl sm:mt-[calc(var(--guide-gutter)*0.1)];
+        @apply sm:text-3xl md:text-3xl sm:mt-[calc(var(--guide-gutter)*0.1)];
     }
 
     .blog-post-title {
@@ -171,7 +167,7 @@ data-type={type}>
     }
 
     .blog-post-date {
-        @apply font-mono uppercase tracking-wide my-0.5 pb-1 text-base h-min w-auto transform-none place-content-start pr-4 text-foreground/50 transition-colors duration-300 ease-in-out;
+        @apply font-mono font-bold uppercase tracking-wider my-0.5 pb-1 text-[0.7rem] h-min w-auto transform-none place-content-start pr-4 text-foreground/50 transition-colors duration-300 ease-in-out;
     }
 
     .blog-post:hover .blog-post-date {
@@ -183,7 +179,7 @@ data-type={type}>
     }
 
     .blog-post-description {
-        @apply h-min w-auto place-content-start text-pretty text-foreground/60 sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:pr-[calc(var(--guide-gutter)*1)] md:mb-[calc(var(--guide-gutter)*0.5)] md:line-clamp-3;
+        @apply h-min w-auto text-[0.875rem] place-content-start text-pretty text-foreground/60 sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:pr-[calc(var(--guide-gutter)*1)] md:mb-[calc(var(--guide-gutter)*0.5)] md:line-clamp-3;
     }
 
     .blog-post[data-type="featured"] .blog-post-tags {

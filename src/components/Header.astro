@@ -199,7 +199,7 @@
 	}
 
 	header.scrolled nav {
-		@apply md:shadow-background/50 mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent sm:shadow-transparent md:bg-[var(--header)];
+		@apply mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent sm:shadow-transparent md:bg-[var(--header)] md:shadow-background/50;
 	}
 
 	nav::before {
@@ -232,7 +232,7 @@
 	}
 
 	.header-logo {
-		@apply fill-accent-secondary md:hover:fill-accent-primary z-50 inline-block h-9 w-auto transition-colors duration-500 ease-in-out;
+		@apply z-50 inline-block h-9 w-auto fill-accent-secondary transition-colors duration-500 ease-in-out md:hover:fill-accent-primary;
 	}
 
 	header.scrolled .header-logo {
@@ -240,11 +240,11 @@
 	}
 
 	.nav-items {
-		@apply relative items-center gap-0 sm:hidden md:flex;
+		@apply relative h-auto items-center gap-0 sm:hidden md:flex;
 	}
 
 	.nav-items .nav-button {
-		@apply text-foreground/60 hover:text-accent-secondary-foreground/80 cursor-pointer px-4 py-2 font-mono text-base uppercase tracking-wide transition-colors duration-300 ease-in-out;
+		@apply cursor-pointer font-mono uppercase tracking-wide text-foreground/60 transition-colors duration-300 ease-in-out hover:text-accent-secondary-foreground/80;
 	}
 
 	.nav-items .nav-button:has(.theme-toggle) {
@@ -252,15 +252,15 @@
 	}
 
 	.nav-items .theme-toggle {
-		@apply text-foreground/70 px-3 font-mono text-sm uppercase;
+		@apply px-3 py-3 font-mono text-sm uppercase text-foreground/70;
 	}
 
 	.nav-items .theme-toggle svg {
 		@apply h-[20px] w-[20px] scale-100 fill-foreground stroke-foreground opacity-60 transition-all duration-200 ease-in-out;
 	}
 
-	.nav-button a {
-		@apply inline-flex h-11 w-max place-items-center rounded-[var(--radius)] bg-transparent px-4 py-2 font-mono text-sm uppercase tracking-wider hover:bg-transparent focus:bg-[oklch(var(--foreground)/0.1)] focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50;
+	.nav-button {
+		@apply inline-flex w-max place-items-center rounded-[var(--radius)] bg-transparent px-4 py-3 font-mono text-sm uppercase tracking-wider hover:bg-transparent focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50;
 	}
 
 	.active-link {
@@ -272,15 +272,15 @@
 	}
 
 	.nav-button-underline {
-		@apply border-accent-primary-foreground pointer-events-none absolute left-0 top-0 h-full border-b bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-accent-primary-foreground bg-transparent opacity-0 transition-all duration-200 ease-in-out;
 	}
 
 	.nav-button-hover {
-		@apply bg-accent-secondary-foreground/10 pointer-events-none absolute top-0 h-full rounded-lg opacity-0;
+		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-accent-secondary-foreground/10 opacity-0;
 	}
 
 	.theme-drawer {
-		@apply border-foreground/10 pointer-events-none absolute right-0 top-[calc(50%+0.25rem)] z-10 flex w-auto origin-top-right scale-95 select-none flex-col rounded-lg opacity-0 transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute right-0 top-[calc(50%+0.25rem)] z-10 flex w-auto origin-top-right scale-95 select-none flex-col rounded-lg border-foreground/10 opacity-0 transition-all duration-200 ease-in-out;
 	}
 
 	.theme-drawer::before {
@@ -292,7 +292,7 @@
 		);
 
 		z-index: -1;
-		@apply shadow-foreground/0 absolute h-full w-full rounded-lg shadow-xl backdrop-blur-xl transition-all duration-300 ease-in-out;
+		@apply absolute h-full w-full rounded-lg shadow-xl shadow-foreground/0 backdrop-blur-xl transition-all duration-300 ease-in-out;
 	}
 
 	.theme-drawer:has(li:hover)::before {
@@ -320,11 +320,11 @@
 	}
 
 	.theme-drawer li {
-		@apply hover:bg-accent-secondary-foreground/10 inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out;
+		@apply inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-accent-secondary-foreground/10;
 	}
 
 	.theme-drawer li * {
-		@apply text-foreground/70 fill-foreground stroke-foreground opacity-60;
+		@apply fill-foreground stroke-foreground text-foreground/70 opacity-60;
 	}
 
 	.theme-drawer li.active {
@@ -332,7 +332,7 @@
 	}
 
 	.theme-drawer li.active * {
-		@apply text-accent-primary-foreground fill-accent-primary-foreground opacity-100;
+		@apply fill-accent-primary-foreground text-accent-primary-foreground opacity-100;
 	}
 
 	.theme-drawer li svg {
@@ -358,7 +358,7 @@
 	}
 
 	.menu-btn:has(.menu.open) > a > svg {
-		@apply fill-accent-primary-foreground stroke-accent-primary-foreground rotate-90 scale-90 opacity-100;
+		@apply rotate-90 scale-90 fill-accent-primary-foreground stroke-accent-primary-foreground opacity-100;
 	}
 
 	.menu-btn::after {
@@ -421,10 +421,10 @@
 <script>
 	function openThemeDrawer() {
 		const themeToggle = document.querySelector(
-			".theme-toggle"
+			".theme-toggle",
 		) as HTMLElement;
 		const themeDrawer = document.querySelector(
-			".theme-drawer"
+			".theme-drawer",
 		) as HTMLElement;
 
 		themeToggle.addEventListener("click", () => {
@@ -438,10 +438,10 @@
 
 	function setActiveLink() {
 		const underline = document.querySelector(
-			".nav-button-underline"
+			".nav-button-underline",
 		) as HTMLElement;
 		const hover = document.querySelector(
-			".nav-button-hover"
+			".nav-button-hover",
 		) as HTMLElement;
 
 		const currentPath = "/" + window.location.pathname.split("/")[1];
@@ -456,15 +456,15 @@
 		});
 
 		const activeButton = document.querySelector(
-			".nav-button.active"
+			".nav-button.active",
 		) as HTMLElement;
 
 		if (activeButton) {
 			setTimeout(() => {
 				const activeRect = activeButton.getBoundingClientRect();
 
-				underline.style.width = `${activeRect.width - 30}px`;
-				underline.style.left = `${activeButton.offsetLeft + 15}px`;
+				underline.style.width = `${activeRect.width - 32}px`;
+				underline.style.left = `${activeButton.offsetLeft + 16}px`;
 				setTimeout(() => {
 					underline.style.opacity = "0.75";
 				}, 150);

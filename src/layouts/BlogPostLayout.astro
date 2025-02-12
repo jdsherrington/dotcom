@@ -24,12 +24,12 @@ const accentSecondary = accentPalette[1];
 const readTime = Math.round(frontmatter.wordCount / 250);
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}"
+	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}",
 );
 
 if (!images[frontmatter.imagePath]) {
 	throw new Error(
-		`"${frontmatter.imagePath}" does not exist in glob: "src/assets/blog/posts/*"`
+		`"${frontmatter.imagePath}" does not exist in glob: "src/assets/blog/posts/*"`,
 	);
 }
 
@@ -55,7 +55,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		data-secondary={accentSecondary}
 	>
 		<div transition:name=`image${frontmatter.url}` class="blog-page-banner">
-            <NavigationButton text="Back" direction="back" />
+			<NavigationButton text="Back" direction="back" />
 			<Image
 				src={images[frontmatter.imagePath]()}
 				alt={frontmatter.imageAlt}
@@ -95,7 +95,9 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 					<div class="blog-page-share">
 						<div class="blog-page-share-copy">
 							<span>Share</span>
-							<a class="copy-link"><Icon name="social/copylink" /></a>
+							<a class="copy-link"
+								><Icon name="social/copylink" /></a
+							>
 						</div>
 						<div class="blog-page-share-socials">
 							<a class="x-link"><Icon name="social/x" /></a>
@@ -207,15 +209,15 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-title {
-		@apply text-foreground/90 z-20 mb-1.5 inline-block w-auto transform-none text-pretty font-semibold tracking-tight transition-all duration-500 ease-in-out sm:text-left sm:text-3xl sm:leading-3xl md:text-4xl md:leading-[1] lg:text-right lg:text-5xl;
+		@apply z-20 mb-1.5 inline-block w-auto transform-none text-pretty font-semibold tracking-tight text-foreground/90 transition-all duration-500 ease-in-out sm:text-left sm:text-3xl md:text-4xl lg:text-right lg:text-5xl;
 	}
 
 	body.scrolled .blog-page-title {
-		@apply lg:leading-1 sm:text-3xl sm:leading-3xl md:text-4xl lg:text-4xl;
+		@apply sm:text-3xl md:text-4xl lg:text-4xl;
 	}
 
 	.blog-page-date {
-		@apply text-accent-primary-foreground/80 leading-1 z-20 mb-2.5 w-auto font-mono uppercase tracking-wide transition-all duration-200 ease-in-out sm:text-left lg:text-right;
+		@apply z-20 mb-2.5 w-auto font-mono uppercase tracking-wide text-accent-primary-foreground/80 transition-all duration-200 ease-in-out sm:text-left lg:text-right;
 	}
 
 	.blog-page-tags {
@@ -223,64 +225,65 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-share {
-		@apply bg-foreground/5 leading-1 text-foreground/50 mb-5 inline-flex w-auto place-items-center rounded px-3 font-mono uppercase tracking-wide sm:h-9 sm:justify-start md:h-7 lg:justify-end duration-200;
+		@apply mb-5 inline-flex w-auto place-items-center rounded bg-foreground/5 px-3 font-mono uppercase tracking-wide text-foreground/50 duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end;
 	}
 
 	.blog-page-share-copy {
-		@apply border-r-foreground/20 inline-flex w-auto place-items-center gap-3 border-r pr-3.5;
+		@apply inline-flex w-auto place-items-center gap-3 border-r border-r-foreground/20 pr-3.5;
 	}
 
 	.blog-page-share-socials {
 		@apply inline-flex w-auto place-items-center gap-4 pl-3.5;
 	}
 
-    .blog-page-share span {
+	.blog-page-share span {
 		@apply select-none text-sm;
 	}
 
 	.blog-page-share svg {
-		@apply sm:text-xl md:text-lg cursor-pointer duration-200;
+		@apply cursor-pointer duration-200 sm:text-xl md:text-lg;
 	}
 
-    .copy-link {
-        @apply hover:text-foreground;
-    }
+	.copy-link {
+		@apply hover:text-foreground;
+	}
 
 	.x-link {
-        @apply hover:text-foreground;
-    }
+		@apply hover:text-foreground;
+	}
 
-    .threads-link {
-        @apply hover:text-foreground;
-    }
+	.threads-link {
+		@apply hover:text-foreground;
+	}
 
-    .bluesky-link {
-        @apply hover:text-[oklch(63.55%_0.1974_254.71)];
-    }
+	.bluesky-link {
+		@apply hover:text-[oklch(63.55%_0.1974_254.71)];
+	}
 
-    .reddit-link {
-        @apply hover:text-[oklch(66.02%_0.2293_35.4)];
-    }
+	.reddit-link {
+		@apply hover:text-[oklch(66.02%_0.2293_35.4)];
+	}
 
-    .linkedin-link {
-        @apply hover:text-[oklch(54.58%_0.1301_242.27)];
-    }
+	.linkedin-link {
+		@apply hover:text-[oklch(54.58%_0.1301_242.27)];
+	}
 
-    .blog-page-share:has(.x-link:hover), .blog-page-share:has(.threads-link:hover) {
-        @apply bg-foreground/10;
-    }
+	.blog-page-share:has(.x-link:hover),
+	.blog-page-share:has(.threads-link:hover) {
+		@apply bg-foreground/10;
+	}
 
-    .blog-page-share:has(.bluesky-link:hover) {
-        @apply bg-[oklch(63.55%_0.1974_254.71/0.1)]
-    }
+	.blog-page-share:has(.bluesky-link:hover) {
+		@apply bg-[oklch(63.55%_0.1974_254.71/0.1)];
+	}
 
-    .blog-page-share:has(.reddit-link:hover) {
-        @apply bg-[oklch(66.02%_0.2293_35.4/0.1)]
-    }
+	.blog-page-share:has(.reddit-link:hover) {
+		@apply bg-[oklch(66.02%_0.2293_35.4/0.1)];
+	}
 
-    .blog-page-share:has(.linkedin-link:hover) {
-        @apply bg-[oklch(54.58%_0.1301_242.27/0.1)]
-    }
+	.blog-page-share:has(.linkedin-link:hover) {
+		@apply bg-[oklch(54.58%_0.1301_242.27/0.1)];
+	}
 
 	.blog-page-toc {
 		@apply relative z-50 inline-block w-auto overflow-hidden rounded px-0 transition-all duration-300 ease-in-out sm:mx-[var(--guide-gutter)] lg:mx-0;
@@ -291,7 +294,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.scroll-progress {
-		@apply bg-accent-secondary-foreground/10 absolute h-full w-[var(--radius)] opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
+		@apply absolute h-full w-[var(--radius)] bg-accent-secondary-foreground/10 opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
 
 		--scroll-progress: 0%;
 	}
@@ -302,7 +305,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	.scroll-progress::after {
 		content: "";
-		@apply bg-accent-primary-foreground absolute top-0 h-full w-full rounded-[inherit] sm:left-0 lg:left-auto lg:right-0;
+		@apply absolute top-0 h-full w-full rounded-[inherit] bg-accent-primary-foreground sm:left-0 lg:left-auto lg:right-0;
 
 		transform: translate(0, calc(-100% + var(--scroll-progress)));
 	}
@@ -320,11 +323,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-toc ul li {
-		@apply hover:bg-accent-primary-background hover:text-accent-primary-foreground active:bg-accent-primary-foreground/50 inline-block rounded leading-normal transition-all duration-150 ease-in-out sm:text-left lg:text-right;
+		@apply inline-block rounded leading-normal transition-all duration-150 ease-in-out hover:bg-accent-primary-background hover:text-accent-primary-foreground active:bg-accent-primary-foreground/50 sm:text-left lg:text-right;
 	}
 
 	.toc-heading {
-		@apply text-foreground/70 px-3 pb-1 pt-1.5 font-mono text-base font-normal uppercase leading-xs tracking-wide;
+		@apply px-3 pb-1 pt-1.5 font-mono text-base font-normal uppercase tracking-wide text-foreground/70;
 	}
 
 	.blog-page-nav-arrow {
@@ -432,7 +435,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		background-color: oklch(var(--foreground) / 0.025) !important;
 		margin-bottom: 2rem;
 
-		@apply !font-code relative rounded p-[var(--guide-gutter)];
+		@apply relative rounded p-[var(--guide-gutter)] !font-code;
 	}
 
 	code {
@@ -562,12 +565,12 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 		html.style.setProperty(
 			"--accent-secondary",
-			`${page.dataset.secondary}`
+			`${page.dataset.secondary}`,
 		);
 
 		html.style.setProperty(
 			"--accent-gradient",
-			`${page.dataset.primary}`
+			`${page.dataset.primary}`,
 			// 100%
 		);
 	};
