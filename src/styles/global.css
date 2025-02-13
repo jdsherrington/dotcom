@@ -380,9 +380,9 @@
 	.menu-btn {
 		@apply relative rounded border border-transparent;
 	}
-}
-
-@layer components {
+/* } */
+/**/
+/* @layer components { */
 	.card {
 		@apply relative w-full rounded bg-[oklch(var(--card))] shadow-2xl shadow-transparent transition-all duration-300 ease-in-out hover:shadow-accent-secondary/10;
 	}
