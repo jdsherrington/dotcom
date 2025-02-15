@@ -1,15 +1,24 @@
 ---
 import "@/styles/global.css";
 
+import Background from "@/components/Background.astro";
 import Header from "@/components/Header.astro";
 import NavFooter from "@/components/NavFooter.astro";
 import Footer from "@/components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
 
+import "overlayscrollbars/overlayscrollbars.css";
+import {
+	OverlayScrollbars,
+	ScrollbarsHidingPlugin,
+	SizeObserverPlugin,
+	ClickScrollPlugin,
+} from "overlayscrollbars";
+
 const { pageTitle, pageDesc } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" data-overlayscrollbars-initialize>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,7 +65,8 @@ const { pageTitle, pageDesc } = Astro.props;
 		<ClientRouter />
 	</head>
 
-	<body>
+	<body data-overlayscrollbars-initialize>
+		<Background />
 		<Header />
 		<main>
 			<slot />
@@ -75,6 +85,25 @@ const { pageTitle, pageDesc } = Astro.props;
 		@apply self-center;
 	}
 </style>
+
+<!-- Scrollbars -->
+<script>
+	import "overlayscrollbars/overlayscrollbars.css";
+	import {
+		OverlayScrollbars,
+		ScrollbarsHidingPlugin,
+		SizeObserverPlugin,
+		ClickScrollPlugin,
+	} from "overlayscrollbars";
+
+	const initScrollbar = () => {
+		OverlayScrollbars(document.querySelector("body"), {});
+	};
+
+	initScrollbar();
+
+	document.addEventListener("astro:after-swap", initScrollbar);
+</script>
 
 <!-- Theme Switching -->
 <script astro-data-rerun>
