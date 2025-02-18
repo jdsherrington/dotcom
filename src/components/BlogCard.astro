@@ -166,7 +166,7 @@ if (!images[imagePath])
 	}
 
 	.blog-post[data-type="featured"] .blog-post-featured {
-		@apply block h-min max-w-full place-content-start pb-2 font-mono text-sm tracking-wider text-foreground/50;
+		@apply block h-min max-w-full place-content-start pb-2 font-mono text-xs tracking-widest text-foreground/50;
 	}
 
 	.blog-post-featured {
@@ -174,15 +174,15 @@ if (!images[imagePath])
 	}
 
 	.blog-post[data-type="featured"] .blog-post-title {
-		@apply sm:mt-[calc(var(--guide-gutter)*0.1)] sm:text-3xl md:text-3xl;
+		@apply font-bold sm:mt-[calc(var(--guide-gutter)*0.1)] sm:text-3xl md:text-3xl;
 	}
 
 	.blog-post-title {
-		@apply inline h-min w-fit text-pretty text-2xl text-[oklch(var(--foreground)/0.85)] transition-colors duration-300 ease-in-out hover:text-foreground;
+		@apply inline h-min w-fit text-pretty text-2xl font-semibold text-[oklch(var(--foreground)/0.85)] transition-colors duration-300 ease-in-out hover:text-foreground;
 	}
 
 	.blog-post-date {
-		@apply my-0.5 h-min w-auto transform-none place-content-start pb-1 pr-4 font-mono text-[0.7rem] font-bold uppercase tracking-wider text-foreground/50 transition-colors duration-300 ease-in-out;
+		@apply mb-1 mt-0.5 h-min w-auto transform-none place-content-start py-1 pr-4 font-mono text-xs uppercase tracking-widest text-foreground/50 transition-colors duration-300 ease-in-out;
 	}
 
 	.blog-post:hover .blog-post-date {
@@ -194,7 +194,7 @@ if (!images[imagePath])
 	}
 
 	.blog-post-description {
-		@apply h-min w-auto place-content-start text-pretty text-[0.875rem] text-foreground/60 sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:mb-[calc(var(--guide-gutter)*0.5)] md:line-clamp-3 md:pr-[calc(var(--guide-gutter)*1)];
+		@apply h-min w-auto place-content-start text-pretty text-[0.875rem] text-foreground/70 sm:mb-[var(--guide-gutter)] sm:hidden sm:pr-[calc(var(--guide-gutter)*2.5)] md:mb-[calc(var(--guide-gutter)*0.5)] md:line-clamp-3 md:pr-[calc(var(--guide-gutter)*1)];
 	}
 
 	.blog-post[data-type="featured"] .blog-post-tags {
@@ -214,7 +214,7 @@ if (!images[imagePath])
 	}
 
 	.blog-post:hover .blog-post-arrow {
-		@apply !fill-accent-secondary-foreground/50 hover:!fill-accent-primary-foreground;
+		@apply !fill-accent-primary hover:!fill-accent-primary-foreground;
 	}
 
 	/* .inline-back-arrow { */

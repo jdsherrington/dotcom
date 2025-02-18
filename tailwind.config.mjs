@@ -76,8 +76,8 @@ export default {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			fontFamily: {
-				sans: ["Fluent"],
-				mono: ["JetBrainsMono"],
+				sans: ["Inter"],
+				mono: ["GeistMono"],
 				code: ["JetBrainsMono"],
 			},
 			keyframes: {

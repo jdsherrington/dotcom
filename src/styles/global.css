@@ -2,8 +2,8 @@
 @import url(./variables/breakpoints.css);
 /* @import url(./variables/colors.css); */
 @import url(./variables/typography.css);
-/* @import url(./variables/spacing.css);
-@import url(./variables/widths.css); */
+@import url(./variables/themes.css);
+/* @import url(./variables/widths.css); */
 
 @tailwind base;
 @tailwind components;
@@ -39,53 +39,20 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 
 /* ---------------------------- FONTS ------------------------------ */
 @font-face {
-	font-family: Fluent;
+	font-family: Inter;
 	font-style: normal;
-	font-weight: 100 400;
+	font-weight: 100 900;
 	font-display: swap;
-	src: url("/fonts/Fluent-Regular.woff2") format("woff2");
+	src: url("/fonts/InterVariable.woff2") format("woff2");
 }
 
 @font-face {
-	font-family: Fluent;
-	font-style: normal;
-	font-weight: 500 900;
-	font-display: swap;
-	src: url("/fonts/Fluent-Bold.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: Fluent;
+	font-family: Inter;
 	font-style: italic;
-	font-weight: 100 400;
+	font-weight: 100 900;
 	font-display: swap;
-	src: url("/fonts/Fluent-RegularItalic.woff2") format("woff2");
+	src: url("/fonts/InterVariable-Italic.woff2") format("woff2");
 }
-
-@font-face {
-	font-family: Fluent;
-	font-style: italic;
-	font-weight: 500 900;
-	font-display: swap;
-	src: url("/fonts/Fluent-BoldItalic.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: DisketMono;
-	font-style: normal;
-	font-weight: normal;
-	font-display: swap;
-	src: url("/fonts/Carbon-Regular.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: DisketMono;
-	font-style: normal;
-	font-weight: bold;
-	font-display: swap;
-	src: url("/fonts/Carbon-Bold.woff2") format("woff2");
-}
-
 
 @font-face {
 	font-family: JetBrainsMono;
@@ -93,6 +60,14 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	font-weight: 100 900;
 	font-display: swap;
 	src: url("/fonts/JetBrainsMonoVariable.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: GeistMono;
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("/fonts/GeistMono.woff2") format("woff2");
 }
 /* ----------------------------------------------------------------- */
 
@@ -175,118 +150,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 		--tag-supabase: 77% 38% 160;
 	}
 
-	:root[data-theme="dark"] {
-		/* --background: 20 14.3% 4.5%;
-		--foreground: 60 9.1% 97.8%; */
-
-		--theme-lightness: var(--theme-lightness-dark);
-		--theme-contrast: var(--theme-contrast-dark);
-
-		--shade-background: 0.4;
-		--shade-foreground: 0.8;
-		--shade-chroma: 0.15;
-
-		--background: var(--theme-lightness) var(--theme-chroma)
-			var(--theme-hue);
-		--foreground: var(--theme-lightness-light) var(--theme-chroma)
-			var(--theme-hue);
-
-		--header: color-mix(
-			in oklch,
-			oklch(var(--foreground) / 0.05),
-			oklch(var(--background) / 1)
-		);
-
-		/* var(--theme-lightness) var(--theme-chroma) var(--theme-hue);
-        var(--theme-lightness-light) var(--theme-chroma) var(--theme-hue); */
-
-		/* --css-background: var(--theme-hue), var(--theme-saturation),
-			var(--theme-darkness);
-		--css-foreground: var(--theme-hue), var(--theme-saturation),
-			var(--theme-lightness); */
-
-		--popover: var(--theme-hue) var(--theme-saturation)
-			var(--theme-darkness);
-		--popover-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
-		--destructive: 1 62.8% 30.6%;
-		--destructive-foreground: 1 9.1% var(--theme-lightness);
-		--border: var(--theme-hue) 6.5% 15.1%;
-		--input: var(--theme-hue) 6.5% 15.1%;
-		--ring: var(--theme-hue) 5.7% 82.9%;
-
-		/* --shadow-col: var(--background); */
-
-		--light-img-opacity: 0;
-		--dark-img-opacity: 1;
-
-		/* --card-saturate: 80%;
-		--card-sepia: 0%;
-		--card-brightness: 250%;
-		--card-contrast: 100%;
-		--card-hue: 90deg; */
-
-		/* --shiki: var(--shiki-dark) !important;
-		--shiki-bg: var(--shiki-dark-bg) !important;
-		--shiki-font-style: var(--shiki-dark-font-style) !important;
-		--shiki-weight: var(--shiki-dark-font-weight) !important;
-		--shiki-decoration: var(--shiki-dark-text-decoration) !important; */
 	}
-
-	:root[data-theme="light"] {
-		--theme-lightness: var(--theme-lightness-light);
-		--theme-contrast: var(--theme-contrast-light);
-
-		--shade-background: 0.9;
-		--shade-foreground: 0.4;
-		--shade-chroma: 0.25;
-
-		--background: var(--theme-lightness) var(--theme-chroma)
-			var(--theme-hue);
-		--foreground: var(--theme-lightness-dark) var(--theme-chroma)
-			var(--theme-hue);
-
-		--header: color-mix(
-			in oklch,
-			oklch(var(--foreground) / 0.05),
-			oklch(var(--background) / 1)
-		);
-
-		/* --css-background: var(--theme-hue), var(--theme-saturation),
-			var(--theme-lightness);
-		--css-foreground: var(--theme-hue), var(--theme-saturation),
-			var(--theme-darkness); */
-
-		--card-solid: 19 8% 92%;
-		--popover: var(--theme-hue) 0% 100%;
-		--popover-foreground: var(--theme-hue) var(--theme-saturation)
-			var(--theme-darkness);
-		--primary: var(--theme-hue) 9.8% 10%;
-		--primary-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
-		--secondary: var(--theme-hue) 4.8% var(--theme-lightness);
-		--secondary-foreground: var(--theme-hue) 9.8% 10%;
-		--muted: var(--theme-hue) 4.8% 95.9%;
-		--muted-foreground: var(--theme-hue) 5.3% 44.7%;
-		--destructive: 1 84.2% 60.2%;
-		--destructive-foreground: 1 9.1% var(--theme-lightness);
-		--border: var(--theme-hue) 5.9% var(--theme-lightness);
-		--input: var(--theme-hue) 5.9% var(--theme-lightness);
-		--ring: var(--theme-hue) var(--theme-saturation) var(--theme-darkness);
-
-		--light-img-opacity: 1;
-		--dark-img-opacity: 0;
-
-		/* --card-saturate: 50%;
-		--card-brightness: 88%;
-		--card-contrast: 200%;
-		--card-hue: 90deg; */
-
-		/* --shiki: var(--shiki-light) !important;
-		--shiki-bg: var(--shiki-light-bg) !important;
-		--shiki-font-style: var(--shiki-light-font-style) !important;
-		--shiki-weight: var(--shiki-light-font-weight) !important;
-		--shiki-decoration: var(--shiki-light-text-decoration) !important; */
-	}
-}
 /* ----------------------------------------------------------------- */
 
 /* ------------------------ GLOBAL STYLES -------------------------- */
@@ -384,26 +248,63 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	.menu-btn {
 		@apply relative rounded border border-transparent;
 	}
+
+	.light-shadow {
+		box-shadow: 0px 0px 0px 1px oklch(37.51% 0 257.07 / 3.14%),
+		0px 1px 1px -0.5px oklch(32.08% 0 263.9 / 3.14%),
+		0px 3px 3px -1.5px oklch(32.14% 0 264.79 / 3.14%),
+		0px 6px 6px -3px oklch(32.14% 0 264.79 / 3.14%),
+		0px 12px 12px -6px oklch(37.51% 0 257.07 / 3.14%),
+		0px 24px 24px -12px oklch(37.51% 0 257.07 / 6.27%);
+	}
+
+	.light-shadow-transparent {
+		box-shadow: 0px 0px 0px 1px oklch(37.51% 0 257.07 / 0%),
+		0px 1px 1px -0.5px oklch(32.08% 0 263.9 / 0%),
+		0px 3px 3px -1.5px oklch(32.14% 0 264.79 / 0%),
+		0px 6px 6px -3px oklch(32.14% 0 264.79 / 0%),
+		0px 12px 12px -6px oklch(37.51% 0 257.07 / 0%),
+		0px 24px 24px -12px oklch(37.51% 0 257.07 / 0%);
+	}
+
+	.dark-shadow {
+		box-shadow: 0px 0px 0px 1px oklch(0% 0 257.07 / 5%),
+		0px 1px 1px -0.5px oklch(0% 0 263.9 / 5%),
+		0px 3px 3px -1.5px oklch(0% 0 264.79 / 5%),
+		0px 6px 6px -3px oklch(0% 0 264.79 / 5%),
+		0px 12px 12px -6px oklch(0% 0 257.07 / 5%),
+		0px 32px 32px -12px oklch(0% 0 257.07 / 10%);
+	}
+
+	.dark-shadow-transparent {
+		box-shadow: 0px 0px 0px 1px oklch(0% 0 257.07 / 0%),
+		0px 1px 1px -0.5px oklch(0% 0 263.9 / 0%),
+		0px 3px 3px -1.5px oklch(0% 0 264.79 / 0%),
+		0px 6px 6px -3px oklch(0% 0 264.79 / 0%),
+		0px 12px 12px -6px oklch(0% 0 257.07 / 0%),
+		0px 24px 24px -12px oklch(0% 0 257.07 / 0%);
+	}
 }
 
 @layer components {
 	.card {
-		@apply relative w-full rounded bg-[oklch(var(--card))] shadow-2xl shadow-transparent transition-all duration-300 ease-in-out hover:shadow-accent-secondary/10;
+		@apply relative w-full rounded bg-card/0 shadow-xl shadow-transparent transition-all duration-300 ease-in-out hover:shadow-black/5 ;
 	}
 
-    .card:has(a:hover) {
-        @apply shadow-accent-primary/25;
-    }
+	:root[data-theme="dark"] .card {
+		@apply hover:shadow-black/15;
+	}
+
 
 	.card::before {
 		content: "";
 		mask-image: radial-gradient(
 			circle at 100% 100%,
 			rgba(0, 0, 0, 1) -200%,
-			rgba(0, 0, 0, 0) 50%
+			rgba(0, 0, 0, 0) 80%
 		);
 
-		@apply absolute left-0 top-0 h-full w-full rounded bg-[oklch(var(--card-gradient))] transition-colors duration-500 ease-in-out hover:bg-accent-secondary;
+		@apply absolute left-0 top-0 h-full w-full rounded bg-background/50 transition-colors duration-500 ease-in-out;
 	}
 
 	.card-accent {
@@ -413,7 +314,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	.card-accent::after {
 		content: "";
 		background: radial-gradient(
-				250px circle at var(--mouse-x) var(--mouse-y),
+				150px circle at var(--mouse-x) var(--mouse-y),
 				oklch(var(--accent-primary)) 0%,
 				transparent 100%
 			)
@@ -450,7 +351,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 			opacity 500ms ease-in-out,
 			background-color 300ms ease-in-out;
 		mask: radial-gradient(
-			700px circle at var(--mouse-x) var(--mouse-y),
+			500px circle at var(--mouse-x) var(--mouse-y),
 			rgb(39, 26, 26) -50%,
 			rgba(0, 0, 0, 0) 50%
 		);
@@ -470,11 +371,11 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	} */
 
 	.card:hover .card-accent::before {
-		@apply opacity-50;
+		@apply opacity-0;
 	}
 
 	.card:has(a:hover) .card-accent::before {
-		@apply opacity-100;
+		@apply opacity-50;
 	}
 
 	.nav-btn {

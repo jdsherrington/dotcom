@@ -19,11 +19,11 @@ import { Icon } from "astro-icon/components";
 				<g transform="matrix(1, 0, 0, 1, -0.000094, 0.000095)">
 					<path
 						style="fill: none; stroke-linecap: round;"
-						d="M 247.5 90 C 247.5 50 217.5 20 177.5 20 C 175 20 127.5 20 125 20 C 105 20 90 35 90 55 L 90 125 C 90 145 75 160 55 160 C 35 160 20 145 20 125 L 20 90"
+						d="M 245 90 C 245 88.84 245 57.5 245 55 C 245 35 230 20 210 20 C 207.5 20 127.5 20 125 20 C 105 20 90 35 90 55 L 90 125 C 90 145 75 160 55 160 C 35 160 20 145 20 125 L 20 90"
 					></path>
 					<path
 						style="fill: none; stroke-linecap: round;"
-						d="M 160 90 C 160 90 160 122.5 160 125 C 160 145 175 160 195 160 C 197.5 160 342.5 160 345 160 C 365 160 380 145 380 125 C 380 105 365 90 345 90 C 342.5 90 337.5 90 335 90 C 315 90 300 75 300 55 C 300 35 315 20 335 20 C 337.5 20 377.5 20 380 20"
+						d="M 160 90 C 160 90 160 147.5 160 160 C 170 160 345 160 347.5 160 C 367.5 160 382.5 145 382.5 125 C 382.5 105 367.5 90 347.5 90 C 345 90 340 90 337.5 90 C 317.5 90 302.5 75 302.5 55 C 302.5 35 317.5 20 337.5 20 C 340 20 380 20 382.5 20"
 					></path>
 					<g
 						transform="matrix(1.149999, 0, 0, 1.149999, -52.374329, -183.131683)"
@@ -32,7 +32,7 @@ import { Icon } from "astro-icon/components";
 						<bx:title>Star</bx:title>
 						<path
 							style="stroke: none; "
-							d="M 375.978 211.419 C 410.76 211.419 428.152 194.027 428.152 159.245 C 428.152 194.027 445.544 211.419 480.326 211.419 C 445.544 211.419 428.152 228.811 428.152 263.593 C 428.152 228.811 410.76 211.419 375.978 211.419 Z"
+							d="M 378.152 211.419 C 412.934 211.419 430.326 194.027 430.326 159.245 C 430.326 194.027 447.718 211.419 482.5 211.419 C 447.718 211.419 430.326 228.811 430.326 263.593 C 430.326 228.811 412.934 211.419 378.152 211.419 Z"
 						></path>
 					</g>
 				</g>
@@ -203,16 +203,6 @@ import { Icon } from "astro-icon/components";
 		top: 0px !important;
 	}
 
-	.header-gradient {
-		@apply absolute top-0 h-[calc(var(--nav-height)+var(--guide-gutter)*2)] w-full bg-[oklch(var(--background))];
-		mask-image: linear-gradient(
-			180deg,
-			rgba(0, 0, 0, 1) 0%,
-			rgba(0, 0, 0, 0) 66%
-		);
-		z-index: 1001;
-	}
-
 	nav {
 		@apply pointer-events-auto m-[calc(var(--guide-gutter)/2)] mb-0 mt-[calc(var(--guide-gutter))] flex h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] items-center rounded-lg pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] shadow-2xl shadow-transparent sm:justify-center md:justify-between;
 
@@ -234,21 +224,23 @@ import { Icon } from "astro-icon/components";
 	}
 
 	header.scrolled nav {
-		@apply mt-[calc(var(--guide-gutter)/2)] sm:bg-transparent sm:shadow-transparent md:bg-[var(--header)] md:shadow-background/50;
+		@apply mt-[calc(var(--guide-gutter)/2)];
 	}
 
 	nav::before {
 		content: "";
 		z-index: -1;
-		@apply absolute left-0 top-0 h-full w-full rounded-lg backdrop-blur-none;
+		transition: all 250ms ease-in-out;
+
+		@apply absolute -left-[calc(var(--guide-gutter)*0.5)] -top-[calc(var(--guide-gutter)*0.5)] h-[calc(100%+(var(--guide-gutter)*1))] w-[calc(100%+(var(--guide-gutter)*2))] overflow-auto rounded-lg blur-md backdrop-blur-none;
 	}
 
 	header.scrolled nav::before {
-		@apply sm:backdrop-blur-none md:backdrop-blur-2xl;
+		@apply left-0 top-0 h-full w-full blur-none sm:bg-transparent sm:shadow-transparent sm:backdrop-blur-none md:bg-[var(--header)] md:shadow-background/50 md:backdrop-blur-2xl;
 	}
 
 	nav::after {
-		@apply pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent opacity-0 transition-opacity duration-300 ease-in-out;
+		@apply pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent opacity-0 blur-md transition-opacity duration-300 ease-in-out;
 		content: "";
 		background: linear-gradient(
 				180deg,
@@ -267,11 +259,12 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.header-logo {
-		@apply z-50 inline-block h-8 w-auto fill-accent-secondary stroke-foreground hover:fill-accent-primary-foreground;
+		@apply z-50 inline-block w-auto fill-accent-primary stroke-foreground/90 hover:fill-accent-primary-foreground sm:h-8 md:h-7;
 
 		transition:
-			fill 250ms ease-in-out,
-			stroke 250ms ease-in-out;
+			height 300ms ease-in-out,
+			opacity 300ms ease-in-out,
+			filter 300ms ease-in-out;
 	}
 
 	:root[data-theme="light"] .header-logo {
@@ -279,11 +272,11 @@ import { Icon } from "astro-icon/components";
 	}
 
 	:root[data-theme="dark"] .header-logo {
-		@apply stroke-[27px];
+		@apply stroke-[25px];
 	}
 
 	header.scrolled .header-logo {
-		@apply hover:stroke-foreground/80 sm:fill-background/0 sm:stroke-background/0 md:fill-accent-secondary md:stroke-foreground/50 md:hover:fill-accent-primary;
+		@apply sm:opacity-0 sm:blur-md md:fill-accent-primary md:stroke-foreground/90 md:opacity-100 md:blur-none md:hover:fill-accent-primary;
 	}
 
 	.nav-items {
@@ -310,10 +303,6 @@ import { Icon } from "astro-icon/components";
 		@apply inline-flex w-max place-items-center rounded-[var(--radius)] bg-transparent px-4 py-3 font-mono text-sm uppercase tracking-wider hover:bg-transparent focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50;
 	}
 
-	.active-link {
-		background-color: oklch(var(--foreground) / 0.07) !important;
-	}
-
 	.nav-button.active {
 		@apply !text-accent-primary-foreground;
 	}
@@ -323,11 +312,11 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-button-hover {
-		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-accent-secondary-foreground/10 opacity-0;
+		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-accent-primary-foreground/5 opacity-0;
 	}
 
 	.theme-drawer {
-		@apply pointer-events-none absolute right-0 top-[calc(50%+0.25rem)] z-10 flex w-auto origin-top-right scale-95 select-none flex-col rounded-lg border-foreground/10 opacity-0 transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute right-0 top-[calc(75%+0.25rem)] z-10 flex w-auto origin-top-right scale-[0.98] select-none flex-col rounded-lg border-foreground/10 opacity-0 blur-md transition-all duration-200 ease-in-out;
 	}
 
 	.theme-drawer::before {
@@ -387,7 +376,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.theme-drawer.open {
-		@apply pointer-events-auto top-[calc(100%+0.25rem)] scale-100 cursor-default opacity-100;
+		@apply pointer-events-auto top-[calc(100%+0.25rem)] scale-100 cursor-default opacity-100 blur-none;
 	}
 
 	.menu-btn::before {
@@ -430,10 +419,6 @@ import { Icon } from "astro-icon/components";
 
 	.menu-btn:hover:has(.menu.open) ~ .nav-button-hover {
 		@apply !bg-transparent;
-	}
-
-	.nav-button.active:hover ~ .nav-button-hover {
-		@apply !bg-accent-primary-foreground/10;
 	}
 
 	.menu-btn:has(.menu.open:hover) ~ .nav-button-hover {

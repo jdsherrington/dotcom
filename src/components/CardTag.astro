@@ -22,7 +22,7 @@ const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 	}
 
 	.card-tag {
-		@apply flex place-items-center place-self-end overflow-hidden whitespace-nowrap rounded-lg px-3 py-1.5 font-mono !text-xs uppercase tracking-wide backdrop-blur-xl transition-all duration-300 sm:bg-[oklch(var(--foreground)/0.05)] sm:text-foreground/60 md:bg-foreground/5 md:text-foreground/50;
+		@apply flex place-items-center place-self-end overflow-hidden whitespace-nowrap rounded-lg px-2.5 py-1.5 font-mono text-xs uppercase tracking-wider backdrop-blur-xl transition-all duration-300 sm:bg-[oklch(var(--foreground)/0.025)] sm:text-foreground/40;
 	}
 
 	.card-tag.hover {
@@ -30,10 +30,10 @@ const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 	}
 
 	:not(.card) > * > * > .card-tag {
-		@apply bg-accent-secondary-foreground/10 text-accent-secondary-foreground/60;
+		@apply bg-accent-primary-foreground/5 text-accent-primary-foreground/50;
 	}
 
 	.card:hover .card-tag {
-		@apply bg-accent-secondary-foreground/10 text-accent-secondary-foreground/60;
+		@apply bg-accent-primary-foreground/5 text-accent-primary-foreground/50;
 	}
 </style>
