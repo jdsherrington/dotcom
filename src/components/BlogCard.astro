@@ -35,8 +35,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-AU", {
 });
 
 const accentPalette: any = await extractOKLCHColors(imagePath);
-const accentPrimary = accentPalette[0];
-const accentSecondary = accentPalette[1];
+const accent = accentPalette[0];
 
 const readTime = Math.round(wordCount / 250);
 
@@ -53,8 +52,7 @@ if (!images[imagePath])
 <div
 	transition:name=`container-${url}`
 	class="blog-post card"
-	data-primary={accentPrimary}
-	data-secondary={accentSecondary}
+	data-accent={accent}
 	data-type={type}
 >
 	<a href={url} class="z-20">
@@ -71,7 +69,7 @@ if (!images[imagePath])
 		</div>
 	</a>
 	<div transition:name=`accent-${url}` class="card-accent"></div>
-	<div class="blog-post-content">
+	<div class="blog-post-content" 2>
 		<small class="blog-post-featured">FEATURED POST</small>
 
 		<a href={url}>
@@ -109,16 +107,16 @@ if (!images[imagePath])
 
 <style is:global>
 	.blog-post {
-		@apply flex justify-self-center sm:max-w-[var(--full-w)] sm:flex-row sm:gap-[calc(var(--guide-gutter)*1)] md:max-w-none md:flex-col md:gap-[calc(var(--guide-gutter)*0.9)];
+		@apply flex justify-self-center sm:max-w-[var(--full-w)] sm:flex-row sm:gap-[var(--guide-gutter)] md:max-w-none md:flex-col md:gap-[var(--guide-gutter)];
 
-		--accent-primary-foreground: from oklch(var(--accent-primary))
-			var(--shade-foreground) c h;
-		--accent-primary-background: from oklch(var(--accent-primary))
-			var(--shade-background) c h;
-		--accent-secondary-foreground: from oklch(var(--accent-secondary))
-			var(--shade-foreground) c h;
-		--accent-secondary-background: from oklch(var(--accent-secondary))
-			var(--shade-background) c h;
+		--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
+			h;
+		--accent-background: from oklch(var(--accent)) var(--shade-background) c
+			h;
+	}
+
+	.blog-post::before {
+		@apply hover:bg-accent-background/25;
 	}
 
 	.blog-post[data-type="featured"] {
@@ -130,23 +128,23 @@ if (!images[imagePath])
 	}
 
 	.blog-post[data-type="featured"] a:has(.blog-post-img) {
-		@apply w-min rounded-l-lg rounded-r-none shadow-2xl shadow-transparent transition-all duration-300;
+		@apply w-min shadow-2xl shadow-transparent transition-all duration-300;
 	}
 
 	a:has(.blog-post-img) {
-		@apply w-min shadow-2xl shadow-transparent transition-all duration-300 sm:m-0 sm:h-auto sm:rounded-l-lg md:mb-0 md:ml-0 md:mt-0 md:w-auto md:rounded-b-none md:rounded-t-lg;
+		@apply w-min shadow-2xl shadow-transparent transition-all duration-300 sm:m-0 sm:h-auto md:mb-0 md:ml-0 md:mt-0 md:w-auto;
 	}
 
 	.blog-post[data-type="featured"] .blog-post-img {
-		@apply rounded-[inherit] sm:h-full sm:min-h-[var(--half-w)] sm:w-[calc(var(--half-w))] md:max-h-none lg:min-h-[var(--five-w)];
+		@apply sm:h-full sm:min-h-[var(--half-w)] sm:w-[calc(var(--half-w))] md:max-h-none lg:min-h-[var(--five-w)];
 	}
 
 	.blog-post-img {
-		@apply pointer-events-none overflow-hidden rounded-[inherit] sm:h-full sm:w-[calc(var(--one-w)-1px)] md:h-[calc(var(--two-w)-1px)] md:max-h-36 md:w-full;
+		@apply pointer-events-none overflow-hidden sm:h-full sm:w-[calc(var(--one-w)-1px)] md:h-[calc(var(--two-w)-1px)] md:max-h-36 md:w-full;
 	}
 
 	.blog-post-img img {
-		@apply absolute left-0 top-0 h-full max-h-full w-full rounded-[inherit] object-cover transition-all duration-500 ease-in-out sm:saturate-100 md:saturate-[0.8];
+		@apply absolute left-0 top-0 h-full max-h-full w-full object-cover transition-all duration-500 ease-in-out sm:saturate-100 md:saturate-[0.8];
 	}
 
 	.blog-post:hover img {
@@ -185,10 +183,6 @@ if (!images[imagePath])
 		@apply mb-1 mt-0.5 h-min w-auto transform-none place-content-start py-1 pr-4 font-mono text-xs uppercase tracking-widest text-foreground/50 transition-colors duration-300 ease-in-out;
 	}
 
-	.blog-post:hover .blog-post-date {
-		@apply text-accent-primary-foreground/70;
-	}
-
 	.blog-post[data-type="featured"] .blog-post-description {
 		@apply line-clamp-3 pr-[var(--guide-gutter)];
 	}
@@ -210,11 +204,11 @@ if (!images[imagePath])
 	}
 
 	.blog-post-arrow {
-		@apply h-5 !fill-foreground/25 transition-colors duration-300 ease-in-out hover:!fill-accent-primary-foreground;
+		@apply hover:!fill-accent-foreground h-5 !fill-foreground/25 transition-colors duration-300 ease-in-out;
 	}
 
 	.blog-post:hover .blog-post-arrow {
-		@apply !fill-accent-primary hover:!fill-accent-primary-foreground;
+		@apply hover:!fill-accent-foreground !fill-accent;
 	}
 
 	/* .inline-back-arrow { */
@@ -223,35 +217,28 @@ if (!images[imagePath])
 </style>
 
 <script>
-	const handleOnMouseMove = (e: MouseEvent) => {
-		const target = e.currentTarget as HTMLElement;
-
-		if (!target) return;
-
-		const rect = target.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-
-		target.style.setProperty("--mouse-x", `${x}px`);
-		target.style.setProperty("--mouse-y", `${y}px`);
-	};
+	// const handleOnMouseMove = (e: MouseEvent) => {
+	// 	const target = e.currentTarget as HTMLElement;
+	//
+	// 	if (!target) return;
+	//
+	// 	const rect = target.getBoundingClientRect();
+	// 	const x = e.clientX - rect.left;
+	// 	const y = e.clientY - rect.top;
+	//
+	// 	target.style.setProperty("--mouse-x", `${x}px`);
+	// 	target.style.setProperty("--mouse-y", `${y}px`);
+	// };
 
 	const attachEventListeners = () => {
 		// Add mousemove event listeners to blog posts
-		document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
-			post.onmousemove = (e) => handleOnMouseMove(e);
-		});
+		// document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
+		// 	post.onmousemove = (e) => handleOnMouseMove(e);
+		// });
 
 		// Set post accents
 		document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
-			post.style.setProperty(
-				"--accent-primary",
-				`${post.dataset.primary}`,
-			);
-			post.style.setProperty(
-				"--accent-secondary",
-				`${post.dataset.secondary}`,
-			);
+			post.style.setProperty("--accent", `${post.dataset.accent}`);
 		});
 
 		// Style featured post accent

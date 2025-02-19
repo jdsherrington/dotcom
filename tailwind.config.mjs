@@ -43,22 +43,12 @@ export default {
 				},
 				accent: {
 					DEFAULT: "oklch(var(--accent) / <alpha-value>)",
-					primary: {
-						DEFAULT: "oklch(var(--accent-primary) / <alpha-value>)",
 						foreground:
-							"oklch(var(--accent-primary-foreground) / <alpha-value>)",
+							"oklch(var(--accent-foreground) / <alpha-value>)",
 						background:
-							"oklch(var(--accent-primary-background) / <alpha-value>)",
+							"oklch(var(--accent-background) / <alpha-value>)",
 					},
-					secondary: {
-						DEFAULT:
-							"oklch(var(--accent-secondary) / <alpha-value>)",
-						foreground:
-							"oklch(var(--accent-secondary-foreground) / <alpha-value>)",
-						background:
-							"oklch(var(--accent-secondary-background) / <alpha-value>)",
-					},
-				},
+				
 				popover: {
 					DEFAULT: "oklch(var(--popover) / <alpha-value>)",
 					foreground:

@@ -259,7 +259,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.header-logo {
-		@apply z-50 inline-block w-auto fill-accent-primary stroke-foreground/90 hover:fill-accent-primary-foreground sm:h-8 md:h-7;
+		@apply hover:fill-accent-foreground z-50 inline-block w-auto fill-accent stroke-foreground/90 sm:h-8 md:h-7;
 
 		transition:
 			height 300ms ease-in-out,
@@ -276,7 +276,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	header.scrolled .header-logo {
-		@apply sm:opacity-0 sm:blur-md md:fill-accent-primary md:stroke-foreground/90 md:opacity-100 md:blur-none md:hover:fill-accent-primary;
+		@apply sm:opacity-0 sm:blur-md md:fill-accent md:stroke-foreground/90 md:opacity-100 md:blur-none md:hover:fill-accent;
 	}
 
 	.nav-items {
@@ -284,7 +284,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-items .nav-button {
-		@apply cursor-pointer font-mono uppercase tracking-wide text-foreground/60 transition-colors duration-300 ease-in-out hover:text-accent-secondary-foreground/80;
+		@apply hover:text-accent-foreground/80 cursor-pointer font-mono uppercase tracking-wider text-foreground/60 transition-colors duration-300 ease-in-out;
 	}
 
 	.nav-items .nav-button:has(.theme-toggle) {
@@ -304,15 +304,15 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-button.active {
-		@apply !text-accent-primary-foreground;
+		@apply !text-accent-foreground font-semibold;
 	}
 
 	.nav-button-underline {
-		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-accent-primary-foreground bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+		@apply border-accent-foreground pointer-events-none absolute left-0 top-0 h-full border-b bg-transparent opacity-0 transition-all duration-200 ease-in-out;
 	}
 
 	.nav-button-hover {
-		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-accent-primary-foreground/5 opacity-0;
+		@apply bg-accent-foreground/5 pointer-events-none absolute top-0 h-full rounded-lg opacity-0;
 	}
 
 	.theme-drawer {
@@ -323,7 +323,7 @@ import { Icon } from "astro-icon/components";
 		content: "";
 		background: radial-gradient(
 			50px circle at 100% 0%,
-			oklch(var(--accent-secondary-foreground)) -500%,
+			oklch(var(--accent-foreground)) -500%,
 			var(--header) 100%
 		);
 
@@ -332,14 +332,14 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.theme-drawer:has(li:hover)::before {
-		@apply shadow-accent-secondary-foreground/10;
+		@apply shadow-accent-foreground/10;
 	}
 
 	.theme-drawer::after {
 		content: "";
 		background: radial-gradient(
 				75px circle at 90% 0%,
-				oklch(var(--accent-secondary-foreground)) -100%,
+				oklch(var(--accent-foreground)) -100%,
 				oklch(var(--foreground) / 0.05) 100%
 			)
 			border-box;
@@ -356,7 +356,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.theme-drawer li {
-		@apply inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-accent-secondary-foreground/10;
+		@apply hover:bg-accent-foreground/10 inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out;
 	}
 
 	.theme-drawer li * {
@@ -364,11 +364,11 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.theme-drawer li.active {
-		@apply bg-accent-primary-foreground/10;
+		@apply bg-accent-foreground/10;
 	}
 
 	.theme-drawer li.active * {
-		@apply fill-accent-primary-foreground text-accent-primary-foreground opacity-100;
+		@apply fill-accent-foreground text-accent-foreground opacity-100;
 	}
 
 	.theme-drawer li svg {
@@ -383,7 +383,7 @@ import { Icon } from "astro-icon/components";
 		content: "";
 		background: radial-gradient(
 			circle at 50% 100%,
-			oklch(var(--accent-secondary-foreground)) -300%,
+			oklch(var(--accent-foreground)) -300%,
 			transparent 100%
 		);
 		@apply pointer-events-none absolute left-0 top-0 h-full w-full rounded-lg opacity-0 transition-opacity duration-200 ease-in-out;
@@ -394,14 +394,14 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.menu-btn:has(.menu.open) > a > svg {
-		@apply rotate-90 scale-90 fill-accent-primary-foreground stroke-accent-primary-foreground opacity-100;
+		@apply fill-accent-foreground stroke-accent-foreground rotate-90 scale-90 opacity-100;
 	}
 
 	.menu-btn::after {
 		content: "";
 		background: linear-gradient(
 				0deg,
-				oklch(var(--accent-secondary-foreground)) -100%,
+				oklch(var(--accent-foreground)) -100%,
 				oklch(var(--foreground) / 0.05) 100%
 			)
 			border-box;

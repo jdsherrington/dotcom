@@ -18,8 +18,7 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-AU", {
 });
 
 const accentPalette: any = await extractOKLCHColors(frontmatter.imagePath);
-const accentPrimary = accentPalette[0];
-const accentSecondary = accentPalette[1];
+const accent = accentPalette[0];
 
 const readTime = Math.round(frontmatter.wordCount / 250);
 
@@ -49,11 +48,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-	<div
-		class="blog-page"
-		data-primary={accentPrimary}
-		data-secondary={accentSecondary}
-	>
+	<div class="blog-page" data-accent={accent}>
 		<div transition:name=`image${frontmatter.url}` class="blog-page-banner">
 			<NavigationButton text="Back" direction="back" />
 			<Image
@@ -217,7 +212,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-date {
-		@apply z-20 mb-2.5 w-auto font-mono text-xs uppercase tracking-widest text-accent-primary-foreground/80 transition-all duration-200 ease-in-out sm:text-left lg:text-right;
+		@apply z-20 mb-2.5 w-auto font-mono text-xs uppercase tracking-widest text-accent-foreground/80 transition-all duration-200 ease-in-out sm:text-left lg:text-right;
 	}
 
 	.blog-page-tags {
@@ -294,7 +289,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.scroll-progress {
-		@apply absolute h-full w-[var(--radius)] bg-accent-secondary-foreground/10 opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
+		@apply absolute h-full w-[var(--radius)] bg-accent-foreground/10 opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
 
 		--scroll-progress: 0%;
 	}
@@ -305,7 +300,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	.scroll-progress::after {
 		content: "";
-		@apply absolute top-0 h-full w-full rounded-[inherit] bg-accent-primary-foreground sm:left-0 lg:left-auto lg:right-0;
+		@apply absolute top-0 h-full w-full rounded-[inherit] bg-accent-foreground sm:left-0 lg:left-auto lg:right-0;
 
 		transform: translate(0, calc(-100% + var(--scroll-progress)));
 	}
@@ -323,11 +318,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-toc ul li {
-		@apply inline-block rounded leading-normal transition-all duration-150 ease-in-out hover:bg-accent-primary-background hover:text-accent-primary-foreground active:bg-accent-primary-foreground/50 sm:text-left lg:text-right;
+		@apply inline-block rounded leading-normal transition-all duration-150 ease-in-out hover:bg-accent-background/50 hover:text-accent-foreground active:bg-accent-foreground/50 sm:text-left lg:text-right;
 	}
 
 	.toc-heading {
-		@apply px-3 pb-1 pt-1.5 font-mono text-base font-normal uppercase tracking-wide text-foreground/70;
+		@apply px-2.5 py-1.5 font-mono font-normal uppercase tracking-wide text-foreground/50;
 	}
 
 	.blog-page-nav-arrow {
@@ -340,20 +335,20 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	::-moz-selection {
 		/* Code for Firefox */
-		@apply bg-accent-primary-background text-accent-primary-foreground;
+		@apply bg-accent-background text-accent-foreground;
 	}
 
 	::selection {
-		@apply bg-accent-primary-background text-accent-primary-foreground;
+		@apply bg-accent-background text-accent-foreground;
 	}
 
 	@keyframes headerHighlightFade {
 		0% {
-			@apply bg-accent-primary-background text-accent-primary-foreground;
+			@apply bg-accent-background text-accent-foreground;
 		}
 
 		50% {
-			@apply bg-accent-primary-background text-accent-primary-foreground;
+			@apply bg-accent-background text-accent-foreground;
 		}
 
 		100% {
@@ -393,7 +388,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		font-weight: 500;
 		margin-bottom: 0.7rem;
 		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
-		@apply font-mono text-base uppercase tracking-wide text-[oklch(var(--accent-primary-foreground))];
+		@apply font-mono text-base uppercase tracking-wide text-[oklch(var(--accent-foreground))];
 	}
 
 	.post-markdown h4 {
@@ -561,18 +556,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 		const html = document.querySelector("html");
 
-		html.style.setProperty("--accent-primary", `${page.dataset.primary}`);
-
-		html.style.setProperty(
-			"--accent-secondary",
-			`${page.dataset.secondary}`,
-		);
-
-		html.style.setProperty(
-			"--accent-gradient",
-			`${page.dataset.primary}`,
-			// 100%
-		);
+		html.style.setProperty("--accent", `${page.dataset.accent}`);
 	};
 
 	attachEventListeners();
