@@ -197,7 +197,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	/* } */
 
 	body {
-		@apply bg-transparent text-foreground transition-colors duration-200 ease-in-out w-[100%];
+		@apply bg-background text-foreground transition-colors duration-200 ease-in-out w-[100%];
 	}
 
 	a {
@@ -205,7 +205,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	}
 
 	img {
-		@apply max-w-none;
+		@apply max-w-none rounded;
 	}
 
 	small {
@@ -285,7 +285,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 
 @layer components {
 	.card {
-		@apply relative w-full rounded bg-card/0 shadow-xl shadow-transparent transition-all duration-300 ease-in-out hover:shadow-black/5 overflow-hidden;
+		@apply relative w-full hover:-translate-y-[4px] rounded bg-card/0 shadow-lg shadow-transparent transition-all duration-300 ease-in-out hover:shadow-black/5 overflow-hidden;
 	}
 
 	:root[data-theme="dark"] .card {

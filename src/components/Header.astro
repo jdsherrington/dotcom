@@ -259,11 +259,13 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.header-logo {
-		@apply hover:fill-accent-foreground z-50 inline-block w-auto fill-accent stroke-foreground/90 sm:h-8 md:h-7;
+		@apply z-50 inline-block w-auto fill-accent stroke-foreground/80 hover:fill-accent-foreground sm:h-8 md:h-7 md:hover:stroke-foreground;
 
 		transition:
 			height 300ms ease-in-out,
 			opacity 300ms ease-in-out,
+			fill 300ms ease-in-out,
+			stroke 300ms ease-in-out,
 			filter 300ms ease-in-out;
 	}
 
@@ -276,7 +278,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	header.scrolled .header-logo {
-		@apply sm:opacity-0 sm:blur-md md:fill-accent md:stroke-foreground/90 md:opacity-100 md:blur-none md:hover:fill-accent;
+		@apply sm:opacity-0 sm:blur-md md:fill-accent md:stroke-foreground/80 md:opacity-100 md:blur-none md:hover:fill-accent md:hover:stroke-foreground;
 	}
 
 	.nav-items {
@@ -284,7 +286,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-items .nav-button {
-		@apply hover:text-accent-foreground/80 cursor-pointer font-mono uppercase tracking-wider text-foreground/60 transition-colors duration-300 ease-in-out;
+		@apply cursor-pointer font-mono uppercase tracking-wider text-foreground/60 transition-colors duration-300 ease-in-out hover:text-accent-foreground/80;
 	}
 
 	.nav-items .nav-button:has(.theme-toggle) {
@@ -304,19 +306,19 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-button.active {
-		@apply !text-accent-foreground font-semibold;
+		@apply font-semibold !text-accent-foreground;
 	}
 
 	.nav-button-underline {
-		@apply border-accent-foreground pointer-events-none absolute left-0 top-0 h-full border-b bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-accent-foreground bg-transparent opacity-0 transition-all duration-200 ease-in-out;
 	}
 
 	.nav-button-hover {
-		@apply bg-accent-foreground/5 pointer-events-none absolute top-0 h-full rounded-lg opacity-0;
+		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-accent-foreground/5 opacity-0;
 	}
 
 	.theme-drawer {
-		@apply pointer-events-none absolute right-0 top-[calc(75%+0.25rem)] z-10 flex w-auto origin-top-right scale-[0.98] select-none flex-col rounded-lg border-foreground/10 opacity-0 blur-md transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute right-0 top-[calc(75%+0.25rem)] z-10 flex w-auto origin-top scale-[0.98] select-none flex-col rounded-lg border-foreground/10 opacity-0 blur-md transition-all duration-200 ease-in-out;
 	}
 
 	.theme-drawer::before {
@@ -356,7 +358,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.theme-drawer li {
-		@apply hover:bg-accent-foreground/10 inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out;
+		@apply inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out hover:bg-accent-foreground/10;
 	}
 
 	.theme-drawer li * {
@@ -394,7 +396,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.menu-btn:has(.menu.open) > a > svg {
-		@apply fill-accent-foreground stroke-accent-foreground rotate-90 scale-90 opacity-100;
+		@apply rotate-90 scale-90 fill-accent-foreground stroke-accent-foreground opacity-100;
 	}
 
 	.menu-btn::after {
