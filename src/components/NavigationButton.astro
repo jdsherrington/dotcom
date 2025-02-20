@@ -1,15 +1,87 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
 	text: string | undefined;
 	direction: string;
 	link: string | undefined;
+	position: string | undefined;
 }
 
-const { text, direction, link } = Astro.props;
+const { text, direction, link, position } = Astro.props;
 ---
 
-<a href={link ?? "#"} class=`navigation-button ${text}`>
-	<span>{text}</span>
+<a
+	href={link ?? void 0}
+	data-direction={direction}
+	data-link={link ?? ""}
+	class=`navigation-button ${text} direction-${direction} position-${position}`
+>
+	<Icon class="back-arrow" name="ui/left-arrow" />{text}<Icon
+		class="forward-arrow"
+		name="ui/right-arrow"
+	/>
 </a>
 
-<style is:global></style>
+<style is:global>
+	.navigation-button {
+		@apply flex items-center gap-2 rounded-[calc(var(--radius)-1px)] bg-background-primary/50 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-foreground/80 backdrop-blur-md transition-all duration-300 ease-in-out hover:bg-accent-background hover:text-accent-foreground;
+	}
+
+	.navigation-button [data-icon] {
+		@apply h-4 w-auto px-1;
+	}
+
+	[data-direction="back"] {
+		.back-arrow {
+			@apply block;
+		}
+		.forward-arrow {
+			@apply hidden;
+		}
+	}
+
+	[data-direction="forward"] {
+		.forward-arrow {
+			@apply block;
+		}
+		.back-arrow {
+			@apply hidden;
+		}
+	}
+
+	.position-top-left {
+		@apply absolute left-2 top-2;
+	}
+
+	.position-top-right {
+		@apply absolute right-2 top-2;
+	}
+
+	.position-bottom-left {
+		@apply absolute bottom-2 left-2;
+	}
+
+	.position-bottom-right {
+		@apply absolute bottom-2 right-2;
+	}
+</style>
+
+<script>
+	const navigationAction = () => {
+		const button = document.querySelector(".navigation-button");
+		if (button) {
+			button.addEventListener("click", (e) => {
+				if (!e.currentTarget.getAttribute("data-link")) {
+					e.preventDefault();
+					e.currentTarget.getAttribute("data-direction") === "forward"
+						? history.forward()
+						: history.back();
+				}
+			});
+		}
+	};
+
+	navigationAction();
+	document.addEventListener("astro:after-swap", navigationAction);
+</script>

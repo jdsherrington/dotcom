@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BlogCard from "@/components/BlogCard.astro";
+import NavigationButton from "@/components/NavigationButton.astro";
 
 export async function getStaticPaths() {
 	const allPosts = (await Astro.glob("../*.md")).sort(
-		(a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+		(a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date),
 	);
 
 	const uniqueTags = [
@@ -12,18 +13,18 @@ export async function getStaticPaths() {
 			allPosts
 				.map(
 					(post: { frontmatter: { tags: any } }) =>
-						post.frontmatter.tags
+						post.frontmatter.tags,
 				)
-				.flat()
+				.flat(),
 		),
 	];
 
 	return uniqueTags.map((tag: any) => {
 		const filteredPosts = allPosts.filter(
 			(post: { frontmatter: { tags: string | any[] } }) =>
-				post.frontmatter.tags.includes(tag)
+				post.frontmatter.tags.includes(tag),
 		);
-        const cleanedTag = tag.toLowerCase().replaceAll(" ", "-");
+		const cleanedTag = tag.toLowerCase().replaceAll(" ", "-");
 		return {
 			params: { tag: cleanedTag },
 			props: { posts: filteredPosts },
@@ -57,27 +58,12 @@ const {
 	pageTitle=`JDS - ${tag.toLowerCase().replace(/\b(\s\w|^\w)/g, function (text: any) { return text.toUpperCase(); })} Posts`
 	`
 >
-	<section class="sm:w-[var(--full-w)] place-self-center">
-		<div class="flex place-items-center gap-[calc(var(--guide-gutter)/2)]">
-			<a href="javascript:void(0);" onclick="history.back()">
-				<svg class="inline-back-arrow" viewBox="0 0 492 492">
-					<g>
-						<g>
-							<path
-								d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
-			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
-			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
-			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
-			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
-			C492,219.198,479.172,207.418,464.344,207.418z"
-							></path>
-						</g>
-					</g>
-				</svg>
-			</a>
+	<section class="place-self-center sm:w-[var(--full-w)]">
+		<div class="tag-controls flex place-items-center">
+			<NavigationButton direction="back" />
 			<span
-				class="!text-foreground/70 bg-foreground/10 cursor-default select-none card-tag flex gap-0.5"
-				>{tag}<a href="/blog" class="ml-1.5"
+				class="card-tag flex cursor-default select-none gap-0.5 bg-foreground/10"
+				>{tag.replaceAll("-", " ")}<a href="/blog" class="p-1.5 pr-0.5"
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -93,9 +79,9 @@ const {
 				>
 			</span>
 		</div>
-		<div class="grid items-start mt-[var(--guide-gutter)] gap-12 pb-48">
+		<div class="mt-[var(--guide-gutter)] grid items-start gap-12 pb-48">
 			<div
-				class="sm:w-[--full-w] grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
+				class="grid grid-flow-row gap-[var(--guide-gutter)] place-self-center sm:w-[--full-w] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
 			>
 				{
 					posts.map((post) => (
@@ -118,8 +104,28 @@ const {
 	</section>
 </BaseLayout>
 
-<style>
+<style is:global>
 	.tag-close-button {
-		@apply duration-200 ease-in-out stroke-foreground/50 sm:w-5 md:w-4 fill-none hover:stroke-red-600;
+		@apply fill-none stroke-foreground/50 duration-200 ease-in-out hover:stroke-red-600 sm:w-5 md:w-4;
+	}
+
+	.tag-controls {
+		@apply h-9;
+	}
+
+	.tag-controls .card-tag {
+		@apply h-full py-0;
+	}
+
+	.tag-controls .navigation-button {
+		@apply h-full bg-accent-foreground/5 py-0 text-foreground/50 hover:bg-accent-foreground/10 hover:text-foreground;
+	}
+
+	span:has(.tag.close-button) {
+		@apply !text-accent-foreground/80;
+	}
+
+	span:has(.tag-close-button:hover) {
+		@apply bg-red-600/10;
 	}
 </style>

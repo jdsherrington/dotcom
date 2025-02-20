@@ -9,8 +9,6 @@ imageAlt: "The second blog post"
 tags: ["astro", "blogging", "learning in public"]
 wordCount: 263
 ---
-accentColor: "60% 46% 35"
-
 Welcome to my personal blog where I share **insights**, _opinions_, and stories about _technology_, **life**, and everything in between.
 
 ## Table of Contents

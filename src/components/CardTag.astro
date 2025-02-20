@@ -18,19 +18,19 @@ const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 
 <style is:global>
 	*:has(> .card-tag) {
-		@apply flex h-min w-full flex-1 flex-row flex-wrap-reverse place-content-end justify-start gap-1;
+		@apply flex h-min w-full flex-1 flex-row flex-wrap place-content-start gap-1;
 	}
 
 	.card-tag {
-		@apply flex place-items-center place-self-end overflow-hidden whitespace-nowrap rounded-lg px-2.5 py-1.5 font-mono text-xs uppercase tracking-wider backdrop-blur-xl transition-all duration-200 sm:bg-[oklch(var(--foreground)/0.03)] sm:text-foreground/50;
+		@apply flex place-items-center place-self-end overflow-hidden whitespace-nowrap rounded-lg px-3 py-1.5 font-mono text-xs uppercase tracking-wider backdrop-blur-xl transition-all duration-200 sm:bg-[oklch(var(--foreground)/0.03)] sm:text-foreground/50;
 	}
 
 	.card-tag.hover {
-		@apply hover:!bg-accent-background/50 hover:!text-accent-foreground cursor-pointer;
+		@apply cursor-pointer hover:!bg-accent-background/50 hover:!text-accent-foreground;
 	}
 
 	:not(.card) > * > * > .card-tag {
-		@apply bg-accent-foreground/5 text-accent-foreground/50;
+		@apply bg-accent-foreground/5 text-accent-foreground/70;
 	}
 
 	.card:hover .card-tag {

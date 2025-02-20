@@ -1,7 +1,7 @@
 /* Design Tokens */
 @import url(./variables/breakpoints.css);
 /* @import url(./variables/colors.css); */
-@import url(./variables/typography.css);
+/* @import url(./variables/typography.css); */
 @import url(./variables/themes.css);
 /* @import url(./variables/widths.css); */
 
@@ -102,7 +102,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 		--theme-contrast-light: -0.02;
 		--theme-contrast-dark: 0.03;
 
-        --accent: var(--foreground);
+        --accent: var(--default-accent);
         --accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
         --accent-background: from oklch(var(--accent)) var(--shade-background) c h;;
 
@@ -197,7 +197,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	/* } */
 
 	body {
-		@apply bg-background text-foreground transition-colors duration-200 ease-in-out w-[100%];
+		@apply bg-background-primary text-foreground transition-colors duration-200 ease-in-out w-[100%];
 	}
 
 	a {

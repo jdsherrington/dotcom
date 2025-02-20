@@ -19,7 +19,12 @@ export default {
 				border: "oklch(var(--border) / <alpha-value>)",
 				input: "oklch(var(--input) / <alpha-value>)",
 				ring: "oklch(var(--ring) / <alpha-value>)",
-				background: "oklch(var(--background) / <alpha-value>)",
+				background: {
+					DEFAULT: "oklch(var(--background) / <alpha-value>)",
+					primary: "oklch(var(--background-primary) / <alpha-value>)",
+					midpoint: "oklch(var(--background-midpoint) / <alpha-value>)",
+					secondary: "oklch(var(--background-secondary) / <alpha-value>)"
+				},
 				foreground: "oklch(var(--foreground) / <alpha-value>)",
 				primary: {
 					DEFAULT: "oklch(var(--primary) / <alpha-value>)",

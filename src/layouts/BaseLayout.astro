@@ -75,7 +75,9 @@ const { pageTitle, pageDesc } = Astro.props;
 	const trackMouse = () => {
 		let ticking = false;
 
-		const cards = document.querySelectorAll(".card");
+		const elements = document.querySelectorAll(
+			".card, pre, blockquote, .theme-drawer",
+		);
 
 		document.addEventListener("mousemove", (e) => {
 			let x = e.clientX,
@@ -91,10 +93,10 @@ const { pageTitle, pageDesc } = Astro.props;
 						`${y}px`,
 					);
 
-					cards.forEach((card: any) => {
-						const rect = card.getBoundingClientRect();
-						card.style.setProperty("--x", `${x - rect.left}px`);
-						card.style.setProperty("--y", `${y - rect.top}px`);
+					elements.forEach((element: any) => {
+						const rect = element.getBoundingClientRect();
+						element.style.setProperty("--x", `${x - rect.left}px`);
+						element.style.setProperty("--y", `${y - rect.top}px`);
 					});
 
 					ticking = false;

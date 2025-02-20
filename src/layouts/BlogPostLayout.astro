@@ -50,11 +50,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 <BaseLayout pageTitle={frontmatter.title}>
 	<div class="blog-page" data-accent={accent}>
 		<div transition:name=`image${frontmatter.url}` class="blog-page-banner">
-			<NavigationButton text="Back" direction="back" />
 			<Image
 				src={images[frontmatter.imagePath]()}
 				alt={frontmatter.imageAlt}
 			/>
+			<NavigationButton direction="back" position="top-left" />
 		</div>
 		<div class="blog-page-body">
 			<div class="blog-page-sidebar">
@@ -63,6 +63,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 						src={images[frontmatter.imagePath]()}
 						alt={frontmatter.imageAlt}
 					/>
+					<NavigationButton direction="back" position="top-left" />
 				</div>
 				<div class="blog-page-sidebar-info">
 					<h1
@@ -130,22 +131,6 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 				<slot />
 			</div>
 		</div>
-		<a href="javascript:void(0);" onclick="history.back()">
-			<svg class="blog-page-nav-arrow" viewBox="0 0 492 492">
-				<g>
-					<g>
-						<path
-							d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
-                c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
-                L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
-                c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
-                c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
-                C492,219.198,479.172,207.418,464.344,207.418z"
-						></path>
-					</g>
-				</g>
-			</svg>
-		</a>
 	</div>
 </BaseLayout>
 
@@ -155,7 +140,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-banner {
-		@apply absolute left-0 top-0 w-full rounded transition-all duration-500 ease-in-out sm:h-[var(--three-w)] md:h-[var(--five-w)];
+		@apply absolute left-0 top-0 w-full rounded opacity-80 transition-all duration-500 ease-in-out sm:h-[var(--three-w)] md:h-[var(--five-w)];
 	}
 
 	body.scrolled .blog-page-banner {
@@ -176,7 +161,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-sidebar {
-		@apply flex h-min flex-col pt-[var(--guide-gutter)] transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--guide-gutter)))];
+		@apply flex h-min flex-col transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--guide-gutter)))] lg:pt-[var(--guide-gutter)];
 	}
 
 	.blog-page-sidebar-info {
@@ -185,6 +170,20 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	.blog-page-thumbnail {
 		@apply relative h-auto w-full overflow-hidden rounded transition-all duration-500 ease-in-out lg:place-items-end;
+	}
+
+	.blog-page-thumbnail .navigation-button {
+		@apply opacity-0;
+		transition:
+			opacity 300ms 500ms ease-in-out,
+			fill 300ms ease-in-out,
+			stroke 300ms ease-in-out,
+			color 300ms ease-in-out,
+			background 300ms ease-in-out;
+	}
+
+	body.scrolled .blog-page-thumbnail .navigation-button {
+		@apply opacity-100;
 	}
 
 	.blog-page-thumbnail img {
@@ -196,7 +195,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	body.scrolled .blog-page-thumbnail img {
-		@apply sm:h-[var(--two-w)] md:opacity-100 lg:mt-0;
+		@apply sm:h-[var(--two-w)] md:opacity-80 lg:mt-0;
 
 		transition:
 			opacity 300ms 150ms ease-in-out,
@@ -212,7 +211,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-date {
-		@apply z-20 mb-2.5 w-auto font-mono text-xs uppercase tracking-widest text-accent-foreground/80 transition-all duration-200 ease-in-out sm:text-left lg:text-right;
+		@apply z-20 mb-2.5 w-auto font-mono text-xs uppercase tracking-widest text-foreground/50 transition-all duration-200 ease-in-out sm:text-left lg:text-right;
 	}
 
 	.blog-page-tags {
@@ -220,7 +219,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-share {
-		@apply mb-5 inline-flex w-auto place-items-center rounded bg-foreground/5 px-3 font-mono uppercase tracking-wide text-foreground/50 duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end;
+		@apply mb-5 inline-flex w-auto place-items-center rounded bg-foreground/0 px-1 font-mono uppercase tracking-wide text-foreground/50 duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end;
 	}
 
 	.blog-page-share-copy {
@@ -232,7 +231,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-share span {
-		@apply select-none text-sm;
+		@apply select-none text-xs tracking-wider;
 	}
 
 	.blog-page-share svg {
@@ -263,25 +262,8 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		@apply hover:text-[oklch(54.58%_0.1301_242.27)];
 	}
 
-	.blog-page-share:has(.x-link:hover),
-	.blog-page-share:has(.threads-link:hover) {
-		@apply bg-foreground/10;
-	}
-
-	.blog-page-share:has(.bluesky-link:hover) {
-		@apply bg-[oklch(63.55%_0.1974_254.71/0.1)];
-	}
-
-	.blog-page-share:has(.reddit-link:hover) {
-		@apply bg-[oklch(66.02%_0.2293_35.4/0.1)];
-	}
-
-	.blog-page-share:has(.linkedin-link:hover) {
-		@apply bg-[oklch(54.58%_0.1301_242.27/0.1)];
-	}
-
 	.blog-page-toc {
-		@apply relative z-50 inline-block w-auto overflow-hidden rounded px-0 text-xs transition-all duration-300 ease-in-out sm:mx-[var(--guide-gutter)] lg:mx-0;
+		@apply relative z-50 w-auto overflow-hidden rounded px-0 text-xs transition-all duration-300 ease-in-out sm:mx-[var(--guide-gutter)] sm:hidden lg:mx-0 lg:inline-block;
 	}
 
 	body.scrolled .blog-page-toc {
@@ -289,7 +271,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.scroll-progress {
-		@apply absolute h-full w-[var(--radius)] bg-accent-foreground/10 opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
+		@apply absolute h-full w-[var(--radius)] bg-accent/25 opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:left-auto lg:right-0 lg:rounded-l-none lg:rounded-r-lg;
 
 		--scroll-progress: 0%;
 	}
@@ -300,7 +282,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	.scroll-progress::after {
 		content: "";
-		@apply absolute top-0 h-full w-full rounded-[inherit] bg-accent-foreground sm:left-0 lg:left-auto lg:right-0;
+		@apply absolute top-0 h-full w-full rounded-[inherit] bg-accent sm:left-0 lg:left-auto lg:right-0;
 
 		transform: translate(0, calc(-100% + var(--scroll-progress)));
 	}
@@ -330,7 +312,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.post-markdown {
-		@apply relative z-50 w-full min-w-0 max-w-[var(--article-width)] transition-all duration-500 ease-in-out sm:px-[var(--guide-gutter)] sm:pt-0 sm:text-foreground lg:px-0 lg:pt-[var(--guide-gutter)];
+		@apply relative z-50 w-full min-w-0 max-w-[var(--article-width)] transition-all duration-500 ease-in-out sm:px-[var(--guide-gutter)] sm:pt-0 sm:text-foreground lg:px-0 lg:pt-[calc(var(--guide-gutter)+4px)];
 	}
 
 	::-moz-selection {
@@ -344,11 +326,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	@keyframes headerHighlightFade {
 		0% {
-			@apply bg-accent-background text-accent-foreground;
+			@apply bg-accent/25 text-accent-foreground;
 		}
 
 		50% {
-			@apply bg-accent-background text-accent-foreground;
+			@apply bg-accent/25 text-accent-foreground;
 		}
 
 		100% {
@@ -357,7 +339,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.post-markdown .header-highlight {
-		animation: headerHighlightFade 2s ease;
+		animation: headerHighlightFade 2s ease !important;
 	}
 
 	.post-markdown p {
@@ -380,7 +362,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		margin-bottom: 0.8rem;
 		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
 
-		@apply -ml-3 rounded py-1 pl-3;
+		@apply -ml-3 rounded py-1 pl-3 font-bold;
 	}
 
 	.post-markdown h3 {
@@ -388,7 +370,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		font-weight: 500;
 		margin-bottom: 0.7rem;
 		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
-		@apply font-mono text-base uppercase tracking-wide text-[oklch(var(--accent-foreground))];
+		@apply font-mono text-sm uppercase tracking-wider text-accent-foreground;
 	}
 
 	.post-markdown h4 {
@@ -412,18 +394,37 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	.post-markdown ul,
 	.post-markdown ol {
 		margin-bottom: 1.75rem;
+		@apply list-inside;
 	}
 
 	.post-markdown ul > li {
-		margin-left: var(--guide-gutter);
-		list-style: disc;
-		margin-bottom: 0.75rem;
+		@apply mb-3 list-["---_"];
+	}
+
+	.post-markdown ::marker {
+		@apply font-mono text-sm text-foreground/50;
+	}
+
+	@counter-style padded-numbers {
+		system: numeric;
+		symbols: "00" "01" "02" "03" "04" "05" "06" "07" "08" "09" "10";
+		suffix: " // ";
 	}
 
 	.post-markdown ol > li {
-		margin-left: var(--guide-gutter);
-		list-style: decimal;
-		margin-bottom: 0.75rem;
+		@apply mb-3 list-[padded-numbers];
+	}
+
+	.post-markdown ul ul {
+		@apply ml-6 mt-2;
+	}
+
+	.post-markdown ul ul > li {
+		@apply list-["--_"];
+	}
+
+	.post-markdown ul ul ul > li {
+		@apply list-["-_"];
 	}
 
 	.post-markdown pre {
@@ -434,26 +435,26 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	code {
-		@apply !font-code;
+		@apply !font-code text-sm;
 	}
 
 	.post-markdown pre::before,
 	.post-markdown blockquote::before {
 		content: "";
-		background: radial-gradient(
-			circle at 90% 200%,
-			oklch(var(--accent)) -400%,
-			transparent 66%
+		mask: radial-gradient(
+			400px circle at var(--x) var(--y),
+			rgb(39, 26, 26) -50%,
+			rgba(0, 0, 0, 0) 50%
 		);
 
-		@apply pointer-events-none absolute left-0 top-0 h-full w-full;
+		@apply pointer-events-none absolute left-0 top-0 h-full w-full bg-accent-background opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-25;
 	}
 
 	.post-markdown pre::after,
 	.post-markdown blockquote::after {
 		content: "";
 		background: radial-gradient(
-				200px circle at 100% 100%,
+				200px circle at var(--x) var(--y),
 				oklch(var(--accent)) 0%,
 				transparent 100%
 			)
@@ -463,16 +464,24 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 			linear-gradient(#fff 0 0);
 		mask-composite: exclude;
 
-		@apply pointer-events-none absolute inset-0 z-20 w-full rounded border border-transparent;
+		@apply pointer-events-none absolute inset-0 z-20 w-full rounded border border-transparent opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100;
+	}
+
+	.post-markdown blockquote::after {
+		@apply !rounded-l-none;
 	}
 
 	.post-markdown hr {
-		@apply my-12 border-[oklch(var(--foreground)/0.2)];
+		@apply mb-8 mt-12 border-foreground/10;
 	}
 
 	.post-markdown blockquote {
 		border-left: var(--radius) solid oklch(var(--accent));
 		@apply relative mb-6 rounded bg-[oklch(var(--foreground)/0.025)] p-4;
+	}
+
+	.post-markdown blockquote p {
+		@apply text-sm text-foreground;
 	}
 
 	.post-markdown blockquote * {
@@ -536,8 +545,12 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 							targetElement.classList.add("header-highlight");
 
 							setTimeout(() => {
-								targetElement.classList.add("header-highlight");
-							}, 20);
+								targetElement.classList.remove(
+									"header-highlight",
+								);
+
+								console.log("Header test");
+							}, 2000);
 
 							observer.disconnect();
 						}

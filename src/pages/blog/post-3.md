@@ -9,8 +9,6 @@ imageAlt: "The Astro logo on a dark background with a pink glow."
 tags: ["astro", "blogging", "learning in public"]
 wordCount: 263
 ---
-accentColor: "59% 6% 255"
-
 Welcome to my personal blog where I share **insights**, _opinions_, and stories about _technology_, **life**, and everything in between.
 
 ## Table of Contents
