@@ -1,0 +1,162 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="mobile-nav-container">
+	<a class="mobile-nav-button page-top-button">
+		<Icon class="page-top-icon" name="ui/page-top" />
+	</a>
+	<div class="mobile-nav-menu">
+		<div class="mobile-nav-items">
+			<a class="mobile-nav-button mobile-nav-link" href="/blog">Blog</a>
+			<a class="mobile-nav-button mobile-nav-link" href="/projects"
+				>Projects</a
+			>
+			<a class="mobile-nav-button mobile-nav-link" href="/resources"
+				>Resources</a
+			>
+			<a class="mobile-nav-button mobile-nav-link" href="/resources"
+				>Theme</a
+			>
+		</div>
+		<a class="mobile-nav-button nav-menu-button">
+			<Icon class="nav-menu-icon" name="ui/hamburger" />
+			<Icon class="nav-menu-close" name="ui/close" />
+		</a>
+	</div>
+</div>
+
+<style>
+	.mobile-nav-container {
+		@apply fixed bottom-0 right-0 z-[1000] inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-4px)];
+	}
+
+	.page-top-button {
+		@apply pointer-events-none flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0 opacity-0 blur-md transition-all duration-300 ease-in-out;
+	}
+
+	body.scrolled .page-top-button {
+		@apply pointer-events-auto opacity-100 blur-none;
+	}
+
+	.mobile-nav-container:has(.mobile-nav-items.open) .page-top-button {
+		@apply !pointer-events-none !opacity-0 !blur-md;
+	}
+
+	.page-top-icon {
+		@apply h-6 w-6;
+	}
+
+	.mobile-nav-menu {
+		@apply flex-col place-items-end sm:inline-flex md:hidden;
+	}
+
+	.mobile-nav-menu::before {
+		content: "";
+		mask-image: radial-gradient(
+			ellipse 100% 100% at 100% 100%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		);
+		z-index: -1;
+		@apply pointer-events-none absolute bottom-0 right-0 h-[400%] w-[400%] bg-black/5 opacity-100 backdrop-blur-none transition-all duration-300 ease-in-out;
+	}
+
+	.mobile-nav-menu::before:has(.mobile-nav-items.open) {
+		@apply bg-black/15 backdrop-blur-xl;
+	}
+
+	.mobile-nav-items {
+		@apply pointer-events-none absolute bottom-14 right-[var(--guide-gutter)] z-50 mb-[calc(var(--guide-gutter)*2)] inline-flex translate-x-[50%] flex-col place-items-end gap-1 font-mono uppercase opacity-0 blur-md transition-all duration-300 ease-in-out;
+	}
+
+	.mobile-nav-items.open {
+		@apply pointer-events-auto translate-x-0 opacity-100 blur-none;
+	}
+
+	.mobile-nav-button {
+		@apply relative inline-block w-min rounded border border-foreground/5 bg-transparent px-4 py-2 text-right tracking-wider text-foreground/90;
+	}
+
+	.mobile-nav-button::before {
+		content: "";
+
+		z-index: -1;
+		@apply absolute right-0 top-0 h-full w-full rounded bg-[var(--header)] shadow-lg shadow-black/10 backdrop-blur-md transition-all duration-300 ease-in-out;
+	}
+
+	.nav-menu-button {
+		@apply flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0;
+	}
+
+	.nav-menu-button svg {
+		@apply absolute left-[50%] top-[50%] h-6 w-6 -translate-x-[50%] -translate-y-[50%] transition-all duration-300 ease-in-out;
+	}
+
+	.nav-menu-icon {
+		@apply opacity-100 blur-none;
+	}
+
+	.mobile-nav-menu:has(.mobile-nav-items.open) .nav-menu-icon {
+		@apply opacity-0 blur-sm;
+	}
+
+	.nav-menu-close {
+		@apply opacity-0 blur-sm;
+	}
+
+	.mobile-nav-menu:has(.mobile-nav-items.open) .nav-menu-close {
+		@apply opacity-100 blur-none;
+	}
+</style>
+
+<script>
+	function scrollToTopButton() {
+		const scrollButton = document.querySelector(".page-top-button");
+
+		if (scrollButton) {
+			scrollButton.addEventListener("click", () => {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			});
+		}
+	}
+
+	scrollToTopButton();
+	document.addEventListener("astro:after-swap", scrollToTopButton);
+</script>
+
+<script>
+	function openNavMenu() {
+		const menuButton = document.querySelector(
+			".nav-menu-button",
+		) as HTMLElement;
+		const menuItems = document.querySelector(
+			".mobile-nav-items",
+		) as HTMLElement;
+
+		menuButton.addEventListener("click", () => {
+			if (menuItems.classList.contains("open")) {
+				menuItems.classList.remove("open");
+			} else {
+				menuItems.classList.add("open");
+			}
+		});
+	}
+	openNavMenu();
+	document.addEventListener("astro:after-swap", openNavMenu);
+</script>
+
+<script data-astro-rerun>
+	document.addEventListener("click", (e) => {
+		if (
+			!document.querySelector(".mobile-nav-menu").contains(e.target) &&
+			document
+				.querySelector(".mobile-nav-items")
+				.classList.contains("open")
+		) {
+			document
+				.querySelector(".mobile-nav-items")
+				.classList.remove("open");
+		}
+	});
+</script>

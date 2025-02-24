@@ -9,10 +9,10 @@ import ThemeIcon from "./ThemeIcon.astro";
 <nav
 	transition:persist="nav-footer"
 	id="nav-footer"
-	class="fixed sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))] z-50 w-[calc(100dvw-var(--guide-gutter))] ml-[calc(var(--guide-gutter)/2)] mb-[calc(var(--guide-gutter)/2)] h-20 backdrop-blur-2xl shadow-2xl shadow-background"
+	class="fixed z-50 mb-[calc(var(--guide-gutter)/2)] ml-[calc(var(--guide-gutter)/2)] h-20 w-[calc(100dvw-var(--guide-gutter))] shadow-2xl shadow-background backdrop-blur-2xl sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))]"
 >
 	<div
-		class="nav-footer-menu relative grid grid-cols-5 bg-background/50 rounded-[var(--radius)] px-0.5 z-50 h-full w-full"
+		class="nav-footer-menu relative z-50 grid h-full w-full grid-cols-5 rounded-[var(--radius)] bg-background/50 px-0.5"
 	>
 		<a href="/">
 			<svg
@@ -133,15 +133,17 @@ import ThemeIcon from "./ThemeIcon.astro";
 		z-index: 1003 !important;
 		overflow: hidden !important;
 
-		--tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-			0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
-		--tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+		--tw-shadow:
+			0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+		--tw-shadow-colored:
+			0 20px 25px -5px var(--tw-shadow-color),
 			0 8px 10px -6px var(--tw-shadow-color) !important;
 
 		--tw-shadow-color: oklch(var(--background)) !important;
 		--tw-shadow: var(--tw-shadow-colored) !important;
 
-		box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+		box-shadow:
+			var(--tw-ring-offset-shadow, 0 0 #0000),
 			var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 	}
 
@@ -167,7 +169,7 @@ import ThemeIcon from "./ThemeIcon.astro";
 	}
 
 	.nav-footer-menu > a {
-		@apply mx-0.5 my-1 inline-flex flex-col place-items-center justify-center gap-2.5 rounded-md font-normal text-[oklch(var(--foreground)/0.6)] transition-colors duration-150 hover:bg-[oklch(var(--foreground)/0.05)] hover:text-foreground focus:bg-[oklch(var(--foreground)/0.05)] focus:font-semibold focus:text-foreground focus:outline-none active:bg-[oklch(var(--foreground)/0.05)] active:text-foreground disabled:pointer-events-none disabled:opacity-50;
+		@apply mx-0.5 my-1 inline-flex flex-col place-items-center justify-center gap-2.5 rounded-md font-normal text-[oklch(var(--foreground)/0.6)] transition-colors duration-150 hover:bg-foreground/5 hover:text-foreground focus:bg-[oklch(var(--foreground)/0.05)] focus:font-semibold focus:text-foreground focus:outline-none active:bg-[oklch(var(--foreground)/0.05)] active:text-foreground disabled:pointer-events-none disabled:opacity-50;
 	}
 
 	.nav-footer-menu span {

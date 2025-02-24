@@ -322,7 +322,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.theme-drawer {
-		@apply pointer-events-none absolute right-0 top-[calc(75%+0.25rem)] z-10 flex w-auto origin-top scale-[0.98] select-none flex-col rounded-lg border border-foreground/5 opacity-0 blur-md transition-all duration-200 ease-in-out;
+		@apply pointer-events-none absolute right-0 top-[calc(75%+0.25rem)] z-10 flex w-auto origin-top scale-[0.98] select-none flex-col rounded border border-foreground/5 opacity-0 blur-md transition-all duration-200 ease-in-out;
 	}
 
 	.theme-drawer::before {
@@ -334,7 +334,7 @@ import { Icon } from "astro-icon/components";
 		);
 
 		z-index: -1;
-		@apply absolute h-full w-full rounded-lg shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
+		@apply absolute h-full w-full rounded shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
 	}
 
 	.theme-drawer::after {

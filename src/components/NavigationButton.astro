@@ -25,7 +25,7 @@ const { text, direction, link, position } = Astro.props;
 
 <style is:global>
 	.navigation-button {
-		@apply flex items-center gap-2 rounded-[calc(var(--radius)-1px)] bg-background-primary/50 px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-foreground/80 backdrop-blur-md transition-all duration-300 ease-in-out hover:bg-accent-background hover:text-accent-foreground;
+		@apply flex items-center gap-2 rounded-[calc(var(--radius)-1px)] bg-background-primary/50 px-2.5 py-2.5 font-mono text-xs uppercase tracking-widest text-foreground/80 backdrop-blur-md transition-all duration-300 ease-in-out hover:bg-accent-background hover:text-accent-foreground;
 	}
 
 	.navigation-button [data-icon] {
@@ -69,15 +69,18 @@ const { text, direction, link, position } = Astro.props;
 
 <script>
 	const navigationAction = () => {
-		const button = document.querySelector(".navigation-button");
-		if (button) {
-			button.addEventListener("click", (e) => {
-				if (!e.currentTarget.getAttribute("data-link")) {
-					e.preventDefault();
-					e.currentTarget.getAttribute("data-direction") === "forward"
-						? history.forward()
-						: history.back();
-				}
+		const buttons = document.querySelectorAll(".navigation-button");
+		if (buttons) {
+			buttons.forEach((button) => {
+				button.addEventListener("click", (e) => {
+					if (!e.currentTarget.getAttribute("data-link")) {
+						e.preventDefault();
+						e.currentTarget.getAttribute("data-direction") ===
+						"forward"
+							? history.forward()
+							: history.back();
+					}
+				});
 			});
 		}
 	};

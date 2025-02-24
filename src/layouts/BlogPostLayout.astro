@@ -140,15 +140,23 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-banner {
-		@apply absolute left-0 top-0 w-full rounded opacity-80 transition-all duration-500 ease-in-out sm:h-[var(--three-w)] md:h-[var(--five-w)];
+		@apply absolute left-0 top-0 w-full overflow-hidden rounded transition-all duration-500 ease-in-out sm:h-[var(--two-w)] lg:h-[var(--five-w)];
+
+		transition:
+			height 100ms ease,
+			opacity 500ms ease-in-out;
 	}
 
 	body.scrolled .blog-page-banner {
-		@apply opacity-0;
+		@apply sm:opacity-100 lg:opacity-25;
 	}
 
 	.blog-page-banner img {
-		@apply h-full w-full rounded object-cover sm:opacity-0 lg:opacity-100;
+		@apply h-full w-full rounded object-cover opacity-80 transition-all duration-300 ease-in-out;
+	}
+
+	body.scrolled .blog-page-banner img {
+		@apply lg:scale-110 lg:blur-xl;
 	}
 
 	.blog-page-body {
@@ -183,11 +191,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	body.scrolled .blog-page-thumbnail .navigation-button {
-		@apply opacity-100;
+		@apply sm:opacity-0 lg:opacity-100;
 	}
 
 	.blog-page-thumbnail img {
-		@apply mb-[var(--guide-gutter)] h-[var(--two-w)] w-full rounded object-cover transition-all duration-500 ease-in-out md:opacity-100 lg:-mt-[calc(var(--two-w)+var(--guide-gutter))] lg:opacity-0;
+		@apply mb-[var(--guide-gutter)] h-[var(--two-w)] w-full rounded object-cover transition-all duration-500 ease-in-out sm:opacity-0 lg:-mt-[calc(var(--two-w)+var(--guide-gutter))] lg:opacity-0;
 
 		transition:
 			opacity 200ms ease-in-out,
@@ -195,7 +203,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	body.scrolled .blog-page-thumbnail img {
-		@apply sm:h-[var(--two-w)] md:opacity-80 lg:mt-0;
+		@apply sm:h-[var(--two-w)] lg:mt-0 lg:opacity-80;
 
 		transition:
 			opacity 300ms 150ms ease-in-out,

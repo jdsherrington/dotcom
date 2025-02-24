@@ -63,7 +63,9 @@ const {
 			<NavigationButton direction="back" />
 			<span
 				class="card-tag flex cursor-default select-none gap-0.5 bg-foreground/10"
-				>{tag.replaceAll("-", " ")}<a href="/blog" class="p-1.5 pr-0.5"
+				>{tag.replaceAll("-", " ")}<a
+					href="/blog"
+					class="tag-close-link"
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -105,8 +107,19 @@ const {
 </BaseLayout>
 
 <style is:global>
+	span:has(.tag-close-link) {
+		@apply pr-1;
+	}
+	.tag-close-link {
+		@apply p-1.5;
+	}
+
+	.tag-close-link:hover .tag-close-button {
+		@apply stroke-red-600;
+	}
+
 	.tag-close-button {
-		@apply fill-none stroke-foreground/50 duration-200 ease-in-out hover:stroke-red-600 sm:w-5 md:w-4;
+		@apply fill-none stroke-foreground/50 duration-200 ease-in-out sm:w-5 md:w-4;
 	}
 
 	.tag-controls {
@@ -125,7 +138,7 @@ const {
 		@apply !text-accent-foreground/80;
 	}
 
-	span:has(.tag-close-button:hover) {
+	span:has(.tag-close-link:hover) {
 		@apply bg-red-600/10;
 	}
 </style>
