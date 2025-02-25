@@ -1,8 +1,10 @@
 ---
+import ThemeDrawer from "@/components/ThemeDrawer.astro";
 import { Icon } from "astro-icon/components";
 ---
 
 <div class="mobile-nav-container">
+	<div class="mobile-nav-backdrop"></div>
 	<a class="mobile-nav-button page-top-button">
 		<Icon class="page-top-icon" name="ui/page-top" />
 	</a>
@@ -15,10 +17,12 @@ import { Icon } from "astro-icon/components";
 			<a class="mobile-nav-button mobile-nav-link" href="/resources"
 				>Resources</a
 			>
-			<a class="mobile-nav-button mobile-nav-link" href="/resources"
-				>Theme</a
+			<a
+				class="mobile-nav-button mobile-nav-link mobile-theme-toggle"
+				href="javascript:void(0)">Theme</a
 			>
 		</div>
+		<ThemeDrawer />
 		<a class="mobile-nav-button nav-menu-button">
 			<Icon class="nav-menu-icon" name="ui/hamburger" />
 			<Icon class="nav-menu-close" name="ui/close" />
@@ -26,13 +30,33 @@ import { Icon } from "astro-icon/components";
 	</div>
 </div>
 
-<style>
+<style is:global>
 	.mobile-nav-container {
-		@apply fixed bottom-0 right-0 z-[1000] inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-4px)];
+		@apply fixed bottom-0 right-0 z-[1000] inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)];
+	}
+
+	.mobile-nav-backdrop {
+		mask: radial-gradient(
+			ellipse 100% 100% at 100% 100%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		);
+		z-index: -2;
+		@apply pointer-events-none absolute bottom-0 right-0 h-[calc(100%*3)] w-[calc(100%*3)];
+	}
+
+	.mobile-nav-backdrop::before {
+		content: "";
+		@apply absolute bottom-0 right-0 z-[-1] h-full w-full opacity-0 transition-opacity duration-200 ease-in-out sm:bg-background-secondary/75 md:bg-transparent;
+	}
+
+	.mobile-nav-container:has(.mobile-nav-items.open)
+		.mobile-nav-backdrop::before {
+		@apply opacity-100;
 	}
 
 	.page-top-button {
-		@apply pointer-events-none flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0 opacity-0 blur-md transition-all duration-300 ease-in-out;
+		@apply pointer-events-none flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0 opacity-0 transition-all duration-300 ease-in-out sm:blur-none md:blur-md;
 	}
 
 	body.scrolled .page-top-button {
@@ -40,49 +64,27 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-container:has(.mobile-nav-items.open) .page-top-button {
-		@apply !pointer-events-none !opacity-0 !blur-md;
+		@apply !pointer-events-none !opacity-0;
 	}
 
 	.page-top-icon {
-		@apply h-6 w-6;
+		@apply h-7 w-7;
 	}
 
 	.mobile-nav-menu {
 		@apply flex-col place-items-end sm:inline-flex md:hidden;
 	}
 
-	.mobile-nav-menu::before {
-		content: "";
-		mask-image: radial-gradient(
-			ellipse 100% 100% at 100% 100%,
-			rgba(0, 0, 0, 1) 50%,
-			rgba(0, 0, 0, 0) 100%
-		);
-		z-index: -1;
-		@apply pointer-events-none absolute bottom-0 right-0 h-[400%] w-[400%] bg-black/5 opacity-100 backdrop-blur-none transition-all duration-300 ease-in-out;
-	}
-
-	.mobile-nav-menu::before:has(.mobile-nav-items.open) {
-		@apply bg-black/15 backdrop-blur-xl;
-	}
-
 	.mobile-nav-items {
-		@apply pointer-events-none absolute bottom-14 right-[var(--guide-gutter)] z-50 mb-[calc(var(--guide-gutter)*2)] inline-flex translate-x-[50%] flex-col place-items-end gap-1 font-mono uppercase opacity-0 blur-md transition-all duration-300 ease-in-out;
+		@apply pointer-events-none absolute bottom-12 right-[calc(var(--guide-gutter)-0.25rem)] z-50 mb-[calc(var(--guide-gutter)*2)] inline-flex translate-x-[150%] flex-col place-items-end gap-2 font-mono uppercase transition-all duration-300 ease-in-out;
 	}
 
 	.mobile-nav-items.open {
-		@apply pointer-events-auto translate-x-0 opacity-100 blur-none;
+		@apply pointer-events-auto translate-x-0;
 	}
 
 	.mobile-nav-button {
-		@apply relative inline-block w-min rounded border border-foreground/5 bg-transparent px-4 py-2 text-right tracking-wider text-foreground/90;
-	}
-
-	.mobile-nav-button::before {
-		content: "";
-
-		z-index: -1;
-		@apply absolute right-0 top-0 h-full w-full rounded bg-[var(--header)] shadow-lg shadow-black/10 backdrop-blur-md transition-all duration-300 ease-in-out;
+		@apply relative inline-block w-min rounded border border-foreground/5 bg-background-midpoint px-4 py-3 text-right tracking-wider text-foreground/80 shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
 	}
 
 	.nav-menu-button {
@@ -107,6 +109,41 @@ import { Icon } from "astro-icon/components";
 
 	.mobile-nav-menu:has(.mobile-nav-items.open) .nav-menu-close {
 		@apply opacity-100 blur-none;
+	}
+
+	.mobile-nav-menu .theme-drawer {
+		@apply pointer-events-none absolute bottom-[calc(var(--guide-gutter)+7.75rem)] right-[calc(var(--guide-gutter)-0.25rem)] z-50 flex w-auto origin-top translate-x-[50%] translate-y-2 select-none flex-col rounded border border-foreground/10 font-mono uppercase opacity-0 transition-all duration-300 ease-in-out;
+	}
+
+	.mobile-nav-menu:has(.mobile-nav-items.open) .theme-drawer {
+		@apply translate-x-0;
+	}
+
+	.mobile-nav-menu .theme-drawer::before {
+		content: "";
+		z-index: -1;
+		@apply absolute h-full w-full rounded bg-background-midpoint shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
+	}
+
+	.mobile-nav-menu .theme-drawer.open {
+		@apply pointer-events-auto translate-y-0 cursor-default opacity-100;
+	}
+
+	.mobile-nav-menu .theme-drawer li {
+		@apply inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out;
+	}
+
+	.mobile-nav-menu .theme-drawer li * {
+		@apply fill-foreground/40 stroke-foreground/40 text-sm tracking-widest text-foreground/80;
+	}
+
+	.mobile-nav-menu:has(.theme-drawer.open)
+		.mobile-nav-link:not(.mobile-theme-toggle) {
+		@apply pointer-events-none opacity-0;
+	}
+
+	.mobile-nav-menu:has(.theme-drawer.open) .mobile-theme-toggle {
+		@apply scale-95 text-foreground/50;
 	}
 </style>
 
@@ -133,10 +170,14 @@ import { Icon } from "astro-icon/components";
 		const menuItems = document.querySelector(
 			".mobile-nav-items",
 		) as HTMLElement;
+		const themeDrawer = document.querySelector(
+			".mobile-nav-container .theme-drawer",
+		) as HTMLElement;
 
 		menuButton.addEventListener("click", () => {
 			if (menuItems.classList.contains("open")) {
 				menuItems.classList.remove("open");
+				themeDrawer.classList.remove("open");
 			} else {
 				menuItems.classList.add("open");
 			}
@@ -144,6 +185,27 @@ import { Icon } from "astro-icon/components";
 	}
 	openNavMenu();
 	document.addEventListener("astro:after-swap", openNavMenu);
+</script>
+
+<script>
+	function openMobileThemeDrawer() {
+		const themeToggle = document.querySelector(
+			".mobile-theme-toggle",
+		) as HTMLElement;
+		const themeDrawer = document.querySelector(
+			".mobile-nav-container .theme-drawer",
+		) as HTMLElement;
+
+		themeToggle.addEventListener("click", () => {
+			if (themeDrawer.classList.contains("open")) {
+				themeDrawer.classList.remove("open");
+			} else {
+				themeDrawer.classList.add("open");
+			}
+		});
+	}
+	openMobileThemeDrawer();
+	document.addEventListener("astro:after-swap", openMobileThemeDrawer);
 </script>
 
 <script data-astro-rerun>
@@ -156,6 +218,9 @@ import { Icon } from "astro-icon/components";
 		) {
 			document
 				.querySelector(".mobile-nav-items")
+				.classList.remove("open");
+			document
+				.querySelector(".mobile-nav-container .theme-drawer")
 				.classList.remove("open");
 		}
 	});

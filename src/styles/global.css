@@ -35,6 +35,10 @@
 body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
   height: auto !important;
 }
+
+.os-scrollbar-handle {
+	@apply transition-colors duration-300 ease-in-out !bg-foreground/25 hover:!bg-foreground/50;
+}
 /* ----------------------------------------------------------------- */
 
 /* ---------------------------- FONTS ------------------------------ */
@@ -192,12 +196,13 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 		@apply m-0 box-border p-0;
 	}
 
-	/* html { */
-	/* 	scrollbar-gutter: stable; */
-	/* } */
+html {
+		scrollbar-gutter: stable;
+	}
 
 	body {
-		@apply bg-background-primary text-foreground transition-colors duration-200 ease-in-out w-[100%] overflow-x-hidden;
+		background: linear-gradient(90deg, oklch(var(--background-primary)) 50%, oklch(var(--background-tertiary)) 100%);
+		@apply text-foreground transition-colors duration-200 ease-in-out;
 	}
 
 	a {
