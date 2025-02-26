@@ -17,12 +17,14 @@ import { Icon } from "astro-icon/components";
 			<a class="mobile-nav-button mobile-nav-link" href="/resources"
 				>Resources</a
 			>
-			<a
-				class="mobile-nav-button mobile-nav-link mobile-theme-toggle"
-				href="javascript:void(0)">Theme</a
-			>
+			<div class="menu-wrapper">
+				<a
+					class="menu-btn mobile-nav-button mobile-nav-link"
+					href="javascript:void(0)">Theme</a
+				>
+				<ThemeDrawer />
+			</div>
 		</div>
-		<ThemeDrawer />
 		<a class="mobile-nav-button nav-menu-button">
 			<Icon class="nav-menu-icon" name="ui/hamburger" />
 			<Icon class="nav-menu-close" name="ui/close" />
@@ -56,19 +58,23 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.page-top-button {
-		@apply pointer-events-none flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0 opacity-0 transition-all duration-300 ease-in-out sm:blur-none md:blur-md;
+		@apply pointer-events-auto flex aspect-square place-content-center place-items-center !p-0 opacity-100 blur-none transition-all duration-300 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12 md:hover:border-foreground/10;
 	}
 
-	body.scrolled .page-top-button {
-		@apply pointer-events-auto opacity-100 blur-none;
+	.page-top-button.hidden {
+		@apply pointer-events-none opacity-0 md:blur-md;
 	}
 
 	.mobile-nav-container:has(.mobile-nav-items.open) .page-top-button {
 		@apply !pointer-events-none !opacity-0;
 	}
 
+	.page-top-button:hover .page-top-icon {
+		@apply md:text-foreground;
+	}
+
 	.page-top-icon {
-		@apply h-7 w-7;
+		@apply w-full transition-colors duration-300 ease-in-out sm:h-2.5 md:h-2;
 	}
 
 	.mobile-nav-menu {
@@ -85,6 +91,10 @@ import { Icon } from "astro-icon/components";
 
 	.mobile-nav-button {
 		@apply relative inline-block w-min rounded border border-foreground/5 bg-background-midpoint px-4 py-3 text-right tracking-wider text-foreground/80 shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
+	}
+
+	.mobile-nav-link.active {
+		@apply border-accent-foreground/50 bg-background-primary text-accent-foreground;
 	}
 
 	.nav-menu-button {
@@ -112,7 +122,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-menu .theme-drawer {
-		@apply pointer-events-none absolute bottom-[calc(var(--guide-gutter)+7.75rem)] right-[calc(var(--guide-gutter)-0.25rem)] z-50 flex w-auto origin-top translate-x-[50%] translate-y-2 select-none flex-col rounded border border-foreground/10 font-mono uppercase opacity-0 transition-all duration-300 ease-in-out;
+		@apply bottom-0 right-0 translate-y-4 flex-col border border-foreground/5 bg-background-midpoint blur-none;
 	}
 
 	.mobile-nav-menu:has(.mobile-nav-items.open) .theme-drawer {
@@ -120,46 +130,69 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-menu .theme-drawer::before {
-		content: "";
-		z-index: -1;
-		@apply absolute h-full w-full rounded bg-background-midpoint shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
+		@apply bg-transparent backdrop-blur-none;
+	}
+
+	.mobile-nav-menu .theme-drawer::after {
+		@apply !bg-transparent opacity-0;
 	}
 
 	.mobile-nav-menu .theme-drawer.open {
-		@apply pointer-events-auto translate-y-0 cursor-default opacity-100;
-	}
-
-	.mobile-nav-menu .theme-drawer li {
-		@apply inline-flex w-full cursor-pointer flex-row place-content-center place-items-center gap-2.5 rounded-md p-2.5 transition-all duration-300 ease-in-out;
+		@apply translate-y-0;
 	}
 
 	.mobile-nav-menu .theme-drawer li * {
-		@apply fill-foreground/40 stroke-foreground/40 text-sm tracking-widest text-foreground/80;
+		@apply text-sm;
 	}
 
 	.mobile-nav-menu:has(.theme-drawer.open)
 		.mobile-nav-link:not(.mobile-theme-toggle) {
 		@apply pointer-events-none opacity-0;
 	}
-
-	.mobile-nav-menu:has(.theme-drawer.open) .mobile-theme-toggle {
-		@apply scale-95 text-foreground/50;
-	}
 </style>
 
 <script>
 	function scrollToTopButton() {
 		const scrollButton = document.querySelector(".page-top-button");
+		if (!scrollButton) return;
 
-		if (scrollButton) {
-			scrollButton.addEventListener("click", () => {
-				window.scrollTo({ top: 0, behavior: "smooth" });
-			});
+		const topElement = document.querySelector("#top-marker");
+		if (!topElement) return;
+
+		if (window.scrollY === 0) {
+			scrollButton.classList.add("hidden");
 		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const entry = entries[0];
+				if (entry.isIntersecting) {
+					scrollButton.classList.add("hidden");
+				} else {
+					scrollButton.classList.remove("hidden");
+				}
+			},
+			{ threshold: 0, rootMargin: "-10px 0px 0px 0px" },
+		);
+
+		observer.observe(topElement);
+
+		scrollButton.addEventListener("click", () => {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		});
+
+		return observer;
 	}
 
-	scrollToTopButton();
-	document.addEventListener("astro:after-swap", scrollToTopButton);
+	let scrollObserver = scrollToTopButton();
+
+	document.addEventListener("astro:after-swap", () => {
+		if (scrollObserver) {
+			scrollObserver.disconnect();
+		}
+
+		scrollObserver = scrollToTopButton();
+	});
 </script>
 
 <script>
@@ -190,7 +223,7 @@ import { Icon } from "astro-icon/components";
 <script>
 	function openMobileThemeDrawer() {
 		const themeToggle = document.querySelector(
-			".mobile-theme-toggle",
+			".theme-toggle",
 		) as HTMLElement;
 		const themeDrawer = document.querySelector(
 			".mobile-nav-container .theme-drawer",
@@ -224,4 +257,22 @@ import { Icon } from "astro-icon/components";
 				.classList.remove("open");
 		}
 	});
+</script>
+
+<script>
+	function setActiveMobileLink() {
+		const currentPath = "/" + window.location.pathname.split("/")[1];
+		// "/projects"
+
+		// Remove active class from all links
+		document.querySelectorAll(".mobile-nav-link").forEach((btn) => {
+			btn.classList.remove("active");
+			if (btn.getAttribute("href") === currentPath) {
+				btn.classList.add("active");
+			}
+		});
+	}
+
+	setActiveMobileLink();
+	document.addEventListener("astro:after-swap", setActiveMobileLink);
 </script>

@@ -88,29 +88,29 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 							))
 						}
 					</div>
-					<div class="blog-page-share">
-						<div class="blog-page-share-copy">
-							<span>Share</span>
-							<a class="copy-link"
-								><Icon name="social/copylink" /></a
-							>
-						</div>
-						<div class="blog-page-share-socials">
-							<a class="x-link"><Icon name="social/x" /></a>
-							<a class="threads-link"
-								><Icon name="social/threads" /></a
-							>
-							<a class="bluesky-link"
-								><Icon name="social/bluesky" /></a
-							>
-							<a class="reddit-link"
-								><Icon name="social/reddit" /></a
-							>
-							<a class="linkedin-link"
-								><Icon name="social/linkedin" /></a
-							>
-						</div>
-					</div>
+					<!-- <div class="blog-page-share"> -->
+					<!-- 	<div class="blog-page-share-copy"> -->
+					<!-- 		<span>Share</span> -->
+					<!-- 		<a class="copy-link" -->
+					<!-- 			><Icon name="social/copylink" /></a -->
+					<!-- 		> -->
+					<!-- 	</div> -->
+					<!-- 	<div class="blog-page-share-socials"> -->
+					<!-- 		<a class="x-link"><Icon name="social/x" /></a> -->
+					<!-- 		<a class="threads-link" -->
+					<!-- 			><Icon name="social/threads" /></a -->
+					<!-- 		> -->
+					<!-- 		<a class="bluesky-link" -->
+					<!-- 			><Icon name="social/bluesky" /></a -->
+					<!-- 		> -->
+					<!-- 		<a class="reddit-link" -->
+					<!-- 			><Icon name="social/reddit" /></a -->
+					<!-- 		> -->
+					<!-- 		<a class="linkedin-link" -->
+					<!-- 			><Icon name="social/linkedin" /></a -->
+					<!-- 		> -->
+					<!-- 	</div> -->
+					<!-- </div> -->
 					<div class="blog-page-toc">
 						<div class="scroll-progress"></div>
 						<ul>
@@ -140,7 +140,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-banner {
-		@apply absolute left-0 top-0 w-full overflow-hidden rounded transition-all duration-500 ease-in-out sm:h-[var(--two-w)] lg:h-[var(--five-w)];
+		@apply absolute left-0 top-0 w-full overflow-hidden rounded transition-all duration-500 ease-in-out sm:h-[var(--three-w)] lg:h-[var(--five-w)];
 
 		transition:
 			height 100ms ease,
@@ -161,7 +161,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	.blog-page-body {
 		--details-width: 50%;
-		@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--guide-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--guide-gutter)*2)] lg:pt-[calc(var(--five-w)+var(--guide-gutter))];
+		@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--guide-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--guide-gutter)*2)] lg:pt-[calc(var(--five-w)+(var(--guide-gutter)*0.5))];
 	}
 
 	body.scrolled .blog-page-body {
@@ -195,7 +195,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-thumbnail img {
-		@apply mb-[var(--guide-gutter)] h-[var(--two-w)] w-full rounded object-cover transition-all duration-500 ease-in-out sm:opacity-0 lg:-mt-[calc(var(--two-w)+var(--guide-gutter))] lg:opacity-0;
+		@apply mb-[var(--guide-gutter)] h-[var(--three-w)] w-full rounded object-cover transition-all duration-500 ease-in-out sm:opacity-0 lg:-mt-[calc(var(--two-w)+var(--guide-gutter))] lg:opacity-0;
 
 		transition:
 			opacity 200ms ease-in-out,
@@ -211,7 +211,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-title {
-		@apply z-20 mb-1.5 inline-block w-auto transform-none text-pretty font-bold tracking-tight text-foreground/90 transition-all duration-500 ease-in-out sm:text-left sm:text-3xl md:text-3xl lg:text-right lg:text-5xl;
+		@apply z-20 mb-1.5 inline-block w-auto transform-none text-pretty font-bold tracking-tight text-foreground/90 transition-all duration-500 ease-in-out sm:text-left sm:text-3xl md:text-3xl lg:text-right lg:text-4xl;
 	}
 
 	body.scrolled .blog-page-title {
@@ -436,10 +436,9 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.post-markdown pre {
-		background-color: oklch(var(--foreground) / 0.025) !important;
-		margin-bottom: 2rem;
+		word-wrap: break-word;
 
-		@apply relative rounded p-[var(--guide-gutter)] !font-code;
+		@apply relative mb-8 whitespace-pre-wrap break-words rounded !bg-[oklch(var(--foreground)/0.025)] p-[var(--guide-gutter)] !font-code;
 	}
 
 	code {

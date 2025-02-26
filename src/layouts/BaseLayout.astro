@@ -53,6 +53,7 @@ const { pageTitle, pageDesc } = Astro.props;
 		<Background />
 		<Header />
 		<main>
+			<div id="top-marker"></div>
 			<slot />
 		</main>
 		<MobileNav />
@@ -68,7 +69,40 @@ const { pageTitle, pageDesc } = Astro.props;
 	main {
 		@apply self-center;
 	}
+
+	#top-marker {
+		@apply pointer-events-none h-[1px] w-[1px] bg-transparent;
+	}
 </style>
+
+<!-- Open & Close Menus -->
+<script>
+	document.addEventListener("click", (e) => {
+		const target = e.target as HTMLElement;
+
+		// Open menu if menu button clicked
+		if (target.closest(".menu-btn")) {
+			const wrapper = target.closest(".menu-wrapper");
+			const menu = wrapper?.querySelector(".menu") as HTMLElement;
+
+			if (menu) {
+				menu.classList.toggle("open");
+			}
+
+			e.stopPropagation();
+		}
+
+		// Close menu when clicking outside
+		else if (
+			document.querySelector(".menu.open") &&
+			!target.closest(".menu-wrapper")
+		) {
+			document.querySelectorAll(".menu.open").forEach((menu) => {
+				menu.classList.remove("open");
+			});
+		}
+	});
+</script>
 
 <!-- Track Mouse Position -->
 <script>
@@ -153,30 +187,38 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		document.documentElement.setAttribute("data-theme", appliedTheme);
 
-		document.querySelectorAll(".theme-drawer li").forEach((themeBtn) => {
-			themeBtn.classList.remove("active");
-			if (themeBtn.classList.contains(currentTheme))
-				themeBtn.classList.add("active");
+		document.querySelectorAll(".theme-drawer li").forEach((button) => {
+			button.classList.remove("active");
+			if (button.classList.contains(currentTheme))
+				button.classList.add("active");
 		});
-
-		themeBtn.classList.add("active");
 	}
 
-	(function createToggles() {
-		document.querySelectorAll(".theme-drawer li").forEach((themeBtn) => {
-			themeBtn.addEventListener("click", (e) => {
-				const newTheme = themeBtn.getAttribute("class").split(" ")[0];
-				localStorage.setItem("theme", newTheme);
+	function createToggles() {
+		function setThemeFromButton(targetDocument, targetButton) {
+			const newTheme = targetButton.getAttribute("class").split(" ")[0];
+			localStorage.setItem("theme", newTheme);
+			loadTheme(targetDocument);
+		}
 
-				loadTheme(document);
-			});
+		document.querySelectorAll(".theme-drawer li").forEach((button) => {
+			button.removeEventListener("click", () =>
+				setThemeFromButton(document, button),
+			);
+
+			button.addEventListener("click", () =>
+				setThemeFromButton(document, button),
+			);
 		});
-	})();
+	}
 
 	document.addEventListener("astro:before-swap", (ev) => {
 		loadTheme(ev.newDocument);
 	});
 	document.addEventListener("astro:page-load", loadTheme(document));
+
+	createToggles();
+	document.addEventListener("astro:after-swap", createToggles);
 
 	// const applyTheme = (theme, document) =>
 	// 	document.documentElement.setAttribute("data-theme", theme);
@@ -257,7 +299,7 @@ const { pageTitle, pageDesc } = Astro.props;
 		}, 150);
 	};
 
-	document.removeEventListener("astro:scroll", setBodyScrolled);
+	document.removeEventListener("scroll", setBodyScrolled);
 	document.removeEventListener("astro:before-swap", setBodyScrolled);
 
 	document.addEventListener("scroll", setBodyScrolled);
