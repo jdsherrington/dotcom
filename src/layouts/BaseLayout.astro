@@ -51,7 +51,7 @@ const { pageTitle, pageDesc } = Astro.props;
 
 	<body data-overlayscrollbars-initialize>
 		<Background />
-		<Header />
+		<Header pageTitle={pageTitle} />
 		<main>
 			<div id="top-marker"></div>
 			<slot />

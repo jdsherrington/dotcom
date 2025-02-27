@@ -1,10 +1,20 @@
 ---
 import ThemeDrawer from "@/components/ThemeDrawer.astro";
+import NavigationButton from "@/components/NavigationButton.astro";
 import { Icon } from "astro-icon/components";
+
+interface Props {
+	pageTitle: string;
+}
+const { pageTitle } = Astro.props;
 ---
 
 <header transition:persist="header" id="header" class="header">
 	<nav>
+		<div class="mobile-header">
+			<NavigationButton direction="back" />
+			<span id="header-page-title"></span>
+		</div>
 		<a href="/" class="isolate">
 			<!--	<Icon class="header-logo" name="header" /> -->
 			<svg
@@ -87,22 +97,33 @@ import { Icon } from "astro-icon/components";
 
 <style is:global>
 	header {
-		@apply pointer-events-none sticky top-0 flex h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] items-start justify-center;
+		@apply pointer-events-none sticky top-0 flex items-start justify-center sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1)] md:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)];
 		transition: top ease-in-out 300ms;
 		z-index: 1000 !important;
-	}
-
-	header::after {
-		content: "";
-		@apply pointer-events-none absolute left-0 top-0 w-full sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)] sm:opacity-100 md:h-full md:opacity-100;
 	}
 
 	header.scrolled {
 		top: 0px !important;
 	}
 
+	.mobile-header {
+		@apply absolute left-0 top-0 flex h-min w-full flex-row gap-1 overflow-hidden rounded opacity-0 transition-all duration-300 ease-in-out sm:pointer-events-auto md:pointer-events-none;
+	}
+
+	.mobile-header .navigation-button {
+		@apply border border-foreground/10 bg-[var(--header)] !text-foreground/80 shadow-lg shadow-black/5 blur-none backdrop-blur-xl;
+	}
+
+	header.scrolled .mobile-header {
+		@apply sm:opacity-100 md:opacity-0;
+	}
+
+	.mobile-header #header-page-title {
+		@apply flex w-full max-w-full items-center overflow-hidden text-ellipsis rounded border border-foreground/10 bg-[var(--header)] px-3 py-2.5 align-middle font-mono text-base uppercase leading-snug tracking-wider text-foreground shadow-lg shadow-black/5 blur-none backdrop-blur-xl;
+	}
+
 	nav {
-		@apply pointer-events-auto m-[calc(var(--guide-gutter)/2)] mb-0 mt-[calc(var(--guide-gutter))] flex h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] items-center rounded-lg pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] shadow-2xl shadow-transparent sm:justify-center md:justify-between;
+		@apply pointer-events-auto m-[calc(var(--guide-gutter)/2)] mb-0 flex h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] items-center rounded-lg pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] shadow-2xl shadow-transparent sm:justify-center md:mt-[calc(var(--guide-gutter))] md:justify-between;
 
 		border-color: transparent;
 		border-width: 0px;
@@ -134,7 +155,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	header.scrolled nav::before {
-		@apply left-0 top-0 h-full w-full blur-none sm:bg-transparent sm:shadow-transparent sm:backdrop-blur-none md:bg-[var(--header)] md:shadow-background/50 md:backdrop-blur-xl;
+		@apply left-0 top-0 h-full w-full bg-transparent shadow-transparent blur-md backdrop-blur-none md:bg-[var(--header)] md:shadow-background/50 md:blur-none md:backdrop-blur-xl;
 	}
 
 	nav::after {
@@ -177,6 +198,10 @@ import { Icon } from "astro-icon/components";
 
 	header.scrolled .header-logo {
 		@apply sm:opacity-0 sm:blur-md md:fill-[oklch(var(--accent))] md:stroke-foreground/80 md:opacity-100 md:blur-none md:hover:fill-accent-foreground md:hover:stroke-foreground;
+	}
+
+	header.scrolled a:has(.header-logo) {
+		@apply sm:pointer-events-none md:pointer-events-auto;
 	}
 
 	.nav-items {
@@ -377,4 +402,20 @@ import { Icon } from "astro-icon/components";
 
 	setActiveLink();
 	document.addEventListener("astro:after-swap", setActiveLink);
+</script>
+
+<script>
+	function updateTitle() {
+		const pageTitle = document.title;
+		const titleElement = document.getElementById("header-page-title");
+
+		if (titleElement) {
+			setTimeout(() => {
+				titleElement.textContent = pageTitle;
+			}, 400);
+		}
+	}
+
+	updateTitle();
+	document.addEventListener("astro:after-swap", updateTitle);
 </script>

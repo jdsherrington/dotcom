@@ -289,11 +289,11 @@ html {
 
 @layer components {
 	.card {
-		@apply relative w-full md:hover:-translate-y-[4px] rounded bg-card/0 shadow-lg shadow-transparent transition-all duration-300 ease-in-out md:hover:shadow-black/5 overflow-hidden;
+		@apply relative w-full md:hover:-translate-y-[4px] rounded bg-card/0 shadow-lg sm:shadow-black/5 md:shadow-transparent transition-all duration-300 ease-in-out md:hover:shadow-black/5 overflow-hidden;
 	}
 
 	:root[data-theme="dark"] .card {
-		@apply md:hover:shadow-black/15;
+		@apply sm:shadow-black/15 md:shadow-transparent md:hover:shadow-black/15;
 	}
 
 
@@ -361,7 +361,7 @@ html {
 	}
 
 	.card:has(a:hover) .card-accent::before {
-		@apply opacity-50;
+		@apply md:opacity-50;
 	}
 
 	.nav-btn {

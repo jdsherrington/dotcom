@@ -102,7 +102,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-menu-button svg {
-		@apply absolute left-[50%] top-[50%] h-6 w-6 -translate-x-[50%] -translate-y-[50%] transition-all duration-300 ease-in-out;
+		@apply absolute left-[50%] top-[50%] h-6 w-6 -translate-x-[50%] -translate-y-[50%];
 	}
 
 	.nav-menu-icon {
@@ -209,8 +209,11 @@ import { Icon } from "astro-icon/components";
 
 		menuButton.addEventListener("click", () => {
 			if (menuItems.classList.contains("open")) {
-				menuItems.classList.remove("open");
-				themeDrawer.classList.remove("open");
+				if (themeDrawer.classList.contains("open")) {
+					themeDrawer.classList.remove("open");
+				} else {
+					menuItems.classList.remove("open");
+				}
 			} else {
 				menuItems.classList.add("open");
 			}

@@ -203,7 +203,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	body.scrolled .blog-page-thumbnail img {
-		@apply sm:h-[var(--two-w)] lg:mt-0 lg:opacity-80;
+		@apply sm:h-[var(--three-w)] lg:mt-0 lg:opacity-80;
 
 		transition:
 			opacity 300ms 150ms ease-in-out,
@@ -454,7 +454,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 			rgba(0, 0, 0, 0) 50%
 		);
 
-		@apply pointer-events-none absolute left-0 top-0 h-full w-full bg-accent-background opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-25;
+		@apply pointer-events-none absolute left-0 top-0 h-full w-full bg-accent-background opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
 	}
 
 	.post-markdown pre::after,
@@ -471,7 +471,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 			linear-gradient(#fff 0 0);
 		mask-composite: exclude;
 
-		@apply pointer-events-none absolute inset-0 z-20 w-full rounded border border-transparent opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100;
+		@apply pointer-events-none absolute inset-0 z-20 w-full rounded border border-transparent opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
 	}
 
 	.post-markdown blockquote::after {
