@@ -1,29 +1,14 @@
 :root {
-	/* Theme-Agnostic Config */
-	--default-accent: var(--foreground) / 0.5;
-
-	--card: var(--background);
-	--card-foreground: var(--foreground);
-
-	--destructive-light: ;
-	--destructive-dark: ;
-
-	--header: color-mix(
-			in hsl,
-			oklch(var(--background) / 0.2),
-			oklch(var(--background-primary) / 1)
-		);
-
-
 	/* DARK THEMES */
 
 	/* Default */
-	--_dark-background: 0% 0 42;
+	--_dark-background: 0% 0 0;
 	--_dark-foreground: 95% 0.01 48;
 	--_dark-background-primary: 28.62% 0.0145 226.58;
 	--_dark-background-secondary: 19.57% 0 0;
 	--_dark-background-tertiary: 31.42% 0.0098 164.3;
 	--_dark-background-midpoint: color-mix(in hsl, oklch(var(--_dark-background-primary)) 50%, oklch(var(--_dark-background-secondary)) 50%);
+	--_dark-background-header: oklch(25.62% 0.008 226.58 / 0.5);
 
 	&[data-theme="dark"] {
 		--background: var(--_dark-background);
@@ -38,9 +23,11 @@
 		--header-logo-thickness: 25px;
 
 		--background-primary: var(--_dark-background-primary);
-		--background-midpoint: var(--_dark-background-midpoint);
 		--background-secondary: var(--_dark-background-secondary);
 		--background-tertiary: var(--_dark-background-tertiary);
+
+		--background-midpoint: var(--_dark-background-midpoint);
+		--background-header: var(--_dark-background-header);
 
 		#dark-background {
 			@apply -z-10 opacity-100 delay-0;
@@ -49,7 +36,6 @@
 
 	#dark-background {
 		--background-primary: var(--_dark-background-primary);
-		--background-midpoint: var(--_dark-background-midpoint);
 		--background-secondary: var(--_dark-background-secondary);
 		--background-tertiary: var(--_dark-background-tertiary);
 	}	
@@ -58,11 +44,13 @@
 
 	/* Source */
 	--_source-background: 0% 0 42;
-	--_source-foreground: 95% 0.01 48;
-	--_source-background-primary: 28.62% 0.0145 226.58;
-	--_source-background-secondary: 19.57% 0 0;
-	--_source-background-tertiary: 31.42% 0.0098 164.3;
-	--_source-background-midpoint: color-mix(in hsl, oklch(var(--_source-background-primary)) 50%, oklch(var(--_source-background-secondary)) 50%);
+	--_source-foreground: 95% 0.05 142.5;
+	--_source-background-primary: 0% 0 343.34;
+	--_source-background-secondary: 10.38% 0.1872 143.24;
+	--_source-background-tertiary: 13.53% 0.0739 142.5;
+/* oklch(86.86% 0.277584 144.4661) */
+	--_source-background-midpoint: color-mix(in srgb, oklch(var(--_source-background-primary)) 50%, oklch(var(--_source-background-secondary)) 50%);
+	--_source-background-header: oklch(11.79% 0.0327 142.5 / 0.5);
 
 	&[data-theme="source"] {
 		--background: var(--_source-background);
@@ -76,11 +64,24 @@
 
 		--header-logo-thickness: 25px;
 
+		--accent: 86.86% 0.277584 135.4661 !important;
+	
 		--background-primary: var(--_source-background-primary);
-		--background-midpoint: var(--_source-background-midpoint);
 		--background-secondary: var(--_source-background-secondary);
 		--background-tertiary: var(--_source-background-tertiary);
 
+		--background-midpoint: var(--_source-background-midpoint);
+		--background-header: var(--_source-background-header);
+
+		*, *::before, *::after {
+			@apply !font-mono !font-normal !uppercase !rounded-none;
+		}
+
+
+		img {
+			filter: sepia(100%) hue-rotate(55deg) brightness(60%) contrast(300%) !important;
+		}
+		
 		#source-background {
 			@apply -z-10 opacity-100 delay-0;
 		}
@@ -88,7 +89,6 @@
 
 	#source-background {
 		--background-primary: var(--_source-background-primary);
-		--background-midpoint: var(--_source-background-midpoint);
 		--background-secondary: var(--_source-background-secondary);
 		--background-tertiary: var(--_source-background-tertiary);
 	}
@@ -102,6 +102,7 @@
 	--_carbon-background-secondary: 19.57% 0 0;
 	--_carbon-background-tertiary: 31.42% 0.0098 164.3;
 	--_carbon-background-midpoint: color-mix(in hsl, oklch(var(--_carbon-background-primary)) 50%, oklch(var(--_carbon-background-secondary)) 50%);
+	--_carbon-background-header: color-mix(in hsl, oklch(var(--_carbon-background-primary)) 50%, oklch(var(--_carbon-background-secondary)) 50%);
 
 	&[data-theme="carbon"] {
 		--background: var(--_carbon-background);
@@ -116,9 +117,11 @@
 		--header-logo-thickness: 25px;
 
 		--background-primary: var(--_carbon-background-primary);
-		--background-midpoint: var(--_carbon-background-midpoint);
 		--background-secondary: var(--_carbon-background-secondary);
 		--background-tertiary: var(--_carbon-background-tertiary);
+
+		--background-midpoint: var(--_carbon-background-midpoint);
+		--background-header: var(--_carbon-background-header);
 
 		#carbon-background {
 			@apply -z-10 opacity-100 delay-0;
@@ -127,7 +130,6 @@
 
 	#carbon-background {
 		--background-primary: var(--_carbon-background-primary);
-		--background-midpoint: var(--_carbon-background-midpoint);
 		--background-secondary: var(--_carbon-background-secondary);
 		--background-tertiary: var(--_carbon-background-tertiary);
 	}
@@ -137,13 +139,13 @@
 	/* LIGHT THEMES */
 
 	/* Default */
-	--_light-background: 100% 0 42;
+	--_light-background: 100% 0 0;
 	--_light-foreground: 15% 0.01 48;
-	--_light-background-primary: 87.3% 0 0;
-	--_light-background-midpoint: 85.76% 0 0;
-	--_light-background-secondary: 82.45% 0 0;
-	--_light-background-tertiary: 82.45% 0 0;
+	--_light-background-primary: 88.3% 0 0;
+	--_light-background-secondary: 80.45% 0 0;
+	--_light-background-tertiary: 90.45% 0 0;
 	--_light-background-midpoint: color-mix(in hsl, oklch(var(--_light-background-primary)) 50%, oklch(var(--_light-background-secondary)) 50%);
+	--_light-background-header: oklch(92% 0 0 / 0.5);
 
 	&[data-theme="light"] {
 		--background: var(--_light-background);
@@ -158,9 +160,11 @@
 		--header-logo-thickness: 30px;
 
 		--background-primary: var(--_light-background-primary);
-		--background-midpoint: var(--_light-background-midpoint);
 		--background-secondary: var(--_light-background-secondary);
 		--background-tertiary: var(--_light-background-tertiary);
+
+		--background-midpoint: var(--_light-background-midpoint);
+		--background-header: var(--_light-background-header);
 
 		#light-background {
 			@apply -z-10 opacity-100 delay-0;
@@ -169,7 +173,6 @@
 
 	#light-background {
 		--background-primary: var(--_light-background-primary);
-		--background-midpoint: var(--_light-background-midpoint);
 		--background-secondary: var(--_light-background-secondary);
 		--background-tertiary: var(--_light-background-tertiary);
 	}
@@ -177,13 +180,13 @@
 
 
 	/* Golden */
-	--_golden-background: 100% 0 42;
+	--_golden-background: 100% 0 0;
 	--_golden-foreground: 15% 0.01 48;
 	--_golden-background-primary: 87.3% 0 0;
-	--_golden-background-midpoint: 85.76% 0 0;
 	--_golden-background-secondary: 82.45% 0 0;
 	--_golden-background-tertiary: 82.45% 0 0;
 	--_golden-background-midpoint: color-mix(in hsl, oklch(var(--_golden-background-primary)) 50%, oklch(var(--_golden-background-secondary)) 50%);
+	--_golden-background-header: oklch(92% 0 0 / 0.5);
 
 	&[data-theme="golden"] {
 		--background: var(--_golden-background);
@@ -198,9 +201,11 @@
 		--header-logo-thickness: 30px;
 
 		--background-primary: var(--_golden-background-primary);
-		--background-midpoint: var(--_golden-background-midpoint);
 		--background-secondary: var(--_golden-background-secondary);
 		--background-tertiary: var(--_golden-background-tertiary);
+
+		--background-midpoint: var(--_golden-background-midpoint);
+		--background-header: var(--_golden-background-header);
 
 		#golden-background {
 			@apply -z-10 opacity-100 delay-0;
@@ -209,7 +214,6 @@
 
 	#golden-background {
 		--background-primary: var(--_golden-background-primary);
-		--background-midpoint: var(--_golden-background-midpoint);
 		--background-secondary: var(--_golden-background-secondary);
 		--background-tertiary: var(--_golden-background-tertiary);
 	}
@@ -217,13 +221,13 @@
 
 
 	/* Spring */
-	--_spring-background: 100% 0 42;
+	--_spring-background: 100% 0 0;
 	--_spring-foreground: 15% 0.01 48;
 	--_spring-background-primary: 87.3% 0 0;
-	--_spring-background-midpoint: 85.76% 0 0;
 	--_spring-background-secondary: 82.45% 0 0;
 	--_spring-background-tertiary: 82.45% 0 0;
 	--_spring-background-midpoint: color-mix(in hsl, oklch(var(--_spring-background-primary)) 50%, oklch(var(--_spring-background-secondary)) 50%);
+	--_spring-background-header: oklch(92% 0 0 / 0.5);
 
 	&[data-theme="spring"] {
 		--background: var(--_spring-background);
@@ -238,9 +242,11 @@
 		--header-logo-thickness: 30px;
 
 		--background-primary: var(--_spring-background-primary);
-		--background-midpoint: var(--_spring-background-midpoint);
 		--background-secondary: var(--_spring-background-secondary);
 		--background-tertiary: var(--_spring-background-tertiary);
+
+		--background-midpoint: var(--_spring-background-midpoint);
+		--background-header: var(--_spring-background-header);
 
 		#spring-background {
 			@apply -z-10 opacity-100 delay-0;
@@ -249,10 +255,27 @@
 
 	#spring-background {
 		--background-primary: var(--_spring-background-primary);
-		--background-midpoint: var(--_spring-background-midpoint);
 		--background-secondary: var(--_spring-background-secondary);
 		--background-tertiary: var(--_spring-background-tertiary);
 	}
+
+
+
+	/* Theme-Agnostic Settings */
+	--default-accent: var(--foreground) / 0.5;
+
+	--card: var(--background);
+	--card-foreground: var(--foreground);
+
+	--destructive-light: ;
+	--destructive-dark: ;
+
+	--header: 
+		color-mix(
+			in hsl,
+			var(--background-midpoint) 60%,
+			transparent 40%
+		);
 }
 
 .page-background {
