@@ -22,7 +22,7 @@ export default {
 				background: {
 					DEFAULT: "oklch(var(--background) / <alpha-value>)",
 					primary: "oklch(var(--background-primary) / <alpha-value>)",
-					midpoint: "oklch(var(--background-midpoint) / <alpha-value>)",
+					midpoint: "var(--background-midpoint)",
 					secondary: "oklch(var(--background-secondary) / <alpha-value>)",
 					tertiary: "oklch(var(--background-tertiary) / <alpha-value>)"
 				},

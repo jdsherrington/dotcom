@@ -1,132 +1,259 @@
-/* All colors in OKLCH */
-:root[data-theme="dark"] {
-		--background: 0% 0 42;
-		--foreground: 95% 0.01 48;
-		--default-accent: var(--foreground) / 0.5;
-		--card: var(--background);
-		--card-foreground: var(--foreground);
+:root {
+	/* Theme-Agnostic Config */
+	--default-accent: var(--foreground) / 0.5;
 
-		--theme-lightness: var(--theme-lightness-dark);
-		--theme-contrast: var(--theme-contrast-dark);
+	--card: var(--background);
+	--card-foreground: var(--foreground);
 
-		--shade-background: 0.4;
-		--shade-foreground: 0.8;
-		--shade-chroma: 0.15;
+	--destructive-light: ;
+	--destructive-dark: ;
 
-		/* --background: var(--theme-lightness) var(--theme-chroma) var(--theme-hue);
-		--foreground: var(--theme-lightness-light) var(--theme-chroma)	var(--theme-hue); */
-
-		--background-primary: 28.62% 0.0145 226.58;
-		--background-midpoint: 25.28% 0.0105 242.13;
-		--background-secondary: 19.57% 0 0;
-		--background-tertiary: 31.42% 0.0098 164.3;
-		
-		--header: color-mix(
+	--header: color-mix(
 			in hsl,
 			oklch(var(--background) / 0.2),
 			oklch(var(--background-primary) / 1)
 		);
 
-		/* var(--theme-lightness) var(--theme-chroma) var(--theme-hue);
-        var(--theme-lightness-light) var(--theme-chroma) var(--theme-hue); */
 
-		/* --css-background: var(--theme-hue), var(--theme-saturation),
-			var(--theme-darkness);
-		--css-foreground: var(--theme-hue), var(--theme-saturation),
-			var(--theme-lightness); */
+	/* DARK THEMES */
 
-		--popover: var(--theme-hue) var(--theme-saturation)
-			var(--theme-darkness);
-		--popover-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
-		--destructive: 1 62.8% 30.6%;
-		--destructive-foreground: 1 9.1% var(--theme-lightness);
-		--border: var(--theme-hue) 6.5% 15.1%;
-		--input: var(--theme-hue) 6.5% 15.1%;
-		--ring: var(--theme-hue) 5.7% 82.9%;
+	/* Default */
+	--_dark-background: 0% 0 42;
+	--_dark-foreground: 95% 0.01 48;
+	--_dark-background-primary: 28.62% 0.0145 226.58;
+	--_dark-background-secondary: 19.57% 0 0;
+	--_dark-background-tertiary: 31.42% 0.0098 164.3;
+	--_dark-background-midpoint: color-mix(in hsl, oklch(var(--_dark-background-primary)) 50%, oklch(var(--_dark-background-secondary)) 50%);
 
-		/* --shadow-col: var(--background); */
+	&[data-theme="dark"] {
+		--background: var(--_dark-background);
+		--foreground: var(--_dark-foreground);
+		--destructive-background: var(--destructive-dark);
+		--destructive-foreground: var(--destructive-light);
 
-		--light-img-opacity: 0;
-		--dark-img-opacity: 1;
+		--shade-background: 0.4;
+		--shade-foreground: 0.8;
+		--shade-chroma: 0.15;
+		
+		--header-logo-thickness: 25px;
 
-		/* --card-saturate: 80%;
-		--card-sepia: 0%;
-		--card-brightness: 250%;
-		--card-contrast: 100%;
-		--card-hue: 90deg; */
+		--background-primary: var(--_dark-background-primary);
+		--background-midpoint: var(--_dark-background-midpoint);
+		--background-secondary: var(--_dark-background-secondary);
+		--background-tertiary: var(--_dark-background-tertiary);
 
-		/* --shiki: var(--shiki-dark) !important;
-		--shiki-bg: var(--shiki-dark-bg) !important;
-		--shiki-font-style: var(--shiki-dark-font-style) !important;
-		--shiki-weight: var(--shiki-dark-font-weight) !important;
-		--shiki-decoration: var(--shiki-dark-text-decoration) !important; */
+		#dark-background {
+			@apply -z-10 opacity-100 delay-0;
+		}
 	}
 
-	:root[data-theme="light"] {
-		--background: 100% 0 42;
-		--foreground: 15% 0.01 48;
-		--default-accent: var(--foreground) / 0.5;
-		--card: var(--background);
-		--card-foreground: var(--foreground);
+	#dark-background {
+		--background-primary: var(--_dark-background-primary);
+		--background-midpoint: var(--_dark-background-midpoint);
+		--background-secondary: var(--_dark-background-secondary);
+		--background-tertiary: var(--_dark-background-tertiary);
+	}	
 
-		--theme-lightness: var(--theme-lightness-light);
-		--theme-contrast: var(--theme-contrast-light);
+
+
+	/* Source */
+	--_source-background: 0% 0 42;
+	--_source-foreground: 95% 0.01 48;
+	--_source-background-primary: 28.62% 0.0145 226.58;
+	--_source-background-secondary: 19.57% 0 0;
+	--_source-background-tertiary: 31.42% 0.0098 164.3;
+	--_source-background-midpoint: color-mix(in hsl, oklch(var(--_source-background-primary)) 50%, oklch(var(--_source-background-secondary)) 50%);
+
+	&[data-theme="source"] {
+		--background: var(--_source-background);
+		--foreground: var(--_source-foreground);
+		--destructive-background: var(--destructive-dark);
+		--destructive-foreground: var(--destructive-light);
+
+		--shade-background: 0.4;
+		--shade-foreground: 0.8;
+		--shade-chroma: 0.15;
+
+		--header-logo-thickness: 25px;
+
+		--background-primary: var(--_source-background-primary);
+		--background-midpoint: var(--_source-background-midpoint);
+		--background-secondary: var(--_source-background-secondary);
+		--background-tertiary: var(--_source-background-tertiary);
+
+		#source-background {
+			@apply -z-10 opacity-100 delay-0;
+		}
+	}
+
+	#source-background {
+		--background-primary: var(--_source-background-primary);
+		--background-midpoint: var(--_source-background-midpoint);
+		--background-secondary: var(--_source-background-secondary);
+		--background-tertiary: var(--_source-background-tertiary);
+	}
+
+	
+
+	/* Carbon */
+	--_carbon-background: 0% 0 42;
+	--_carbon-foreground: 95% 0.01 48;
+	--_carbon-background-primary: 28.62% 0.0145 226.58;
+	--_carbon-background-secondary: 19.57% 0 0;
+	--_carbon-background-tertiary: 31.42% 0.0098 164.3;
+	--_carbon-background-midpoint: color-mix(in hsl, oklch(var(--_carbon-background-primary)) 50%, oklch(var(--_carbon-background-secondary)) 50%);
+
+	&[data-theme="carbon"] {
+		--background: var(--_carbon-background);
+		--foreground: var(--_carbon-foreground);
+		--destructive-background: var(--destructive-dark);
+		--destructive-foreground: var(--destructive-light);
+
+		--shade-background: 0.4;
+		--shade-foreground: 0.8;
+		--shade-chroma: 0.15;
+
+		--header-logo-thickness: 25px;
+
+		--background-primary: var(--_carbon-background-primary);
+		--background-midpoint: var(--_carbon-background-midpoint);
+		--background-secondary: var(--_carbon-background-secondary);
+		--background-tertiary: var(--_carbon-background-tertiary);
+
+		#carbon-background {
+			@apply -z-10 opacity-100 delay-0;
+		}
+	}
+
+	#carbon-background {
+		--background-primary: var(--_carbon-background-primary);
+		--background-midpoint: var(--_carbon-background-midpoint);
+		--background-secondary: var(--_carbon-background-secondary);
+		--background-tertiary: var(--_carbon-background-tertiary);
+	}
+
+
+
+	/* LIGHT THEMES */
+
+	/* Default */
+	--_light-background: 100% 0 42;
+	--_light-foreground: 15% 0.01 48;
+	--_light-background-primary: 87.3% 0 0;
+	--_light-background-midpoint: 85.76% 0 0;
+	--_light-background-secondary: 82.45% 0 0;
+	--_light-background-tertiary: 82.45% 0 0;
+	--_light-background-midpoint: color-mix(in hsl, oklch(var(--_light-background-primary)) 50%, oklch(var(--_light-background-secondary)) 50%);
+
+	&[data-theme="light"] {
+		--background: var(--_light-background);
+		--foreground: var(--_light-foreground);
+		--destructive-background: var(--destructive-light);
+		--destructive-foreground: var(--destructive-dark);
 
 		--shade-background: 0.9;
 		--shade-foreground: 0.4;
 		--shade-chroma: 0.25;
 
-		/* --background: var(--theme-lightness) var(--theme-chroma) */
-		/* 	var(--theme-hue); */
-		/* --foreground: var(--theme-lightness-dark) var(--theme-chroma) */
-		/* 	var(--theme-hue); */
-		--background-primary: 87.3% 0 0;
-		--background-midpoint: 85.76% 0 0;
-		--background-secondary: 82.45% 0 0;
-		--background-tertiary: 82.45% 0 0;
+		--header-logo-thickness: 30px;
 
-		--header: color-mix(
-			in oklch,
-			oklch(var(--background) / 0.2),
-			oklch(var(--background-primary) /1)
-		);
+		--background-primary: var(--_light-background-primary);
+		--background-midpoint: var(--_light-background-midpoint);
+		--background-secondary: var(--_light-background-secondary);
+		--background-tertiary: var(--_light-background-tertiary);
 
-		/* --css-background: var(--theme-hue), var(--theme-saturation),
-			var(--theme-lightness);
-		--css-foreground: var(--theme-hue), var(--theme-saturation),
-			var(--theme-darkness); */
-
-		--card-solid: 19 8% 92%;
-		--popover: var(--theme-hue) 0% 100%;
-		--popover-foreground: var(--theme-hue) var(--theme-saturation)
-			var(--theme-darkness);
-		--primary: var(--theme-hue) 9.8% 10%;
-		--primary-foreground: var(--theme-hue) 9.1% var(--theme-lightness);
-		--secondary: var(--theme-hue) 4.8% var(--theme-lightness);
-		--secondary-foreground: var(--theme-hue) 9.8% 10%;
-		--muted: var(--theme-hue) 4.8% 95.9%;
-		--muted-foreground: var(--theme-hue) 5.3% 44.7%;
-		--destructive: 1 84.2% 60.2%;
-		--destructive-foreground: 1 9.1% var(--theme-lightness);
-		--border: var(--theme-hue) 5.9% var(--theme-lightness);
-		--input: var(--theme-hue) 5.9% var(--theme-lightness);
-		--ring: var(--theme-hue) var(--theme-saturation) var(--theme-darkness);
-
-		--light-img-opacity: 1;
-		--dark-img-opacity: 0;
-
-		/* --card-saturate: 50%;
-		--card-brightness: 88%;
-		--card-contrast: 200%;
-		--card-hue: 90deg; */
-
-		/* --shiki: var(--shiki-light) !important;
-		--shiki-bg: var(--shiki-light-bg) !important;
-		--shiki-font-style: var(--shiki-light-font-style) !important;
-		--shiki-weight: var(--shiki-light-font-weight) !important;
-		--shiki-decoration: var(--shiki-light-text-decoration) !important; */
+		#light-background {
+			@apply -z-10 opacity-100 delay-0;
+		}
 	}
 
+	#light-background {
+		--background-primary: var(--_light-background-primary);
+		--background-midpoint: var(--_light-background-midpoint);
+		--background-secondary: var(--_light-background-secondary);
+		--background-tertiary: var(--_light-background-tertiary);
+	}
+
+
+
+	/* Golden */
+	--_golden-background: 100% 0 42;
+	--_golden-foreground: 15% 0.01 48;
+	--_golden-background-primary: 87.3% 0 0;
+	--_golden-background-midpoint: 85.76% 0 0;
+	--_golden-background-secondary: 82.45% 0 0;
+	--_golden-background-tertiary: 82.45% 0 0;
+	--_golden-background-midpoint: color-mix(in hsl, oklch(var(--_golden-background-primary)) 50%, oklch(var(--_golden-background-secondary)) 50%);
+
+	&[data-theme="golden"] {
+		--background: var(--_golden-background);
+		--foreground: var(--_golden-foreground);
+		--destructive-background: var(--destructive-light);
+		--destructive-foreground: var(--destructive-dark);
+
+		--shade-background: 0.9;
+		--shade-foreground: 0.4;
+		--shade-chroma: 0.25;
+
+		--header-logo-thickness: 30px;
+
+		--background-primary: var(--_golden-background-primary);
+		--background-midpoint: var(--_golden-background-midpoint);
+		--background-secondary: var(--_golden-background-secondary);
+		--background-tertiary: var(--_golden-background-tertiary);
+
+		#golden-background {
+			@apply -z-10 opacity-100 delay-0;
+		}
+	}
+
+	#golden-background {
+		--background-primary: var(--_golden-background-primary);
+		--background-midpoint: var(--_golden-background-midpoint);
+		--background-secondary: var(--_golden-background-secondary);
+		--background-tertiary: var(--_golden-background-tertiary);
+	}
+
+
+
+	/* Spring */
+	--_spring-background: 100% 0 42;
+	--_spring-foreground: 15% 0.01 48;
+	--_spring-background-primary: 87.3% 0 0;
+	--_spring-background-midpoint: 85.76% 0 0;
+	--_spring-background-secondary: 82.45% 0 0;
+	--_spring-background-tertiary: 82.45% 0 0;
+	--_spring-background-midpoint: color-mix(in hsl, oklch(var(--_spring-background-primary)) 50%, oklch(var(--_spring-background-secondary)) 50%);
+
+	&[data-theme="spring"] {
+		--background: var(--_spring-background);
+		--foreground: var(--_spring-foreground);
+		--destructive-background: var(--destructive-light);
+		--destructive-foreground: var(--destructive-dark);
+
+		--shade-background: 0.9;
+		--shade-foreground: 0.4;
+		--shade-chroma: 0.25;
+
+		--header-logo-thickness: 30px;
+
+		--background-primary: var(--_spring-background-primary);
+		--background-midpoint: var(--_spring-background-midpoint);
+		--background-secondary: var(--_spring-background-secondary);
+		--background-tertiary: var(--_spring-background-tertiary);
+
+		#spring-background {
+			@apply -z-10 opacity-100 delay-0;
+		}
+	}
+
+	#spring-background {
+		--background-primary: var(--_spring-background-primary);
+		--background-midpoint: var(--_spring-background-midpoint);
+		--background-secondary: var(--_spring-background-secondary);
+		--background-tertiary: var(--_spring-background-tertiary);
+	}
+}
 
 .page-background {
 		@apply fixed left-0 top-0 z-0 h-[100vh] w-full opacity-0 transition-opacity delay-0 duration-200;
@@ -136,9 +263,9 @@
 			oklch(var(--background-primary)) 0%,
 			oklch(var(--background-secondary)) 100%
 		);
-	}
+}
 
-	.page-background::before {
+.page-background::before {
 		@apply absolute left-0 top-0 h-full w-full bg-red-500;
 
 		content: "";
@@ -147,26 +274,4 @@
 			oklch(var(--background-tertiary)) 0%,
 			transparent 100%
 		);
-	}
-
-	:root[data-theme="dark"] #dark-background {
-		@apply -z-10 opacity-100 delay-0;
-	}
-
-	#dark-background {
-		--background-primary: 28.62% 0.0145 226.58;
-		--background-midpoint: 25.28% 0.0105 242.13;
-		--background-secondary: 19.57% 0 0;
-		--background-tertiary: 31.42% 0.0098 164.3;
-	}
-
-	:root[data-theme="light"] #light-background {
-		@apply -z-10 opacity-100 delay-0;
-	}
-
-	#light-background {
-		--background-primary: 87.3% 0 0;
-		--background-midpoint: 85.76% 0 0;
-		--background-secondary: 82.45% 0 0;
-		--background-tertiary: 82.45% 0 0;
-	}
+}
