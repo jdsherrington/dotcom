@@ -1,4 +1,13 @@
 {
-  "collections": [],
-  "entries": {}
+  "collections": [
+    {
+      "hasSchema": true,
+      "name": "blog"
+    }
+  ],
+  "entries": {
+    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/post-1.md": "blog",
+    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/post-2.md": "blog",
+    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/post-3.md": "blog"
+  }
 }

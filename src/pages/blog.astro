@@ -1,46 +1,56 @@
 ---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogCard from "../components/BlogCard.astro";
 
-const [featuredPost, ...allPosts] = (await Astro.glob("./blog/*.md")).sort(
-	(a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+type BlogPost = CollectionEntry<"blog">;
+
+const allPosts = await getCollection("blog");
+
+const sortedPosts = allPosts.sort(
+	(a: BlogPost, b: BlogPost) =>
+		new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
-const pageTitle = "Blog";
+
+const [featuredPost, ...standardPosts] = sortedPosts;
+
+const pageTitle = "JDS // Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-	<section id="blog-posts">
+	<section
+		id="blog-posts"
+		class="w-col-full gap-gutter sm:grid-cols-1fr grid grid-flow-row pb-96 md:grid-cols-2 lg:grid-cols-3"
+	>
 		<BlogCard
-			title={featuredPost.frontmatter.title}
-			description={featuredPost.frontmatter.description}
-			date={featuredPost.frontmatter.date}
-			url={featuredPost.url}
-			tags={featuredPost.frontmatter.tags}
-			imagePath={featuredPost.frontmatter.imagePath}
-			imageAlt={featuredPost.frontmatter.imageAlt}
-			wordCount={featuredPost.frontmatter.wordCount}
+			id={featuredPost.id}
+			title={featuredPost.data.title}
+			description={featuredPost.data.description}
+			date={featuredPost.data.date}
+			url={`/blog/${featuredPost.id}`}
+			tags={featuredPost.data.tags}
+			imagePath={featuredPost.data.imagePath}
+			imageAlt={featuredPost.data.imageAlt}
+			wordCount={featuredPost.data.wordCount}
 			type="featured"
 		/>
 		{
-			allPosts.map((post) => (
+			standardPosts.map((post: BlogPost) => (
 				<BlogCard
-					title={post.frontmatter.title}
-					description={post.frontmatter.description}
-					date={post.frontmatter.date}
-					url={post.url}
-					tags={post.frontmatter.tags}
-					imagePath={post.frontmatter.imagePath}
-					imageAlt={post.frontmatter.imageAlt}
-					wordCount={post.frontmatter.wordCount}
+					id={post.id}
+					title={post.data.title}
+					description={post.data.description}
+					date={post.data.date}
+					url={`/blog/${post.id}`}
+					tags={post.data.tags}
+					imagePath={post.data.imagePath}
+					imageAlt={post.data.imageAlt}
+					wordCount={post.data.wordCount}
 					type="standard"
 				/>
 			))
 		}
 	</section>
 </BaseLayout>
-
-<style>
-	#blog-posts {
-		@apply grid sm:grid-cols-[1fr] md:grid-cols-2 lg:grid-cols-3 grid-flow-row w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96;
-	}
-</style>

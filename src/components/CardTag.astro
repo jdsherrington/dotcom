@@ -17,16 +17,17 @@ const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 </a>
 
 <style is:global>
+	@reference "../styles/global.css";
 	*:has(> .card-tag) {
 		@apply flex h-min w-full flex-1 flex-row flex-wrap gap-1;
 	}
 
 	.card-tag {
-		@apply flex place-items-center place-self-end overflow-hidden whitespace-nowrap rounded-lg px-3 py-1.5 font-mono text-xs uppercase tracking-wider backdrop-blur-xl transition-all duration-200 sm:bg-[oklch(var(--foreground)/0.03)] sm:text-foreground/50;
+		@apply sm:text-foreground/50 flex place-items-center place-self-end overflow-hidden rounded-lg px-3 py-1.5 font-mono text-xs tracking-wider whitespace-nowrap uppercase backdrop-blur-xl transition-all duration-200 sm:bg-[oklch(var(--foreground)/0.03)];
 	}
 
 	.card-tag.hover {
-		@apply cursor-pointer md:hover:!bg-accent-background/50 md:hover:!text-accent-foreground;
+		@apply md:hover:!bg-accent-background/50 md:hover:!text-accent-foreground cursor-pointer;
 	}
 
 	:not(.card) > * > * > .card-tag {

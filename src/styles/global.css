@@ -1,85 +1,337 @@
-/* Design Tokens */
-@import url(./variables/breakpoints.css);
+@import url("@/styles/variables/themes.css");
+@import url("@/styles/variables/breakpoints.css");
 /* @import url(./variables/colors.css); */
 /* @import url(./variables/typography.css); */
-@import url(./variables/themes.css);
 /* @import url(./variables/widths.css); */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin 'tailwindcss-animate';
+@custom-variant dark (&:is(.dark *));
 
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-xl: 1440px;
+  --breakpoint-lg: 905px;
+  --breakpoint-md: 600px;
+  --breakpoint-sm: 0px;
+
+  --spacing-col-1: var(--col-1);
+  --spacing-col-2: var(--col-2);
+  --spacing-col-3: var(--col-3);
+  --spacing-col-4: var(--col-4);
+  --spacing-col-5: var(--col-5);
+  --spacing-col-6: var(--col-6);
+  --spacing-col-7: var(--col-7);
+  --spacing-col-1/4: var(--col-1/4);
+  --spacing-col-1/3: var(--col-1/3);
+  --spacing-col-1/2: var(--col-1/2);
+  --spacing-col-2/3: var(--col-2/3);
+  --spacing-col-3/4: var(--col-3/4);
+  --spacing-col-full: var(--col-full);
+  --spacing-col-overflow: var(--col-overflow);
+  --spacing-gutter: var(--col-gutter);
+  --spacing-gutter-1/2: calc(var(--col-gutter)*0.5);
+  --spacing-gutter-2: calc(var(--col-gutter)*2);
+
+  --spacing-header: var(--header-height);
+  --spacing-nav: var(--nav-height);
+
+  --color-border: oklch(var(--border));
+  --color-input: oklch(var(--input));
+  --color-ring: oklch(var(--ring));
+
+  --color-background: oklch(var(--background));
+  --color-background-primary: oklch(var(--background-primary));
+  --color-background-secondary: oklch(var(--background-secondary));
+  --color-background-tertiary: oklch(var(--background-tertiary));
+  --color-background-midpoint: var(--background-midpoint);
+  --color-background-header: var(--background-header);
+
+  --color-foreground: oklch(var(--foreground));
+
+  --color-primary: oklch(var(--primary));
+  --color-primary-foreground: oklch(var(--primary-foreground));
+
+  --color-secondary: oklch(var(--secondary));
+  --color-secondary-foreground: oklch(var(--secondary-foreground));
+
+  --color-destructive: oklch(var(--destructive));
+  --color-destructive-foreground: oklch(var(--destructive-foreground));
+
+  --color-muted: oklch(var(--muted));
+  --color-muted-foreground: oklch(var(--muted-foreground));
+
+  --color-accent: oklch(var(--accent));
+  --color-accent-foreground: oklch(var(--accent-foreground));
+  --color-accent-background: oklch(var(--accent-background));
+
+  --color-popover: oklch(var(--popover));
+  --color-popover-foreground: oklch(var(--popover-foreground));
+
+  --color-card: oklch(var(--card));
+  --color-card-foreground: oklch(var(--card-foreground));
+
+  --rounded-base: var(--radius);
+  --rounded-lg: var(--radius);
+  --rounded-md: calc(var(--radius) - 2px);
+  --rounded-sm: calc(var(--radius) - 4px);
+
+  --font-sans: Inter;
+  --font-mono: GeistMono;
+  --font-code: JetBrainsMono;
+  
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility card {
+  @apply relative w-full md:hover:-translate-y-[4px] rounded-base bg-card/0 shadow-lg sm:shadow-black/5 md:shadow-transparent transition-all duration-300 ease-in-out md:hover:shadow-black/5 overflow-hidden;
+
+  :root[data-theme='dark'] & {
+    @apply sm:shadow-black/15 md:shadow-transparent md:hover:shadow-black/15;
+  }
+
+  &::before {
+    content: '';
+    mask-image: radial-gradient(
+      circle at 100% 100%,
+      rgba(0, 0, 0, 1) -200%,
+      rgba(0, 0, 0, 0) 100%
+    );
+
+    @apply absolute left-0 top-0 h-full w-full rounded-base bg-background/50 transition-colors duration-500 ease-in-out;
+  }
+
+  &:hover > .card-accent::after {
+    @apply sm:opacity-0 md:opacity-100;
+  }
+
+  &:has(a:hover) .card-accent::before {
+    @apply md:opacity-50;
+  }
+}
+
+@utility card-accent {
+  @apply absolute left-0 top-0 z-10 h-full w-full rounded-base transition-all duration-500 ease-in-out;
+
+  &::after {
+    content: '';
+    background: radial-gradient(
+        200px circle at var(--x) var(--y),
+        oklch(var(--accent)) 0%,
+        transparent 100%
+      )
+      border-box;
+    mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+
+    @apply absolute inset-0 z-20 w-full rounded-base border border-transparent sm:opacity-0 md:opacity-50 transition-opacity duration-300 ease-in-out;
+  }
+
+  .card:hover > &::after {
+    @apply sm:opacity-0 md:opacity-100;
+  }
+
+  &::before {
+    content: '';
+    transition:
+      opacity 500ms ease-in-out,
+      background-color 200ms ease-in-out;
+    mask: radial-gradient(
+      400px circle at var(--x) var(--y),
+      rgb(39, 26, 26) -50%,
+      rgba(0, 0, 0, 0) 50%
+    );
+
+    @apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-background opacity-0;
+  }
+
+  &.featured::before {
+    content: '';
+    transition:
+      opacity 500ms ease-in-out,
+      background-color 200ms ease-in-out;
+    mask: radial-gradient(
+      500px circle at var(--x) var(--y),
+      rgb(39, 26, 26) -50%,
+      rgba(0, 0, 0, 0) 50%
+    );
+
+    @apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-background opacity-0;
+  }
+
+  .card:has(a:hover) &::before {
+    @apply md:opacity-50;
+  }
+}
+
+@utility featured {
+  &.card-accent::before {
+    content: '';
+    transition:
+      opacity 500ms ease-in-out,
+      background-color 200ms ease-in-out;
+    mask: radial-gradient(
+      500px circle at var(--x) var(--y),
+      rgb(39, 26, 26) -50%,
+      rgba(0, 0, 0, 0) 50%
+    );
+
+    @apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-background opacity-0;
+  }
+}
+
+@utility nav-btn {
+  @apply inline-block w-auto fill-red-500/50 transition-all duration-200 ease-in-out hover:fill-foreground;
+}
+
+@utility rounded-base {
+	border-radius: var(--radius);
+}
+@utility skeleton {
+	position: relative;
+
+	&:before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: linear-gradient(
+		90deg,
+		oklch(var(--foreground) / 0.1) 25%,
+		oklch(var(--foreground) / 0.2) 45%,
+		oklch(var(--foreground) / 0.2) 55%,
+		oklch(var(--foreground) / 0.1) 75%
+	);
+	background-size: 200%;
+	animation:
+		sweep 1s linear infinite,
+		pause 1s infinite;
+	animation-timing-function: linear, steps(1);
+	opacity: 1;
+	}
+}
 
 /* ----------------------------------------------------------------- */
 
-/* ----------------------- SCROLLBAR STYLES ------------------------ */
-/* ::-webkit-scrollbar { */
-/* 	width: 5px; */
-/* } */
-/* ::-webkit-scrollbar-track { */
-/* 	background: transparent; */
-/* } */
-/* ::-webkit-scrollbar-thumb { */
-/* 	background-color: oklch(var(--foreground) / 0.2); */
-/* 	border-radius: 100px; */
-/* } */
-/**/
-/* ::-webkit-scrollbar-thumb:hover { */
-/* 	background-color: oklch(var(--foreground)); */
-/* } */
-/**/
-/* * { */
-/* 	scrollbar-width: thin; */
-/* 	scrollbar-color: oklch(var(--foreground) / 0.2) transparent; */
-/* } */
-body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
-  height: auto !important;
-}
+@layer utilities {
+  /* ----------------------------------------------------------------- */
 
-.os-scrollbar-handle {
-	@apply transition-colors duration-300 ease-in-out !bg-foreground/25 hover:!bg-foreground/50;
-}
-/* ----------------------------------------------------------------- */
+  /* ----------------------- SCROLLBAR STYLES ------------------------ */
+  /* ::-webkit-scrollbar { */
+  /* 	width: 5px; */
+  /* } */
+  /* ::-webkit-scrollbar-track { */
+  /* 	background: transparent; */
+  /* } */
+  /* ::-webkit-scrollbar-thumb { */
+  /* 	background-color: oklch(var(--foreground) / 0.2); */
+  /* 	border-radius: 100px; */
+  /* } */
+  /**/
+  /* ::-webkit-scrollbar-thumb:hover { */
+  /* 	background-color: oklch(var(--foreground)); */
+  /* } */
+  /**/
+  /* * { */
+  /* 	scrollbar-width: thin; */
+  /* 	scrollbar-color: oklch(var(--foreground) / 0.2) transparent; */
+  /* } */
+  body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
+    height: auto !important;
+  }
 
-/* ---------------------------- FONTS ------------------------------ */
-@font-face {
-	font-family: Inter;
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("/fonts/InterVariable.woff2") format("woff2");
-}
+  .os-scrollbar-handle {
+    @apply transition-colors duration-300 ease-in-out bg-foreground/25! hover:bg-foreground/50!;
+  }
+  /* ----------------------------------------------------------------- */
 
-@font-face {
-	font-family: Inter;
-	font-style: italic;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("/fonts/InterVariable-Italic.woff2") format("woff2");
-}
+  /* ---------------------------- FONTS ------------------------------ */
+  @font-face {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/InterVariable.woff2') format('woff2');
+  }
 
-@font-face {
-	font-family: JetBrainsMono;
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("/fonts/JetBrainsMonoVariable.woff2") format("woff2");
-}
+  @font-face {
+    font-family: Inter;
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/InterVariable-Italic.woff2') format('woff2');
+  }
 
-@font-face {
-	font-family: GeistMono;
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("/fonts/GeistMono.woff2") format("woff2");
-}
-/* ----------------------------------------------------------------- */
+  @font-face {
+    font-family: JetBrainsMono;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/JetBrainsMonoVariable.woff2') format('woff2');
+  }
 
-/* ----------------------- GLOBAL VARIABLES ------------------------ */
+  @font-face {
+    font-family: GeistMono;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/GeistMono.woff2') format('woff2');
+  }
+  /* ----------------------------------------------------------------- */
+
+  /* ----------------------- GLOBAL VARIABLES ------------------------ */
+}
 @layer base {
 	:root {
 		--header-padding: 10rem;
-		--nav-height: 5rem;
 		--header-nav-diff: var(--guide-gutter);
 		--header-height: calc((var(--header-nav-diff) * 2) + var(--nav-height));
 		--footer-height: 8rem;
@@ -108,7 +360,7 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 
         --accent: var(--default-accent);
         --accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
-        --accent-background: from oklch(var(--accent)) var(--shade-background) c h;;
+        --accent-background: from oklch(var(--accent)) var(--shade-background) c h;
 
 		--light-bg: var(--theme-lightness-light) var(--theme-chroma)
 			var(--theme-hue);
@@ -152,24 +404,26 @@ body.os-host.os-host-sticky > .os-padding > .os-viewport > .os-content {
 	}
 
 	}
-/* ----------------------------------------------------------------- */
+@layer utilities {
+  /* ----------------------------------------------------------------- */
 
-/* ------------------------ GLOBAL STYLES -------------------------- */
-@keyframes astroFadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-@keyframes astroFadeOut {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-	}
+  /* ------------------------ GLOBAL STYLES -------------------------- */
+  @keyframes astroFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes astroFadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 }
 
 @layer base {
@@ -247,7 +501,7 @@ html {
 	}
 
 	.menu-btn {
-		@apply relative rounded border border-transparent;
+		@apply relative rounded-base border border-transparent;
 	}
 
 	.light-shadow {
@@ -288,122 +542,17 @@ html {
 }
 
 @layer components {
-	.card {
-		@apply relative w-full md:hover:-translate-y-[4px] rounded bg-card/0 shadow-lg sm:shadow-black/5 md:shadow-transparent transition-all duration-300 ease-in-out md:hover:shadow-black/5 overflow-hidden;
-	}
-
-	:root[data-theme="dark"] .card {
-		@apply sm:shadow-black/15 md:shadow-transparent md:hover:shadow-black/15;
-	}
-
-
-	.card::before {
-		content: "";
-		mask-image: radial-gradient(
-			circle at 100% 100%,
-			rgba(0, 0, 0, 1) -200%,
-			rgba(0, 0, 0, 0) 100%
-		);
-
-		@apply absolute left-0 top-0 h-full w-full rounded bg-background/50 transition-colors duration-500 ease-in-out;
-	}
-
-	.card-accent {
-		@apply absolute left-0 top-0 z-10 h-full w-full rounded transition-all duration-500 ease-in-out;
-	}
-
-	.card-accent::after {
-		content: "";
-		background: radial-gradient(
-				200px circle at var(--x) var(--y),
-				oklch(var(--accent)) 0%,
-				transparent 100%
-			)
-			border-box;
-		mask:
-			linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		mask-composite: exclude;
-
-		@apply absolute inset-0 z-20 w-full rounded border border-transparent sm:opacity-0 md:opacity-50 transition-opacity duration-300 ease-in-out;
-	}
-
-	.card:hover > .card-accent::after {
-		@apply sm:opacity-0 md:opacity-100;
-	}
-
-	.card-accent::before {
-		content: "";
-		transition:
-			opacity 500ms ease-in-out,
-			background-color 200ms ease-in-out;
-		mask: radial-gradient(
-			400px circle at var(--x) var(--y),
-			rgb(39, 26, 26) -50%,
-			rgba(0, 0, 0, 0) 50%
-		);
-
-		@apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-background opacity-0;
-	}
-    
-    .card-accent.featured::before {
-		content: "";
-		transition:
-			opacity 500ms ease-in-out,
-			background-color 200ms ease-in-out;
-		mask: radial-gradient(
-			500px circle at var(--x) var(--y),
-			rgb(39, 26, 26) -50%,
-			rgba(0, 0, 0, 0) 50%
-		);
-
-		@apply absolute left-0 top-0 h-full w-full rounded-[inherit] bg-accent-background opacity-0;
-	}
-
-	.card:has(a:hover) .card-accent::before {
-		@apply md:opacity-50;
-	}
-
-	.nav-btn {
-		@apply inline-block w-auto fill-red-500/50 transition-all duration-200 ease-in-out hover:fill-foreground;
-	}
 
 	#nav-footer {
 		border-radius: var(--radius) !important;
 	}
 }
-/* ----------------------------------------------------------------- */
 
 /* ------------------------ IMAGE SKELETONS ------------------------ */
 div[data-loaded] {
 	@apply skeleton;
 }
 
-.skeleton {
-	position: relative;
-}
-
-.skeleton::before {
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	background: linear-gradient(
-		90deg,
-		oklch(var(--foreground) / 0.1) 25%,
-		oklch(var(--foreground) / 0.2) 45%,
-		oklch(var(--foreground) / 0.2) 55%,
-		oklch(var(--foreground) / 0.1) 75%
-	);
-	background-size: 200%;
-	animation:
-		sweep 1s linear infinite,
-		pause 1s infinite;
-	animation-timing-function: linear, steps(1);
-	opacity: 1;
-}
 
 @keyframes sweep {
 	0% {
@@ -434,6 +583,7 @@ div[data-loaded] {
 
 
 /* ------------------------ PROJECT CARD STYLES ----------------------- */
+
 .project-card {
 	@apply relative flex h-full justify-items-start px-0 sm:flex-row sm:gap-[var(--guide-gutter)] md:flex-col md:gap-[calc(var(--guide-gutter)*0.66)];
 }
@@ -584,4 +734,25 @@ a:has(.project-card-img) {
 
 .inline-back-arrow {
 	@apply nav-btn mb-[4px] mr-[calc(var(--guide-gutter)/2)] h-5;
+}
+
+.page-background {
+		@apply fixed left-0 top-0 z-0 h-[100vh] w-full opacity-0 transition-opacity delay-0 duration-200;
+
+		background: linear-gradient(
+			180deg,
+			oklch(var(--background-primary)) 0%,
+			oklch(var(--background-secondary)) 100%
+		);
+}
+
+.page-background::before {
+		@apply absolute left-0 top-0 h-full w-full bg-red-500;
+
+		content: "";
+		background: radial-gradient(
+			ellipse 50% 100% at 100% 0%,
+			oklch(var(--background-tertiary)) 0%,
+			transparent 100%
+		);
 }

@@ -217,7 +217,7 @@ if (!projectImages[imagePath])
 		</div>
 		<div
 			class="post-content flex flex-col sm:h-auto md:h-full sm:w-full md:w-auto align-items-start overflow-hidden rounded-[var(--radius)] sm:pr-[var(--guide-gutter)] md:px-[var(--guide-gutter)]"
-		><a href={url} class="cursor-pointer h-full flex flex-col flex-grow">
+		><a href={url} class="cursor-pointer h-full flex flex-col grow">
 			<h1 transition:name=`title-${url}`
 				class="post-sizing w-auto sm:text-xl md:text-2xl font-bold sm:leading-[1.1] tracking-tight sm:pt-[var(--guide-gutter)] md:pt-0 sm:pb-1 md:pb-0 place-content-start text-foreground/90 transition-colors duration-300"
 			>
@@ -229,7 +229,7 @@ if (!projectImages[imagePath])
 				{category}
 			</p>
 			<p transition:name=`description-${url}`
-				class="post-sizing w-auto text-xs place-content-start leading-normal text-foreground/90 pb-[var(--guide-gutter)] md:flex-grow"
+				class="post-sizing w-auto text-xs place-content-start leading-normal text-foreground/90 pb-[var(--guide-gutter)] md:grow"
 			>
 				{description}
 			</p>

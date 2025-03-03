@@ -75,7 +75,7 @@ const filteredPosts = posts.filter((post) =>
 				</svg>
 			</a>
 			<span
-				class=`${tag} font-mono uppercase tracking-widest text-xs text-[oklch(var(--foreground)/0.66)] rounded-full bg-[oklch(from_oklch(var(--tag-color))_var(--shade-background)_var(--shade-chroma)_h/0.5)] !text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)] pl-3.5 pr-2.5 pb-1 pt-1.5 select-none`
+				class=`${tag} font-mono uppercase tracking-widest text-xs text-[oklch(var(--foreground)/0.66)] rounded-full bg-[oklch(from_oklch(var(--tag-color))_var(--shade-background)_var(--shade-chroma)_h/0.5)] text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)]! pl-3.5 pr-2.5 pb-1 pt-1.5 select-none`
 				>{tag}<a href="/projects" class="ml-1.5"
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ const filteredPosts = posts.filter((post) =>
 		</div>
 		<div class="grid items-start mt-[var(--guide-gutter)] gap-12 pb-48">
 			<div
-				class="sm:w-[--full-w] grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
+				class="sm:w-(--full-w) grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
 			>
 				{
 					posts.map((post) => (

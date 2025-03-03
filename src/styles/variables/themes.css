@@ -30,7 +30,9 @@
 		--background-header: var(--_dark-background-header);
 
 		#dark-background {
-			@apply -z-10 opacity-100 delay-0;
+			opacity: 1;
+			z-index: -10;
+			transition-delay: 0ms;
 		}
 	}
 
@@ -48,9 +50,8 @@
 	--_source-background-primary: 0% 0 343.34;
 	--_source-background-secondary: 10.38% 0.1872 143.24;
 	--_source-background-tertiary: 13.53% 0.0739 142.5;
-/* oklch(86.86% 0.277584 144.4661) */
-	--_source-background-midpoint: color-mix(in srgb, oklch(var(--_source-background-primary)) 50%, oklch(var(--_source-background-secondary)) 50%);
-	--_source-background-header: oklch(11.79% 0.0327 142.5 / 0.5);
+	--_source-background-midpoint: oklch(18.79% 0.0327 142.5); 
+	--_source-background-header: oklch(18.79% 0.0327 142.5 / 0.5);
 
 	&[data-theme="source"] {
 		--background: var(--_source-background);
@@ -62,9 +63,9 @@
 		--shade-foreground: 0.8;
 		--shade-chroma: 0.15;
 
-		--header-logo-thickness: 25px;
+		--header-logo-thickness: 20px;
 
-		--accent: 86.86% 0.277584 135.4661 !important;
+		--accent: 86.86% 0.277584 130.4661 !important;
 	
 		--background-primary: var(--_source-background-primary);
 		--background-secondary: var(--_source-background-secondary);
@@ -74,16 +75,19 @@
 		--background-header: var(--_source-background-header);
 
 		*, *::before, *::after {
-			@apply !font-mono !font-normal !uppercase !rounded-none;
+			border-radius: 0px !important;
+			@apply !font-mono !uppercase !tracking-widest;
 		}
 
 
 		img {
-			filter: sepia(100%) hue-rotate(55deg) brightness(60%) contrast(300%) !important;
+			filter: sepia(100%) hue-rotate(50deg) brightness(60%) contrast(300%) !important;
 		}
 		
 		#source-background {
-			@apply -z-10 opacity-100 delay-0;
+			opacity: 1;
+			z-index: -10;
+			transition-delay: 0ms;
 		}
 	}
 
@@ -124,7 +128,9 @@
 		--background-header: var(--_carbon-background-header);
 
 		#carbon-background {
-			@apply -z-10 opacity-100 delay-0;
+			opacity: 1;
+			z-index: -10;
+			transition-delay: 0ms;
 		}
 	}
 
@@ -167,7 +173,9 @@
 		--background-header: var(--_light-background-header);
 
 		#light-background {
-			@apply -z-10 opacity-100 delay-0;
+			opacity: 1;
+			z-index: -10;
+			transition-delay: 0ms;
 		}
 	}
 
@@ -208,7 +216,9 @@
 		--background-header: var(--_golden-background-header);
 
 		#golden-background {
-			@apply -z-10 opacity-100 delay-0;
+			opacity: 1;
+			z-index: -10;
+			transition-delay: 0ms;
 		}
 	}
 
@@ -249,7 +259,9 @@
 		--background-header: var(--_spring-background-header);
 
 		#spring-background {
-			@apply -z-10 opacity-100 delay-0;
+			opacity: 1;
+			z-index: -10;
+			transition-delay: 0ms;
 		}
 	}
 
@@ -275,26 +287,5 @@
 			in hsl,
 			var(--background-midpoint) 60%,
 			transparent 40%
-		);
-}
-
-.page-background {
-		@apply fixed left-0 top-0 z-0 h-[100vh] w-full opacity-0 transition-opacity delay-0 duration-200;
-
-		background: linear-gradient(
-			180deg,
-			oklch(var(--background-primary)) 0%,
-			oklch(var(--background-secondary)) 100%
-		);
-}
-
-.page-background::before {
-		@apply absolute left-0 top-0 h-full w-full bg-red-500;
-
-		content: "";
-		background: radial-gradient(
-			ellipse 50% 100% at 100% 0%,
-			oklch(var(--background-tertiary)) 0%,
-			transparent 100%
 		);
 }

@@ -49,31 +49,21 @@ const { pageTitle, pageDesc } = Astro.props;
 		<ClientRouter />
 	</head>
 
-	<body data-overlayscrollbars-initialize>
+	<body data-overlayscrollbars-initialize class="flex flex-col">
 		<Background />
 		<Header pageTitle={pageTitle} />
-		<main>
-			<div id="top-marker"></div>
+		<main class="self-center">
+			<div
+				id="top-marker"
+				class="bg-transparent; pointer-events-none h-[1px] w-[1px]"
+			>
+			</div>
 			<slot />
 		</main>
 		<MobileNav />
 		<Footer />
 	</body>
 </html>
-
-<style>
-	body {
-		@apply flex flex-col;
-	}
-
-	main {
-		@apply self-center;
-	}
-
-	#top-marker {
-		@apply pointer-events-none h-[1px] w-[1px] bg-transparent;
-	}
-</style>
 
 <!-- Open & Close Menus -->
 <script>

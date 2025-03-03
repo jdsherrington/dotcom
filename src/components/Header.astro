@@ -95,10 +95,11 @@ const { pageTitle } = Astro.props;
 </header>
 
 <style is:global>
+	@reference "../styles/global.css";
+
 	header {
-		@apply pointer-events-none sticky top-0 flex items-start justify-center sm:h-[calc(var(--nav-height)+var(--guide-gutter)*1)] md:h-[calc(var(--nav-height)+var(--guide-gutter)*1.5)];
+		@apply sm:h-header md:h-header pointer-events-none sticky top-0 z-1000 flex items-start justify-center;
 		transition: top ease-in-out 300ms;
-		z-index: 1000 !important;
 	}
 
 	header.scrolled {
@@ -106,11 +107,11 @@ const { pageTitle } = Astro.props;
 	}
 
 	.mobile-header {
-		@apply absolute left-0 top-0 flex h-min w-full flex-row gap-1 rounded opacity-0 transition-all duration-300 ease-in-out sm:pointer-events-auto md:pointer-events-none;
+		@apply rounded-base absolute top-0 left-0 flex h-min w-full flex-row gap-1 opacity-0 transition-all duration-300 ease-in-out sm:pointer-events-auto md:pointer-events-none;
 	}
 
 	.mobile-header > * {
-		@apply rounded border border-foreground/10 bg-background-midpoint !text-foreground/80 shadow-lg shadow-black/10 blur-none;
+		@apply border-foreground/10 bg-background-midpoint !text-foreground/80 rounded-base border shadow-lg shadow-black/10 blur-none;
 	}
 
 	header.scrolled .mobile-header {
@@ -118,18 +119,11 @@ const { pageTitle } = Astro.props;
 	}
 
 	.mobile-header #header-page-title {
-		@apply flex w-full max-w-full items-center overflow-hidden text-ellipsis px-4 py-2.5 align-middle font-mono text-sm uppercase leading-snug tracking-wider transition-all duration-300 ease-in-out;
+		@apply flex w-full max-w-full items-center overflow-hidden px-4 py-2.5 align-middle font-mono text-sm leading-snug tracking-wider text-ellipsis uppercase transition-all duration-300 ease-in-out;
 	}
 
 	nav {
-		@apply pointer-events-auto m-[calc(var(--guide-gutter)/2)] mb-0 flex h-[var(--nav-height)] w-[calc(var(--full-w)+var(--guide-gutter)*2)] items-center rounded-lg pl-[calc(var(--guide-gutter)*1.25)] pr-[calc(var(--guide-gutter)*1)] shadow-2xl shadow-transparent sm:justify-center md:mt-[calc(var(--guide-gutter))] md:justify-between;
-
-		border-color: transparent;
-		border-width: 0px;
-		border-style: solid;
-		position: relative;
-		z-index: 1002 !important;
-
+		@apply rounded-base m-gutter-1/2 pr-gutter pl-gutter md:mt-gutter h-nav pointer-events-auto relative z-1001 mb-0 flex w-[calc((var(--col-gutter)*2)+var(--col-full))] items-center border-0 border-transparent shadow-2xl shadow-transparent sm:justify-center md:justify-between;
 		transition:
 			border-radius ease-in-out 300ms,
 			margin ease-out 200ms,
@@ -142,7 +136,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	header.scrolled nav {
-		@apply mt-[calc(var(--guide-gutter)/2)];
+		@apply mt-gutter-1/2;
 	}
 
 	nav::before {
@@ -150,11 +144,11 @@ const { pageTitle } = Astro.props;
 		z-index: -1;
 		transition: all 250ms ease-in-out;
 
-		@apply absolute -left-[calc(var(--guide-gutter)*0.5)] -top-[calc(var(--guide-gutter)*0.5)] h-[calc(100%+(var(--guide-gutter)*1))] w-full overflow-auto rounded-lg blur-md backdrop-blur-none;
+		@apply -top-gutter-1/2 -left-gutter-1/2 rounded-base absolute h-[calc(100%+(var(--col-gutter)))] w-full overflow-auto blur-md backdrop-blur-none;
 	}
 
 	header.scrolled nav::before {
-		@apply left-0 top-0 h-full w-full bg-transparent shadow-transparent blur-md backdrop-blur-none md:bg-background-header md:shadow-background/50 md:blur-none md:backdrop-blur-xl;
+		@apply md:bg-background-header md:shadow-background/50 top-0 left-0 h-full w-full bg-transparent shadow-transparent blur-md backdrop-blur-none md:blur-none md:backdrop-blur-xl;
 	}
 
 	nav::after {
@@ -177,7 +171,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	.header-logo {
-		@apply z-50 inline-block w-auto fill-[oklch(var(--accent))] stroke-foreground/80 stroke-[30px] hover:fill-accent-foreground sm:h-8 md:h-7 md:hover:stroke-foreground;
+		@apply stroke-foreground/80 hover:fill-accent-foreground md:hover:stroke-foreground fill-accent z-50 inline-block w-auto stroke-[30px] sm:h-8 md:h-7;
 
 		transition:
 			height 300ms ease-in-out,
@@ -188,7 +182,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	header.scrolled .header-logo {
-		@apply sm:opacity-0 sm:blur-md md:fill-[oklch(var(--accent))] md:stroke-foreground/80 md:opacity-100 md:blur-none md:hover:fill-accent-foreground md:hover:stroke-foreground;
+		@apply md:stroke-foreground/80 md:hover:fill-accent-foreground md:hover:stroke-foreground md:fill-accent sm:opacity-0 sm:blur-md md:opacity-100 md:blur-none;
 	}
 
 	header.scrolled a:has(.header-logo) {
@@ -200,7 +194,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	.nav-items .nav-button {
-		@apply cursor-pointer font-mono uppercase tracking-wider text-foreground/60 transition-colors duration-300 ease-in-out hover:text-accent-foreground/80;
+		@apply text-foreground/60 hover:text-accent-foreground/80 cursor-pointer font-mono tracking-wider uppercase transition-colors duration-300 ease-in-out;
 	}
 
 	.nav-items .nav-button:has(.menu-btn) {
@@ -208,11 +202,11 @@ const { pageTitle } = Astro.props;
 	}
 
 	.nav-items .menu-btn {
-		@apply px-3 py-3 font-mono uppercase text-foreground/70;
+		@apply text-foreground/70 px-3 py-3 font-mono uppercase;
 	}
 
 	.nav-items .menu-btn svg {
-		@apply h-[20px] w-[20px] scale-100 fill-foreground stroke-foreground opacity-60 transition-all duration-200 ease-in-out;
+		@apply fill-foreground stroke-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out;
 	}
 
 	.nav-items .menu-btn:hover svg {
@@ -220,7 +214,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	.nav-items .theme-drawer {
-		@apply right-0 top-[calc(75%+0.25rem)];
+		@apply top-[calc(75%+0.25rem)] right-0;
 	}
 
 	.nav-items .theme-drawer::before {
@@ -244,7 +238,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	.nav-button {
-		@apply inline-flex w-max place-items-center rounded-[var(--radius)] bg-transparent px-4 py-3 font-mono text-sm uppercase tracking-wider hover:bg-transparent focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50;
+		@apply focus:text-foreground rounded-base inline-flex w-max place-items-center bg-transparent px-4 py-3 font-mono text-sm tracking-wider uppercase hover:bg-transparent focus:outline-hidden disabled:pointer-events-none disabled:opacity-50;
 	}
 
 	.nav-button.active {
@@ -252,11 +246,11 @@ const { pageTitle } = Astro.props;
 	}
 
 	.nav-button-underline {
-		@apply pointer-events-none absolute left-0 top-0 h-full border-b border-accent-foreground bg-transparent opacity-0 transition-all duration-200 ease-in-out;
+		@apply border-accent-foreground pointer-events-none absolute top-0 left-0 h-full border-b bg-transparent opacity-0 transition-all duration-200 ease-in-out;
 	}
 
 	.nav-button-hover {
-		@apply pointer-events-none absolute top-0 h-full rounded-lg bg-accent-foreground/5 opacity-0;
+		@apply bg-accent-foreground/5 rounded-base pointer-events-none absolute top-0 h-full opacity-0;
 	}
 
 	.menu-btn::before {
@@ -266,7 +260,7 @@ const { pageTitle } = Astro.props;
 			oklch(var(--accent-foreground)) -300%,
 			transparent 100%
 		);
-		@apply pointer-events-none absolute left-0 top-0 h-full w-full rounded-lg opacity-0 transition-opacity duration-200 ease-in-out;
+		@apply rounded-base pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-200 ease-in-out;
 	}
 
 	.menu-btn:has(.menu.open)::before {
@@ -274,7 +268,7 @@ const { pageTitle } = Astro.props;
 	}
 
 	.menu-btn:has(.menu.open) > a > svg {
-		@apply rotate-90 scale-90 fill-accent-foreground stroke-accent-foreground opacity-100;
+		@apply fill-accent-foreground stroke-accent-foreground scale-90 rotate-90 opacity-100;
 	}
 
 	.menu-btn::after {
@@ -290,7 +284,7 @@ const { pageTitle } = Astro.props;
 			linear-gradient(#fff 0 0);
 		mask-composite: exclude;
 
-		@apply pointer-events-none absolute inset-0 z-20 w-full rounded-lg border border-transparent opacity-0 transition-opacity duration-200 ease-in-out;
+		@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent opacity-0 transition-opacity duration-200 ease-in-out;
 	}
 
 	.menu-btn:has(.menu.open)::after {

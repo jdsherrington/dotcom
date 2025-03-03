@@ -33,8 +33,10 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <style is:global>
+	@reference "../styles/global.css";
+
 	.mobile-nav-container {
-		@apply fixed bottom-0 right-0 z-[1000] inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)];
+		@apply fixed right-0 bottom-0 z-1000 inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)];
 	}
 
 	.mobile-nav-backdrop {
@@ -44,12 +46,12 @@ import { Icon } from "astro-icon/components";
 			rgba(0, 0, 0, 0) 100%
 		);
 		z-index: -2;
-		@apply pointer-events-none absolute bottom-0 right-0 h-[calc(100%*3)] w-[calc(100%*3)];
+		@apply pointer-events-none absolute right-0 bottom-0 h-[calc(100%*3)] w-[calc(100%*3)];
 	}
 
 	.mobile-nav-backdrop::before {
 		content: "";
-		@apply absolute bottom-0 right-0 z-[-1] h-full w-full opacity-0 transition-opacity duration-200 ease-in-out sm:bg-background-secondary/75 md:bg-transparent;
+		@apply sm:bg-background-secondary/75 absolute right-0 bottom-0 z-[-1] h-full w-full opacity-0 transition-opacity duration-200 ease-in-out md:bg-transparent;
 	}
 
 	.mobile-nav-container:has(.mobile-nav-items.open)
@@ -58,7 +60,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.page-top-button {
-		@apply pointer-events-auto flex aspect-square place-content-center place-items-center !p-0 opacity-100 blur-none transition-all duration-300 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12 md:hover:border-foreground/10;
+		@apply md:hover:border-foreground/10 pointer-events-auto flex aspect-square place-content-center place-items-center !p-0 opacity-100 blur-none transition-all duration-300 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12;
 	}
 
 	.page-top-button.hidden {
@@ -82,7 +84,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-items {
-		@apply pointer-events-none absolute bottom-12 right-[calc(var(--guide-gutter)-0.25rem)] z-50 mb-[calc(var(--guide-gutter)*2)] inline-flex translate-x-[150%] flex-col place-items-end gap-2 font-mono uppercase transition-all duration-300 ease-in-out;
+		@apply pointer-events-none absolute right-[calc(var(--guide-gutter)-0.25rem)] bottom-12 z-50 mb-[calc(var(--guide-gutter)*2)] inline-flex translate-x-[150%] flex-col place-items-end gap-2 font-mono uppercase transition-all duration-300 ease-in-out;
 	}
 
 	.mobile-nav-items.open {
@@ -90,7 +92,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-button {
-		@apply relative inline-block w-min rounded border border-foreground/5 bg-background-midpoint px-4 py-3 text-right tracking-wider text-foreground/80 shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
+		@apply border-foreground/5 bg-background-midpoint text-foreground/80 rounded-base relative inline-block w-min border px-4 py-3 text-right tracking-wider shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
 	}
 
 	.mobile-nav-link.active {
@@ -102,7 +104,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.nav-menu-button svg {
-		@apply absolute left-[50%] top-[50%] h-6 w-6 -translate-x-[50%] -translate-y-[50%];
+		@apply absolute top-[50%] left-[50%] h-6 w-6 -translate-x-[50%] -translate-y-[50%];
 	}
 
 	.nav-menu-icon {
@@ -122,7 +124,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-menu .theme-drawer {
-		@apply bottom-0 right-0 translate-y-4 flex-col border border-foreground/5 bg-background-midpoint blur-none;
+		@apply border-foreground/5 bg-background-midpoint right-0 bottom-0 translate-y-4 flex-col border blur-none;
 	}
 
 	.mobile-nav-menu:has(.mobile-nav-items.open) .theme-drawer {

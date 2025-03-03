@@ -2,8 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
-const allProjects= (await Astro.glob("./projects/*.md")).sort(
-	(b, a) => b.frontmatter.id - a.frontmatter.id
+const allProjects = (await Astro.glob("./projects/*.md")).sort(
+	(b, a) => b.frontmatter.id - a.frontmatter.id,
 );
 
 const pageTitle = "Projects";
@@ -11,10 +11,10 @@ const pageTitle = "Projects";
 
 <BaseLayout pageTitle={pageTitle}>
 	<section
-		class="grid grid-cols-[auto] grid-rows-[min-content] items-start w-[var(--full-w)] gap-[var(--guide-gutter)] pb-96"
+		class="grid w-[var(--full-w)] grid-cols-[auto] grid-rows-[min-content] items-start gap-[var(--guide-gutter)] pb-96"
 	>
 		<div
-			class="sm:w-[--full-w] lg:w-[--full-w] grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
+			class="grid grid-flow-row gap-[var(--guide-gutter)] place-self-center sm:w-(--full-w) sm:grid-cols-1 md:grid-cols-2 lg:w-(--full-w) lg:grid-cols-3"
 		>
 			{
 				allProjects.map((project) => {

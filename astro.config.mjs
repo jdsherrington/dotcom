@@ -1,29 +1,33 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-	markdown: {
-		shikiConfig: {
-			themes: {
-				light: "one-light",
-				dark: "one-dark-pro",
-			},
-		},
+  markdown: {
+      shikiConfig: {
+          themes: {
+              light: "one-light",
+              dark: "one-dark-pro",
+          },
+      },
 	},
-	experimental: {
-		contentIntellisense: true,
+
+  experimental: {
+      contentIntellisense: true,
 	},
-	devToolbar: {
-		enabled: false,
+
+  devToolbar: {
+      enabled: false,
 	},
-	integrations: [
-		tailwind({
-			applyBaseStyles: false,
-		}),
-		react(),
-		icon(),
+
+  integrations: [
+      react(),
+      icon(),
 	],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

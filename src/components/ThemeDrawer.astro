@@ -113,13 +113,15 @@
 </div>
 
 <style is:global>
+	@reference "@/styles/global.css";
+
 	.theme-drawer {
-		@apply pointer-events-none absolute z-10 flex w-auto origin-top scale-[0.98] select-none flex-col-reverse rounded border border-foreground/5 opacity-0 blur-md transition-all duration-300 ease-in-out;
+		@apply rounded-base border-foreground/5 pointer-events-none absolute z-10 flex w-auto origin-top scale-[0.98] flex-col-reverse border opacity-0 blur-md transition-all duration-300 ease-in-out select-none;
 	}
 
 	.theme-drawer::before {
 		content: "";
-		@apply absolute z-[-1] h-full w-full rounded bg-background-midpoint shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
+		@apply rounded-base bg-background-midpoint absolute z-[-1] h-full w-full shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
 	}
 
 	.theme-drawer::after {
@@ -155,7 +157,7 @@
 	}
 
 	.theme-drawer .standard-themes {
-		@apply right-0 grid grid-cols-[repeat(3,_1fr)] gap-1 p-1;
+		@apply right-0 grid grid-cols-[repeat(3,1fr)] gap-1 p-1;
 	}
 
 	.theme-drawer li * {

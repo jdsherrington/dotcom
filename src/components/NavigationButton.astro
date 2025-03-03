@@ -24,8 +24,9 @@ const { text, direction, link, position } = Astro.props;
 </a>
 
 <style is:global>
+	@reference "../styles/global.css";
 	.navigation-button {
-		@apply flex items-center gap-2 rounded-[calc(var(--radius)-1px)] bg-background-primary/50 px-2.5 py-2.5 font-mono text-xs uppercase tracking-widest text-foreground/80 backdrop-blur-md transition-all duration-300 ease-in-out hover:bg-accent-background hover:text-accent-foreground;
+		@apply bg-background-primary/50 text-foreground/80 hover:bg-accent-background hover:text-accent-foreground flex items-center gap-2 rounded-[calc(var(--radius)-1px)] px-2.5 py-2.5 font-mono text-xs tracking-widest uppercase backdrop-blur-md transition-all duration-300 ease-in-out;
 	}
 
 	.navigation-button [data-icon] {
@@ -51,11 +52,11 @@ const { text, direction, link, position } = Astro.props;
 	}
 
 	.position-top-left {
-		@apply absolute left-2 top-2;
+		@apply absolute top-2 left-2;
 	}
 
 	.position-top-right {
-		@apply absolute right-2 top-2;
+		@apply absolute top-2 right-2;
 	}
 
 	.position-bottom-left {
@@ -63,7 +64,7 @@ const { text, direction, link, position } = Astro.props;
 	}
 
 	.position-bottom-right {
-		@apply absolute bottom-2 right-2;
+		@apply absolute right-2 bottom-2;
 	}
 </style>
 
