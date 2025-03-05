@@ -77,8 +77,9 @@
 	}
 	
 	/* SIZES */
-	--nav-height: 5rem;
+	--nav-height: 80px;
 	--header-height: calc(var(--nav-height)*1.5);
+	--radius: 8px;
 
 	--col-1: calc(var(--col-absolute-width) * 1);
 	--col-2: calc((var(--col-absolute-width) * 2) + var(--col-gutter));
@@ -96,7 +97,7 @@
 		(var(--col-absolute-width) * (var(--col-count) / 3)) +
 			(var(--col-gutter) * ((var(--col-count) / 3) - 1))
 	);
-	--col-1/2: calc(
+	--col-half: calc(
 		(var(--col-absolute-width) * (var(--col-count) / 2)) +
 			(var(--col-gutter) * ((var(--col-count) / 2) - 1))
 	);

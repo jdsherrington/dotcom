@@ -9,324 +9,160 @@ interface Props {
 const { pageTitle } = Astro.props;
 ---
 
-<header transition:persist="header" id="header" class="header">
-	<nav>
-		<div class="mobile-header">
-			<span id="header-page-title"></span>
-		</div>
+<header
+	transition:persist="header"
+	id="header"
+	class="group sm:h-header md:h-header pointer-events-none sticky top-0 z-1000 flex items-start justify-center"
+>
+	<div
+		id="mobile-header"
+		class="rounded-base *:border-foreground/10 *:bg-background-midpoint *:!text-foreground/80 *:rounded-base p-gutter-1/2 absolute top-0 left-0 flex h-min w-full flex-row gap-1 bg-red-500/10 opacity-0 transition-all duration-300 ease-in-out *:border *:shadow-lg *:shadow-black/10 *:blur-none sm:pointer-events-auto in-[.scrolled]:sm:opacity-100 md:pointer-events-none in-[.scrolled]:md:opacity-0"
+	>
+		<span
+			id="mobile-header-page-title"
+			class="flex w-full max-w-full items-center overflow-hidden px-4 py-2.5 align-middle font-mono text-sm leading-snug tracking-wider text-ellipsis uppercase transition-all duration-300 ease-in-out"
+		></span>
+	</div>
+
+	<nav
+		id="desktop-nav"
+		class="rounded-base m-gutter-1/2 px-gutter md:mt-gutter h-nav before:-top-gutter-1/2 before:-left-gutter-1/2 before:rounded-base in-[.scrolled]:!mt-gutter-1/2 in-[.scrolled]:before:md:bg-background-header in-[.scrolled]:before:md:shadow-background/50 pointer-events-auto relative z-1001 mb-0 flex w-[calc((var(--col-gutter)*2)+var(--col-full))] items-center border-0 border-transparent bg-transparent shadow-2xl shadow-transparent transition-all duration-300 ease-in-out before:absolute before:-z-1 before:h-[calc(100%+(var(--col-gutter)))] before:w-full before:scale-105 before:overflow-auto before:blur-lg before:backdrop-blur-none before:transition-all before:duration-300 before:ease-in-out before:content-[''] in-[.scrolled]:before:top-0 in-[.scrolled]:before:left-0 in-[.scrolled]:before:h-full in-[.scrolled]:before:w-full in-[.scrolled]:before:scale-100 sm:pointer-events-none sm:justify-center in-[.scrolled]:before:sm:bg-transparent in-[.scrolled]:before:sm:shadow-transparent in-[.scrolled]:before:sm:backdrop-blur-none md:pointer-events-auto md:justify-between in-[.scrolled]:before:md:blur-none in-[.scrolled]:before:md:backdrop-blur-xl"
+	>
 		<a href="/" class="isolate">
 			<!--	<Icon class="header-logo" name="header" /> -->
 			<svg
-				class="header-logo"
+				class="stroke-foreground/80 hover:fill-accent-foreground fill-accent in-[.scrolled]:stroke-foreground/80 in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-7 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 500 182"
-				stroke="currentColor"
-				fill="currentColor"
 			>
-				<defs>
-					<bx:grid x="0" y="0" width="2.5" height="2.5"></bx:grid>
-				</defs>
-				<g transform="matrix(1, 0, 0, 1, -0.000094, 0.000095)">
+				<g
+					id="header-logo"
+					class="in-[.theme-source]:opacity-0"
+					transform="matrix(1, 0, 0, 1, -5.000214099884033, 5.000002861022942)"
+					style=""
+				>
 					<path
-						style="fill: none; stroke-linecap: round;"
+						style="fill: none;"
 						d="M 245 90 C 245 88.84 245 57.5 245 55 C 245 35 230 20 210 20 C 207.5 20 127.5 20 125 20 C 105 20 90 35 90 55 L 90 125 C 90 145 75 160 55 160 C 35 160 20 145 20 125 L 20 90"
 					></path>
 					<path
-						style="fill: none; stroke-linecap: round;"
+						style="fill: none; "
 						d="M 160 90 C 160 90 160 147.5 160 160 C 170 160 345 160 347.5 160 C 367.5 160 382.5 145 382.5 125 C 382.5 105 367.5 90 347.5 90 C 345 90 340 90 337.5 90 C 317.5 90 302.5 75 302.5 55 C 302.5 35 317.5 20 337.5 20 C 340 20 380 20 382.5 20"
 					></path>
 					<g
 						transform="matrix(1.149999, 0, 0, 1.149999, -52.374329, -183.131683)"
 						style=""
 					>
-						<bx:title>Star</bx:title>
 						<path
-							style="stroke: none; "
+							style="stroke: none"
 							d="M 378.152 211.419 C 412.934 211.419 430.326 194.027 430.326 159.245 C 430.326 194.027 447.718 211.419 482.5 211.419 C 447.718 211.419 430.326 228.811 430.326 263.593 C 430.326 228.811 412.934 211.419 378.152 211.419 Z"
 						></path>
 					</g>
 				</g>
+				<g
+					id="header-logo-source"
+					class="opacity-0 in-[.theme-source]:opacity-100"
+					transform="matrix(1, 0, 0, 1, -2.50068998336792, -95)"
+				>
+					<path
+						style="fill: none;"
+						d="M 242.5 190 C 242.5 188.84 242.5 170 242.5 167.5 M 217.5 142.5 C 217.5 141.34 217.5 122.5 217.5 120 M 192.5 120 C 190 120 125 120 122.5 120 C 113.151 120 87.5 120 87.5 120 C 87.5 120 87.5 144.349 87.5 155 L 87.5 225 C 87.5 235.326 87.5 260 87.5 260 C 87.5 260 62.174 260 52.5 260 C 42.5 260 17.5 260 17.5 260 C 17.5 260 17.5 235 17.5 225 L 17.501 190"
+					></path>
+					<path
+						style="fill: none;"
+						d="M 157.501 190 C 157.501 190 157.5 247.5 157.5 260 C 167.5 260 342.5 260 345 260 C 354.349 260 380 260 380 260 C 380 260 380 235.651 380 225 C 380 214.674 380 190 380 190 C 380 190 354.674 190 345 190 C 342.5 190 337.5 190 335 190 C 325.326 190 300 190 300 190 C 300 190 300 165.326 300 155 C 300 145 300 120 300 120 C 300 120 325 120 335 120 C 337.5 120 377.5 120 380 120"
+					></path>
+					<g transform="matrix(1, 0, 0, 1, -2.499, 97.5)">
+						<path
+							d="M 435 12.5 L 450 12.5 L 450 27.5 L 457.501 27.5 L 457.501 47.5 L 477.499 47.5 L 477.499 55 L 492.5 55 L 492.5 70 L 477.499 70 L 477.499 77.502 L 457.501 77.502 L 457.501 97.498 L 450 97.498 L 450 112.5 L 435 112.5 L 435 97.498 L 427.5 97.498 L 427.5 77.502 L 407.5 77.502 L 407.5 70 L 392.5 70 L 392.5 55 L 407.5 55 L 407.5 47.5 L 427.5 47.5 L 427.5 27.5 L 435 27.5 Z"
+							style="stroke: none;"></path>
+					</g>
+				</g>
 			</svg>
-			<!-- <svg class="header-logo" viewBox="0 0 61 32"> -->
-			<!-- 	<path -->
-			<!-- 		id="logo" -->
-			<!-- 		d="M 58.625 25.724 C 57.138 26.002 55.709 25.023 55.43 23.537 L 54.172 16.81 C 53.893 15.324 54.873 13.894 56.359 13.615 C 57.846 13.337 59.275 14.317 59.554 15.803 L 60.812 22.529 C 61.091 24.016 60.111 25.445 58.625 25.724 Z M 55.352 8.234 C 53.865 8.512 52.436 7.533 52.157 6.046 L 51.654 3.356 C 51.376 1.87 52.355 0.44 53.842 0.162 C 55.327 -0.116 56.758 0.863 57.036 2.349 L 57.54 5.04 C 57.817 6.526 56.838 7.956 55.352 8.234 Z M 48.617 31.774 C 47.131 32.052 45.701 31.073 45.4 `card-accen22 29.588 L 44.668 25.551 C 44.39 24.065 45.369 22.635 46.856 22.356 C 48.34 22.078 49.771 23.059 50.049 24.543 L 50.805 28.58 C 51.083 30.066 50.103 31.496 48.617 31.774 Z M 45.848 16.975 C 44.362 17.254 42.932 16.274 42.654 14.789 L 41.646 9.406 C 41.368 7.92 42.348 6.49 43.834 6.212 C 45.319 5.934 46.75 6.913 47.028 8.4 L 48.035 13.781 C 48.313 15.266 47.334 16.697 45.848 16.975 Z M 36.344 25.717 C 34.857 25.994 33.427 25.015 33.149 23.529 L 29.373 3.348 C 29.095 1.863 30.074 0.433 31.559 0.155 C 33.045 -0.123 34.475 0.855 34.753 2.342 L 38.53 22.522 C 38.809 24.008 37.83 25.438 36.344 25.717 Z M 26.336 31.767 C 24.849 32.045 23.42 31.065 23.141 29.579 L 19.365 9.399 C 19.087 7.913 20.066 6.483 21.551 6.205 C 23.038 5.927 24.467 6.906 24.746 8.392 L 28.523 28.572 C 28.801 30.059 27.822 31.489 26.336 31.767 Z M 14.062 25.709 C 12.575 25.987 11.146 25.008 10.867 23.522 L 7.09 3.34 C 6.812 1.855 7.793 0.424 9.278 0.146 C 10.764 -0.132 12.194 0.848 12.472 2.334 L 16.249 22.514 C 16.527 24.001 15.548 25.43 14.062 25.709 Z M 4.054 31.759 C 2.567 32.037 1.138 31.059 0.86 29.572 L 0.104 25.536 C -0.174 24.05 0.806 22.62 2.292 22.342 C 3.777 22.063 5.208 23.043 5.486 24.529 L 6.242 28.565 C 6.519 30.051 5.54 31.481 4.054 31.759 Z" -->
-			<!-- 	></path> -->
-			<!-- < `card-accen/svg> -->
 		</a>
 
-		<div class="nav-items">
-			<a class="nav-button" href="/blog">Blog</a>
-			<a class="nav-button" href="/projects">Projects</a>
-			<a class="nav-button" href="/resources">Resources</a>
-			<div class="nav-button menu-wrapper">
-				<a class="menu-btn">
-					<svg
-						viewBox="0 0 24 24"
-						fill="currentColor"
-						stroke="currentColor"
-						stroke-width="2"
+		<div
+			id="desktop-nav-items"
+			class="relative h-auto items-center gap-0 sm:hidden md:flex"
+		>
+			<a class="desktop-nav-button desktop-nav-link" href="/blog">Blog</a>
+			<a class="desktop-nav-button desktop-nav-link" href="/projects"
+				>Projects</a
+			>
+			<a class="desktop-nav-button desktop-nav-link" href="/resources"
+				>Resources</a
+			>
+			<a
+				id="desktop-theme-menu-btn"
+				class="desktop-nav-button hover:text-accent-foreground/80 menu-btn group/menu text-foreground/70 before:menu-btn-hover before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 [.open]:before:opacity-100 [.open]:after:opacity-80"
+			>
+				<svg
+					id="desktop-theme-select"
+					class="fill-foreground stroke-foreground group-hover/menu:fill-accent-foreground group-hover/menu:stroke-accent-foreground in-[.open]:fill-accent-foreground in-[.open]:stroke-accent-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:scale-95 in-[.open]:opacity-40"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<g
+						transform="matrix(1, 0, 0, 1, -204.615997, -72.276001)"
+						style="transform-origin: 204.616px 72.276px;"
 					>
-						<g
-							transform="matrix(1, 0, 0, 1, -204.615997, -72.276001)"
-							style="transform-origin: 204.616px 72.276px;"
-						>
-							<path
-								d="M 227.616 84.276 C 227.616 90.351 222.692 95.276 216.616 95.276 C 210.541 95.276 205.616 90.351 205.616 84.276 C 205.616 78.201 210.541 73.276 216.616 73.276 C 222.692 73.276 227.616 78.201 227.616 84.276 Z"
-								style="fill: none; stroke-width: 2px;"></path>
-							<path
-								d="M 216.617 78.276 C 219.93 78.276 222.617 80.962 222.617 84.276 C 222.617 87.59 219.93 90.276 216.617 90.276 Z M 216.616 95.276 C 222.691 95.276 227.616 90.351 227.616 84.276 C 227.616 78.201 222.691 73.276 216.616 73.276 Z"
-								style="stroke-width: 0px; isolation: isolate;"
-							></path>
-							<path
-								d="M 210.617 90.276 C 213.93 90.276 216.617 87.59 216.617 84.276 C 216.617 80.962 213.93 78.276 210.617 78.276"
-								style="stroke-width: 0px; isolation: isolate; transform-box: fill-box; transform-origin: 50% 50%;"
-								transform="matrix(-1, 0, 0, -1, 0.000008, 0.000004)"
-							></path>
-						</g>
-					</svg>
-				</a>
-				<ThemeDrawer />
+						<path
+							d="M 227.616 84.276 C 227.616 90.351 222.692 95.276 216.616 95.276 C 210.541 95.276 205.616 90.351 205.616 84.276 C 205.616 78.201 210.541 73.276 216.616 73.276 C 222.692 73.276 227.616 78.201 227.616 84.276 Z"
+							style="fill: none; stroke-width: 2px;"></path>
+						<path
+							d="M 216.617 78.276 C 219.93 78.276 222.617 80.962 222.617 84.276 C 222.617 87.59 219.93 90.276 216.617 90.276 Z M 216.616 95.276 C 222.691 95.276 227.616 90.351 227.616 84.276 C 227.616 78.201 222.691 73.276 216.616 73.276 Z"
+							style="stroke-width: 0px; isolation: isolate;"
+						></path>
+						<path
+							d="M 210.617 90.276 C 213.93 90.276 216.617 87.59 216.617 84.276 C 216.617 80.962 213.93 78.276 210.617 78.276"
+							style="stroke-width: 0px; isolation: isolate; transform-box: fill-box; transform-origin: 50% 50%;"
+							transform="matrix(-1, 0, 0, -1, 0.000008, 0.000004)"
+						></path>
+					</g>
+				</svg>
+				<ThemeDrawer
+					class="before:menu-bg-hover -right-gutter-1/2 top-[calc(75%+0.25rem)] before:bg-transparent [.open]:top-[calc(100%+0.25rem)]"
+				/>
+			</a>
+			<div
+				id="desktop-nav-active-underline"
+				class="border-accent-foreground pointer-events-none absolute top-0 left-0 h-full !rounded-none border-b bg-transparent opacity-0 blur-none transition-all duration-200 ease-in-out"
+			>
 			</div>
-			<div class="nav-button-underline"></div>
-			<div class="nav-button-hover"></div>
+			<div
+				id="desktop-nav-button-hover"
+				class="bg-accent/10 rounded-base pointer-events-none absolute h-full opacity-100 peer-[.open]:peer-hover:opacity-0"
+			>
+			</div>
 		</div>
 	</nav>
 </header>
 
-<style is:global>
-	@reference "../styles/global.css";
-
-	header {
-		@apply sm:h-header md:h-header pointer-events-none sticky top-0 z-1000 flex items-start justify-center;
-		transition: top ease-in-out 300ms;
-	}
-
-	header.scrolled {
-		top: 0px !important;
-	}
-
-	.mobile-header {
-		@apply rounded-base absolute top-0 left-0 flex h-min w-full flex-row gap-1 opacity-0 transition-all duration-300 ease-in-out sm:pointer-events-auto md:pointer-events-none;
-	}
-
-	.mobile-header > * {
-		@apply border-foreground/10 bg-background-midpoint !text-foreground/80 rounded-base border shadow-lg shadow-black/10 blur-none;
-	}
-
-	header.scrolled .mobile-header {
-		@apply sm:opacity-100 md:opacity-0;
-	}
-
-	.mobile-header #header-page-title {
-		@apply flex w-full max-w-full items-center overflow-hidden px-4 py-2.5 align-middle font-mono text-sm leading-snug tracking-wider text-ellipsis uppercase transition-all duration-300 ease-in-out;
-	}
-
-	nav {
-		@apply rounded-base m-gutter-1/2 pr-gutter pl-gutter md:mt-gutter h-nav pointer-events-auto relative z-1001 mb-0 flex w-[calc((var(--col-gutter)*2)+var(--col-full))] items-center border-0 border-transparent shadow-2xl shadow-transparent sm:justify-center md:justify-between;
-		transition:
-			border-radius ease-in-out 300ms,
-			margin ease-out 200ms,
-			padding ease-in-out 300ms,
-			height 600ms,
-			box-shadow ease-in-out 300ms,
-			background-color 250ms,
-			border-color 250ms,
-			backdrop-filter 200ms ease-in-out;
-	}
-
-	header.scrolled nav {
-		@apply mt-gutter-1/2;
-	}
-
-	nav::before {
-		content: "";
-		z-index: -1;
-		transition: all 250ms ease-in-out;
-
-		@apply -top-gutter-1/2 -left-gutter-1/2 rounded-base absolute h-[calc(100%+(var(--col-gutter)))] w-full overflow-auto blur-md backdrop-blur-none;
-	}
-
-	header.scrolled nav::before {
-		@apply md:bg-background-header md:shadow-background/50 top-0 left-0 h-full w-full bg-transparent shadow-transparent blur-md backdrop-blur-none md:blur-none md:backdrop-blur-xl;
-	}
-
-	nav::after {
-		@apply pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent opacity-0 blur-md transition-opacity duration-300 ease-in-out;
-		content: "";
-		background: linear-gradient(
-				180deg,
-				oklch(var(--foreground) / 0.08) 0%,
-				oklch(var(--foreground) / 0.03) 100%
-			)
-			border-box;
-		mask:
-			linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		mask-composite: exclude;
-	}
-
-	header.scrolled nav::after {
-		@apply sm:opacity-0 md:opacity-100;
-	}
-
-	.header-logo {
-		@apply stroke-foreground/80 hover:fill-accent-foreground md:hover:stroke-foreground fill-accent z-50 inline-block w-auto stroke-[30px] sm:h-8 md:h-7;
-
-		transition:
-			height 300ms ease-in-out,
-			opacity 300ms ease-in-out,
-			fill 300ms ease-in-out,
-			stroke 300ms ease-in-out,
-			filter 300ms ease-in-out;
-	}
-
-	header.scrolled .header-logo {
-		@apply md:stroke-foreground/80 md:hover:fill-accent-foreground md:hover:stroke-foreground md:fill-accent sm:opacity-0 sm:blur-md md:opacity-100 md:blur-none;
-	}
-
-	header.scrolled a:has(.header-logo) {
-		@apply sm:pointer-events-none md:pointer-events-auto;
-	}
-
-	.nav-items {
-		@apply relative h-auto items-center gap-0 sm:hidden md:flex;
-	}
-
-	.nav-items .nav-button {
-		@apply text-foreground/60 hover:text-accent-foreground/80 cursor-pointer font-mono tracking-wider uppercase transition-colors duration-300 ease-in-out;
-	}
-
-	.nav-items .nav-button:has(.menu-btn) {
-		@apply p-0;
-	}
-
-	.nav-items .menu-btn {
-		@apply text-foreground/70 px-3 py-3 font-mono uppercase;
-	}
-
-	.nav-items .menu-btn svg {
-		@apply fill-foreground stroke-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out;
-	}
-
-	.nav-items .menu-btn:hover svg {
-		@apply fill-accent-foreground stroke-accent-foreground;
-	}
-
-	.nav-items .theme-drawer {
-		@apply top-[calc(75%+0.25rem)] right-0;
-	}
-
-	.nav-items .theme-drawer::before {
-		background: radial-gradient(
-			200px circle at var(--x) var(--y),
-			oklch(var(--accent-background)) -500%,
-			var(--header) 100%
-		);
-	}
-
-	.nav-items .theme-drawer.open {
-		@apply top-[calc(100%+0.25rem)];
-	}
-
-	.nav-items .theme-drawer li {
-		@apply transition-colors duration-300 ease-in-out;
-	}
-
-	.nav-items .theme-drawer .standard-themes li {
-		@apply hover:bg-accent-foreground/5;
-	}
-
-	.nav-button {
-		@apply focus:text-foreground rounded-base inline-flex w-max place-items-center bg-transparent px-4 py-3 font-mono text-sm tracking-wider uppercase hover:bg-transparent focus:outline-hidden disabled:pointer-events-none disabled:opacity-50;
-	}
-
-	.nav-button.active {
-		@apply !text-accent-foreground;
-	}
-
-	.nav-button-underline {
-		@apply border-accent-foreground pointer-events-none absolute top-0 left-0 h-full border-b bg-transparent opacity-0 transition-all duration-200 ease-in-out;
-	}
-
-	.nav-button-hover {
-		@apply bg-accent-foreground/5 rounded-base pointer-events-none absolute top-0 h-full opacity-0;
-	}
-
-	.menu-btn::before {
-		content: "";
-		background: radial-gradient(
-			circle at 50% 100%,
-			oklch(var(--accent-foreground)) -300%,
-			transparent 100%
-		);
-		@apply rounded-base pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-200 ease-in-out;
-	}
-
-	.menu-btn:has(.menu.open)::before {
-		@apply opacity-100;
-	}
-
-	.menu-btn:has(.menu.open) > a > svg {
-		@apply fill-accent-foreground stroke-accent-foreground scale-90 rotate-90 opacity-100;
-	}
-
-	.menu-btn::after {
-		content: "";
-		background: linear-gradient(
-				0deg,
-				oklch(var(--accent-foreground)) -100%,
-				oklch(var(--foreground) / 0.05) 100%
-			)
-			border-box;
-		mask:
-			linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		mask-composite: exclude;
-
-		@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent opacity-0 transition-opacity duration-200 ease-in-out;
-	}
-
-	.menu-btn:has(.menu.open)::after {
-		@apply opacity-100;
-	}
-
-	.menu-btn:hover:has(.menu.open) ~ .nav-button-hover {
-		@apply !bg-transparent;
-	}
-
-	.menu-btn:has(.menu.open:hover) ~ .nav-button-hover {
-		@apply !opacity-0;
-	}
-
-	.dark-icon,
-	.light-icon {
-		@apply hidden;
-	}
-
-	:root[data-theme="light"] .light-icon {
-		@apply inline-block;
-	}
-
-	:root[data-theme="dark"] .dark-icon {
-		@apply inline-block;
-	}
-</style>
-
 <script>
 	function setActiveLink() {
-		const underline = document.querySelector(
-			".nav-button-underline",
+		const underline = document.getElementById(
+			"desktop-nav-active-underline",
 		) as HTMLElement;
-		const hover = document.querySelector(
-			".nav-button-hover",
+		const hover = document.getElementById(
+			"desktop-nav-button-hover",
 		) as HTMLElement;
+
+		const navItems = document.getElementById(
+			"desktop-nav-items",
+		) as HTMLElement;
+		const navItemsRect = navItems.getBoundingClientRect();
 
 		const currentPath = "/" + window.location.pathname.split("/")[1];
-		// "/projects"
+
+		// Set initial position of underline
+		if (underline.style.left == "0px") {
+			underline.style.left = `${navItems.offsetLeft}px`;
+		}
 
 		// Remove active class from all links
-		document.querySelectorAll("nav a").forEach((btn) => {
+		navItems.querySelectorAll("a").forEach((btn) => {
 			btn.classList.remove("active");
 			if (btn.getAttribute("href") === currentPath) {
 				btn.classList.add("active");
@@ -334,9 +170,10 @@ const { pageTitle } = Astro.props;
 		});
 
 		const activeButton = document.querySelector(
-			".nav-button.active",
+			".desktop-nav-button.active",
 		) as HTMLElement;
 
+		// Move underline to active nav button
 		if (activeButton) {
 			setTimeout(() => {
 				const activeRect = activeButton.getBoundingClientRect();
@@ -344,55 +181,62 @@ const { pageTitle } = Astro.props;
 				underline.style.width = `${activeRect.width - 32}px`;
 				underline.style.left = `${activeButton.offsetLeft + 16}px`;
 				setTimeout(() => {
-					underline.style.opacity = "0.75";
+					underline.classList.add("opacity-75");
+					underline.classList.remove("opacity-0");
 				}, 150);
 			}, 10);
 		} else {
-			underline.style.opacity = "0";
+			underline.classList.add("opacity-0");
+			underline.classList.remove("opacity-75");
 		}
 
-		const navItems = document.querySelector(".nav-items") as HTMLElement;
+		// Move hover to hovered nav button
 		navItems.addEventListener("mouseenter", () => {
 			hover.style.transition =
-				"opacity 0.2s ease, background-color 0.2 ease-in-out";
+				"opacity 0.2s ease-in-out, background-color 0.2s ease-in-out";
 			setTimeout(() => {
 				hover.style.transition =
-					"transform 0.2s ease, width 0.2s ease, opacity 0.2s ease, background-color 0.2s ease-in-out";
+					"transform 0.2s ease-in-out, width 0.2s ease, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out";
 			}, 100);
 		});
 		navItems.addEventListener("mouseleave", () => {
-			hover.style.transition = "opacity 0.2s ease";
+			setTimeout(() => {
+				hover.style.transition = "opacity 0.2s ease-in-out";
+			}, 50);
 		});
 
-		document.querySelectorAll(".nav-button").forEach((button) => {
-			const btn = button as HTMLElement;
-			btn.addEventListener("mouseenter", () => {
-				const btnRect = btn.getBoundingClientRect();
-				const parentRect = btn.parentElement!.getBoundingClientRect();
+		document
+			.querySelectorAll<HTMLElement>(".desktop-nav-link")
+			.forEach((button) => {
+				button.addEventListener("mouseenter", () => {
+					const buttonRect = button.getBoundingClientRect();
+					hover.style.width = `${button.clientWidth}px`;
+					hover.style.transform = `translateX(${Math.round(buttonRect.left - navItemsRect.left)}px)`;
 
-				hover.style.width = `${btnRect.width}px`;
-				hover.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+					requestAnimationFrame(() => {
+						hover.classList.add(`opacity-100`);
+						hover.classList.remove(`opacity-0`);
+						hover.style.transform = `translateX(${Math.round(buttonRect.left - navItemsRect.left)}px)`;
+					});
+				});
 
-				requestAnimationFrame(() => {
-					hover.style.opacity = "1";
-					hover.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+				button.addEventListener("mouseleave", () => {
+					hover.classList.add("opacity-0");
+					hover.classList.remove("opacity-100");
 				});
 			});
-
-			btn.addEventListener("mouseleave", () => {
-				hover.style.opacity = "0";
-			});
-		});
 	}
 
 	setActiveLink();
-	document.addEventListener("astro:after-swap", setActiveLink);
+	document.addEventListener("astro:page-load", setActiveLink);
 </script>
 
 <script>
 	function updateTitle() {
 		const pageTitle = document.title;
-		const titleElement = document.getElementById("header-page-title");
+		const titleElement = document.getElementById(
+			"mobile-header-page-title",
+		);
 
 		if (titleElement) {
 			setTimeout(() => {

@@ -146,11 +146,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 <style is:global>
 	@reference "@/styles/global.css";
 	.blog-page {
-		@apply relative flex w-[var(--full-w)] flex-col place-items-center content-start gap-[var(--guide-gutter)] place-self-center rounded;
+		@apply w-col-full gap-gutter relative flex flex-col place-items-center content-start place-self-center rounded;
 	}
 
 	.blog-page-banner {
-		@apply rounded-base absolute top-0 left-0 w-full overflow-hidden transition-all duration-500 ease-in-out sm:h-[var(--three-w)] lg:h-[var(--five-w)];
+		@apply rounded-base sm:h-col-3 lg:h-col-5 absolute top-0 left-0 w-full overflow-hidden transition-all duration-500 ease-in-out;
 
 		transition:
 			height 100ms ease,
@@ -171,7 +171,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 	.blog-page-body {
 		--details-width: 50%;
-		@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--guide-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--guide-gutter)*2)] lg:pt-[calc(var(--five-w)+(var(--guide-gutter)*0.5))];
+		@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--col-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--col-gutter)*2)] lg:pt-[calc(var(--col-5)+(var(--col-gutter)*0.5))];
 	}
 
 	body.scrolled .blog-page-body {
@@ -179,11 +179,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-sidebar {
-		@apply flex h-min flex-col transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--guide-gutter)))] lg:pt-[var(--guide-gutter)];
+		@apply lg:pt-gutter flex h-min flex-col transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--col-gutter)))];
 	}
 
 	.blog-page-sidebar-info {
-		@apply inline-flex flex-col sm:place-items-start sm:px-[var(--guide-gutter)] lg:place-items-end lg:px-2;
+		@apply sm:px-gutter inline-flex flex-col sm:place-items-start lg:place-items-end lg:px-2;
 	}
 
 	.blog-page-thumbnail {
@@ -205,7 +205,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-thumbnail img {
-		@apply rounded-base mb-[var(--guide-gutter)] h-[var(--three-w)] w-full object-cover transition-all duration-500 ease-in-out sm:opacity-0 lg:-mt-[calc(var(--three-w)+var(--guide-gutter))] lg:opacity-0;
+		@apply rounded-base mb-gutter h-col-3 w-full object-cover transition-all duration-500 ease-in-out sm:opacity-0 lg:-mt-[calc(var(--col-3)+var(--col-gutter))] lg:opacity-0;
 
 		transition:
 			opacity 200ms ease-in-out,
@@ -213,7 +213,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	body.scrolled .blog-page-thumbnail img {
-		@apply sm:h-[var(--three-w)] lg:mt-0 lg:opacity-80;
+		@apply sm:h-col-3 lg:mt-0 lg:opacity-80;
 
 		transition:
 			opacity 300ms 150ms ease-in-out,
@@ -281,7 +281,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-toc {
-		@apply rounded-base relative z-50 w-auto overflow-hidden px-0 text-xs transition-all duration-300 ease-in-out sm:mx-[var(--guide-gutter)] sm:hidden lg:mx-0 lg:inline-block;
+		@apply rounded-base sm:mx-gutter relative z-50 w-auto overflow-hidden px-0 text-xs transition-all duration-300 ease-in-out sm:hidden lg:mx-0 lg:inline-block;
 	}
 
 	body.scrolled .blog-page-toc {
@@ -326,11 +326,11 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	}
 
 	.blog-page-nav-arrow {
-		@apply absolute top-0 left-0 mt-[var(--guide-gutter)] ml-[var(--guide-gutter)] cursor-pointer place-self-end !fill-[oklch(var(--dark-bg)/0.5)] hover:!fill-[oklch(var(--dark-bg)/0.8)] sm:h-6 md:h-5;
+		@apply mt-gutter absolute top-0 left-0 ml-[var(--col-gutter)] cursor-pointer place-self-end !fill-[oklch(var(--dark-bg)/0.5)] hover:!fill-[oklch(var(--dark-bg)/0.8)] sm:h-6 md:h-5;
 	}
 
 	.post-markdown {
-		@apply sm:text-foreground relative z-50 w-full max-w-[var(--article-width)] min-w-0 transition-all duration-500 ease-in-out sm:px-[var(--guide-gutter)] sm:pt-0 lg:px-0 lg:pt-[calc(var(--guide-gutter)+4px)];
+		@apply sm:text-foreground sm:px-gutter relative z-50 w-full max-w-[var(--article-width)] min-w-0 transition-all duration-500 ease-in-out sm:pt-0 lg:px-0 lg:pt-[calc(var(--col-gutter)+4px)];
 	}
 
 	::-moz-selection {
@@ -374,14 +374,14 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		font-size: 2rem;
 		font-weight: 700;
 		margin-bottom: 0.7rem;
-		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
 	}
 
 	.post-markdown h2 {
 		font-size: 1.25rem;
 		font-weight: 500;
 		margin-bottom: 0.8rem;
-		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
 
 		@apply rounded-base -ml-3 py-1 pl-3 font-bold;
 	}
@@ -390,26 +390,26 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		font-size: 0.9rem;
 		font-weight: 500;
 		margin-bottom: 0.7rem;
-		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
 		@apply text-accent-foreground font-mono text-sm tracking-wider uppercase;
 	}
 
 	.post-markdown h4 {
 		font-size: 1.3rem;
 		font-weight: 700;
-		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
 	}
 
 	.post-markdown h5 {
 		font-size: 1.3rem;
 		font-weight: 700;
-		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
 	}
 
 	.post-markdown h6 {
 		font-size: 0.9rem;
 		font-weight: 700;
-		scroll-margin-top: calc(var(--nav-height) + (var(--guide-gutter) * 2));
+		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
 	}
 
 	.post-markdown ul,
@@ -451,7 +451,7 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 	.post-markdown pre {
 		word-wrap: break-word;
 
-		@apply !font-code rounded-base relative mb-8 !bg-[oklch(var(--foreground)/0.025)] p-[var(--guide-gutter)] break-words whitespace-pre-wrap;
+		@apply !font-code rounded-base p-gutter relative mb-8 !bg-[oklch(var(--foreground)/0.025)] break-words whitespace-pre-wrap;
 	}
 
 	code {
@@ -588,8 +588,12 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 		const page = document.querySelector(".blog-page");
 
 		const html = document.querySelector("html");
-
-		html.style.setProperty("--accent", `${page.dataset.accent}`);
+		if (
+			localStorage.getItem("theme") === "dark" ||
+			localStorage.getItem("theme") === "light"
+		) {
+			html.style.setProperty("--accent", `${page.dataset.accent}`);
+		}
 	};
 
 	attachEventListeners();

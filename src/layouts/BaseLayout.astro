@@ -69,13 +69,18 @@ const { pageTitle, pageDesc } = Astro.props;
 <script>
 	document.addEventListener("click", (e) => {
 		const target = e.target as HTMLElement;
+		console.log(
+			document.querySelector(".menu-btn.open") &&
+				!target.closest(".menu"),
+		);
 
 		// Open menu if menu button clicked
-		if (target.closest(".menu-btn")) {
-			const wrapper = target.closest(".menu-wrapper");
-			const menu = wrapper?.querySelector(".menu") as HTMLElement;
+		if (target.closest(".menu-btn") && !target.closest(".menu")) {
+			const menuBtn = target.closest(".menu-btn");
+			const menu = menuBtn?.querySelector(".menu");
 
-			if (menu) {
+			if (menuBtn && menu) {
+				menuBtn.classList.toggle("open");
 				menu.classList.toggle("open");
 			}
 
@@ -84,11 +89,15 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		// Close menu when clicking outside
 		else if (
-			document.querySelector(".menu.open") &&
-			!target.closest(".menu-wrapper")
+			document.querySelector(".menu-btn.open") &&
+			!target.closest(".menu")
 		) {
-			document.querySelectorAll(".menu.open").forEach((menu) => {
-				menu.classList.remove("open");
+			document.querySelectorAll(".menu-btn.open").forEach((menuBtn) => {
+				menuBtn.classList.remove("open");
+				const menu = menuBtn.querySelector(".menu");
+				if (menu) {
+					menu.classList.remove("open");
+				}
 			});
 		}
 	});
@@ -100,7 +109,7 @@ const { pageTitle, pageDesc } = Astro.props;
 		let ticking = false;
 
 		const elements = document.querySelectorAll(
-			".card, pre, blockquote, .theme-drawer",
+			".card, pre, blockquote, .theme-drawer, .menu-btn",
 		);
 
 		document.addEventListener("mousemove", (e) => {
@@ -176,6 +185,8 @@ const { pageTitle, pageDesc } = Astro.props;
 		}
 
 		document.documentElement.setAttribute("data-theme", appliedTheme);
+		document.documentElement.className = "";
+		document.documentElement.classList.add(`theme-${appliedTheme}`);
 
 		document.querySelectorAll(".theme-drawer li").forEach((button) => {
 			button.classList.remove("active");
@@ -209,65 +220,7 @@ const { pageTitle, pageDesc } = Astro.props;
 
 	createToggles();
 	document.addEventListener("astro:after-swap", createToggles);
-
-	// const applyTheme = (theme, document) =>
-	// 	document.documentElement.setAttribute("data-theme", theme);
-
-	// (function updateTheme() {
-	// 	const theme =
-	// 		localStorage.getItem("theme") ||
-	// 		(window.matchMedia("(prefers-color-scheme: light)").matches
-	// 			? "light"
-	// 			: "dark");
-	// 	localStorage.setItem("theme", theme);
-	// 	applyTheme(theme, document);
-	// })();
-
-	// document.addEventListener("astro:before-swap", (ev) => {
-	// 	applyTheme(localStorage.getItem("theme"), ev.newDocument);
-	// });
 </script>
-
-<!-- Theme Switching
-<script data-astro-rerun>
-	(function setToggles() {
-		const toggleTheme = () => {
-			const theme =
-				localStorage.getItem("theme") === "light" ? "dark" : "light";
-			localStorage.setItem("theme", theme);
-			document.documentElement.setAttribute("data-theme", theme);
-		};
-
-		document.querySelectorAll(".theme-toggle").forEach((btn) => {
-			btn.removeEventListener("click", toggleTheme);
-			btn.addEventListener("click", toggleTheme);
-		});
-
-		document.addEventListener("astro:after-swap", () => {
-			document.documentElement.setAttribute(
-				"data-theme",
-				localStorage.getItem("theme")
-			);
-		});
-	})();
-
-	const applyTheme = (theme, document) =>
-		document.documentElement.setAttribute("data-theme", theme);
-
-	(function updateTheme() {
-		const theme =
-			localStorage.getItem("theme") ||
-			(window.matchMedia("(prefers-color-scheme: light)").matches
-				? "light"
-				: "dark");
-		localStorage.setItem("theme", theme);
-		applyTheme(theme, document);
-	})();
-
-	document.addEventListener("astro:before-swap", (ev) => {
-		applyTheme(localStorage.getItem("theme"), ev.newDocument);
-	});
-</script> -->
 
 <!-- Add "On Scroll" Logic -->
 <script is:inline>

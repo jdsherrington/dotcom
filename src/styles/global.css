@@ -6,7 +6,9 @@
 
 @import "tailwindcss";
 @plugin 'tailwindcss-animate';
-@custom-variant dark (&:is(.dark *));
+
+@custom-variant dark (&:is(.theme-dark *));
+@custom-variant light (&:is(.theme-light *));
 
 @theme {
   --breakpoint-*: initial;
@@ -24,7 +26,7 @@
   --spacing-col-7: var(--col-7);
   --spacing-col-1/4: var(--col-1/4);
   --spacing-col-1/3: var(--col-1/3);
-  --spacing-col-1/2: var(--col-1/2);
+  --spacing-col-half: var(--col-half);
   --spacing-col-2/3: var(--col-2/3);
   --spacing-col-3/4: var(--col-3/4);
   --spacing-col-full: var(--col-full);
@@ -36,10 +38,7 @@
   --spacing-header: var(--header-height);
   --spacing-nav: var(--nav-height);
 
-  --color-border: oklch(var(--border));
-  --color-input: oklch(var(--input));
-  --color-ring: oklch(var(--ring));
-
+  --color-foreground: oklch(var(--foreground));
   --color-background: oklch(var(--background));
   --color-background-primary: oklch(var(--background-primary));
   --color-background-secondary: oklch(var(--background-secondary));
@@ -47,7 +46,9 @@
   --color-background-midpoint: var(--background-midpoint);
   --color-background-header: var(--background-header);
 
-  --color-foreground: oklch(var(--foreground));
+  --color-accent: oklch(var(--accent));
+  --color-accent-foreground: oklch(var(--accent-foreground));
+  --color-accent-background: oklch(var(--accent-background));
 
   --color-primary: oklch(var(--primary));
   --color-primary-foreground: oklch(var(--primary-foreground));
@@ -55,26 +56,19 @@
   --color-secondary: oklch(var(--secondary));
   --color-secondary-foreground: oklch(var(--secondary-foreground));
 
-  --color-destructive: oklch(var(--destructive));
   --color-destructive-foreground: oklch(var(--destructive-foreground));
+  --color-destructive-background: oklch(var(--destructive-background));
 
-  --color-muted: oklch(var(--muted));
-  --color-muted-foreground: oklch(var(--muted-foreground));
-
-  --color-accent: oklch(var(--accent));
-  --color-accent-foreground: oklch(var(--accent-foreground));
-  --color-accent-background: oklch(var(--accent-background));
-
-  --color-popover: oklch(var(--popover));
-  --color-popover-foreground: oklch(var(--popover-foreground));
-
-  --color-card: oklch(var(--card));
+  --color-card-background: oklch(var(--card-background));
   --color-card-foreground: oklch(var(--card-foreground));
 
-  --rounded-base: var(--radius);
-  --rounded-lg: var(--radius);
-  --rounded-md: calc(var(--radius) - 2px);
-  --rounded-sm: calc(var(--radius) - 4px);
+  --radius-2xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 2px);
+  --radius-lg: calc(var(--radius) + 1px);
+  --radius-base: var(--radius);
+  --radius-sm: calc(var(--radius) - 1px);
+  --radius-xs: calc(var(--radius) - 2px);
+  --radius-2xs: calc(var(--radius) - 4px);
 
   --font-sans: Inter;
   --font-mono: GeistMono;
@@ -128,7 +122,7 @@
 }
 
 @utility card {
-  @apply relative w-full md:hover:-translate-y-[4px] rounded-base bg-card/0 shadow-lg sm:shadow-black/5 md:shadow-transparent transition-all duration-300 ease-in-out md:hover:shadow-black/5 overflow-hidden;
+  @apply relative w-full md:hover:-translate-y-[4px] rounded-base bg-card-background/0 shadow-lg sm:shadow-black/5 md:shadow-transparent transition-all duration-300 ease-in-out md:hover:shadow-black/5 overflow-hidden;
 
   :root[data-theme='dark'] & {
     @apply sm:shadow-black/15 md:shadow-transparent md:hover:shadow-black/15;
@@ -230,9 +224,68 @@
   @apply inline-block w-auto fill-red-500/50 transition-all duration-200 ease-in-out hover:fill-foreground;
 }
 
-@utility rounded-base {
-	border-radius: var(--radius);
+@utility desktop-nav-button {
+	@apply text-foreground/60 hover:text-foreground/70 [.active]:!text-accent-foreground rounded-base inline-flex w-max cursor-pointer place-items-center bg-transparent px-4 py-3 font-mono text-sm tracking-wider uppercase transition-all duration-300 ease-in-out hover:bg-transparent focus:outline-hidden disabled:pointer-events-none disabled:opacity-50
 }
+
+@utility menu-bg {
+	background: radial-gradient(
+			circle at 50% 100%,
+			oklch(var(--accent-foreground)) -300%,
+			transparent 100%
+		);
+}
+
+@utility menu-bg-hover {
+	background: radial-gradient(
+			200px circle at var(--x) var(--y),
+			oklch(var(--accent-background)) -500%,
+			var(--header) 100%
+		);
+}
+
+@utility menu-border {
+		content: "";
+		background: radial-gradient(
+				100px circle at var(--x) var(--y),
+				oklch(var(--accent)) 0%,
+				oklch(var(--foreground) / 0) 100%
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+
+		@apply pointer-events-none absolute inset-0 z-10 w-full rounded-sm border border-transparent opacity-50 transition-opacity duration-300 ease-in-out;
+
+}
+
+@utility menu-btn-hover {
+	background: radial-gradient(
+			100px circle at var(--x) var(--y),
+			oklch(var(--accent-background)) -500%,
+			var(--header) 100%
+		);
+}
+
+@utility menu-btn-border {
+		background: radial-gradient(
+				50px circle at var(--x) var(--y),
+				oklch(var(--accent)) 0%,
+				oklch(var(--foreground) / 0) 100%
+			)
+			border-box;
+		mask:
+			linear-gradient(#fff 0 0) padding-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: exclude;
+
+		@apply content-[''] pointer-events-none absolute inset-0 z-10 w-full rounded-sm border border-transparent transition-opacity duration-300 ease-in-out;
+
+}
+
+
 @utility skeleton {
 	position: relative;
 
@@ -331,76 +384,20 @@
 }
 @layer base {
 	:root {
-		--header-padding: 10rem;
-		--header-nav-diff: var(--guide-gutter);
-		--header-height: calc((var(--header-nav-diff) * 2) + var(--nav-height));
-		--footer-height: 8rem;
-		--article-width: 80ch;
-		--page-height: calc(
-			100vh -
-				(
-					var(--header-height) + var(--header-padding) +
-						var(--footer-height)
-				)
-		);
-		--radius: 0.5rem;
+		/* --header-padding: 10rem; */
+		/* --header-nav-diff: var(--guide-gutter); */
+		/* --footer-height: 8rem; */
+		/* --article-width: 80ch; */
+		/* --page-height: calc( */
+		/* 	100vh - */
+		/* 		( */
+		/* 			var(--header-height) + var(--header-padding) + */
+		/* 				var(--footer-height) */
+		/* 		) */
+		/* ); */
 
-		/* --theme-lightness-light: 98%;
-		--theme-lightness-dark: 15%;
-		--theme-chroma: 1%;
-		--theme-hue: 48; */
 
-		--theme-lightness-light: 0.95;
-		--theme-lightness-dark: 0.15;
-		--theme-chroma: 0.01;
-		--theme-hue: 48;
 
-		--theme-contrast-light: -0.02;
-		--theme-contrast-dark: 0.03;
-
-        --accent: var(--default-accent);
-        --accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
-        --accent-background: from oklch(var(--accent)) var(--shade-background) c h;
-
-		--light-bg: var(--theme-lightness-light) var(--theme-chroma)
-			var(--theme-hue);
-		--dark-bg: var(--theme-lightness-dark) var(--theme-chroma)
-			var(--theme-hue);
-
-		--background-alt: calc(var(--theme-lightness) + var(--theme-contrast))
-			var(--theme-chroma) var(--theme-hue);
-
-		--card: calc(var(--theme-lightness) + var(--theme-contrast))
-			var(--theme-chroma) var(--theme-hue);
-
-		--card-gradient: calc(
-				var(--theme-lightness) + (10 * var(--theme-contrast))
-			)
-			var(--theme-chroma) var(--theme-hue);
-
-		--card-border: calc(
-				var(--theme-lightness) + (3 * var(--theme-contrast))
-			)
-			var(--theme-chroma) var(--theme-hue);
-
-		/* --card-light: oklch(20 9.1% 97.8%);
-		--card-dark: oklch(20 14.3% 4.5%); */
-
-		--tag-border-opacity: 0.5;
-		--tag-bg-opacity: 0.15;
-
-		--tag-html: 66% 45% 41;
-		--tag-css: 44% 23% 303;
-		--tag-javascript: 88% 39% 100;
-		--tag-astro: 61% 51% 6;
-		--tag-tailwind: 85% 33% 198;
-		--tag-react: 82% 36% 216;
-		--tag-sql: 78% 36% 53;
-		--tag-csharp: 39% 54% 288;
-		--tag-dotnet: 48% 57% 284;
-		--tag-azure-cosmos: 62% 30% 250;
-		--tag-angular: 51% 52% 21;
-		--tag-supabase: 77% 38% 160;
 	}
 
 	}
