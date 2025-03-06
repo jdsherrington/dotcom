@@ -40,6 +40,7 @@ const formattedDate = new Date(date).toLocaleDateString("en-AU", {
 
 const accentPalette: any = await extractOKLCHColors(imagePath);
 const accent = accentPalette[0];
+console.log(accent);
 
 let readTime = 0;
 if (wordCount) {
@@ -57,55 +58,62 @@ if (!images[imagePath])
 ---
 
 <div
-	transition:name=`container-${url}`
 	id=`blog-post-${id}`
-	class="blog-post card sm:max-w-col-full sm:gap-gutter md:gap-gutter [&[data-type='featured']]:gap-gutter before:md:hover:bg-accent-background/25 relative flex justify-self-center before:absolute before:inset-0 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100 sm:flex-row md:max-w-none md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:sm:col-span-1 [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3"
+	transition:persist
+	class="blog-post card flex sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3"
+	style="--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
+			h;
+		--accent-background: from oklch(var(--accent)) var(--shade-background) c
+			h;"
 	data-accent={accent}
 	data-type={type}
 >
 	<a
+		id=`blog-post-img-${id}`
 		href={url}
-		class="z-20 w-min shadow-2xl shadow-transparent transition-all duration-300 data-[type='featured']:w-min data-[type='featured']:shadow-2xl data-[type='featured']:shadow-transparent data-[type='featured']:transition-all data-[type='featured']:duration-300 sm:m-0 sm:h-auto md:mt-0 md:mb-0 md:ml-0 md:w-auto"
+		transition:persist
+		class="blog-post-img z-10 cursor-pointer"
+		data-loaded="false"
 	>
-		<div
-			transition:name=`image${url}`
-			class="blog-post-img sm:w-col-1 md:h-col-2 [.blog-post[data-type='featured']_&]:sm:min-h-col-half [.blog-post[data-type='featured']_&]:sm:w-col-half [.blog-post[data-type='featured']_&]:lg:min-h-col-5 pointer-events-none overflow-hidden opacity-75 sm:h-full md:max-h-36 md:w-full [.blog-post[data-type='featured']_&]:sm:h-full [.blog-post[data-type='featured']_&]:md:max-h-none"
-			data-loaded="false"
-		>
-			<Image
-				src={images[imagePath]()}
-				alt={imageAlt}
-				onload="this.parentElement.dataset.loaded = 'true'"
-				class="absolute top-0 left-0 h-full max-h-full w-full object-cover transition-all duration-500 ease-in-out sm:rounded-r-none md:rounded-tl md:rounded-b-none [.blog-post[data-type='featured']_&]:rounded-r-none"
-			/>
-		</div>
+		<Image
+			src={images[imagePath]()}
+			alt={imageAlt}
+			onload="this.parentElement.dataset.loaded = 'true'"
+			class="in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='featured']]:md:max-h-col-4 in-[&[data-type='featured']]:lg:max-h-col-5 in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:md:h-col-2 h-full w-full object-cover in-[&[data-type='featured']]:sm:min-h-full in-[&[data-type='standard']]:md:w-full"
+		/>
 	</a>
-	<div transition:name=`accent-${url}` class="card-accent"></div>
+	<div id=`blog-post-accent-${id}` transition:persist class="card-accent z-0">
+	</div>
 	<div
-		class="blog-post-content sm:pt-gutter md:pr-gutter md:pl-gutter sm:pr-gutter [.blog-post[data-type='featured']_&]:md:p-gutter z-20 flex h-full w-full flex-col place-content-start content-center justify-between sm:pl-0 md:pt-0 [.blog-post[data-type='featured']_&]:justify-center [.blog-post[data-type='featured']_&]:!pl-0"
+		id=`blog-post-content-${id}`
+		class="p-gutter in-[&[data-type='featured']]:justify-center"
 	>
 		<small
+			id=`blog-post-featured-${id}`
 			class="blog-post-featured [.blog-post[data-type='featured']_&]:text-foreground/50 hidden [.blog-post[data-type='featured']_&]:block [.blog-post[data-type='featured']_&]:h-min [.blog-post[data-type='featured']_&]:max-w-full [.blog-post[data-type='featured']_&]:place-content-start [.blog-post[data-type='featured']_&]:pb-2 [.blog-post[data-type='featured']_&]:font-mono [.blog-post[data-type='featured']_&]:text-xs [.blog-post[data-type='featured']_&]:tracking-widest"
 			>FEATURED POST</small
 		>
 
 		<a href={url}>
 			<h1
+				id=`blog-post-title-${id}`
+				transition:persist
 				class="blog-post-title text-foreground/85 hover:text-foreground inline h-min w-fit !leading-[1.2] font-bold tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl [.blog-post[data-type='featured']_&]:font-bold [.blog-post[data-type='featured']_&]:sm:mt-2 [.blog-post[data-type='featured']_&]:sm:text-2xl [.blog-post[data-type='featured']_&]:md:text-2xl [.blog-post[data-type='featured']_&]:lg:text-3xl"
-				transition:name=`title-${url}`
 			>
 				{title}
 			</h1>
 		</a>
 
 		<small
-			transition:name=`date-${url}`
+			id=`blog-post-date-${id}`
+			transition:persist
 			class="blog-post-date text-foreground/50 mt-0.5 mb-1 h-min w-auto transform-none place-content-start py-1 pr-4 font-mono text-xs tracking-widest uppercase transition-colors duration-300 ease-in-out"
 		>
 			// {formattedDate}
 		</small>
 
 		<p
+			id=`blog-post-description-${id}`
 			transition:name=`description-${url}`
 			class="blog-post-description text-foreground/70 sm:mb-gutter md:pr-gutter md:mb-gutter-1/2 sm:pr-gutter-2 [.blog-post[data-type='featured']_&]:pr-gutter h-min w-auto place-content-start text-sm text-pretty sm:hidden md:line-clamp-3 [.blog-post[data-type='featured']_&]:line-clamp-3"
 		>
@@ -113,12 +121,14 @@ if (!images[imagePath])
 		</p>
 
 		<div
-			transition:name=`tags-${url}`
+			id=`blog-post-tags-${id}`
+			transition:persist
 			class="blog-post-tags pb-gutter-1/2 [.blog-post[data-type='featured']_&]:sm:mb-gutter place-content-start justify-start [.blog-post[data-type='featured']_&]:grow-0 [.blog-post[data-type='featured']_&]:sm:flex [.blog-post[data-type='featured']_&]:sm:pb-0 [.blog-post[data-type='featured']_&]:md:mb-0"
 		>
 			{tags?.map((tag: any) => <CardTag text={tag} collection="blog" />)}
 		</div>
 		<div
+			id=`blog-post-button-${id}`
 			class="blog-post-button pb-gutter-1/2 [.blog-post[data-type='featured']_&]:right-gutter [.blog-post[data-type='featured']_&]:bottom-gutter-1/2 inline-flex h-auto w-full justify-end justify-self-end [.blog-post[data-type='featured']_&]:absolute [.blog-post[data-type='featured']_&]:w-auto [.blog-post[data-type='featured']_&]:pb-0"
 		>
 			<NavigationButton
@@ -126,46 +136,20 @@ if (!images[imagePath])
 				text=`// ${readTime} min read`
 				direction="forward"
 				position="bottom-right"
-				class="bg-foreground/0 text-foreground/60 py-gutter-1/2 group-hover:text-foreground/80 group-hover:hover:text-accent-foreground static px-0 backdrop-blur-none transition-all duration-200 ease-in-out group-hover:hover:bg-transparent sm:hidden md:flex"
+				className="bg-foreground/0 text-foreground/60 py-gutter-1/2 group-hover:text-foreground/80 group-hover:hover:text-accent-foreground static px-0 backdrop-blur-none transition-all duration-200 ease-in-out group-hover:hover:bg-transparent sm:hidden md:flex"
 			/>
 		</div>
 	</div>
 </div>
 
-<style is:global>
-	@reference "../styles/global.css";
-	.blog-post {
-		--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
-			h;
-		--accent-background: from oklch(var(--accent)) var(--shade-background) c
-			h;
-	}
-
-	.blog-post-content * {
-		@apply max-w-full;
-	}
-
-	.blog-post:hover blog-post-img {
-		@apply opacity-80;
-	}
-
-	.blog-post-arrow {
-		@apply !fill-foreground/25 hover:!fill-accent-foreground h-5 transition-colors duration-300 ease-in-out;
-	}
-
-	.blog-post:hover .blog-post-arrow {
-		@apply !fill-accent hover:!fill-accent-foreground;
-	}
-</style>
-
 <script>
 	const setPostAccents = () => {
 		// Set post accents
 		document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
-			if (
-				localStorage.getItem("theme") === "dark" ||
-				localStorage.getItem("theme") === "light"
-			) {
+			const currentTheme =
+				document.documentElement.getAttribute("data-theme");
+
+			if (currentTheme === "dark" || currentTheme === "light") {
 				post.style.setProperty("--accent", `${post.dataset.accent}`);
 			}
 		});

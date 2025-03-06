@@ -31,7 +31,7 @@ const { pageTitle } = Astro.props;
 		<a href="/" class="isolate">
 			<!--	<Icon class="header-logo" name="header" /> -->
 			<svg
-				class="stroke-foreground/80 hover:fill-accent-foreground fill-accent in-[.scrolled]:stroke-foreground/80 in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-7 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+				class="stroke-foreground/80 hover:fill-accent-foreground fill-accent in-[.scrolled]:stroke-foreground/80 in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 ml-1 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-7 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 500 182"
 			>
@@ -94,11 +94,11 @@ const { pageTitle } = Astro.props;
 			>
 			<a
 				id="desktop-theme-menu-btn"
-				class="desktop-nav-button hover:text-accent-foreground/80 menu-btn group/menu text-foreground/70 before:menu-btn-hover before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 [.open]:before:opacity-100 [.open]:after:opacity-80"
+				class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-background-header before:bg-glow-btn before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
 			>
 				<svg
-					id="desktop-theme-select"
-					class="fill-foreground stroke-foreground group-hover/menu:fill-accent-foreground group-hover/menu:stroke-accent-foreground in-[.open]:fill-accent-foreground in-[.open]:stroke-accent-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:scale-95 in-[.open]:opacity-40"
+					id="desktop-theme-menu-icon"
+					class="fill-foreground stroke-foreground in-[.open]:fill-accent-foreground in-[.open]:stroke-accent-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:scale-95 in-[.open]:opacity-40"
 					viewBox="0 0 24 24"
 					fill="currentColor"
 					stroke="currentColor"
@@ -133,7 +133,7 @@ const { pageTitle } = Astro.props;
 			</div>
 			<div
 				id="desktop-nav-button-hover"
-				class="bg-accent/10 rounded-base pointer-events-none absolute h-full opacity-100 peer-[.open]:peer-hover:opacity-0"
+				class="bg-glow-btn rounded-base pointer-events-none absolute h-full w-full opacity-0 peer-[.open]:peer-hover:opacity-0"
 			>
 			</div>
 		</div>
@@ -152,7 +152,6 @@ const { pageTitle } = Astro.props;
 		const navItems = document.getElementById(
 			"desktop-nav-items",
 		) as HTMLElement;
-		const navItemsRect = navItems.getBoundingClientRect();
 
 		const currentPath = "/" + window.location.pathname.split("/")[1];
 
@@ -190,6 +189,9 @@ const { pageTitle } = Astro.props;
 			underline.classList.remove("opacity-75");
 		}
 
+		// Set initial transition value for hover
+		hover.style.transition = "opacity 0.2s ease-in-out";
+
 		// Move hover to hovered nav button
 		navItems.addEventListener("mouseenter", () => {
 			hover.style.transition =
@@ -210,6 +212,7 @@ const { pageTitle } = Astro.props;
 			.forEach((button) => {
 				button.addEventListener("mouseenter", () => {
 					const buttonRect = button.getBoundingClientRect();
+					const navItemsRect = navItems.getBoundingClientRect();
 					hover.style.width = `${button.clientWidth}px`;
 					hover.style.transform = `translateX(${Math.round(buttonRect.left - navItemsRect.left)}px)`;
 
@@ -217,6 +220,33 @@ const { pageTitle } = Astro.props;
 						hover.classList.add(`opacity-100`);
 						hover.classList.remove(`opacity-0`);
 						hover.style.transform = `translateX(${Math.round(buttonRect.left - navItemsRect.left)}px)`;
+
+						// Forces recalculation on current x and y values and redraw to remove stutter on gradient positioning
+						setTimeout(() => {
+							const hoverRect = hover.getBoundingClientRect();
+							const rootStyles = getComputedStyle(
+								document.documentElement,
+							);
+							const currentX: number = parseInt(
+								rootStyles
+									.getPropertyValue("--mouse-x")
+									.slice(0, -2),
+							);
+							const currentY: number = parseInt(
+								rootStyles
+									.getPropertyValue("--mouse-y")
+									.slice(0, -2),
+							);
+							console.log(currentX);
+							hover.style.setProperty(
+								"--x",
+								`${currentX - hoverRect.left}px`,
+							);
+							hover.style.setProperty(
+								"--y",
+								`${currentY - hoverRect.top}px`,
+							);
+						}, 10);
 					});
 				});
 
@@ -229,6 +259,7 @@ const { pageTitle } = Astro.props;
 
 	setActiveLink();
 	document.addEventListener("astro:page-load", setActiveLink);
+	document.addEventListener("resize", setActiveLink);
 </script>
 
 <script>

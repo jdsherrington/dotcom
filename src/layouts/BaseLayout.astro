@@ -107,40 +107,55 @@ const { pageTitle, pageDesc } = Astro.props;
 <script>
 	const trackMouse = () => {
 		let ticking = false;
+		let lastX = 0,
+			lastY = 0;
 
-		const elements = document.querySelectorAll(
-			".card, pre, blockquote, .theme-drawer, .menu-btn",
+		const elements: NodeListOf<HTMLElement> = document.querySelectorAll(
+			".card, pre, blockquote, .theme-drawer, .menu-btn, #desktop-nav-button-hover",
 		);
 
-		document.addEventListener("mousemove", (e) => {
-			let x = e.clientX,
-				y = e.clientY;
-			if (!ticking) {
-				requestAnimationFrame(() => {
-					document.documentElement.style.setProperty(
-						"--mouse-x",
-						`${x}px`,
-					);
-					document.documentElement.style.setProperty(
-						"--mouse-y",
-						`${y}px`,
-					);
-
-					elements.forEach((element: any) => {
-						const rect = element.getBoundingClientRect();
-						element.style.setProperty("--x", `${x - rect.left}px`);
-						element.style.setProperty("--y", `${y - rect.top}px`);
-					});
-
-					ticking = false;
+		// Function to update positions
+		const updatePositions = () => {
+			requestAnimationFrame(() => {
+				document.documentElement.style.setProperty(
+					"--mouse-x",
+					`${lastX}px`,
+				);
+				document.documentElement.style.setProperty(
+					"--mouse-y",
+					`${lastY}px`,
+				);
+				elements.forEach((element) => {
+					const rect = element.getBoundingClientRect();
+					element.style.setProperty("--x", `${lastX - rect.left}px`);
+					element.style.setProperty("--y", `${lastY - rect.top}px`);
 				});
+				ticking = false;
+			});
+		};
+
+		// Mouse move event
+		document.addEventListener("mousemove", (e) => {
+			lastX = e.clientX;
+			lastY = e.clientY;
+
+			if (!ticking) {
 				ticking = true;
+				updatePositions();
+			}
+		});
+
+		// Scroll event
+		document.addEventListener("scroll", () => {
+			// Use the last known mouse position but recalculate element positions
+			if (!ticking) {
+				ticking = true;
+				updatePositions();
 			}
 		});
 	};
 
 	trackMouse();
-
 	document.addEventListener("astro:after-swap", () => {
 		trackMouse();
 	});
