@@ -3,38 +3,27 @@ interface Props {
 	text: string;
 	collection: string;
 }
-
+//  <!-- href=`/${collection}/tagged/${textCleaned}` -->
 const { text, collection } = Astro.props;
 
 const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 ---
 
-<a
-	href=`/${collection}/tagged/${textCleaned}`
-	class=`${textCleaned}-${collection}-tag card-tag hover`
->
+<a href=`/blog` class=`${textCleaned}-${collection}-tag card-tag hover`>
 	<span class="card-tag-text-offset">{text}</span>
 </a>
 
 <style is:global>
 	@reference "../styles/global.css";
 	*:has(> .card-tag) {
-		@apply flex h-min w-full flex-1 flex-row flex-wrap gap-1;
+		@apply flex h-min w-full flex-row flex-wrap gap-1;
 	}
 
 	.card-tag {
-		@apply sm:text-foreground/50 flex place-items-center place-self-end overflow-hidden rounded-lg px-3 py-1.5 font-mono text-xs tracking-wider whitespace-nowrap uppercase backdrop-blur-xl transition-all duration-200 sm:bg-[oklch(var(--foreground)/0.03)];
+		@apply sm:text-foreground/35 sm:border-foreground/15 flex cursor-pointer place-items-center place-self-end overflow-hidden rounded-xs border bg-transparent font-mono text-xs tracking-wider whitespace-nowrap uppercase transition-all duration-300 ease-in-out sm:px-3 sm:py-1.5 md:px-2.5 md:py-1 md:hover:!border-[oklch(var(--accent-foreground)/0.75)] md:hover:!bg-transparent md:hover:!text-[oklch(var(--accent-foreground))];
 	}
-
-	.card-tag.hover {
-		@apply md:hover:!bg-accent-background/50 md:hover:!text-accent-foreground cursor-pointer;
-	}
-
-	:not(.card) > * > * > .card-tag {
-		@apply md:bg-accent-foreground/5 md:text-accent-foreground/70;
-	}
-
-	.card:hover .card-tag {
-		@apply md:bg-accent-foreground/5 md:text-accent-foreground/50;
-	}
+	/**/
+	/* :not(.card) > * > * > .card-tag { */
+	/* 	@apply md:bg-accent-foreground/5 md:text-accent-foreground/70; */
+	/* } */
 </style>

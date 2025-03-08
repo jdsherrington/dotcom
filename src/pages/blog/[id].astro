@@ -29,7 +29,10 @@ const formattedDate = new Date(post.data.date).toLocaleDateString("en-AU", {
 const accentPalette: any = await extractOKLCHColors(post.data.imagePath);
 const accent = accentPalette[0];
 
-const readTime = Math.round(post.data.wordCount / 250);
+let readTime = 0;
+if (post.data.wordCount) {
+	readTime = Math.round(post.data.wordCount / 250);
+}
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}",
@@ -57,13 +60,20 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 ---
 
 <BaseLayout pageTitle={post.data.title}>
-	<div class="blog-page" data-accent={accent}>
-		<div transition:name=`image${post.data.url}` class="blog-page-banner">
+	<div
+		class="blog-page w-col-full gap-gutter relative flex flex-col place-items-center content-start place-self-center rounded"
+		data-accent={accent}
+	>
+		<div
+			id=`blog-post-image-${post.id}`
+			transition:name=`blog-post-image-${post.id}`
+			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 absolute top-0 left-0 w-full overflow-hidden transition-all duration-500 ease-in-out"
+		>
 			<Image
 				src={images[post.data.imagePath]()}
 				alt={post.data.imageAlt}
 			/>
-			<NavigationButton direction="back" position="top-left" />
+			<NavigationButton class="arrow-left absolute top-0 left-0" />
 		</div>
 		<div class="blog-page-body">
 			<div class="blog-page-sidebar">
@@ -72,23 +82,28 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 						src={images[post.data.imagePath]()}
 						alt={post.data.imageAlt}
 					/>
-					<NavigationButton direction="back" position="top-left" />
+					<NavigationButton
+						class="arrow-left m-gutter-1/2 bg-background-midpoint/50 text-foreground/80 md:hover:text-accent-foreground md:hover:bg-accent-background/50 absolute top-0 left-0 rounded-sm py-3 pr-4 pl-3.5 backdrop-blur-xl transition-all duration-300 ease-in-out *:h-3.5"
+					/>
 				</div>
 				<div class="blog-page-sidebar-info">
 					<h1
-						transition:name=`title-${post.data.url}`
+						id=`blog-post-title-${post.id}`
+						transition:name=`blog-post-title-${post.id}`
 						class="blog-page-title"
 					>
 						{post.data.title}
 					</h1>
 					<p
-						transition:name=`date-${post.data.url}`
+						id=`blog-post-date-${post.id}`
+						transition:name=`blog-post-date-${post.id}`
 						class="blog-page-date"
 					>
 						{formattedDate} // {readTime} min read
 					</p>
 					<div
-						transition:name=`tags-${post.data.url}`
+						id=`blog-post-tags-${post.id}`
+						transition:name=`blog-post-tags-${post.id}`
 						class="blog-page-tags"
 					>
 						{
@@ -145,10 +160,6 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 
 <style is:global>
 	@reference "@/styles/global.css";
-	.blog-page {
-		@apply w-col-full gap-gutter relative flex flex-col place-items-center content-start place-self-center rounded;
-	}
-
 	.blog-page-banner {
 		@apply rounded-base sm:h-col-3 lg:h-col-5 absolute top-0 left-0 w-full overflow-hidden transition-all duration-500 ease-in-out;
 

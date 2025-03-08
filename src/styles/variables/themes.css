@@ -1,6 +1,7 @@
 :root {
 	/* Theme-Agnostic Settings */
 
+	--accent-foreground-text: from oklch(var(--accent)) calc(var(--shade-foreground)*3) 0.01 h;
     --accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
     --accent-background: from oklch(var(--accent)) var(--shade-background) c h;
 

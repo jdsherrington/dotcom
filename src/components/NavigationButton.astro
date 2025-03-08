@@ -1,91 +1,32 @@
 ---
 import { Icon } from "astro-icon/components";
 
-interface Props {
-	text: string | undefined;
-	direction: string;
-	link: string | undefined;
-	position: string | undefined;
-}
-
-const { text, direction, link, position } = Astro.props;
+const { class: className = "" } = Astro.props;
 ---
 
-<a
-	href={link ?? void 0}
-	data-direction={direction}
-	data-link={link ?? ""}
-	class=`navigation-button ${text} direction-${direction} position-${position}`
->
-	<Icon class="back-arrow" name="ui/left-arrow" />{text}<Icon
-		class="forward-arrow"
+<div class=`${className}`>
+	<Icon class="left-arrow" name="ui/left-arrow" /><Icon
+		class="right-arrow"
 		name="ui/right-arrow"
 	/>
-</a>
+</div>
 
 <style is:global>
-	@reference "../styles/global.css";
-	.navigation-button {
-		@apply bg-background-primary/50 text-foreground/80 hover:bg-accent-background hover:text-accent-foreground flex items-center gap-2 rounded-[calc(var(--radius)-1px)] px-2.5 py-2.5 font-mono text-xs tracking-widest uppercase backdrop-blur-md transition-all duration-300 ease-in-out;
-	}
-
-	.navigation-button [data-icon] {
-		@apply h-4 w-auto px-1;
-	}
-
-	[data-direction="back"] {
-		.back-arrow {
+	.arrow-left {
+		.left-arrow {
 			@apply block;
 		}
-		.forward-arrow {
+		.right-arrow {
 			@apply hidden;
 		}
 	}
 
-	[data-direction="forward"] {
-		.forward-arrow {
+	.arrow-right {
+		.right-arrow {
 			@apply block;
 		}
-		.back-arrow {
+		.left-arrow {
 			@apply hidden;
 		}
-	}
-
-	.position-top-left {
-		@apply absolute top-2 left-2;
-	}
-
-	.position-top-right {
-		@apply absolute top-2 right-2;
-	}
-
-	.position-bottom-left {
-		@apply absolute bottom-2 left-2;
-	}
-
-	.position-bottom-right {
-		@apply absolute right-2 bottom-2;
 	}
 </style>
-
-<script>
-	const navigationAction = () => {
-		const buttons = document.querySelectorAll(".navigation-button");
-		if (buttons) {
-			buttons.forEach((button) => {
-				button.addEventListener("click", (e) => {
-					if (!e.currentTarget.getAttribute("data-link")) {
-						e.preventDefault();
-						e.currentTarget.getAttribute("data-direction") ===
-						"forward"
-							? history.forward()
-							: history.back();
-					}
-				});
-			});
-		}
-	};
-
-	navigationAction();
-	document.addEventListener("astro:after-swap", navigationAction);
-</script>
