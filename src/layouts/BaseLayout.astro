@@ -49,15 +49,16 @@ const { pageTitle, pageDesc } = Astro.props;
 		<ClientRouter />
 	</head>
 
-	<body data-overlayscrollbars-initialize class="flex flex-col">
+	<body data-overlayscrollbars-initialize class="flex flex-col items-center">
 		<Background />
+		<div
+			id="top-marker"
+			class="pointer-events-none absolute top-0 left-0 h-[1px] w-[1px] bg-transparent"
+		>
+		</div>
+
 		<Header pageTitle={pageTitle} />
 		<main class="self-center">
-			<div
-				id="top-marker"
-				class="bg-transparent; pointer-events-none h-[1px] w-[1px]"
-			>
-			</div>
 			<slot />
 		</main>
 		<MobileNav />
@@ -239,29 +240,27 @@ const { pageTitle, pageDesc } = Astro.props;
 
 <!-- Add "On Scroll" Logic -->
 <script is:inline>
-	const header = document.querySelector("header");
-	const setHeaderScrolled = () =>
-		setTimeout(() => {
-			header?.classList.toggle("scrolled", window.scrollY > 10);
-		}, 150);
+	const nav = document.querySelector("nav");
+	const setScrolledNav = () =>
+		nav?.classList.toggle("scrolled", window.scrollY > 40);
 
-	document.addEventListener("scroll", setHeaderScrolled);
-	document.addEventListener("astro:before-swap", setHeaderScrolled);
+	document.addEventListener("scroll", setScrolledNav);
+	document.addEventListener("astro:before-swap", setScrolledNav);
 </script>
 
 <script is:inline>
-	const setBodyScrolled = () => {
+	const setScrolledBody = () => {
 		let body = document.querySelector("body");
 		setTimeout(() => {
 			body?.classList.toggle("scrolled", window.scrollY > 350);
 		}, 150);
 	};
 
-	document.removeEventListener("scroll", setBodyScrolled);
-	document.removeEventListener("astro:before-swap", setBodyScrolled);
+	document.removeEventListener("scroll", setScrolledBody);
+	document.removeEventListener("astro:before-swap", setScrolledBody);
 
-	document.addEventListener("scroll", setBodyScrolled);
-	document.addEventListener("astro:before-swap", setBodyScrolled);
+	document.addEventListener("scroll", setScrolledBody);
+	document.addEventListener("astro:before-swap", setScrolledBody);
 </script>
 
 <!-- Display Images When Loaded -->

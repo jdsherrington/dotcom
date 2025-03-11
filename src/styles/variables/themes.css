@@ -43,6 +43,8 @@
 	--_dark-background: 0% 0 0;
 	--_dark-foreground: 95% 0.01 48;
 	--_dark-accent: 50% 0.01 48;
+	--_dark-border-foreground: color-mix(in srgb, oklch(var(--_dark-background-primary)) 60%, oklch(var(--_dark-foreground)) 40%);
+	--_dark-border-background: color-mix(in srgb, oklch(var(--_dark-background-primary)) 90%, oklch(var(--_dark-foreground)) 10%);
 	--_dark-background-primary: 28.62% 0.0145 226.58;
 	--_dark-background-secondary: 19.57% 0 0;
 	--_dark-background-tertiary: 31.42% 0.0098 164.3;
@@ -53,6 +55,8 @@
 		--background: var(--_dark-background);
 		--foreground: var(--_dark-foreground);
 		--accent: var(--_dark-accent);
+		--border-foreground: var(--_dark-border-foreground);
+		--border-background: var(--_dark-border-background);
 
 		--destructive-background: var(--destructive-dark);
 		--destructive-foreground: var(--destructive-light);
@@ -199,6 +203,8 @@
 	--_light-background: 100% 0 0;
 	--_light-foreground: 15% 0.01 48;
 	--_light-accent: 50% 0.01 48;
+	--_light-border-foreground: color-mix(in srgb, oklch(var(--_light-background-primary)) 50%, oklch(var(--_light-foreground)) 50%);
+	--_light-border-background: color-mix(in srgb, oklch(var(--_light-background-primary)) 85%, oklch(var(--_light-foreground)) 15%);
 	--_light-background-primary: 88.3% 0 0;
 	--_light-background-secondary: 80.45% 0 0;
 	--_light-background-tertiary: 90.45% 0 0;
@@ -209,6 +215,9 @@
 		--background: var(--_light-background);
 		--foreground: var(--_light-foreground);
 		--accent: var(--_light-accent);
+		--border-foreground: var(--_light-border-foreground);
+		--border-background: var(--_light-border-background);
+
 
 		--destructive-background: var(--destructive-light);
 		--destructive-foreground: var(--destructive-dark);

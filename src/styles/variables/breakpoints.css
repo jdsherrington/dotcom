@@ -79,7 +79,7 @@
 	/* SIZES */
 	--nav-height: 80px;
 	--header-height: calc(var(--nav-height)*1.5);
-	--radius: 8px;
+	--radius: 0px;
 
 	--col-1: calc(var(--col-absolute-width) * 1);
 	--col-2: calc((var(--col-absolute-width) * 2) + var(--col-gutter));

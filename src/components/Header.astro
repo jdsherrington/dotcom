@@ -12,133 +12,133 @@ const { pageTitle } = Astro.props;
 <header
 	transition:persist="header"
 	id="header"
-	class="group sm:h-header md:h-header pointer-events-none sticky top-0 z-1000 flex items-start justify-center"
+	class="group sm:h-header md:h-header w-col-full border-border-background pointer-events-none absolute top-0 left-1/2 z-1001 flex -translate-x-1/2 items-start justify-center border border-t-0 border-b-0"
 >
-	<div
-		id="mobile-header"
-		class="rounded-base *:border-foreground/10 *:bg-background-midpoint *:!text-foreground/80 *:rounded-base p-gutter-1/2 absolute top-0 left-0 flex h-min w-full flex-row gap-1 bg-red-500/10 opacity-0 transition-all duration-300 ease-in-out *:border *:shadow-lg *:shadow-black/10 *:blur-none sm:pointer-events-auto in-[.scrolled]:sm:opacity-100 md:pointer-events-none in-[.scrolled]:md:opacity-0"
-	>
-		<span
-			id="mobile-header-page-title"
-			class="flex w-full max-w-full items-center overflow-hidden px-4 py-2.5 align-middle font-mono text-sm leading-snug tracking-wider text-ellipsis uppercase transition-all duration-300 ease-in-out"
-		></span>
-	</div>
+</header>
+<div
+	id="mobile-header"
+	class="rounded-base *:border-foreground/10 *:bg-background-midpoint *:!text-foreground/80 *:rounded-base p-gutter-1/2 absolute top-0 left-0 flex h-min w-full flex-row gap-1 border-t-0 bg-red-500/10 opacity-0 transition-all duration-300 ease-in-out *:border *:shadow-lg *:shadow-black/10 *:blur-none sm:pointer-events-auto in-[.scrolled]:sm:opacity-100 md:pointer-events-none in-[.scrolled]:md:opacity-0"
+>
+	<span
+		id="mobile-header-page-title"
+		class="flex w-full max-w-full items-center overflow-hidden px-4 py-2.5 align-middle font-mono text-sm leading-snug tracking-wider text-ellipsis uppercase"
+	></span>
+</div>
 
-	<nav
-		id="desktop-nav"
-		class="rounded-base m-gutter-1/2 px-gutter md:mt-gutter h-nav before:-top-gutter-1/2 before:-left-gutter-1/2 before:rounded-base in-[.scrolled]:!mt-gutter-1/2 in-[.scrolled]:before:md:bg-background-header in-[.scrolled]:before:md:shadow-background/50 pointer-events-auto relative z-1001 mb-0 flex w-[calc((var(--col-gutter)*2)+var(--col-full))] items-center border-0 border-transparent bg-transparent shadow-2xl shadow-transparent transition-all duration-300 ease-in-out before:absolute before:-z-1 before:h-[calc(100%+(var(--col-gutter)))] before:w-full before:scale-105 before:overflow-auto before:blur-lg before:backdrop-blur-none before:transition-all before:duration-300 before:ease-in-out before:content-[''] in-[.scrolled]:before:top-0 in-[.scrolled]:before:left-0 in-[.scrolled]:before:h-full in-[.scrolled]:before:w-full in-[.scrolled]:before:scale-100 sm:pointer-events-none sm:justify-center in-[.scrolled]:before:sm:bg-transparent in-[.scrolled]:before:sm:shadow-transparent in-[.scrolled]:before:sm:backdrop-blur-none md:pointer-events-auto md:justify-between in-[.scrolled]:before:md:blur-none in-[.scrolled]:before:md:backdrop-blur-xl"
-	>
-		<a href="/" class="isolate">
-			<!--	<Icon class="header-logo" name="header" /> -->
-			<svg
-				class="stroke-foreground/80 hover:fill-accent-foreground fill-accent in-[.scrolled]:stroke-foreground/80 in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 ml-1 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-7 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 500 182"
+<nav
+	id="desktop-nav"
+	transition:persist="nav"
+	class="rounded-base px-gutter h-nav border-border-background border-b-border-background/0 [.scrolled]:!border-b-border-background before:h-header [.scrolled]:before:bg-background-header pointer-events-auto sticky top-0 z-1000 my-[calc((var(--header-height)-var(--nav-height))/2)] flex w-[calc(var(--col-full)-2px)] items-center border-b bg-transparent shadow-2xl shadow-transparent backdrop-blur-2xl [transition:background-color_100ms_ease-in-out,border-color_0ms_linear] before:absolute before:inset-0 before:-top-[calc((var(--header-height)-var(--nav-height))/2)] before:z-0 before:bg-transparent before:transition-colors before:duration-200 before:ease-in-out sm:justify-center md:justify-between [.scrolled]:before:top-0 [.scrolled]:before:h-[calc(var(--nav-height)-1px)]"
+>
+	<a href="/" class="isolate md:ml-1">
+		<!--	<Icon class="header-logo" name="header" /> -->
+		<svg
+			class="stroke-foreground/80 hover:fill-accent-foreground fill-accent in-[.scrolled]:stroke-foreground/80 in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 ml-1 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-7 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 500 182"
+		>
+			<g
+				id="header-logo"
+				class="in-[.theme-source]:opacity-0"
+				transform="matrix(1, 0, 0, 1, -5.000214099884033, 5.000002861022942)"
+				style=""
 			>
+				<path
+					style="fill: none;"
+					d="M 245 90 C 245 88.84 245 57.5 245 55 C 245 35 230 20 210 20 C 207.5 20 127.5 20 125 20 C 105 20 90 35 90 55 L 90 125 C 90 145 75 160 55 160 C 35 160 20 145 20 125 L 20 90"
+				></path>
+				<path
+					style="fill: none; "
+					d="M 160 90 C 160 90 160 147.5 160 160 C 170 160 345 160 347.5 160 C 367.5 160 382.5 145 382.5 125 C 382.5 105 367.5 90 347.5 90 C 345 90 340 90 337.5 90 C 317.5 90 302.5 75 302.5 55 C 302.5 35 317.5 20 337.5 20 C 340 20 380 20 382.5 20"
+				></path>
 				<g
-					id="header-logo"
-					class="in-[.theme-source]:opacity-0"
-					transform="matrix(1, 0, 0, 1, -5.000214099884033, 5.000002861022942)"
+					transform="matrix(1.149999, 0, 0, 1.149999, -52.374329, -183.131683)"
 					style=""
 				>
 					<path
-						style="fill: none;"
-						d="M 245 90 C 245 88.84 245 57.5 245 55 C 245 35 230 20 210 20 C 207.5 20 127.5 20 125 20 C 105 20 90 35 90 55 L 90 125 C 90 145 75 160 55 160 C 35 160 20 145 20 125 L 20 90"
+						style="stroke: none"
+						d="M 378.152 211.419 C 412.934 211.419 430.326 194.027 430.326 159.245 C 430.326 194.027 447.718 211.419 482.5 211.419 C 447.718 211.419 430.326 228.811 430.326 263.593 C 430.326 228.811 412.934 211.419 378.152 211.419 Z"
 					></path>
-					<path
-						style="fill: none; "
-						d="M 160 90 C 160 90 160 147.5 160 160 C 170 160 345 160 347.5 160 C 367.5 160 382.5 145 382.5 125 C 382.5 105 367.5 90 347.5 90 C 345 90 340 90 337.5 90 C 317.5 90 302.5 75 302.5 55 C 302.5 35 317.5 20 337.5 20 C 340 20 380 20 382.5 20"
-					></path>
-					<g
-						transform="matrix(1.149999, 0, 0, 1.149999, -52.374329, -183.131683)"
-						style=""
-					>
-						<path
-							style="stroke: none"
-							d="M 378.152 211.419 C 412.934 211.419 430.326 194.027 430.326 159.245 C 430.326 194.027 447.718 211.419 482.5 211.419 C 447.718 211.419 430.326 228.811 430.326 263.593 C 430.326 228.811 412.934 211.419 378.152 211.419 Z"
-						></path>
-					</g>
 				</g>
+			</g>
+			<g
+				id="header-logo-source"
+				class="opacity-0 in-[.theme-source]:opacity-100"
+				transform="matrix(1, 0, 0, 1, -2.50068998336792, -95)"
+			>
+				<path
+					style="fill: none;"
+					d="M 242.5 190 C 242.5 188.84 242.5 170 242.5 167.5 M 217.5 142.5 C 217.5 141.34 217.5 122.5 217.5 120 M 192.5 120 C 190 120 125 120 122.5 120 C 113.151 120 87.5 120 87.5 120 C 87.5 120 87.5 144.349 87.5 155 L 87.5 225 C 87.5 235.326 87.5 260 87.5 260 C 87.5 260 62.174 260 52.5 260 C 42.5 260 17.5 260 17.5 260 C 17.5 260 17.5 235 17.5 225 L 17.501 190"
+				></path>
+				<path
+					style="fill: none;"
+					d="M 157.501 190 C 157.501 190 157.5 247.5 157.5 260 C 167.5 260 342.5 260 345 260 C 354.349 260 380 260 380 260 C 380 260 380 235.651 380 225 C 380 214.674 380 190 380 190 C 380 190 354.674 190 345 190 C 342.5 190 337.5 190 335 190 C 325.326 190 300 190 300 190 C 300 190 300 165.326 300 155 C 300 145 300 120 300 120 C 300 120 325 120 335 120 C 337.5 120 377.5 120 380 120"
+				></path>
+				<g transform="matrix(1, 0, 0, 1, -2.499, 97.5)">
+					<path
+						d="M 435 12.5 L 450 12.5 L 450 27.5 L 457.501 27.5 L 457.501 47.5 L 477.499 47.5 L 477.499 55 L 492.5 55 L 492.5 70 L 477.499 70 L 477.499 77.502 L 457.501 77.502 L 457.501 97.498 L 450 97.498 L 450 112.5 L 435 112.5 L 435 97.498 L 427.5 97.498 L 427.5 77.502 L 407.5 77.502 L 407.5 70 L 392.5 70 L 392.5 55 L 407.5 55 L 407.5 47.5 L 427.5 47.5 L 427.5 27.5 L 435 27.5 Z"
+						style="stroke: none;"></path>
+				</g>
+			</g>
+		</svg>
+	</a>
+
+	<div
+		id="desktop-nav-items"
+		class="relative h-auto items-center gap-0 sm:hidden md:flex"
+	>
+		<a class="desktop-nav-button desktop-nav-link" href="/blog">Blog</a>
+		<a class="desktop-nav-button desktop-nav-link" href="/projects"
+			>Projects</a
+		>
+		<a class="desktop-nav-button desktop-nav-link" href="/resources"
+			>Resources</a
+		>
+		<a
+			id="desktop-theme-menu-btn"
+			class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-background-header before:bg-glow-btn before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
+		>
+			<svg
+				id="desktop-theme-menu-icon"
+				class="fill-foreground stroke-foreground in-[.open]:fill-accent-foreground in-[.open]:stroke-accent-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:scale-95 in-[.open]:opacity-40"
+				viewBox="0 0 24 24"
+				fill="currentColor"
+				stroke="currentColor"
+				stroke-width="2"
+			>
 				<g
-					id="header-logo-source"
-					class="opacity-0 in-[.theme-source]:opacity-100"
-					transform="matrix(1, 0, 0, 1, -2.50068998336792, -95)"
+					transform="matrix(1, 0, 0, 1, -204.615997, -72.276001)"
+					style="transform-origin: 204.616px 72.276px;"
 				>
 					<path
-						style="fill: none;"
-						d="M 242.5 190 C 242.5 188.84 242.5 170 242.5 167.5 M 217.5 142.5 C 217.5 141.34 217.5 122.5 217.5 120 M 192.5 120 C 190 120 125 120 122.5 120 C 113.151 120 87.5 120 87.5 120 C 87.5 120 87.5 144.349 87.5 155 L 87.5 225 C 87.5 235.326 87.5 260 87.5 260 C 87.5 260 62.174 260 52.5 260 C 42.5 260 17.5 260 17.5 260 C 17.5 260 17.5 235 17.5 225 L 17.501 190"
-					></path>
+						d="M 227.616 84.276 C 227.616 90.351 222.692 95.276 216.616 95.276 C 210.541 95.276 205.616 90.351 205.616 84.276 C 205.616 78.201 210.541 73.276 216.616 73.276 C 222.692 73.276 227.616 78.201 227.616 84.276 Z"
+						style="fill: none; stroke-width: 2px;"></path>
 					<path
-						style="fill: none;"
-						d="M 157.501 190 C 157.501 190 157.5 247.5 157.5 260 C 167.5 260 342.5 260 345 260 C 354.349 260 380 260 380 260 C 380 260 380 235.651 380 225 C 380 214.674 380 190 380 190 C 380 190 354.674 190 345 190 C 342.5 190 337.5 190 335 190 C 325.326 190 300 190 300 190 C 300 190 300 165.326 300 155 C 300 145 300 120 300 120 C 300 120 325 120 335 120 C 337.5 120 377.5 120 380 120"
+						d="M 216.617 78.276 C 219.93 78.276 222.617 80.962 222.617 84.276 C 222.617 87.59 219.93 90.276 216.617 90.276 Z M 216.616 95.276 C 222.691 95.276 227.616 90.351 227.616 84.276 C 227.616 78.201 222.691 73.276 216.616 73.276 Z"
+						style="stroke-width: 0px; isolation: isolate;"></path>
+					<path
+						d="M 210.617 90.276 C 213.93 90.276 216.617 87.59 216.617 84.276 C 216.617 80.962 213.93 78.276 210.617 78.276"
+						style="stroke-width: 0px; isolation: isolate; transform-box: fill-box; transform-origin: 50% 50%;"
+						transform="matrix(-1, 0, 0, -1, 0.000008, 0.000004)"
 					></path>
-					<g transform="matrix(1, 0, 0, 1, -2.499, 97.5)">
-						<path
-							d="M 435 12.5 L 450 12.5 L 450 27.5 L 457.501 27.5 L 457.501 47.5 L 477.499 47.5 L 477.499 55 L 492.5 55 L 492.5 70 L 477.499 70 L 477.499 77.502 L 457.501 77.502 L 457.501 97.498 L 450 97.498 L 450 112.5 L 435 112.5 L 435 97.498 L 427.5 97.498 L 427.5 77.502 L 407.5 77.502 L 407.5 70 L 392.5 70 L 392.5 55 L 407.5 55 L 407.5 47.5 L 427.5 47.5 L 427.5 27.5 L 435 27.5 Z"
-							style="stroke: none;"></path>
-					</g>
 				</g>
 			</svg>
+			<ThemeDrawer
+				class="before:menu-bg-hover -right-gutter-1/2 top-[calc(75%+0.25rem)] before:bg-transparent [.open]:top-[calc(100%+0.25rem)]"
+			/>
 		</a>
-
 		<div
-			id="desktop-nav-items"
-			class="relative h-auto items-center gap-0 sm:hidden md:flex"
+			id="desktop-nav-active-underline"
+			class="border-accent-foreground pointer-events-none absolute top-0 left-0 h-full !rounded-none border-b bg-transparent opacity-0 blur-none transition-all duration-200 ease-in-out"
 		>
-			<a class="desktop-nav-button desktop-nav-link" href="/blog">Blog</a>
-			<a class="desktop-nav-button desktop-nav-link" href="/projects"
-				>Projects</a
-			>
-			<a class="desktop-nav-button desktop-nav-link" href="/resources"
-				>Resources</a
-			>
-			<a
-				id="desktop-theme-menu-btn"
-				class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-background-header before:bg-glow-btn before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
-			>
-				<svg
-					id="desktop-theme-menu-icon"
-					class="fill-foreground stroke-foreground in-[.open]:fill-accent-foreground in-[.open]:stroke-accent-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:scale-95 in-[.open]:opacity-40"
-					viewBox="0 0 24 24"
-					fill="currentColor"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<g
-						transform="matrix(1, 0, 0, 1, -204.615997, -72.276001)"
-						style="transform-origin: 204.616px 72.276px;"
-					>
-						<path
-							d="M 227.616 84.276 C 227.616 90.351 222.692 95.276 216.616 95.276 C 210.541 95.276 205.616 90.351 205.616 84.276 C 205.616 78.201 210.541 73.276 216.616 73.276 C 222.692 73.276 227.616 78.201 227.616 84.276 Z"
-							style="fill: none; stroke-width: 2px;"></path>
-						<path
-							d="M 216.617 78.276 C 219.93 78.276 222.617 80.962 222.617 84.276 C 222.617 87.59 219.93 90.276 216.617 90.276 Z M 216.616 95.276 C 222.691 95.276 227.616 90.351 227.616 84.276 C 227.616 78.201 222.691 73.276 216.616 73.276 Z"
-							style="stroke-width: 0px; isolation: isolate;"
-						></path>
-						<path
-							d="M 210.617 90.276 C 213.93 90.276 216.617 87.59 216.617 84.276 C 216.617 80.962 213.93 78.276 210.617 78.276"
-							style="stroke-width: 0px; isolation: isolate; transform-box: fill-box; transform-origin: 50% 50%;"
-							transform="matrix(-1, 0, 0, -1, 0.000008, 0.000004)"
-						></path>
-					</g>
-				</svg>
-				<ThemeDrawer
-					class="before:menu-bg-hover -right-gutter-1/2 top-[calc(75%+0.25rem)] before:bg-transparent [.open]:top-[calc(100%+0.25rem)]"
-				/>
-			</a>
-			<div
-				id="desktop-nav-active-underline"
-				class="border-accent-foreground pointer-events-none absolute top-0 left-0 h-full !rounded-none border-b bg-transparent opacity-0 blur-none transition-all duration-200 ease-in-out"
-			>
-			</div>
-			<div
-				id="desktop-nav-button-hover"
-				class="bg-glow-btn rounded-base pointer-events-none absolute h-full w-full opacity-0 peer-[.open]:peer-hover:opacity-0"
-			>
-			</div>
 		</div>
-	</nav>
-</header>
+		<div
+			id="desktop-nav-button-hover"
+			class="bg-glow-btn rounded-base pointer-events-none absolute h-full w-full opacity-0 peer-[.open]:peer-hover:opacity-0"
+		>
+		</div>
+	</div>
+</nav>
 
 <script>
 	function setActiveLink() {

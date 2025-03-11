@@ -60,7 +60,7 @@ if (!images[imagePath])
 <div
 	id=`blog-post-${id}`
 	transition:name=`blog-post-${id}`
-	class="blog-post card group flex selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3"
+	class="blog-post card group flex border-0 border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t [&[data-type='featured']]:after:w-full [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 [&[data-type='standard']]:border-r"
 	style="--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
 			h;
 		--accent-background: from oklch(var(--accent)) var(--shade-background) c
@@ -73,31 +73,39 @@ if (!images[imagePath])
 		id=`blog-post-image-${id}`
 		href={url}
 		transition:name=`blog-post-image-${id}`
-		class="z-1 cursor-pointer"
+		class="border-border-background m-gutter in-[&[data-type='featured']]:md-mr-0 in-[&[data-type='standard']]:md:mr-gutter z-1 cursor-pointer border sm:mr-0 in-[&[data-type='standard']]:md:mb-0"
 		data-loaded="false"
 	>
 		<Image
 			src={images[imagePath]()}
 			alt={imageAlt}
 			onload="this.parentElement.dataset.loaded = 'true'"
-			class="in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='featured']]:md:max-h-col-4 in-[&[data-type='featured']]:lg:max-h-col-5 in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:md:h-col-2 h-full w-full object-cover in-[&[data-type='featured']]:sm:min-h-full in-[&[data-type='standard']]:md:w-full"
+			class="in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='featured']]:md:max-h-col-4 in-[&[data-type='featured']]:lg:max-h-col-5 in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:md:h-col-2 border-border-background h-full w-full object-cover in-[&[data-type='featured']]:sm:min-h-full md:border-b md:opacity-80 in-[&[data-type='standard']]:md:w-full"
 		/>
+		<small
+			class="text-border-foreground prevent-select text-2xs pointer-events-none line-clamp-1 px-2 py-1.5 text-right font-mono tracking-widest uppercase sm:hidden md:block"
+			>// {imageAlt}
+		</small>
 	</a>
 	<div
 		id=`blog-post-content-${id}`
-		class="p-gutter z-1 flex w-full flex-col transition-opacity duration-300 ease-in-out group-hover:opacity-100 in-[&[data-type='featured']]:justify-center in-[&[data-type='standard']]:h-full sm:opacity-100 md:opacity-80"
+		class="p-gutter z-1 flex w-full flex-col transition-opacity duration-300 ease-in-out group-hover:opacity-100 in-[&[data-type='featured']]:justify-center in-[&[data-type='standard']]:h-full sm:opacity-100 in-[&[data-type='standard']]:sm:pt-4 md:opacity-90"
 	>
-		<small
+		<div
 			id=`blog-post-featured-${id}`
-			class="text-foreground/50 mb-1.5 hidden font-mono text-xs tracking-widest uppercase in-[&[data-type='featured']]:block"
-			>Featured Post</small
+			class="pointer-events-none mb-4 hidden grow-1 items-end font-mono text-xs tracking-widest uppercase select-none in-[&[data-type='featured']]:flex"
 		>
+			<small
+				class="text-border-foreground border-border-background border px-2.5 py-2"
+				>Featured Post</small
+			>
+		</div>
 
 		<a href={url}>
 			<h1
 				id=`blog-post-title-${id}`
 				transition:name=`blog-post-title-${id}`
-				class="sm:text-foreground/90 md:text-foreground/80 hover:text-foreground/90 mb-1.5 leading-[1.2] font-bold tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl in-[&[data-type='featured']]:sm:text-2xl in-[&[data-type='featured']]:lg:text-3xl"
+				class="sm:text-foreground/90 md:text-foreground/80 hover:text-foreground/90 mb-1.5 font-mono leading-[1.2] text-pretty uppercase transition-colors duration-300 ease-in-out sm:text-xl in-[&[data-type='featured']]:sm:text-2xl in-[&[data-type='featured']]:lg:text-3xl"
 			>
 				{title}
 			</h1>
@@ -122,19 +130,26 @@ if (!images[imagePath])
 		<div
 			id=`blog-post-tags-${id}`
 			transition:name=`blog-post-tags-${id}`
-			class="place-content-start in-[&[data-type='standard']]:flex-grow"
+			class="grow-1 place-content-start in-[&[data-type='standard']]:flex-grow"
 		>
 			{tags?.map((tag: any) => <CardTag text={tag} collection="blog" />)}
 		</div>
-		<a
-			href={url}
-			id=`blog-post-button-${id}`
-			transition:name=`blog-post-button-${id}`
-			class="navigation-button rounded-base sm:bg-foreground/5 text-foreground/70 relative mt-3 inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end px-4 py-2.5 pr-3.5 font-mono text-xs tracking-wider uppercase transition-all duration-300 ease-in-out hover:md:bg-[oklch(var(--accent)/0.25)] hover:md:text-[oklch(var(--accent-foreground))]"
-		>
-			<span>{readTime} min read</span>
-			<Icon name="ui/right-arrow" class="h-3 w-auto" />
-		</a>
+		<div id=`blog-post-button-wrapper-${id}` class="group mt-4 flex w-full">
+			<div
+				id=`blog-post-decoration-${id}`
+				class="border-border-background before:ease-flicker ease-flicker relative grow-1 border border-r-0 bg-[repeating-linear-gradient(45deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_2px,transparent_2px,transparent_8px)] transition-all duration-300 group-has-[.navigation-button:hover]:border-[oklch(var(--accent-foreground))] before:absolute before:inset-0 before:bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-300 before:content-[''] group-has-[.navigation-button:hover]:before:opacity-0"
+			>
+			</div>
+			<a
+				href={url}
+				id=`blog-post-button-${id}`
+				transition:name=`blog-post-button-${id}`
+				class="navigation-button rounded-base border-border-background text-foreground/80 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-300 hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
+			>
+				<span class="">{readTime} min read</span>
+				<Icon name="ui/right-arrow" class="h-3 w-auto" />
+			</a>
+		</div>
 	</div>
 </div>
 

@@ -16,14 +16,10 @@ const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 <style is:global>
 	@reference "../styles/global.css";
 	*:has(> .card-tag) {
-		@apply flex h-min w-full flex-row flex-wrap gap-1;
+		@apply flex h-min w-full flex-row flex-wrap;
 	}
 
 	.card-tag {
-		@apply sm:text-foreground/35 sm:border-foreground/15 flex cursor-pointer place-items-center place-self-end overflow-hidden rounded-xs border bg-transparent font-mono text-xs tracking-wider whitespace-nowrap uppercase transition-all duration-300 ease-in-out sm:px-3 sm:py-1.5 md:px-2.5 md:py-1 md:hover:!border-[oklch(var(--accent-foreground)/0.75)] md:hover:!bg-transparent md:hover:!text-[oklch(var(--accent-foreground))];
+		@apply text-border-foreground border-border-background ease-flicker -mt-[1px] -ml-[1px] flex cursor-pointer place-items-center place-self-end overflow-hidden rounded-xs border bg-transparent px-2.5 py-2 font-mono text-xs tracking-widest whitespace-nowrap uppercase transition-all duration-300 hover:z-100 md:hover:!border-[oklch(var(--accent-foreground))] md:hover:!bg-transparent md:hover:!text-[oklch(var(--accent-foreground))];
 	}
-	/**/
-	/* :not(.card) > * > * > .card-tag { */
-	/* 	@apply md:bg-accent-foreground/5 md:text-accent-foreground/70; */
-	/* } */
 </style>
