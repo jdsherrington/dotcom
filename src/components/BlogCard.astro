@@ -75,6 +75,7 @@ if (!images[imagePath])
 		transition:name=`blog-post-image-${id}`
 		class="border-border-background m-gutter in-[&[data-type='featured']]:md-mr-0 in-[&[data-type='standard']]:md:mr-gutter z-1 cursor-pointer border sm:mr-0 in-[&[data-type='standard']]:md:mb-0"
 		data-loaded="false"
+		data-id="${id}"
 	>
 		<Image
 			src={images[imagePath]()}
@@ -130,21 +131,21 @@ if (!images[imagePath])
 		<div
 			id=`blog-post-tags-${id}`
 			transition:name=`blog-post-tags-${id}`
-			class="grow-1 place-content-start in-[&[data-type='standard']]:flex-grow"
+			class="tags-box grow-1 place-content-start in-[&[data-type='standard']]:flex-grow"
 		>
 			{tags?.map((tag: any) => <CardTag text={tag} collection="blog" />)}
 		</div>
 		<div id=`blog-post-button-wrapper-${id}` class="group mt-4 flex w-full">
 			<div
 				id=`blog-post-decoration-${id}`
-				class="border-border-background before:ease-flicker ease-flicker relative grow-1 border border-r-0 bg-[repeating-linear-gradient(45deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_2px,transparent_2px,transparent_8px)] transition-all duration-300 group-has-[.navigation-button:hover]:border-[oklch(var(--accent-foreground))] before:absolute before:inset-0 before:bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-300 before:content-[''] group-has-[.navigation-button:hover]:before:opacity-0"
+				class="before:ease-flicker ease-flicker border-border-background relative grow-1 border border-r-0 bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 group-has-[.navigation-button:hover]:border-[oklch(var(--accent-foreground))] before:absolute before:inset-0 before:bg-[repeating-linear-gradient(45deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_2px,transparent_2px,transparent_8px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:before:opacity-100"
 			>
 			</div>
 			<a
 				href={url}
 				id=`blog-post-button-${id}`
 				transition:name=`blog-post-button-${id}`
-				class="navigation-button rounded-base border-border-background text-foreground/80 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-300 hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
+				class="navigation-button rounded-base border-border-background text-foreground/80 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
 			>
 				<span class="">{readTime} min read</span>
 				<Icon name="ui/right-arrow" class="h-3 w-auto" />
@@ -155,6 +156,7 @@ if (!images[imagePath])
 
 <script>
 	const setPostAccents = () => {
+		console.log("COUNT");
 		// Set post accents
 		document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
 			const currentTheme =
@@ -170,5 +172,130 @@ if (!images[imagePath])
 	setPostAccents();
 	document.addEventListener("astro:after-swap", () => {
 		setPostAccents();
+	});
+
+	const setTagRows = () => {
+		console.log("TRIGGER");
+		const tagBoxes = document.querySelectorAll(".tags-box");
+
+		if (!tagBoxes) {
+			return;
+		}
+		// First check applies relevant flex row classes
+		tagBoxes.forEach((tagBox) => {
+			const tags = tagBox.querySelectorAll(".card-tag");
+
+			// Reset previous row classes
+			tags.forEach((tag) => {
+				for (let i = 0; i < 10; i++) {
+					tag.classList.remove(`tag-row-${i + 1}`);
+				}
+			});
+
+			if (tags.length === 0) return;
+
+			let prevTop = tags[0].getBoundingClientRect().top;
+			let currentRow = 1;
+
+			tags.forEach((tag) => {
+				const tagTop = tag.getBoundingClientRect().top;
+
+				if (Math.abs(tagTop - prevTop) > 1) {
+					currentRow++;
+					prevTop = tagTop;
+				}
+
+				tag.classList.add(`tag-row-${currentRow}`);
+			});
+		});
+
+		tagBoxes.forEach((tagBox: any) => {
+			const tags: NodeListOf<HTMLElement> =
+				tagBox.querySelectorAll(".card-tag");
+			if (tags.length === 0) return;
+
+			let rowLengths: number[] = new Array(10).fill(0);
+
+			for (let i = 0; i < 10; i++) {
+				tags.forEach((tag: HTMLElement) => {
+					if (tag.classList.contains(`tag-row-${i + 1}`)) {
+						rowLengths[i] += tag.clientWidth;
+					}
+				});
+			}
+
+			rowLengths.forEach((rowLength: number, index) => {
+				const rowTags = tagBox.querySelectorAll(
+					`.tag-row-${index + 1}`,
+				);
+
+				// Cancels loop if current row is empty, offsets margins on previous row
+				if (rowLengths[index] === 0) {
+					return;
+				}
+
+				// Clears border classes, add hover margin offsets
+				rowTags.forEach((tag: any) => {
+					tag.classList.remove("border-l");
+					tag.classList.remove("border-r");
+					tag.classList.remove("border-b");
+					tag.classList.remove("border-t");
+
+					// tag.classList.add("md:hover:-mb-[1px]");
+					// tag.classList.add("md:hover:-mr-[1px]");
+					// tag.classList.add("md:hover:-mt-[1px]");
+				});
+
+				// Sets left borders on all tags in row, and right border on the last row tag
+				rowTags.forEach(
+					(tag: any, i: number, arr: NodeListOf<HTMLElement>) => {
+						tag.classList.add("border-l");
+						if (i === arr.length - 1) {
+							tag.classList.add("border-r");
+							tag.classList.remove("md:hover:-mr-[1px]");
+						}
+					},
+				);
+
+				// Sets top border on first row
+				if (index == 0) {
+					rowTags.forEach((tag: any) => {
+						tag.classList.add("border-t");
+					});
+				}
+
+				// Sets bottom border if current row is longer than next row
+				if (rowLengths[index] >= rowLengths[index + 1]) {
+					rowTags.forEach((tag: any) => {
+						tag.classList.add("border-b");
+						tag.classList.remove("md:hover:-mb-[1px]");
+					});
+				}
+
+				// Sets top border if current row is longer than previous row
+				if (rowLengths[index] > rowLengths[index - 1]) {
+					rowTags.forEach((tag: any) => {
+						tag.classList.add("border-t");
+						tag.classList.remove("md:hover:-mt-[1px]");
+					});
+				}
+
+				if (rowLengths[index + 1] === 0) {
+					rowTags.forEach((tag: any) => {
+						tag.classList.add("border-b");
+						tag.classList.remove("md:hover:-mb-[1px]");
+						tag.classList.add("md:hover:pb-[8px]");
+					});
+				}
+			});
+		});
+	};
+
+	setTagRows();
+	document.addEventListener("astro:after-swap", () => {
+		setTagRows();
+	});
+	window.addEventListener("resize", () => {
+		setTagRows();
 	});
 </script>

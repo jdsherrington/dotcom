@@ -12,7 +12,7 @@ const { pageTitle } = Astro.props;
 <header
 	transition:persist="header"
 	id="header"
-	class="group sm:h-header md:h-header w-col-full border-border-background pointer-events-none absolute top-0 left-1/2 z-1001 flex -translate-x-1/2 items-start justify-center border border-t-0 border-b-0"
+	class="group sm:h-header md:h-header w-col-full border-border-background pointer-events-none absolute top-0 left-1/2 z-1001 flex -translate-x-1/2 items-start justify-center"
 >
 </header>
 <div
@@ -28,12 +28,12 @@ const { pageTitle } = Astro.props;
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base px-gutter h-nav border-border-background border-b-border-background/0 [.scrolled]:!border-b-border-background before:h-header [.scrolled]:before:bg-background-header pointer-events-auto sticky top-0 z-1000 my-[calc((var(--header-height)-var(--nav-height))/2)] flex w-[calc(var(--col-full)-2px)] items-center border-b bg-transparent shadow-2xl shadow-transparent backdrop-blur-2xl [transition:background-color_100ms_ease-in-out,border-color_0ms_linear] before:absolute before:inset-0 before:-top-[calc((var(--header-height)-var(--nav-height))/2)] before:z-0 before:bg-transparent before:transition-colors before:duration-200 before:ease-in-out sm:justify-center md:justify-between [.scrolled]:before:top-0 [.scrolled]:before:h-[calc(var(--nav-height)-1px)]"
+	class="rounded-base py-gutter-1/2 [.scrolled]:px-gutter-1/2 h-nav border-border-background border-b-border-background/0 [.scrolled]:!border-b-border-background before:h-header [.scrolled]:before:bg-background-header pointer-events-auto sticky top-0 z-1000 my-[calc((var(--header-height)-var(--nav-height))/2)] flex w-[calc(var(--col-full)-2px)] items-center border-b bg-transparent px-[calc(((var(--header-height)-var(--nav-height))/2)+var(--col-gutter)/2)] shadow-2xl shadow-transparent backdrop-blur-none [transition:padding_150ms_linear,background-color_100ms_ease-in-out,border-color_0ms_linear] before:absolute before:inset-0 before:-top-[calc((var(--header-height)-var(--nav-height))/2)] before:z-0 before:bg-transparent before:transition-colors before:duration-200 before:ease-in-out sm:justify-center md:justify-between [.scrolled]:backdrop-blur-2xl [.scrolled]:before:top-0 [.scrolled]:before:h-[calc(var(--nav-height)-1px)]"
 >
-	<a href="/" class="isolate md:ml-1">
+	<a href="/" class="isolate px-4 pb-1">
 		<!--	<Icon class="header-logo" name="header" /> -->
 		<svg
-			class="stroke-foreground/80 hover:fill-accent-foreground fill-accent in-[.scrolled]:stroke-foreground/80 in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 ml-1 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-7 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+			class="stroke-border-foreground hover:fill-accent-foreground hover:stroke-foreground/80 fill-accent in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-8 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 500 182"
 		>
@@ -85,7 +85,7 @@ const { pageTitle } = Astro.props;
 
 	<div
 		id="desktop-nav-items"
-		class="relative h-auto items-center gap-0 sm:hidden md:flex"
+		class="border-border-background relative h-full items-center gap-0 border sm:hidden md:flex"
 	>
 		<a class="desktop-nav-button desktop-nav-link" href="/blog">Blog</a>
 		<a class="desktop-nav-button desktop-nav-link" href="/projects"
@@ -96,11 +96,11 @@ const { pageTitle } = Astro.props;
 		>
 		<a
 			id="desktop-theme-menu-btn"
-			class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-background-header before:bg-glow-btn before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
+			class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-accent-foreground before:bg-glow-btn before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer relative border p-0 px-3 py-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
 		>
 			<svg
 				id="desktop-theme-menu-icon"
-				class="fill-foreground stroke-foreground in-[.open]:fill-accent-foreground in-[.open]:stroke-accent-foreground h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:scale-95 in-[.open]:opacity-40"
+				class="fill-foreground stroke-foreground in-[.open]:fill-accent-background in-[.open]:stroke-accent-background h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
 				viewBox="0 0 24 24"
 				fill="currentColor"
 				stroke="currentColor"
@@ -124,17 +124,12 @@ const { pageTitle } = Astro.props;
 				</g>
 			</svg>
 			<ThemeDrawer
-				class="before:menu-bg-hover -right-gutter-1/2 top-[calc(75%+0.25rem)] before:bg-transparent [.open]:top-[calc(100%+0.25rem)]"
+				class="pointer-events-none absolute top-[calc(100%+2px)] right-[-2px] h-fit w-fit overflow-hidden"
 			/>
 		</a>
 		<div
-			id="desktop-nav-active-underline"
-			class="border-accent-foreground pointer-events-none absolute top-0 left-0 h-full !rounded-none border-b bg-transparent opacity-0 blur-none transition-all duration-200 ease-in-out"
-		>
-		</div>
-		<div
-			id="desktop-nav-button-hover"
-			class="bg-glow-btn rounded-base pointer-events-none absolute h-full w-full opacity-0 peer-[.open]:peer-hover:opacity-0"
+			id="desktop-nav-active"
+			class="border-accent-foreground pointer-events-none absolute top-0 left-0 -mt-[1px] -ml-[1px] h-[calc(100%+2px)] !rounded-none border bg-transparent opacity-0 blur-none transition-all duration-200 ease-in-out"
 		>
 		</div>
 	</div>
@@ -142,11 +137,8 @@ const { pageTitle } = Astro.props;
 
 <script>
 	function setActiveLink() {
-		const underline = document.getElementById(
-			"desktop-nav-active-underline",
-		) as HTMLElement;
-		const hover = document.getElementById(
-			"desktop-nav-button-hover",
+		const activeBox = document.getElementById(
+			"desktop-nav-active",
 		) as HTMLElement;
 
 		const navItems = document.getElementById(
@@ -155,9 +147,9 @@ const { pageTitle } = Astro.props;
 
 		const currentPath = "/" + window.location.pathname.split("/")[1];
 
-		// Set initial position of underline
-		if (underline.style.left == "0px") {
-			underline.style.left = `${navItems.offsetLeft}px`;
+		// Set initial position of activeBox
+		if (activeBox.style.left == "0px") {
+			activeBox.style.left = `${navItems.offsetLeft}px`;
 		}
 
 		// Remove active class from all links
@@ -172,89 +164,25 @@ const { pageTitle } = Astro.props;
 			".desktop-nav-button.active",
 		) as HTMLElement;
 
-		// Move underline to active nav button
+		// Move activeBox to active nav button
 		if (activeButton) {
 			setTimeout(() => {
 				const activeRect = activeButton.getBoundingClientRect();
 
-				underline.style.width = `${activeRect.width - 32}px`;
-				underline.style.left = `${activeButton.offsetLeft + 16}px`;
+				activeBox.style.width = `${activeRect.width + 1}px`;
+				activeBox.style.left = `${activeButton.offsetLeft}px`;
 				setTimeout(() => {
-					underline.classList.add("opacity-75");
-					underline.classList.remove("opacity-0");
+					activeBox.classList.add("opacity-75");
+					activeBox.classList.remove("opacity-0");
 				}, 150);
 			}, 10);
 		} else {
-			underline.classList.add("opacity-0");
-			underline.classList.remove("opacity-75");
+			activeBox.classList.add("opacity-0");
+			activeBox.classList.remove("opacity-75");
+			setTimeout(() => {
+				activeBox.style.left = `0px`;
+			}, 150);
 		}
-
-		// Set initial transition value for hover
-		hover.style.transition = "opacity 0.2s ease-in-out";
-
-		// Move hover to hovered nav button
-		navItems.addEventListener("mouseenter", () => {
-			hover.style.transition =
-				"opacity 0.2s ease-in-out, background-color 0.2s ease-in-out";
-			setTimeout(() => {
-				hover.style.transition =
-					"transform 0.2s ease-in-out, width 0.2s ease, opacity 0.2s ease-in-out, background-color 0.2s ease-in-out";
-			}, 100);
-		});
-		navItems.addEventListener("mouseleave", () => {
-			setTimeout(() => {
-				hover.style.transition = "opacity 0.2s ease-in-out";
-			}, 50);
-		});
-
-		document
-			.querySelectorAll<HTMLElement>(".desktop-nav-link")
-			.forEach((button) => {
-				button.addEventListener("mouseenter", () => {
-					const buttonRect = button.getBoundingClientRect();
-					const navItemsRect = navItems.getBoundingClientRect();
-					hover.style.width = `${button.clientWidth}px`;
-					hover.style.transform = `translateX(${Math.round(buttonRect.left - navItemsRect.left)}px)`;
-
-					requestAnimationFrame(() => {
-						hover.classList.add(`opacity-100`);
-						hover.classList.remove(`opacity-0`);
-						hover.style.transform = `translateX(${Math.round(buttonRect.left - navItemsRect.left)}px)`;
-
-						// Forces recalculation on current x and y values and redraw to remove stutter on gradient positioning
-						setTimeout(() => {
-							const hoverRect = hover.getBoundingClientRect();
-							const rootStyles = getComputedStyle(
-								document.documentElement,
-							);
-							const currentX: number = parseInt(
-								rootStyles
-									.getPropertyValue("--mouse-x")
-									.slice(0, -2),
-							);
-							const currentY: number = parseInt(
-								rootStyles
-									.getPropertyValue("--mouse-y")
-									.slice(0, -2),
-							);
-							console.log(currentX);
-							hover.style.setProperty(
-								"--x",
-								`${currentX - hoverRect.left}px`,
-							);
-							hover.style.setProperty(
-								"--y",
-								`${currentY - hoverRect.top}px`,
-							);
-						}, 10);
-					});
-				});
-
-				button.addEventListener("mouseleave", () => {
-					hover.classList.add("opacity-0");
-					hover.classList.remove("opacity-100");
-				});
-			});
 	}
 
 	setActiveLink();

@@ -17,6 +17,7 @@
   --breakpoint-md: 600px;
   --breakpoint-sm: 0px;
 
+  --spacing-border-width: 1px;
   --spacing-col-1: var(--col-1);
   --spacing-col-2: var(--col-2);
   --spacing-col-3: var(--col-3);
@@ -52,8 +53,11 @@
   --color-accent-foreground: oklch(var(--accent-foreground));
   --color-accent-background: oklch(var(--accent-background));
 
-  --color-border-foreground: var(--border-foreground);
-  --color-border-background: var(--border-background);
+  --color-border-foreground: var(--border-foreground); 
+  --color-border-background: var(--border-background); 
+
+  /* --color-border-foreground: var(--border-foreground); */
+  /* --color-border-background: var(--border-background); */
 
   --color-primary: oklch(var(--primary));
   --color-primary-foreground: oklch(var(--primary-foreground));
@@ -81,7 +85,7 @@
   
   --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
-  --ease-flicker: linear(0, 0.038 6.5%, 0.079 10.7%, 0.139 14.2%, 0.226 17.4%, 0.511 23.5%, 0.996 30.1%, 0.472 37.2%, 0.367 39.6%, 0.331 41.9%, 0.369 44.2%, 0.484 46.5%, 0.998 52.2%, 0.643 56.4%, 0.563 58.1%, 0.539 59.7%, 0.565 61.3%, 0.639 62.9%, 0.998 67.4%, 0.778 70.6%, 0.731 71.9%, 0.716 73.2%, 0.73 74.4%, 0.773 75.7%, 0.998 79.8%, 0.893 82.2%, 0.861 84.3%, 0.888 86.4%, 0.999 90.4%, 0.972 92.1%, 0.965 93.5%, 0.995 98%, 1);
+  --ease-flicker: linear(0, -0.049 19.6%, 0.065 32.4%, 0.994 57.6%, 0.506 74.8%, 1);
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -140,7 +144,7 @@
 }
 
 @utility desktop-nav-button {
-	@apply text-foreground/60 hover:text-foreground/70 [.active]:!text-accent-foreground rounded-base inline-flex w-max cursor-pointer place-items-center bg-transparent px-4 py-3 font-mono text-sm tracking-wider uppercase transition-all duration-300 ease-in-out hover:bg-transparent focus:outline-hidden disabled:pointer-events-none disabled:opacity-50
+	@apply text-border-foreground hover:text-foreground/70 [.active]:!text-accent-foreground rounded-base inline-flex w-max cursor-pointer place-items-center bg-transparent px-4 py-3 h-full font-mono text-sm tracking-widest uppercase transition-all duration-300 ease-in-out hover:bg-transparent focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 not-last-of-type:border-r border-border-background
 }
 
 

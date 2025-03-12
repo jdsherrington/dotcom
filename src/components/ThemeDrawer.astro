@@ -2,144 +2,149 @@
 const { class: className = "" } = Astro.props;
 ---
 
-<div class=`theme-drawer menu ${className}`>
-	<ul class="extra-themes">
-		<ul class="light-themes">
-			<li class="golden"><span>Golden</span></li>
-			<li class="spring"><span>Spring</span></li>
-		</ul>
-		<ul class="dark-themes">
-			<li class="source"><span>Source</span></li>
-			<li class="carbon"><span>Carbon</span></li>
-		</ul>
-	</ul>
-	<ul
-		class="standard-themes *:md:hover:bg-accent-foreground/10 *:rounded-xs *:transition-all *:duration-300 *:ease-in-out"
+<div class=`theme-drawer-wrapper ${className}`>
+	<div
+		class=`theme-drawer menu before:menu-bg-hover -translate-y-[calc(100%)] [.open]:translate-y-0 !border-t-0`
 	>
-		<li class="light">
-			<svg
-				viewBox="0 0 24 24"
-				fill="currentColor"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<g
-					transform="matrix(1, 0, 0, 1, -150.186005, -76.000008)"
-					style="transform-origin: 162.186px 88px;"
+		<ul class="extra-themes">
+			<ul class="light-themes">
+				<li class="golden"><span>Golden</span></li>
+				<li class="spring"><span>Spring</span></li>
+			</ul>
+			<ul class="dark-themes">
+				<li class="source"><span>Source</span></li>
+				<li class="carbon"><span>Carbon</span></li>
+			</ul>
+		</ul>
+		<ul
+			class="standard-themes *:rounded-xs *:transition-all *:duration-300 *:ease-in-out"
+		>
+			<li class="light">
+				<svg
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					stroke="currentColor"
+					stroke-width="2"
 				>
-					<path
-						d="M 162.186 93.684 C 159.047 93.684 156.502 91.139 156.502 88 C 156.502 84.861 159.047 82.316 162.186 82.316 C 165.325 82.316 167.87 84.861 167.87 88 C 167.87 91.139 165.325 93.684 162.186 93.684 Z"
-						fill-rule="nonzero"
-						style="stroke-width: 0px"></path>
-					<path
-						d="M 153.701 79.515 L 156.381 82.195 L 153.701 79.515 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 150.186 88 L 153.975 88 L 150.186 88 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 153.701 96.486 L 156.38 93.807 L 153.701 96.486 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 162.186 100 L 162.186 96.211 L 162.186 100 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 170.671 96.486 L 167.992 93.807 L 170.671 96.486 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 174.186 88 L 170.397 88 L 174.186 88 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 170.671 79.514 L 167.993 82.194 L 170.671 79.514 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 162.186 76 L 162.186 79.789 L 162.186 76 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-				</g>
-			</svg><span>Light</span>
-		</li>
-		<li class="dark">
-			<svg
-				viewBox="0 0 24 24"
-				fill="currentColor"
-				stroke="currentColor"
-				stroke-width="0"
-			>
-				<g
-					transform="matrix(0.904167, 0, 0, 0.904167, -158.233398, -67.316719)"
+					<g
+						transform="matrix(1, 0, 0, 1, -150.186005, -76.000008)"
+						style="transform-origin: 162.186px 88px;"
+					>
+						<path
+							d="M 162.186 93.684 C 159.047 93.684 156.502 91.139 156.502 88 C 156.502 84.861 159.047 82.316 162.186 82.316 C 165.325 82.316 167.87 84.861 167.87 88 C 167.87 91.139 165.325 93.684 162.186 93.684 Z"
+							fill-rule="nonzero"
+							style="stroke-width: 0px"></path>
+						<path
+							d="M 153.701 79.515 L 156.381 82.195 L 153.701 79.515 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 150.186 88 L 153.975 88 L 150.186 88 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 153.701 96.486 L 156.38 93.807 L 153.701 96.486 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 162.186 100 L 162.186 96.211 L 162.186 100 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 170.671 96.486 L 167.992 93.807 L 170.671 96.486 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 174.186 88 L 170.397 88 L 174.186 88 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 170.671 79.514 L 167.993 82.194 L 170.671 79.514 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 162.186 76 L 162.186 79.789 L 162.186 76 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+					</g>
+				</svg><span>Light</span>
+			</li>
+			<li class="dark">
+				<svg
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					stroke="currentColor"
+					stroke-width="0"
 				>
-					<path
-						d="M 194.96 92.81 C 188.466 92.81 183.157 87.557 183.157 81.03 C 183.157 78.616 183.915 76.344 185.148 74.452 C 179.318 75.966 175.005 81.265 175.005 87.557 C 175.005 94.987 181.025 100.996 188.466 100.996 C 194.77 100.996 200.077 96.69 201.549 90.823 C 199.653 92.099 197.424 92.81 194.96 92.81 Z"
-					></path>
-				</g>
-			</svg><span>Dark</span>
-		</li>
-		<li class="system">
-			<svg
-				viewBox="0 0 24 24"
-				fill="currentColor"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<g
-					transform="matrix(1, 0, 0, 1, -150.186005, -76.000008)"
-					style="transform-origin: 162.186px 88px;"
+					<g
+						transform="matrix(0.904167, 0, 0, 0.904167, -158.233398, -67.316719)"
+					>
+						<path
+							d="M 194.96 92.81 C 188.466 92.81 183.157 87.557 183.157 81.03 C 183.157 78.616 183.915 76.344 185.148 74.452 C 179.318 75.966 175.005 81.265 175.005 87.557 C 175.005 94.987 181.025 100.996 188.466 100.996 C 194.77 100.996 200.077 96.69 201.549 90.823 C 199.653 92.099 197.424 92.81 194.96 92.81 Z"
+						></path>
+					</g>
+				</svg><span>Dark</span>
+			</li>
+			<li class="system">
+				<svg
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					stroke="currentColor"
+					stroke-width="2"
 				>
-					<path
-						d="M 162.186 82.316 C 165.325 82.316 167.87 84.861 167.87 88 C 167.87 88.789 167.709 89.541 167.418 90.224 C 163.858 89.907 160.255 86.36 160.444 82.627 C 160.723 82.468 161.387 82.316 162.186 82.316 Z"
-						fill-rule="nonzero"
-						style="stroke-width: 0px;"></path>
-					<path
-						d="M 174.186 88 L 170.397 88 L 174.186 88 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 170.671 79.514 L 167.993 82.194 L 170.671 79.514 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 162.186 76 L 162.186 79.789 L 162.186 76 Z"
-						fill="#000000"
-						fill-rule="nonzero"></path>
-					<path
-						d="M 167.316 93.472 C 161.444 93.472 156.763 88.881 156.763 82.98 C 156.763 80.797 158.242 77.711 159.357 76 C 154.086 77.369 150.186 82.16 150.186 87.849 C 150.186 94.567 155.629 100.001 162.357 100.001 C 168.057 100.001 172.856 96.107 174.187 90.802 C 172.472 91.956 169.544 93.472 167.316 93.472 Z"
-						style="paint-order: fill; stroke-width: 0px;"></path>
-				</g>
-			</svg><span>System</span>
-		</li>
-	</ul>
+					<g
+						transform="matrix(1, 0, 0, 1, -150.186005, -76.000008)"
+						style="transform-origin: 162.186px 88px;"
+					>
+						<path
+							d="M 162.186 82.316 C 165.325 82.316 167.87 84.861 167.87 88 C 167.87 88.789 167.709 89.541 167.418 90.224 C 163.858 89.907 160.255 86.36 160.444 82.627 C 160.723 82.468 161.387 82.316 162.186 82.316 Z"
+							fill-rule="nonzero"
+							style="stroke-width: 0px;"></path>
+						<path
+							d="M 174.186 88 L 170.397 88 L 174.186 88 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 170.671 79.514 L 167.993 82.194 L 170.671 79.514 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 162.186 76 L 162.186 79.789 L 162.186 76 Z"
+							fill="#000000"
+							fill-rule="nonzero"></path>
+						<path
+							d="M 167.316 93.472 C 161.444 93.472 156.763 88.881 156.763 82.98 C 156.763 80.797 158.242 77.711 159.357 76 C 154.086 77.369 150.186 82.16 150.186 87.849 C 150.186 94.567 155.629 100.001 162.357 100.001 C 168.057 100.001 172.856 96.107 174.187 90.802 C 172.472 91.956 169.544 93.472 167.316 93.472 Z"
+							style="paint-order: fill; stroke-width: 0px;"
+						></path>
+					</g>
+				</svg><span>System</span>
+			</li>
+		</ul>
+	</div>
 </div>
 
 <style is:global>
 	@reference "@/styles/global.css";
 
 	.theme-drawer {
-		@apply rounded-base border-foreground/5 pointer-events-none absolute z-10 flex w-auto origin-top scale-[0.98] flex-col-reverse border opacity-0 blur-md transition-all duration-300 ease-in-out select-none;
+		@apply rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none;
 	}
 
 	.theme-drawer::before {
 		content: "";
-		@apply rounded-base absolute z-[-1] h-full w-full shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
+		@apply rounded-base absolute z-[-1] h-full w-full transition-all duration-300 ease-in-out;
 	}
 
-	.theme-drawer::after {
-		@apply menu-border;
-	}
+	/* .theme-drawer::after { */
+	/* 	@apply menu-border; */
+	/* } */
 
 	.theme-drawer:hover::after {
 		@apply opacity-100;
 	}
 
 	.open .theme-drawer {
-		@apply pointer-events-auto scale-100 opacity-100 blur-none;
+		@apply pointer-events-auto opacity-100 blur-none;
 	}
 
 	.theme-drawer li {
