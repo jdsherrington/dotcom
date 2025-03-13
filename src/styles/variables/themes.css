@@ -71,7 +71,7 @@
 		--shade-foreground: 0.8;
 		--shade-chroma: 0.15;
 		
-		--logo-stroke: 10px;
+		--logo-stroke: 24px;
 
 		#dark-background {
 			opacity: 1;
@@ -118,7 +118,7 @@
 		--shade-foreground: 0.8;
 		--shade-chroma: 0.15;
 
-		--logo-stroke: 25px;
+		--logo-stroke: 22px;
 		--logo-linecap: square;
 
 		*, *::before, *::after {
@@ -227,7 +227,7 @@
 		--shade-foreground: 0.4;
 		--shade-chroma: 0.25;
 
-		--logo-stroke: 10px;
+		--logo-stroke: 24px;
 
 		#light-background {
 			opacity: 1;

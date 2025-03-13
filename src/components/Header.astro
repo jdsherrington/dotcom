@@ -30,57 +30,30 @@ const { pageTitle } = Astro.props;
 	transition:persist="nav"
 	class="rounded-base py-gutter-1/2 [.scrolled]:px-gutter-1/2 h-nav border-border-background border-b-border-background/0 [.scrolled]:!border-b-border-background before:h-header [.scrolled]:before:bg-background-header pointer-events-auto sticky top-0 z-1000 my-[calc((var(--header-height)-var(--nav-height))/2)] flex w-[calc(var(--col-full)-2px)] items-center border-b bg-transparent px-[calc(((var(--header-height)-var(--nav-height))/2)+var(--col-gutter)/2)] shadow-2xl shadow-transparent backdrop-blur-none [transition:padding_150ms_linear,background-color_100ms_ease-in-out,border-color_0ms_linear] before:absolute before:inset-0 before:-top-[calc((var(--header-height)-var(--nav-height))/2)] before:z-0 before:bg-transparent before:transition-colors before:duration-200 before:ease-in-out sm:justify-center md:justify-between [.scrolled]:backdrop-blur-2xl [.scrolled]:before:top-0 [.scrolled]:before:h-[calc(var(--nav-height)-1px)]"
 >
-	<a href="/" class="isolate px-4 pb-1">
+	<a
+		href="/"
+		class="border-border-background relative isolate flex h-full w-full flex-row place-items-start items-start justify-start border border-r-0"
+	>
 		<!--	<Icon class="header-logo" name="header" /> -->
 		<svg
-			class="stroke-border-foreground hover:fill-accent-foreground hover:stroke-foreground/80 fill-accent in-[.scrolled]:hover:fill-accent-foreground in-[.scrolled]:fill-accent z-50 inline-block w-auto [stroke-width:var(--logo-stroke)] transition-all duration-300 ease-in-out [stroke-linecap:var(--logo-linecap)] sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-8 in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+			class="stroke-accent-foreground hover:fill-accent-foreground hover:stroke-accent-foreground fill-accent-foreground border-border-background absolute top-0 left-0 z-50 inline-block w-auto border-r p-3 pr-6 transition-all duration-300 ease-in-out sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-full in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 500 182"
+			viewBox="0 0 360 144"
 		>
-			<g
+			<path
 				id="header-logo"
-				class="in-[.theme-source]:opacity-0"
-				transform="matrix(1, 0, 0, 1, -5.000214099884033, 5.000002861022942)"
-				style=""
-			>
-				<path
-					style="fill: none;"
-					d="M 245 90 C 245 88.84 245 57.5 245 55 C 245 35 230 20 210 20 C 207.5 20 127.5 20 125 20 C 105 20 90 35 90 55 L 90 125 C 90 145 75 160 55 160 C 35 160 20 145 20 125 L 20 90"
-				></path>
-				<path
-					style="fill: none; "
-					d="M 160 90 C 160 90 160 147.5 160 160 C 170 160 345 160 347.5 160 C 367.5 160 382.5 145 382.5 125 C 382.5 105 367.5 90 347.5 90 C 345 90 340 90 337.5 90 C 317.5 90 302.5 75 302.5 55 C 302.5 35 317.5 20 337.5 20 C 340 20 380 20 382.5 20"
-				></path>
-				<g
-					transform="matrix(1.149999, 0, 0, 1.149999, -52.374329, -183.131683)"
-					style=""
-				>
-					<path
-						style="stroke: none"
-						d="M 378.152 211.419 C 412.934 211.419 430.326 194.027 430.326 159.245 C 430.326 194.027 447.718 211.419 482.5 211.419 C 447.718 211.419 430.326 228.811 430.326 263.593 C 430.326 228.811 412.934 211.419 378.152 211.419 Z"
-					></path>
-				</g>
-			</g>
-			<g
+				class="[stroke-width:var(--logo-stroke)] transition-discrete in-[.theme-source]:hidden"
+				d="M 140 72 C 140 72 140 120.281 140 132 C 150 132 322 132 324 132 C 338 132 348 122.625 348 109.5 C 348 107.625 348 96.375 348 94.5 C 348 81.375 338 72 324 72 C 322 72 294 72 292 72 C 278 72 268 62.625 268 49.5 C 268 47.625 268 36.374 268 34.5 C 268 21.374 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 83.249 C 220 81.375 220 59.344 220 57 C 220 30.749 200 12 172 12 C 169.5 12 118.5 12 116 12 C 102 12 92 21.374 92 34.5 L 92 109.5 C 92 122.625 82 132 68 132 C 65.5 132 38.5 132 36 132 C 22 132 12 122.625 12 109.5 L 12 72"
+				fill="none"></path>
+			<path
 				id="header-logo-source"
-				class="opacity-0 in-[.theme-source]:opacity-100"
-				transform="matrix(1, 0, 0, 1, -2.50068998336792, -95)"
-			>
-				<path
-					style="fill: none;"
-					d="M 242.5 190 C 242.5 188.84 242.5 170 242.5 167.5 M 217.5 142.5 C 217.5 141.34 217.5 122.5 217.5 120 M 192.5 120 C 190 120 125 120 122.5 120 C 113.151 120 87.5 120 87.5 120 C 87.5 120 87.5 144.349 87.5 155 L 87.5 225 C 87.5 235.326 87.5 260 87.5 260 C 87.5 260 62.174 260 52.5 260 C 42.5 260 17.5 260 17.5 260 C 17.5 260 17.5 235 17.5 225 L 17.501 190"
-				></path>
-				<path
-					style="fill: none;"
-					d="M 157.501 190 C 157.501 190 157.5 247.5 157.5 260 C 167.5 260 342.5 260 345 260 C 354.349 260 380 260 380 260 C 380 260 380 235.651 380 225 C 380 214.674 380 190 380 190 C 380 190 354.674 190 345 190 C 342.5 190 337.5 190 335 190 C 325.326 190 300 190 300 190 C 300 190 300 165.326 300 155 C 300 145 300 120 300 120 C 300 120 325 120 335 120 C 337.5 120 377.5 120 380 120"
-				></path>
-				<g transform="matrix(1, 0, 0, 1, -2.499, 97.5)">
-					<path
-						d="M 435 12.5 L 450 12.5 L 450 27.5 L 457.501 27.5 L 457.501 47.5 L 477.499 47.5 L 477.499 55 L 492.5 55 L 492.5 70 L 477.499 70 L 477.499 77.502 L 457.501 77.502 L 457.501 97.498 L 450 97.498 L 450 112.5 L 435 112.5 L 435 97.498 L 427.5 97.498 L 427.5 77.502 L 407.5 77.502 L 407.5 70 L 392.5 70 L 392.5 55 L 407.5 55 L 407.5 47.5 L 427.5 47.5 L 427.5 27.5 L 435 27.5 Z"
-						style="stroke: none;"></path>
-				</g>
-			</g>
+				class="hidden [stroke-width:var(--logo-stroke)] transition-discrete in-[.theme-source]:block"
+				d="M 196 54 C 196 53.339 196 35.567 196 24 M 140 72 C 140 72 140 120.281 140 132 C 150 132 348 132 348 132 C 348 132 348 122.625 348 109.5 C 348 107.625 348 72 348 72 C 348 72 338 72 324 72 C 322 72 268 72 268 72 C 268 72 268 62.625 268 49.5 C 268 47.625 268 12 268 12 C 268 12 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 84 C 220 83.339 220 65.567 220 54 M 184 12 L 92 12 L 92 132 L 12 132 L 12 72"
+				fill="none"></path>
 		</svg>
+		<!-- <small class="text-border-foreground text-2xs pl-0.5 font-mono" -->
+		<!-- 	>// 0.1.18</small -->
+		<!-- > -->
 	</a>
 
 	<div
