@@ -1,14 +1,19 @@
 ---
 import { Icon } from "astro-icon/components";
 
-const { class: className = "" } = Astro.props;
+const { class: className = "", text } = Astro.props;
 ---
 
-<div class=`${className}`>
+<div
+	class=`${className} inline-flex flex-row gap-2 place-items-center justify-center`
+>
 	<Icon class="left-arrow" name="ui/left-arrow" /><Icon
 		class="right-arrow"
 		name="ui/right-arrow"
 	/>
+	<span class="mb-[1px] !font-mono text-xs tracking-widest uppercase"
+		>{text}</span
+	>
 </div>
 
 <style is:global>

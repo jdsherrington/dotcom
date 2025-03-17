@@ -60,7 +60,7 @@ if (!images[imagePath])
 <div
 	id=`blog-post-${id}`
 	transition:name=`blog-post-${id}`
-	class="blog-post card group flex border-0 border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t [&[data-type='featured']]:after:w-full [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 [&[data-type='standard']]:border-r"
+	class="blog-post card group flex border-0 border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t-0 [&[data-type='featured']]:after:w-full [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 [&[data-type='standard']]:border-r"
 	style="--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
 			h;
 		--accent-background: from oklch(var(--accent)) var(--shade-background) c
@@ -145,7 +145,7 @@ if (!images[imagePath])
 				href={url}
 				id=`blog-post-button-${id}`
 				transition:name=`blog-post-button-${id}`
-				class="navigation-button rounded-base border-border-background text-foreground/80 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
+				class="navigation-button rounded-base border-border-background text-foreground/80 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-200 hover:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
 			>
 				<span class="">{readTime} min read</span>
 				<Icon name="ui/right-arrow" class="h-3 w-auto" />

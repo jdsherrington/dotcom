@@ -1,7 +1,6 @@
 :root {
 	/* Theme-Agnostic Settings */
 
-	--accent-foreground-text: from oklch(var(--accent)) calc(var(--shade-foreground)*3) 0.01 h;
     --accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
     --accent-background: from oklch(var(--accent)) var(--shade-background) c h;
 
@@ -50,7 +49,7 @@
 	--_dark-background-secondary: 19.57% 0 0;
 	--_dark-background-tertiary: 31.42% 0.0098 164.3;
 	--_dark-background-midpoint: color-mix(in hsl, oklch(var(--_dark-background-primary)) 50%, oklch(var(--_dark-background-secondary)) 50%);
-	--_dark-background-header: oklch(25.62% 0.008 226.58 / 0.5);
+	--_dark-background-header: 25.62% 0.008 226.58;
 
 	&[data-theme="dark"] {
 		--background: var(--_dark-background);
@@ -96,7 +95,7 @@
 	--_source-background-secondary: 10.38% 0.1872 143.24;
 	--_source-background-tertiary: 13.53% 0.0739 142.5;
 	--_source-background-midpoint: oklch(18.79% 0.0327 142.5); 
-	--_source-background-header: oklch(18.79% 0.0327 142.5 / 0.5);
+	--_source-background-header: 18.79% 0.0327 142.5;
 
 
 	&[data-theme="source"] {
@@ -206,7 +205,7 @@
 	--_light-background-secondary: 80.45% 0 0;
 	--_light-background-tertiary: 90.45% 0 0;
 	--_light-background-midpoint: color-mix(in hsl, oklch(var(--_light-background-primary)) 50%, oklch(var(--_light-background-secondary)) 50%);
-	--_light-background-header: oklch(92% 0 0 / 0.5);
+	--_light-background-header: 92% 0 0;
 
 	&[data-theme="light"] {
 		--background: var(--_light-background);

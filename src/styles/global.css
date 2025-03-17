@@ -47,7 +47,7 @@
   --color-background-secondary: oklch(var(--background-secondary));
   --color-background-tertiary: oklch(var(--background-tertiary));
   --color-background-midpoint: var(--background-midpoint);
-  --color-background-header: var(--background-header);
+  --color-background-header: oklch(var(--background-header));
 
   --color-accent: oklch(var(--accent));
   --color-accent-foreground: oklch(var(--accent-foreground));
@@ -144,7 +144,7 @@
 }
 
 @utility desktop-nav-button {
-	@apply text-border-foreground hover:text-foreground/70 [.active]:!text-accent-foreground rounded-base inline-flex w-max cursor-pointer place-items-center bg-transparent px-4 py-3 h-full font-mono text-sm tracking-widest uppercase transition-all duration-300 ease-in-out hover:bg-transparent focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 not-last-of-type:border-r border-border-background
+	@apply text-border-foreground hover:md:text-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.05)] ease-flicker [.active]:text-[oklch(var(--accent-foreground)/0.7)] [.active]:hover:md:bg-transparent rounded-base inline-flex w-max cursor-pointer place-items-center bg-transparent px-4 py-3 h-full font-mono text-sm tracking-widest uppercase transition-all duration-200 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 not-last-of-type:border-r border-border-background
 }
 
 

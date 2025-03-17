@@ -12,7 +12,7 @@ const { pageTitle } = Astro.props;
 <header
 	transition:persist="header"
 	id="header"
-	class="group sm:h-header md:h-header w-col-full border-border-background pointer-events-none absolute top-0 left-1/2 z-1001 flex -translate-x-1/2 items-start justify-center"
+	class="group w-col-full border-border-background pointer-events-none top-0 left-1/2 z-1001 flex h-[112px] -translate-x-1/2 items-start justify-center"
 >
 </header>
 <div
@@ -28,32 +28,69 @@ const { pageTitle } = Astro.props;
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base py-gutter-1/2 [.scrolled]:px-gutter-1/2 h-nav border-border-background border-b-border-background/0 [.scrolled]:!border-b-border-background before:h-header [.scrolled]:before:bg-background-header pointer-events-auto sticky top-0 z-1000 my-[calc((var(--header-height)-var(--nav-height))/2)] flex w-[calc(var(--col-full)-2px)] items-center border-b bg-transparent px-[calc(((var(--header-height)-var(--nav-height))/2)+var(--col-gutter)/2)] shadow-2xl shadow-transparent backdrop-blur-none [transition:padding_150ms_linear,background-color_100ms_ease-in-out,border-color_0ms_linear] before:absolute before:inset-0 before:-top-[calc((var(--header-height)-var(--nav-height))/2)] before:z-0 before:bg-transparent before:transition-colors before:duration-200 before:ease-in-out sm:justify-center md:justify-between [.scrolled]:backdrop-blur-2xl [.scrolled]:before:top-0 [.scrolled]:before:h-[calc(var(--nav-height)-1px)]"
+	class="rounded-base border-border-background border-b-border-background linear pointer-events-auto fixed top-0 z-1000 flex h-auto w-[calc(var(--col-full)-2px)] items-center border-b shadow-2xl shadow-transparent backdrop-blur-2xl transition-all duration-50 sm:justify-center md:justify-between"
+	style="padding: calc(var(--col-gutter)*1.25); background-color: oklch(var(--background-header)/0)"
 >
 	<a
 		href="/"
-		class="border-border-background relative isolate flex h-full w-full flex-row place-items-start items-start justify-start border border-r-0"
+		class="border-border-background relative isolate flex h-full w-full flex-col place-items-start justify-center gap-1 transition-all duration-300 ease-in-out sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-start in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 	>
 		<!--	<Icon class="header-logo" name="header" /> -->
+
 		<svg
-			class="stroke-accent-foreground hover:fill-accent-foreground hover:stroke-accent-foreground fill-accent-foreground border-border-background absolute top-0 left-0 z-50 inline-block w-auto border-r p-3 pr-6 transition-all duration-300 ease-in-out sm:h-8 in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:h-full in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-8 w-auto pt-1.5 pl-2 transition-all duration-300 ease-in-out"
 			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 360 144"
+			viewBox="0 0 98 22"
 		>
-			<path
+			<!-- <path -->
+			<!-- 	id="header-logo" -->
+			<!-- 	class="[stroke-width:var(--logo-stroke)] transition-discrete in-[.theme-source]:hidden" -->
+			<!-- 	d="M 140 72 C 140 72 140 120.281 140 132 C 150 132 322 132 324 132 C 338 132 348 122.625 348 109.5 C 348 107.625 348 96.375 348 94.5 C 348 81.375 338 72 324 72 C 322 72 294 72 292 72 C 278 72 268 62.625 268 49.5 C 268 47.625 268 36.374 268 34.5 C 268 21.374 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 83.249 C 220 81.375 220 59.344 220 57 C 220 30.749 200 12 172 12 C 169.5 12 118.5 12 116 12 C 102 12 92 21.374 92 34.5 L 92 109.5 C 92 122.625 82 132 68 132 C 65.5 132 38.5 132 36 132 C 22 132 12 122.625 12 109.5 L 12 72" -->
+			<!-- 	fill="none"></path> -->
+
+			<g
 				id="header-logo"
-				class="[stroke-width:var(--logo-stroke)] transition-discrete in-[.theme-source]:hidden"
-				d="M 140 72 C 140 72 140 120.281 140 132 C 150 132 322 132 324 132 C 338 132 348 122.625 348 109.5 C 348 107.625 348 96.375 348 94.5 C 348 81.375 338 72 324 72 C 322 72 294 72 292 72 C 278 72 268 62.625 268 49.5 C 268 47.625 268 36.374 268 34.5 C 268 21.374 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 83.249 C 220 81.375 220 59.344 220 57 C 220 30.749 200 12 172 12 C 169.5 12 118.5 12 116 12 C 102 12 92 21.374 92 34.5 L 92 109.5 C 92 122.625 82 132 68 132 C 65.5 132 38.5 132 36 132 C 22 132 12 122.625 12 109.5 L 12 72"
-				fill="none"></path>
-			<path
+				class="transition-discrete in-[.theme-source]:hidden"
+				transform="matrix(1, 0, 0, 1, -160, -272)"
+				style=""
+			>
+				<path
+					class=""
+					d="M 186 281 L 192 283 L 192 288 L 200 288 L 200 294 L 192 294 L 186 294 L 186 281 Z M 160 278 L 160 272 L 204 272 C 207 272 210 275 210 278 L 210 286 C 210 288 212 288 212 288 L 229 288 C 233 288 230 281 230 281 L 236 283 C 236 283 237 285 237 288 C 237 291 234 294 231 294 L 210 294 C 207 294 204 291 204 288 L 204 280 C 204 280 204 278 202 278 L 160 278 Z M 176 281 L 182 283 L 182 288 C 182 291 179 294 176 294 L 160 294 L 160 288 L 174 288 C 174 288 176 288 176 286 L 176 281 Z M 237 272 L 237 278 L 222 278 C 218 278 221 284 221 284 L 215 283 C 215 283 214 281 214 278 C 214 275 217 272 220 272 L 237 272 Z"
+					style="stroke: none"></path>
+				<path
+					class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-all duration-300 ease-in-out"
+					d="M 244 280 L 247 272 L 250 280 L 258 283 L 250 286 L 247 294 L 244 286 L 236 283 L 244 280 Z"
+					style="stroke: none"
+				>
+				</path>
+			</g>
+
+			<g
 				id="header-logo-source"
-				class="hidden [stroke-width:var(--logo-stroke)] transition-discrete in-[.theme-source]:block"
-				d="M 196 54 C 196 53.339 196 35.567 196 24 M 140 72 C 140 72 140 120.281 140 132 C 150 132 348 132 348 132 C 348 132 348 122.625 348 109.5 C 348 107.625 348 72 348 72 C 348 72 338 72 324 72 C 322 72 268 72 268 72 C 268 72 268 62.625 268 49.5 C 268 47.625 268 12 268 12 C 268 12 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 84 C 220 83.339 220 65.567 220 54 M 184 12 L 92 12 L 92 132 L 12 132 L 12 72"
-				fill="none"></path>
+				class="hidden transition-discrete in-[.theme-source]:block"
+				transform="matrix(1, 0, 0, 1, -159.000015, -272)"
+				style=""
+			>
+				<path
+					d="M 185 281 L 188 281 L 188 283 L 191 283 L 191 288 L 199 288 L 199 291 L 199 294 L 185 294 L 185 281 Z M 159 278 L 159 272 L 204 272 L 204 274 L 207 274 L 207 277 L 209 277 L 209 288 L 231 288 L 231 284 L 228 284 L 228 281 L 233 281 L 233 284 L 235 284 L 235 286 L 236 286 L 236 290 L 234 290 L 234 292 L 232 292 L 232 294 L 208 294 L 208 292 L 205 292 L 205 289 L 203 289 L 203 278 L 159 278 Z M 175 281 L 178 281 L 178 283 L 181 283 L 181 289 L 179 289 L 179 292 L 176 292 L 176 294 L 159 294 L 159 291 L 159 288 L 175 288 L 175 281 Z M 236 272 L 236 278 L 220 278 L 218 278 L 218 281 L 221 281 L 221 284 L 217 284 L 216 284 L 216 281 L 213 281 L 213 276 L 215 276 L 215 274 L 217 274 L 217 272 L 236 272 Z"
+					style="stroke: none"></path>
+				<path
+					class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-all duration-300 ease-in-out"
+					d="M 243 275 L 245 275 L 245 272 L 247 272 L 247 275 L 249 275 L 249 280 L 254 280 L 254 282 L 257 282 L 257 284 L 254 284 L 254 286 L 249 286 L 249 291 L 247 291 C 247 291.475 247 294 247 294 L 245 294 L 245 291 L 243 291 L 243 286 L 238 286 L 238 284 L 235 284 C 235 283.146 235 282 235 282 L 238 282 L 238 280 L 243 280 L 243 275 Z"
+					style="stroke: none"
+				>
+				</path>
+			</g>
+			<!-- <path -->
+			<!-- 	id="header-logo-source" -->
+			<!-- 	class="hidden [stroke-width:var(--logo-stroke)] transition-discrete in-[.theme-source]:block" -->
+			<!-- 	d="M 196 54 C 196 53.339 196 35.567 196 24 M 140 72 C 140 72 140 120.281 140 132 C 150 132 348 132 348 132 C 348 132 348 122.625 348 109.5 C 348 107.625 348 72 348 72 C 348 72 338 72 324 72 C 322 72 268 72 268 72 C 268 72 268 62.625 268 49.5 C 268 47.625 268 12 268 12 C 268 12 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 84 C 220 83.339 220 65.567 220 54 M 184 12 L 92 12 L 92 132 L 12 132 L 12 72" -->
+			<!-- 	fill="none"></path> -->
 		</svg>
-		<!-- <small class="text-border-foreground text-2xs pl-0.5 font-mono" -->
-		<!-- 	>// 0.1.18</small -->
-		<!-- > -->
+		<small class="text-border-foreground text-2xs pl-1.5 font-mono"
+			>// 0.1.18</small
+		>
 	</a>
 
 	<div
@@ -102,7 +139,7 @@ const { pageTitle } = Astro.props;
 		</a>
 		<div
 			id="desktop-nav-active"
-			class="border-accent-foreground pointer-events-none absolute top-0 left-0 -mt-[1px] -ml-[1px] h-[calc(100%+2px)] !rounded-none border bg-transparent opacity-0 blur-none transition-all duration-200 ease-in-out"
+			class="border-accent bg-accent/10 pointer-events-none absolute top-0 left-0 -mt-[1px] -ml-[1px] h-[calc(100%+2px)] !rounded-none border opacity-0 blur-none transition-all duration-200 ease-in-out"
 		>
 		</div>
 	</div>
@@ -179,4 +216,81 @@ const { pageTitle } = Astro.props;
 
 	updateTitle();
 	document.addEventListener("astro:after-swap", updateTitle);
+</script>
+
+<script>
+	function loadScrolledValues() {
+		// Initialise elements that change on scroll
+		const nav: any = document.getElementById("desktop-nav")!;
+		let scrollDistance = nav ? nav.offsetHeight : 200;
+
+		const tempElement = document.createElement("div");
+		tempElement.style.setProperty("width", "calc(var(--col-gutter)*1.25)");
+		tempElement.style.setProperty("height", "calc(var(--col-gutter)*0.5)");
+		document.body.appendChild(tempElement);
+
+		// Set upper and lower bounds
+		let initialPadding = parseFloat(getComputedStyle(tempElement).width);
+		const finalPadding = parseFloat(getComputedStyle(tempElement).height);
+
+		let initialBackground = 0;
+		const finalBackground = 100;
+
+		document.body.removeChild(tempElement); // Clean up
+
+		// Use requestAnimationFrame for smoother animations
+		let ticking = false;
+		let lastScrollPos = window.scrollY;
+
+		function updatePadding() {
+			// Get current scroll position
+			let scrollPos = window.scrollY;
+
+			// Calculate current sidebar width based on scroll position
+			let navPadding, navBackground;
+
+			if (scrollPos >= scrollDistance) {
+				navPadding = finalPadding;
+				navBackground = finalBackground;
+			} else {
+				// Linear interpolation between initial and final width
+				let shrinkFactor = scrollPos / scrollDistance;
+
+				navPadding =
+					initialPadding -
+					shrinkFactor * (initialPadding - finalPadding);
+				navBackground =
+					initialBackground -
+					shrinkFactor * (initialBackground - finalBackground);
+			}
+
+			// Apply the new values
+			nav.style.padding = `${navPadding}px`;
+			nav.style.backgroundColor = `oklch(var(--background-header)/${navBackground / 100 / 2})`;
+
+			ticking = false;
+		}
+		// Handle scroll events more efficiently
+		window.addEventListener("scroll", function () {
+			lastScrollPos = window.scrollY;
+
+			if (!ticking) {
+				window.requestAnimationFrame(function () {
+					updatePadding();
+				});
+				ticking = true;
+			}
+		});
+
+		// Update initial width on window resize
+		window.addEventListener("resize", function () {
+			updatePadding();
+		});
+	}
+
+	// Initial values load
+	loadScrolledValues();
+	document.addEventListener("astro:after-swap", function () {
+		loadScrolledValues();
+	});
 </script>

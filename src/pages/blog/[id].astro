@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import type { MarkdownHeading } from "astro";
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
@@ -8,17 +9,32 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import CardTag from "@/components/CardTag.astro";
 import NavigationButton from "@/components/NavigationButton.astro";
 import { extractOKLCHColors } from "@/lib/extractOKLCHColors";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog");
-	return posts.map((post) => ({
+
+	const headings = await Promise.all(
+		posts.map(async (post) => {
+			const data = await render(post);
+			return data.headings;
+		}),
+	);
+	return posts.map((post, index) => ({
 		params: { id: post.id },
-		props: { post },
+		props: { post, headings: headings[index] },
 	}));
 }
 
-const { post } = Astro.props;
+type Props = {
+	post: CollectionEntry<"blog">;
+	headings: MarkdownHeading[];
+};
+
+const { post, headings } = Astro.props;
 const { Content } = await render(post);
+
+const filteredHeadings = headings.filter((heading) => heading.depth <= 2);
 
 const formattedDate = new Date(post.data.date).toLocaleDateString("en-AU", {
 	year: "numeric",
@@ -43,68 +59,77 @@ if (!images[post.data.imagePath]) {
 		`"${post.data.imagePath}" does not exist in glob: "src/assets/blog/posts/*"`,
 	);
 }
-
-const rawContent = Astro.slots.has("default")
-	? await Astro.slots.render("default")
-	: "";
-
-const headingRegex = /<h([1-2])[^>]*>(.*?)<\/h\1>/gi;
-const headings = [];
-let match;
-
-while ((match = headingRegex.exec(rawContent)) !== null) {
-	const headingLevel = `${match[1]}`;
-	const headingText = match[2].trim();
-	headings.push([headingLevel, headingText]);
-}
 ---
 
 <BaseLayout pageTitle={post.data.title}>
 	<div
-		class="blog-page w-col-full gap-gutter relative flex flex-col place-items-center content-start place-self-center rounded"
+		class="blog-page w-col-full gap-gutter rounded-base border-border-background relative flex flex-col place-items-center content-start place-self-center"
 		data-accent={accent}
 	>
 		<div
 			id=`blog-post-image-${post.id}`
 			transition:name=`blog-post-image-${post.id}`
-			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 w-[calc(100%-2px)] overflow-hidden border-b transition-all duration-500 ease-in-out"
+			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b transition-all duration-500 ease-in-out"
 		>
 			<Image
+				class="blog-page-banner-img rounded-base h-full w-full object-cover transition-all duration-50 ease-in-out"
 				src={images[post.data.imagePath]()}
 				alt={post.data.imageAlt}
 			/>
-			<NavigationButton class="arrow-left absolute top-0 left-0" />
 		</div>
-		<div class="blog-page-body">
-			<div class="blog-page-sidebar">
-				<div class="blog-page-thumbnail">
+		<div
+			id=`blog-post-columns-${post.id}`
+			class="blog-page-columns lg:pt-col-5 grid max-w-full transition-all duration-50 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--col-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(auto,1fr)_auto] lg:gap-0"
+		>
+			<div
+				id=`blog-post-sidebar-${post.id}`
+				class="blog-page-sidebar border-border-background sticky flex h-min flex-col transition-all duration-50 ease-linear sm:relative sm:top-0 lg:sticky lg:top-[76px]"
+			>
+				<div
+					id=`blog-post-thumbnail-${post.id}`
+					class="blog-page-thumbnail rounded-base relative ml-[1px] w-[calc(100%-1px)] overflow-hidden transition-all duration-50 ease-in-out lg:place-items-end"
+				>
 					<Image
+						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background -mt-[1px] w-full border-b object-cover transition-all duration-50 ease-in-out sm:opacity-0 lg:opacity-100"
 						src={images[post.data.imagePath]()}
 						alt={post.data.imageAlt}
-					/>
-					<NavigationButton
-						class="arrow-left m-gutter-1/2 bg-background-midpoint/50 text-foreground/80 md:hover:text-accent-foreground md:hover:bg-accent-background/50 absolute top-0 left-0 rounded-sm py-3 pr-4 pl-3.5 backdrop-blur-xl transition-all duration-300 ease-in-out *:h-3.5"
+						style="height: 0px"
 					/>
 				</div>
-				<div class="blog-page-sidebar-info">
+				<div
+					id=`blog-post-sidebar-nav-${post.id}`
+					class="blog-page-sidebar-nav bg-background-header/50 border-border-background absolute -mt-[1px] ml-[1px] w-[calc(100%-1px)] overflow-hidden backdrop-blur-xl"
+					style="height: 0"
+				>
+					<a href="javascript:void(0)" onclick="history.back()">
+						<NavigationButton
+							text="Back"
+							class="arrow-left text-foreground/50 border-border-background bg-background-header/25 md:hover:bg-accent-background/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-300 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--accent-foreground))]"
+						/>
+					</a>
+				</div>
+				<div
+					id=`blog-post-sidebar-info-${post.id}`
+					class="blog-page-sidebar-info sm:px-gutter pb-gutter lg:px-gutter inline-flex flex-col sm:place-items-start lg:place-items-end"
+				>
 					<h1
 						id=`blog-post-title-${post.id}`
 						transition:name=`blog-post-title-${post.id}`
-						class="blog-page-title"
+						class="blog-page-title text-foreground/70 z-20 mb-1.5 inline-block w-auto transform-none font-mono text-balance uppercase transition-all duration-50 ease-in-out sm:text-left lg:text-right lg:text-3xl"
 					>
 						{post.data.title}
 					</h1>
 					<p
 						id=`blog-post-date-${post.id}`
 						transition:name=`blog-post-date-${post.id}`
-						class="blog-page-date"
+						class="text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-widest uppercase transition-all duration-200 ease-in-out sm:text-left lg:text-right"
 					>
 						{formattedDate} // {readTime} min read
 					</p>
 					<div
 						id=`blog-post-tags-${post.id}`
 						transition:name=`blog-post-tags-${post.id}`
-						class="blog-page-tags"
+						class="tags-box mt-1 w-auto grow-1 flex-wrap place-content-start in-[&[data-type='standard']]:flex-grow sm:justify-start lg:justify-end"
 					>
 						{
 							post.data.tags?.map((tag: any) => (
@@ -112,42 +137,57 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 							))
 						}
 					</div>
-					<!-- <div class="blog-page-share"> -->
-					<!-- 	<div class="blog-page-share-copy"> -->
-					<!-- 		<span>Share</span> -->
-					<!-- 		<a class="copy-link" -->
-					<!-- 			><Icon name="social/copylink" /></a -->
+					<!-- <div class="blog-page-share bg-foreground/0 text-foreground/50 rounded-base mb-5 inline-flex w-auto place-items-center px-1 font-mono tracking-wide uppercase duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end"> -->
+					<!-- 	<div class="blog-page-share-copy border-r-foreground/20 inline-flex w-auto place-items-center gap-3 border-r pr-3.5"> -->
+					<!-- 		<span class="text-xs tracking-wider select-none">Share</span> -->
+					<!-- 		<a class="copy-link hover:text-foreground" -->
+					<!-- 			><Icon name="social/copylink" class="cursor-pointer duration-200 sm:text-xl md:text-lg" /></a -->
 					<!-- 		> -->
 					<!-- 	</div> -->
-					<!-- 	<div class="blog-page-share-socials"> -->
-					<!-- 		<a class="x-link"><Icon name="social/x" /></a> -->
-					<!-- 		<a class="threads-link" -->
-					<!-- 			><Icon name="social/threads" /></a -->
+					<!-- 	<div class="blog-page-share-socials inline-flex w-auto place-items-center gap-4 pl-3.5"> -->
+					<!-- 		<a class="x-link hover:text-foreground"><Icon name="social/x" /></a> -->
+					<!-- 		<a class="threads-link hover:text-foreground" -->
+					<!-- 			><Icon name="social/threads" class="cursor-pointer duration-200 sm:text-xl md:text-lg" /></a -->
 					<!-- 		> -->
-					<!-- 		<a class="bluesky-link" -->
-					<!-- 			><Icon name="social/bluesky" /></a -->
+					<!-- 		<a class="bluesky-link hover:text-[oklch(63.55%_0.1974_254.71)]" -->
+					<!-- 			><Icon name="social/bluesky" class="cursor-pointer duration-200 sm:text-xl md:text-lg" /></a -->
 					<!-- 		> -->
-					<!-- 		<a class="reddit-link" -->
-					<!-- 			><Icon name="social/reddit" /></a -->
+					<!-- 		<a class="reddit-link hover:text-[oklch(66.02%_0.2293_35.4)]" -->
+					<!-- 			><Icon name="social/reddit"  class="cursor-pointer duration-200 sm:text-xl md:text-lg"/></a -->
 					<!-- 		> -->
-					<!-- 		<a class="linkedin-link" -->
-					<!-- 			><Icon name="social/linkedin" /></a -->
+					<!-- 		<a class="linkedin-link hover:text-[oklch(54.58%_0.1301_242.27)]" -->
+					<!-- 			><Icon name="social/linkedin" class="cursor-pointer duration-200 sm:text-xl md:text-lg"/></a -->
 					<!-- 		> -->
 					<!-- 	</div> -->
 					<!-- </div> -->
-					<div class="blog-page-toc">
+
+					<div
+						class="mt-gutter group/toc blog-page-table-of-contents rounded-base sm:mx-gutter relative z-50 h-full w-auto flex-row overflow-hidden sm:hidden lg:mx-0 lg:inline-flex"
+					>
 						<div class="scroll-progress"></div>
-						<ul>
+						<ul
+							class="flex flex-col sm:place-items-start lg:place-items-end"
+						>
 							{
-								headings.map(([level, text]) => (
+								filteredHeadings.map((heading) => (
 									<a
-										href={`#${text.replace(/\s+/g, "-").toLowerCase()}`}
+										href={`#${heading.slug}`}
+										class={`border-border-background text-border-foreground before:ease-flicker ease-flicker relative w-full border-t border-l leading-none transition-all duration-200 before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:border-[oklch(var(--accent))] before:opacity-0 before:transition-opacity before:duration-200 last:border-b last:before:h-[calc(100%+2px)] md:hover:bg-[oklch(var(--accent-background)/0.1)] md:hover:text-[oklch(var(--accent-foreground))] md:hover:before:opacity-100 lg:text-right`}
 									>
-										<li class={`toc-heading`}>{text}</li>
+										<li
+											class={`toc-heading ease-flicker rounded-base inline-block w-full px-3.5 py-2 font-mono text-xs tracking-wide text-inherit uppercase transition-all duration-0 sm:text-left lg:text-right`}
+										>
+											{heading.text}
+										</li>
 									</a>
 								))
 							}
 						</ul>
+						<div
+							id=`blog-post-table-of-contents-decoration-${post.id}`
+							class="blog-page-table-of-contents-decoration w-gutter border-border-background before:border-accent relative h-auto grow border bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 ease-in-out before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:bg-[repeating-linear-gradient(45deg,oklch(var(--accent)),oklch(var(--accent))_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-200 before:ease-in-out before:content-[''] before:[mask-image:linear-gradient(to_bottom,black_0%,black_49.99%,transparent_50%,transparent_100%)] before:[mask-position:0_var(--mask-position)] before:[mask-size:100%_200%] before:[transition:mask-position_200ms_ease-out]"
+						>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -156,456 +196,644 @@ while ((match = headingRegex.exec(rawContent)) !== null) {
 			</div>
 		</div>
 	</div>
-</BaseLayout>
 
-<style is:global>
-	@reference "@/styles/global.css";
-	.blog-page-banner {
-		@apply rounded-base sm:h-col-3 lg:h-col-5 absolute top-0 left-0 w-full overflow-hidden transition-all duration-500 ease-in-out;
+	<style is:global>
+		@reference "@/styles/global.css";
 
-		transition:
-			height 100ms ease,
-			opacity 500ms ease-in-out;
-	}
-
-	.blog-page-banner img {
-		@apply rounded-base mt-[1px] ml-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] object-cover opacity-80 transition-all duration-300 ease-in-out;
-	}
-
-	body.scrolled .blog-page-banner img {
-		@apply sm:opacity-100 lg:scale-110 lg:opacity-25 lg:blur-xl;
-	}
-
-	.blog-page-body {
-		--details-width: 50%;
-		@apply grid max-w-full transition-all duration-300 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--col-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(var(--details-width),1fr)_auto] lg:gap-[calc(var(--col-gutter)*2)] lg:pt-[calc(var(--col-5)+(var(--col-gutter)*0.5))];
-	}
-
-	body.scrolled .blog-page-body {
-		--details-width: 330px;
-	}
-
-	.blog-page-sidebar {
-		@apply lg:pt-gutter flex h-min flex-col transition-all duration-500 ease-in-out sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)+(var(--col-gutter)))];
-	}
-
-	.blog-page-sidebar-info {
-		@apply sm:px-gutter inline-flex flex-col sm:place-items-start lg:place-items-end lg:px-2;
-	}
-
-	.blog-page-thumbnail {
-		@apply rounded-base relative h-auto w-full overflow-hidden transition-all duration-500 ease-in-out lg:place-items-end;
-	}
-
-	.blog-page-thumbnail .navigation-button {
-		@apply opacity-0;
-		transition:
-			opacity 300ms 500ms ease-in-out,
-			fill 300ms ease-in-out,
-			stroke 300ms ease-in-out,
-			color 300ms ease-in-out,
-			background 300ms ease-in-out;
-	}
-
-	body.scrolled .blog-page-thumbnail .navigation-button {
-		@apply sm:opacity-0 lg:opacity-100;
-	}
-
-	.blog-page-thumbnail img {
-		@apply rounded-base mb-gutter h-col-3 w-full object-cover transition-all duration-500 ease-in-out sm:opacity-0 lg:-mt-[calc(var(--col-3)+var(--col-gutter))] lg:opacity-0;
-
-		transition:
-			opacity 200ms ease-in-out,
-			margin-top 300ms 100ms ease;
-	}
-
-	body.scrolled .blog-page-thumbnail img {
-		@apply sm:h-col-3 lg:mt-0 lg:opacity-80;
-
-		transition:
-			opacity 300ms 150ms ease-in-out,
-			margin-top 300ms ease;
-	}
-
-	.blog-page-title {
-		@apply text-foreground/90 z-20 mb-1.5 inline-block w-auto transform-none font-bold tracking-tight text-pretty transition-all duration-500 ease-in-out sm:text-left sm:text-3xl md:text-3xl lg:text-right lg:text-4xl;
-	}
-
-	body.scrolled .blog-page-title {
-		@apply sm:text-3xl md:text-3xl;
-	}
-
-	.blog-page-date {
-		@apply text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-widest uppercase transition-all duration-200 ease-in-out sm:text-left lg:text-right;
-	}
-
-	.blog-page-tags {
-		@apply mb-3 w-auto flex-wrap sm:justify-start lg:justify-end;
-	}
-
-	.blog-page-share {
-		@apply bg-foreground/0 text-foreground/50 rounded-base mb-5 inline-flex w-auto place-items-center px-1 font-mono tracking-wide uppercase duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end;
-	}
-
-	.blog-page-share-copy {
-		@apply border-r-foreground/20 inline-flex w-auto place-items-center gap-3 border-r pr-3.5;
-	}
-
-	.blog-page-share-socials {
-		@apply inline-flex w-auto place-items-center gap-4 pl-3.5;
-	}
-
-	.blog-page-share span {
-		@apply text-xs tracking-wider select-none;
-	}
-
-	.blog-page-share svg {
-		@apply cursor-pointer duration-200 sm:text-xl md:text-lg;
-	}
-
-	.copy-link {
-		@apply hover:text-foreground;
-	}
-
-	.x-link {
-		@apply hover:text-foreground;
-	}
-
-	.threads-link {
-		@apply hover:text-foreground;
-	}
-
-	.bluesky-link {
-		@apply hover:text-[oklch(63.55%_0.1974_254.71)];
-	}
-
-	.reddit-link {
-		@apply hover:text-[oklch(66.02%_0.2293_35.4)];
-	}
-
-	.linkedin-link {
-		@apply hover:text-[oklch(54.58%_0.1301_242.27)];
-	}
-
-	.blog-page-toc {
-		@apply rounded-base sm:mx-gutter relative z-50 w-auto overflow-hidden px-0 text-xs transition-all duration-300 ease-in-out sm:hidden lg:mx-0 lg:inline-block;
-	}
-
-	body.scrolled .blog-page-toc {
-		@apply px-2 lg:mx-2;
-	}
-
-	.scroll-progress {
-		@apply bg-accent/25 absolute h-full w-[var(--radius)] opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:right-0 lg:left-auto lg:rounded-l-none lg:rounded-r-lg;
-
-		--scroll-progress: 0%;
-	}
-
-	body.scrolled .scroll-progress {
-		@apply w-[var(--radius)] opacity-100;
-	}
-
-	.scroll-progress::after {
-		content: "";
-		@apply bg-accent absolute top-0 h-full w-full rounded-[inherit] sm:left-0 lg:right-0 lg:left-auto;
-
-		transform: translate(0, calc(-100% + var(--scroll-progress)));
-	}
-
-	.blog-page-toc ul {
-		@apply flex flex-col gap-0.5 sm:place-items-start lg:place-items-end;
-	}
-
-	.blog-page-toc ul a {
-		@apply inline-block px-0 leading-none transition-all duration-150 ease-in-out lg:text-right;
-	}
-
-	body.scrolled .blog-page-toc ul a {
-		@apply px-2;
-	}
-
-	.blog-page-toc ul li {
-		@apply hover:bg-accent-background/50 hover:text-accent-foreground active:bg-accent-foreground/50 rounded-base inline-block leading-normal transition-all duration-150 ease-in-out sm:text-left lg:text-right;
-	}
-
-	.toc-heading {
-		@apply text-foreground/50 px-2.5 py-1.5 font-mono font-normal tracking-wide uppercase;
-	}
-
-	.blog-page-nav-arrow {
-		@apply mt-gutter absolute top-0 left-0 ml-[var(--col-gutter)] cursor-pointer place-self-end !fill-[oklch(var(--dark-bg)/0.5)] hover:!fill-[oklch(var(--dark-bg)/0.8)] sm:h-6 md:h-5;
-	}
-
-	.post-markdown {
-		@apply sm:text-foreground sm:px-gutter relative z-50 w-full max-w-[var(--article-width)] min-w-0 transition-all duration-500 ease-in-out sm:pt-0 lg:px-0 lg:pt-[calc(var(--col-gutter)+4px)];
-	}
-
-	::-moz-selection {
-		/* Code for Firefox */
-		@apply bg-accent-background text-accent-foreground;
-	}
-
-	::selection {
-		@apply bg-accent-background text-accent-foreground;
-	}
-
-	@keyframes headerHighlightFade {
-		0% {
-			background-color: oklch(var(--accent) / 25);
-			color: oklch(var(--accent-foreground));
+		.blog-page-thumbnail .navigation-button {
+			@apply opacity-0;
+			transition:
+				opacity 300ms 500ms ease-in-out,
+				fill 300ms ease-in-out,
+				stroke 300ms ease-in-out,
+				color 300ms ease-in-out,
+				background 300ms ease-in-out;
 		}
 
-		50% {
-			background-color: oklch(var(--accent) / 25);
-			color: oklch(var(--accent-foreground));
+		body.scrolled .blog-page-thumbnail .navigation-button {
+			@apply sm:opacity-0 lg:opacity-100;
 		}
 
-		100% {
-			background-color: transparent;
-			color: transparent;
+		.scroll-progress {
+			@apply bg-accent/25 absolute h-full w-[var(--radius)] opacity-0 transition-opacity duration-300 ease-in-out sm:left-0 sm:rounded-l-lg sm:rounded-r-none lg:right-0 lg:left-auto lg:rounded-l-none lg:rounded-r-lg;
+
+			--scroll-progress: 0%;
 		}
-	}
 
-	.post-markdown .header-highlight {
-		animation: headerHighlightFade 2s ease !important;
-	}
+		body.scrolled .scroll-progress {
+			@apply w-[var(--radius)] opacity-100;
+		}
 
-	.post-markdown p {
-		font-size: 1rem;
-		font-weight: normal;
-		line-height: 1.5;
-		margin-bottom: 1.5rem;
-	}
+		.scroll-progress::after {
+			content: "";
+			@apply bg-accent absolute top-0 h-full w-full rounded-[inherit] sm:left-0 lg:right-0 lg:left-auto;
 
-	.post-markdown h1 {
-		font-size: 2rem;
-		font-weight: 700;
-		margin-bottom: 0.7rem;
-		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
-	}
+			transform: translate(0, calc(-100% + var(--scroll-progress)));
+		}
 
-	.post-markdown h2 {
-		font-size: 1.25rem;
-		font-weight: 500;
-		margin-bottom: 0.8rem;
-		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
+		.blog-page-nav-arrow {
+			@apply mt-gutter absolute top-0 left-0 ml-[var(--col-gutter)] cursor-pointer place-self-end !fill-[oklch(var(--dark-bg)/0.5)] hover:!fill-[oklch(var(--dark-bg)/0.8)] sm:h-6 md:h-5;
+		}
 
-		@apply rounded-base -ml-3 py-1 pl-3 font-bold;
-	}
+		.post-markdown {
+			@apply sm:text-foreground sm:px-gutter lg:px-gutter-2 border-border-background relative z-50 w-full max-w-[var(--article-width)] min-w-0 border-l transition-all duration-500 ease-in-out sm:pt-0 lg:pt-[calc(var(--col-gutter)+4px)];
+		}
 
-	.post-markdown h3 {
-		font-size: 0.9rem;
-		font-weight: 500;
-		margin-bottom: 0.7rem;
-		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
-		@apply text-accent-foreground font-mono text-sm tracking-wider uppercase;
-	}
+		::-moz-selection {
+			/* Code for Firefox */
+			@apply bg-accent-background text-accent-foreground;
+		}
 
-	.post-markdown h4 {
-		font-size: 1.3rem;
-		font-weight: 700;
-		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
-	}
+		::selection {
+			@apply bg-accent-background text-accent-foreground;
+		}
 
-	.post-markdown h5 {
-		font-size: 1.3rem;
-		font-weight: 700;
-		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
-	}
+		@keyframes headerHighlightFade {
+			0% {
+				background-color: oklch(var(--accent) / 0.1);
+				color: oklch(var(--accent-foreground));
+				border-color: oklch(var(--accent));
+			}
 
-	.post-markdown h6 {
-		font-size: 0.9rem;
-		font-weight: 700;
-		scroll-margin-top: calc(var(--nav-height) + (var(--col-gutter) * 2));
-	}
+			50% {
+				background-color: oklch(var(--accent) / 0.1);
+				color: oklch(var(--accent-foreground));
+				border-color: oklch(var(--accent));
+			}
 
-	.post-markdown ul,
-	.post-markdown ol {
-		margin-bottom: 1.75rem;
-		@apply list-inside;
-	}
+			100% {
+				background-color: transparent;
+				color: oklch(var(--foreground));
+				border-color: transparent;
+			}
+		}
 
-	.post-markdown ul > li {
-		@apply mb-3 list-["---_"];
-	}
+		.post-markdown .header-highlight {
+			animation: headerHighlightFade 2s ease !important;
+		}
 
-	.post-markdown ::marker {
-		@apply text-foreground/50 font-mono text-sm;
-	}
+		.post-markdown p {
+			font-size: 1rem;
+			font-weight: normal;
+			line-height: 1.5;
+			margin-bottom: 1.5rem;
+		}
 
-	@counter-style padded-numbers {
-		system: numeric;
-		symbols: "00" "01" "02" "03" "04" "05" "06" "07" "08" "09" "10";
-		suffix: " // ";
-	}
+		.post-markdown h1 {
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 0.7rem;
+			scroll-margin-top: calc(
+				var(--nav-height) + (var(--col-gutter) * 2)
+			);
+		}
 
-	.post-markdown ol > li {
-		@apply mb-3 list-[padded-numbers];
-	}
+		.post-markdown h2 {
+			font-size: 1.25rem;
+			font-weight: 500;
+			margin-bottom: 0.8rem;
+			scroll-margin-top: calc(
+				var(--nav-height) + (var(--col-gutter) * 2)
+			);
 
-	.post-markdown ul ul {
-		@apply mt-2 ml-6;
-	}
+			@apply rounded-base -ml-3 border border-transparent py-1 pl-3 font-bold;
+		}
 
-	.post-markdown ul ul > li {
-		@apply list-["--_"];
-	}
+		.post-markdown h3 {
+			font-size: 0.9rem;
+			font-weight: 500;
+			margin-bottom: 0.7rem;
+			scroll-margin-top: calc(
+				var(--nav-height) + (var(--col-gutter) * 2)
+			);
+			@apply text-accent-foreground font-mono text-sm tracking-wider uppercase;
+		}
 
-	.post-markdown ul ul ul > li {
-		@apply list-["-_"];
-	}
+		.post-markdown h4 {
+			font-size: 1.3rem;
+			font-weight: 700;
+			scroll-margin-top: calc(
+				var(--nav-height) + (var(--col-gutter) * 2)
+			);
+		}
 
-	.post-markdown pre {
-		word-wrap: break-word;
+		.post-markdown h5 {
+			font-size: 1.3rem;
+			font-weight: 700;
+			scroll-margin-top: calc(
+				var(--nav-height) + (var(--col-gutter) * 2)
+			);
+		}
 
-		@apply !font-code rounded-base p-gutter relative mb-8 !bg-[oklch(var(--foreground)/0.025)] break-words whitespace-pre-wrap;
-	}
+		.post-markdown h6 {
+			font-size: 0.9rem;
+			font-weight: 700;
+			scroll-margin-top: calc(
+				var(--nav-height) + (var(--col-gutter) * 2)
+			);
+		}
 
-	code {
-		@apply !font-code text-sm;
-	}
+		.post-markdown ul,
+		.post-markdown ol {
+			margin-bottom: 1.75rem;
+			@apply list-inside;
+		}
 
-	.post-markdown pre::before,
-	.post-markdown blockquote::before {
-		content: "";
-		mask: radial-gradient(
-			400px circle at var(--x) var(--y),
-			rgb(39, 26, 26) -50%,
-			rgba(0, 0, 0, 0) 50%
+		.post-markdown ul > li {
+			@apply mb-3 list-["---_"];
+		}
+
+		.post-markdown ::marker {
+			@apply text-foreground/50 font-mono text-sm;
+		}
+
+		@counter-style padded-numbers {
+			system: numeric;
+			symbols: "00" "01" "02" "03" "04" "05" "06" "07" "08" "09" "10";
+			suffix: " // ";
+		}
+
+		.post-markdown ol > li {
+			@apply mb-3 list-[padded-numbers];
+		}
+
+		.post-markdown ul ul {
+			@apply mt-2 ml-6;
+		}
+
+		.post-markdown ul ul > li {
+			@apply list-["--_"];
+		}
+
+		.post-markdown ul ul ul > li {
+			@apply list-["-_"];
+		}
+
+		.post-markdown pre {
+			word-wrap: break-word;
+
+			@apply !font-code rounded-base p-gutter relative mb-8 !bg-[oklch(var(--foreground)/0.025)] break-words whitespace-pre-wrap;
+		}
+
+		code {
+			@apply !font-code text-sm;
+		}
+
+		.post-markdown pre::before,
+		.post-markdown blockquote::before {
+			content: "";
+			mask: radial-gradient(
+				400px circle at var(--x) var(--y),
+				rgb(39, 26, 26) -50%,
+				rgba(0, 0, 0, 0) 50%
+			);
+
+			@apply bg-accent-background pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
+		}
+
+		.post-markdown pre::after,
+		.post-markdown blockquote::after {
+			content: "";
+			background: radial-gradient(
+					200px circle at var(--x) var(--y),
+					oklch(var(--accent)) 0%,
+					transparent 100%
+				)
+				border-box;
+			mask:
+				linear-gradient(#fff 0 0) padding-box,
+				linear-gradient(#fff 0 0);
+			mask-composite: exclude;
+
+			@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
+		}
+
+		.post-markdown blockquote::after {
+			@apply !rounded-l-none;
+		}
+
+		.post-markdown hr {
+			@apply border-border-background mt-12 mb-8;
+		}
+
+		.post-markdown blockquote {
+			border-left: var(--radius) solid oklch(var(--accent));
+			@apply rounded-base relative mb-6 bg-[oklch(var(--foreground)/0.025)] p-4;
+		}
+
+		.post-markdown blockquote p {
+			@apply text-foreground text-sm;
+		}
+
+		.post-markdown blockquote * {
+			margin-bottom: 0rem;
+		}
+
+		.post-markdown blockquote > blockquote {
+			margin-top: 1rem;
+		}
+
+		:root[data-theme="dark"] .astro-code,
+		:root[data-theme="dark"] .astro-code span {
+			color: var(--shiki-dark) !important;
+			/* Optional, if you also want font styles */
+			font-style: var(--shiki-dark-font-style) !important;
+			font-weight: var(--shiki-dark-font-weight) !important;
+			text-decoration: var(--shiki-dark-text-decoration) !important;
+		}
+	</style>
+
+	<script>
+		function updateScrollProgress() {
+			const element: HTMLElement = document.querySelector(
+				".blog-page-table-of-contents-decoration",
+			)!;
+
+			element.style.setProperty("--mask-position", `100%`);
+
+			const postMarkdown: HTMLElement =
+				document.querySelector(".post-markdown")!;
+
+			// Update mask position on scroll
+			window.addEventListener("scroll", () => {
+				// Calculate how far the user has scrolled through the post-markdown element
+				const postRect = postMarkdown.getBoundingClientRect();
+				const postHeight = postMarkdown.offsetHeight;
+
+				// Calculate scroll progress (0 to 1) through the post-markdown element
+				// 0 when at the top of post-markdown, 1 when at the bottom
+				const postScrollProgress = Math.max(
+					0,
+					Math.min(
+						1,
+						-postRect.top / (postHeight - window.innerHeight),
+					),
+				);
+
+				// Update the CSS variable for mask position
+				element.style.setProperty(
+					"--mask-position",
+					`${100 - postScrollProgress * 100}%`,
+				);
+			});
+		}
+
+		document.addEventListener("astro:page-load", () =>
+			updateScrollProgress(),
 		);
+		document.addEventListener("astro:after-swap", () =>
+			updateScrollProgress(),
+		);
+	</script>
 
-		@apply bg-accent-background pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
-	}
-
-	.post-markdown pre::after,
-	.post-markdown blockquote::after {
-		content: "";
-		background: radial-gradient(
-				200px circle at var(--x) var(--y),
-				oklch(var(--accent)) 0%,
-				transparent 100%
-			)
-			border-box;
-		mask:
-			linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		mask-composite: exclude;
-
-		@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
-	}
-
-	.post-markdown blockquote::after {
-		@apply !rounded-l-none;
-	}
-
-	.post-markdown hr {
-		@apply border-foreground/10 mt-12 mb-8;
-	}
-
-	.post-markdown blockquote {
-		border-left: var(--radius) solid oklch(var(--accent));
-		@apply rounded-base relative mb-6 bg-[oklch(var(--foreground)/0.025)] p-4;
-	}
-
-	.post-markdown blockquote p {
-		@apply text-foreground text-sm;
-	}
-
-	.post-markdown blockquote * {
-		margin-bottom: 0rem;
-	}
-
-	.post-markdown blockquote > blockquote {
-		margin-top: 1rem;
-	}
-
-	:root[data-theme="dark"] .astro-code,
-	:root[data-theme="dark"] .astro-code span {
-		color: var(--shiki-dark) !important;
-		/* Optional, if you also want font styles */
-		font-style: var(--shiki-dark-font-style) !important;
-		font-weight: var(--shiki-dark-font-weight) !important;
-		text-decoration: var(--shiki-dark-text-decoration) !important;
-	}
-</style>
-
-<script is:inline>
-	window.onscroll = function () {
-		scrollProgress();
-	};
-
-	function scrollProgress() {
-		let scroll =
-			document.querySelector(".post-markdown").scrollTop ||
-			document.documentElement.scrollTop;
-		let height =
-			document.documentElement.scrollHeight -
-			document.documentElement.clientHeight;
-		let scrolled = (scroll / height) * 100;
+	<script is:inline>
 		document
-			.querySelector(".scroll-progress")
-			.style.setProperty("--scroll-progress", `${scrolled}%`);
-	}
-</script>
+			.querySelectorAll(".blog-page-table-of-contents a")
+			.forEach((anchor) => {
+				anchor.addEventListener("click", function (e) {
+					e.preventDefault();
 
-<script is:inline>
-	document.querySelectorAll(".blog-page-toc a").forEach((anchor) => {
-		anchor.addEventListener("click", function (e) {
-			e.preventDefault();
+					const targetId = this.getAttribute("href").slice(1);
+					const targetElement = document.getElementById(targetId);
 
-			const targetId = this.getAttribute("href").slice(1);
-			const targetElement = document.getElementById(targetId);
+					if (targetElement) {
+						targetElement.scrollIntoView({
+							behavior: "smooth",
+							block: "start",
+						});
 
-			if (targetElement) {
-				targetElement.scrollIntoView({
-					behavior: "smooth",
-					block: "start",
+						const observer = new IntersectionObserver((entries) => {
+							entries.forEach((entry) => {
+								if (entry.isIntersecting) {
+									targetElement.classList.remove(
+										"header-highlight",
+									);
+
+									void targetElement.offsetWidth;
+
+									targetElement.classList.add(
+										"header-highlight",
+									);
+
+									setTimeout(() => {
+										targetElement.classList.remove(
+											"header-highlight",
+										);
+									}, 2000);
+
+									observer.disconnect();
+								}
+							});
+						});
+
+						observer.observe(targetElement);
+					}
+				});
+			});
+	</script>
+
+	<script data-astro-rerun>
+		const attachEventListeners = () => {
+			const page = document.querySelector(".blog-page");
+
+			const html = document.querySelector("html");
+			if (
+				localStorage.getItem("theme") === "dark" ||
+				localStorage.getItem("theme") === "light"
+			) {
+				html.style.setProperty("--accent", `${page.dataset.accent}`);
+			}
+		};
+
+		attachEventListeners();
+
+		document.addEventListener("astro:after-swap", () => {
+			attachEventListeners();
+		});
+	</script>
+
+	<script>
+		const setTagRows = () => {
+			const tagBoxes = document.querySelectorAll(".tags-box");
+
+			if (!tagBoxes) {
+				return;
+			}
+			// First check applies relevant flex row classes
+			tagBoxes.forEach((tagBox) => {
+				const tags = tagBox.querySelectorAll(".card-tag");
+
+				// Reset previous row classes
+				tags.forEach((tag) => {
+					for (let i = 0; i < 10; i++) {
+						tag.classList.remove(`tag-row-${i + 1}`);
+					}
 				});
 
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							targetElement.classList.remove("header-highlight");
+				if (tags.length === 0) return;
 
-							void targetElement.offsetWidth;
+				let prevTop = tags[0].getBoundingClientRect().top;
+				let currentRow = 1;
 
-							targetElement.classList.add("header-highlight");
+				tags.forEach((tag) => {
+					const tagTop = tag.getBoundingClientRect().top;
 
-							setTimeout(() => {
-								targetElement.classList.remove(
-									"header-highlight",
-								);
+					if (Math.abs(tagTop - prevTop) > 1) {
+						currentRow++;
+						prevTop = tagTop;
+					}
 
-								console.log("Header test");
-							}, 2000);
+					tag.classList.add(`tag-row-${currentRow}`);
+				});
+			});
 
-							observer.disconnect();
+			tagBoxes.forEach((tagBox: any) => {
+				const tags: NodeListOf<HTMLElement> =
+					tagBox.querySelectorAll(".card-tag");
+				if (tags.length === 0) return;
+
+				let rowLengths: number[] = new Array(10).fill(0);
+
+				for (let i = 0; i < 10; i++) {
+					tags.forEach((tag: HTMLElement) => {
+						if (tag.classList.contains(`tag-row-${i + 1}`)) {
+							rowLengths[i] += tag.clientWidth;
 						}
 					});
+				}
+
+				rowLengths.forEach((rowLength: number, index) => {
+					const rowTags = tagBox.querySelectorAll(
+						`.tag-row-${index + 1}`,
+					);
+
+					// Cancels loop if current row is empty, offsets margins on previous row
+					if (rowLengths[index] === 0) {
+						return;
+					}
+
+					// Clears border classes, add hover margin offsets
+					rowTags.forEach((tag: any) => {
+						tag.classList.remove("border-l");
+						tag.classList.remove("border-r");
+						tag.classList.remove("border-b");
+						tag.classList.remove("border-t");
+
+						// tag.classList.add("md:hover:-mb-[1px]");
+						// tag.classList.add("md:hover:-mr-[1px]");
+						// tag.classList.add("md:hover:-mt-[1px]");
+					});
+
+					// Sets left borders on all tags in row, and right border on the last row tag
+					rowTags.forEach(
+						(tag: any, i: number, arr: NodeListOf<HTMLElement>) => {
+							tag.classList.add("border-l");
+							if (i === arr.length - 1) {
+								tag.classList.add("border-r");
+								tag.classList.remove("md:hover:-mr-[1px]");
+							}
+						},
+					);
+
+					// Sets top border on first row
+					if (index == 0) {
+						rowTags.forEach((tag: any) => {
+							tag.classList.add("border-t");
+						});
+					}
+
+					// Sets bottom border if current row is longer than next row
+					if (rowLengths[index] >= rowLengths[index + 1]) {
+						rowTags.forEach((tag: any) => {
+							tag.classList.add("border-b");
+							tag.classList.remove("md:hover:-mb-[1px]");
+						});
+					}
+
+					// Sets top border if current row is longer than previous row
+					if (rowLengths[index] > rowLengths[index - 1]) {
+						rowTags.forEach((tag: any) => {
+							tag.classList.add("border-t");
+							tag.classList.remove("md:hover:-mt-[1px]");
+						});
+					}
+
+					if (rowLengths[index + 1] === 0) {
+						rowTags.forEach((tag: any) => {
+							tag.classList.add("border-b");
+							tag.classList.remove("md:hover:-mb-[1px]");
+							tag.classList.add("md:hover:pb-[8px]");
+						});
+					}
 				});
+			});
+		};
 
-				observer.observe(targetElement);
-			}
+		setTagRows();
+		document.addEventListener("astro:after-swap", () => {
+			setTagRows();
 		});
-	});
-</script>
+		window.addEventListener("resize", () => {
+			setTimeout(() => {
+				setTagRows();
+			}, 100);
+		});
+		window.addEventListener("scroll", () => {
+			setTimeout(() => {
+				setTagRows();
+			}, 100);
+		});
+	</script>
 
-<script data-astro-rerun>
-	const attachEventListeners = () => {
-		const page = document.querySelector(".blog-page");
+	<script>
+		function loadScrolledValues() {
+			// Initialise elements that change on scroll
+			const sidebar: any = document.querySelector(".blog-page-sidebar")!;
+			const banner: any = document.querySelector(
+				".blog-page-banner-img",
+			)!;
+			const thumbnail: any = document.querySelector(
+				".blog-page-thumbnail-img",
+			)!;
+			const sidebarNav: any = document.querySelector(
+				".blog-page-sidebar-nav",
+			)!;
+			const title: any = document.querySelector(".blog-page-title")!;
 
-		const html = document.querySelector("html");
-		if (
-			localStorage.getItem("theme") === "dark" ||
-			localStorage.getItem("theme") === "light"
-		) {
-			html.style.setProperty("--accent", `${page.dataset.accent}`);
+			// Get the height of the banner element
+			const scrollDistance = banner ? banner.offsetHeight : 200;
+			const sidebarNavScrollDistance = 50;
+
+			// Initial values
+			let initialWidth = sidebar.parentElement!.offsetWidth * 0.45,
+				initialBannerOpacity = 80,
+				initialBannerBlur = 0,
+				initialBannerScale = 100,
+				initialThumbnailHeight = 0,
+				initialSidebarNavHeight = 0,
+				initialTitleSize = 1.875;
+
+			const tempElement = document.createElement("div");
+			tempElement.style.setProperty("width", "var(--col-3)");
+			document.body.appendChild(tempElement);
+
+			const computedValue = getComputedStyle(tempElement).width;
+			document.body.removeChild(tempElement); // Clean up
+
+			// Final values
+			const finalWidth = 330,
+				finalBannerOpacity = 25,
+				finalBannerBlur = 24,
+				finalBannerScale = 110,
+				finalThumbnailHeight = parseFloat(computedValue),
+				finalSidebarNavHeight = 40,
+				finalTitleSize = 1.5;
+
+			// Set initial width
+			sidebar.style.width = initialWidth + "px";
+
+			// Use requestAnimationFrame for smoother animations
+			let ticking = false;
+			let lastScrollPos = window.scrollY;
+
+			function updateValues() {
+				// Get current scroll position
+				let scrollPos = window.scrollY;
+
+				// Calculate current sidebar width based on scroll position
+				let sidebarWidth,
+					bannerOpacity,
+					bannerScale,
+					bannerBlur,
+					thumbnailHeight,
+					sidebarNavHeight,
+					titleSize;
+
+				if (scrollPos >= sidebarNavScrollDistance) {
+					sidebarNavHeight = finalSidebarNavHeight;
+				} else {
+					let sidebarNavShrinkFactor =
+						scrollPos / sidebarNavScrollDistance;
+					sidebarNavHeight =
+						initialSidebarNavHeight -
+						sidebarNavShrinkFactor *
+							(initialSidebarNavHeight - finalSidebarNavHeight);
+				}
+
+				if (scrollPos >= scrollDistance) {
+					sidebarWidth = finalWidth;
+					bannerOpacity = finalBannerOpacity;
+					bannerScale = finalBannerScale;
+					bannerBlur = finalBannerBlur;
+					thumbnailHeight = finalThumbnailHeight;
+					titleSize = finalTitleSize;
+				} else {
+					// Linear interpolation between initial and final width
+					let shrinkFactor = scrollPos / scrollDistance;
+
+					sidebarWidth =
+						initialWidth -
+						shrinkFactor * (initialWidth - finalWidth);
+					bannerOpacity =
+						initialBannerOpacity -
+						shrinkFactor *
+							(initialBannerOpacity - finalBannerOpacity);
+					bannerBlur =
+						initialBannerBlur -
+						shrinkFactor * (initialBannerBlur - finalBannerBlur);
+					bannerScale =
+						initialBannerScale -
+						shrinkFactor * (initialBannerScale - finalBannerScale);
+					thumbnailHeight =
+						initialThumbnailHeight -
+						shrinkFactor *
+							(initialThumbnailHeight - finalThumbnailHeight);
+					titleSize =
+						initialTitleSize -
+						shrinkFactor * (initialTitleSize - finalTitleSize);
+				}
+
+				// Apply the new values
+				sidebar.style.width = `${sidebarWidth}px`;
+				banner.style.opacity = `${bannerOpacity / 100}`;
+				banner.style.transform = `scale(${bannerScale / 100})`;
+				banner.style.filter = `blur(${bannerBlur}px)`;
+				thumbnail.style.height = `${thumbnailHeight}px`;
+				title.style.fontSize = `${titleSize}rem`;
+
+				sidebarNav.style.height = `${sidebarNavHeight}px`;
+
+				ticking = false;
+
+				if (thumbnailHeight > finalSidebarNavHeight) {
+					sidebarNav.classList.add("border-b");
+				} else {
+					sidebarNav.classList.remove("border-b");
+				}
+			}
+			// Handle scroll events more efficiently
+			window.addEventListener("scroll", function () {
+				lastScrollPos = window.scrollY;
+
+				if (!ticking) {
+					window.requestAnimationFrame(function () {
+						updateValues();
+					});
+					ticking = true;
+				}
+			});
+
+			// Update initial width on window resize
+			window.addEventListener("resize", function () {
+				initialWidth = sidebar.parentElement.offsetWidth * 0.45;
+				updateValues();
+			});
 		}
-	};
 
-	attachEventListeners();
-
-	document.addEventListener("astro:after-swap", () => {
-		attachEventListeners();
-	});
-</script>
+		// Initial values load
+		loadScrolledValues();
+		document.addEventListener("astro:after-swap", function () {
+			loadScrolledValues();
+		});
+	</script>
+</BaseLayout>
