@@ -12,8 +12,13 @@ const { pageTitle } = Astro.props;
 <header
 	transition:persist="header"
 	id="header"
-	class="group w-col-full border-border-background pointer-events-none top-0 left-1/2 z-1001 flex h-[112px] -translate-x-1/2 items-start justify-center"
+	class="group w-col-full border-border-background h-nav pointer-events-none top-0 z-1001 flex items-start justify-center"
 >
+	<div
+		id="header-value-store"
+		style="width: calc(var(--col-gutter) + var(--col-1)); height: var(--col-1); padding: calc(var(--col-gutter) * 1); margin: calc(var(--col-gutter) * 0.5);"
+	>
+	</div>
 </header>
 <div
 	id="mobile-header"
@@ -28,17 +33,17 @@ const { pageTitle } = Astro.props;
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base border-border-background border-b-border-background linear pointer-events-auto fixed top-0 z-1000 flex h-auto w-[calc(var(--col-full)-2px)] items-center border-b shadow-2xl shadow-transparent backdrop-blur-2xl transition-all duration-50 sm:justify-center md:justify-between"
-	style="padding: calc(var(--col-gutter)*1.25); background-color: oklch(var(--background-header)/0)"
+	class="rounded-base border-border-background linear pointer-events-auto fixed top-0 z-1000 flex w-[calc(var(--col-full)-2px)] items-center border-b shadow-2xl shadow-transparent backdrop-blur-2xl transition-all duration-50 sm:justify-center md:justify-between"
+	style="padding-top: calc((var(--col-gutter)*1) - 1px); padding-bottom: calc((var(--col-gutter)*1) - 2px); padding-left: calc((var(--col-gutter)*1)); padding-right: calc((var(--col-gutter)*1)); background-color: oklch(var(--background-header)/0); height: calc(var(--col-1) + var(--col-gutter))"
 >
 	<a
 		href="/"
-		class="border-border-background relative isolate flex h-full w-full flex-col place-items-start justify-center gap-1 transition-all duration-300 ease-in-out sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-start in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+		class="border-border-background relative isolate flex h-full w-auto gap-0.5 transition-all duration-300 ease-in-out sm:flex-row sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none xl:flex-col xl:items-start"
 	>
 		<!--	<Icon class="header-logo" name="header" /> -->
 
 		<svg
-			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-8 w-auto pt-1.5 pl-2 transition-all duration-300 ease-in-out"
+			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-8 w-auto py-0.5 pl-2 transition-all duration-300 ease-in-out xl:pt-1"
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 98 22"
 		>
@@ -224,33 +229,38 @@ const { pageTitle } = Astro.props;
 		const nav: any = document.getElementById("desktop-nav")!;
 		let scrollDistance = nav ? nav.offsetHeight : 200;
 
-		const tempElement = document.createElement("div");
-		tempElement.style.setProperty("width", "calc(var(--col-gutter)*1.25)");
-		tempElement.style.setProperty("height", "calc(var(--col-gutter)*0.5)");
-		document.body.appendChild(tempElement);
-
-		// Set upper and lower bounds
-		let initialPadding = parseFloat(getComputedStyle(tempElement).width);
-		const finalPadding = parseFloat(getComputedStyle(tempElement).height);
-
-		let initialBackground = 0;
-		const finalBackground = 100;
-
-		document.body.removeChild(tempElement); // Clean up
+		const valuesElement = document.getElementById("header-value-store")!;
 
 		// Use requestAnimationFrame for smoother animations
 		let ticking = false;
 		let lastScrollPos = window.scrollY;
 
-		function updatePadding() {
+		function updateHeaderScroll() {
+			// Set upper and lower bounds
+			let initialHeight = parseFloat(
+				getComputedStyle(valuesElement).width,
+			);
+			let initialPadding = parseFloat(
+				getComputedStyle(valuesElement).padding,
+			);
+			let initialBackground = 0;
+			const finalHeight = parseFloat(
+				getComputedStyle(valuesElement).height,
+			);
+			const finalPadding = parseFloat(
+				getComputedStyle(valuesElement).margin,
+			);
+			const finalBackground = 100;
+
 			// Get current scroll position
 			let scrollPos = window.scrollY;
 
 			// Calculate current sidebar width based on scroll position
-			let navPadding, navBackground;
+			let navPadding, navHeight, navBackground;
 
 			if (scrollPos >= scrollDistance) {
 				navPadding = finalPadding;
+				navHeight = finalHeight;
 				navBackground = finalBackground;
 			} else {
 				// Linear interpolation between initial and final width
@@ -259,13 +269,20 @@ const { pageTitle } = Astro.props;
 				navPadding =
 					initialPadding -
 					shrinkFactor * (initialPadding - finalPadding);
+				navHeight =
+					initialHeight -
+					shrinkFactor * (initialHeight - finalHeight);
 				navBackground =
 					initialBackground -
 					shrinkFactor * (initialBackground - finalBackground);
 			}
 
 			// Apply the new values
-			nav.style.padding = `${navPadding}px`;
+			nav.style.paddingTop = `${navPadding - 1}px`;
+			nav.style.paddingBottom = `${navPadding - 2}px`;
+			nav.style.paddingLeft = `${navPadding}px`;
+			nav.style.paddingRight = `${navPadding}px`;
+			nav.style.height = `${navHeight}px`;
 			nav.style.backgroundColor = `oklch(var(--background-header)/${navBackground / 100 / 2})`;
 
 			ticking = false;
@@ -276,7 +293,7 @@ const { pageTitle } = Astro.props;
 
 			if (!ticking) {
 				window.requestAnimationFrame(function () {
-					updatePadding();
+					updateHeaderScroll();
 				});
 				ticking = true;
 			}
@@ -284,7 +301,7 @@ const { pageTitle } = Astro.props;
 
 		// Update initial width on window resize
 		window.addEventListener("resize", function () {
-			updatePadding();
+			updateHeaderScroll();
 		});
 	}
 

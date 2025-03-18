@@ -83,7 +83,7 @@ if (!images[post.data.imagePath]) {
 		>
 			<div
 				id=`blog-post-sidebar-${post.id}`
-				class="blog-page-sidebar border-border-background sticky flex h-min flex-col transition-all duration-50 ease-linear sm:relative sm:top-0 lg:sticky lg:top-[76px]"
+				class="blog-page-sidebar border-border-background sticky flex h-min flex-col transition-all duration-50 ease-linear sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)-var(--col-gutter))]"
 			>
 				<div
 					id=`blog-post-thumbnail-${post.id}`
@@ -618,6 +618,7 @@ if (!images[post.data.imagePath]) {
 						tag.classList.remove("border-r");
 						tag.classList.remove("border-b");
 						tag.classList.remove("border-t");
+						tag.classList.remove("!h-gutter");
 
 						// tag.classList.add("md:hover:-mb-[1px]");
 						// tag.classList.add("md:hover:-mr-[1px]");
@@ -662,7 +663,8 @@ if (!images[post.data.imagePath]) {
 						rowTags.forEach((tag: any) => {
 							tag.classList.add("border-b");
 							tag.classList.remove("md:hover:-mb-[1px]");
-							tag.classList.add("md:hover:pb-[8px]");
+
+							tag.classList.add("!h-gutter");
 						});
 					}
 				});

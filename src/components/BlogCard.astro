@@ -73,7 +73,7 @@ if (!images[imagePath])
 		id=`blog-post-image-${id}`
 		href={url}
 		transition:name=`blog-post-image-${id}`
-		class="border-border-background m-gutter in-[&[data-type='featured']]:md-mr-0 in-[&[data-type='standard']]:md:mr-gutter z-1 cursor-pointer border sm:mr-0 in-[&[data-type='standard']]:md:mb-0"
+		class="border-border-background m-gutter group/thumbnail ease-flicker in-[&[data-type='featured']]:sm:h-col-4 z-1 flex flex-col border transition-all duration-200 in-[&[data-type='featured']]:sm:w-full md:hover:border-[oklch(var(--accent-foreground))]"
 		data-loaded="false"
 		data-id="${id}"
 	>
@@ -81,10 +81,11 @@ if (!images[imagePath])
 			src={images[imagePath]()}
 			alt={imageAlt}
 			onload="this.parentElement.dataset.loaded = 'true'"
-			class="in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='featured']]:md:max-h-col-4 in-[&[data-type='featured']]:lg:max-h-col-5 in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:md:h-col-2 border-border-background h-full w-full object-cover in-[&[data-type='featured']]:sm:min-h-full md:border-b md:opacity-80 in-[&[data-type='standard']]:md:w-full"
+			class="h-[calc(100%-var(--col-gutter))] w-full object-cover"
 		/>
+
 		<small
-			class="text-border-foreground prevent-select text-2xs pointer-events-none line-clamp-1 px-2 py-1.5 text-right font-mono tracking-widest uppercase sm:hidden md:block"
+			class="text-border-foreground prevent-select text-2xs ease-flicker pointer-events-none line-clamp-1 h-[calc(var(--col-gutter))] border-t px-2 py-1.25 text-right font-mono tracking-widest uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:bg-[oklch(var(--accent-foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--accent-foreground))]"
 			>// {imageAlt}
 		</small>
 	</a>
@@ -175,7 +176,6 @@ if (!images[imagePath])
 	});
 
 	const setTagRows = () => {
-		console.log("TRIGGER");
 		const tagBoxes = document.querySelectorAll(".tags-box");
 
 		if (!tagBoxes) {
@@ -240,6 +240,7 @@ if (!images[imagePath])
 					tag.classList.remove("border-r");
 					tag.classList.remove("border-b");
 					tag.classList.remove("border-t");
+					tag.classList.remove("!h-gutter");
 
 					// tag.classList.add("md:hover:-mb-[1px]");
 					// tag.classList.add("md:hover:-mr-[1px]");
@@ -280,11 +281,12 @@ if (!images[imagePath])
 					});
 				}
 
+				// Sets bottom border if current row is final row
 				if (rowLengths[index + 1] === 0) {
 					rowTags.forEach((tag: any) => {
 						tag.classList.add("border-b");
 						tag.classList.remove("md:hover:-mb-[1px]");
-						tag.classList.add("md:hover:pb-[8px]");
+						tag.classList.add("!h-gutter");
 					});
 				}
 			});

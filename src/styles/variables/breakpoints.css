@@ -77,7 +77,7 @@
 	}
 	
 	/* SIZES */
-	--nav-height: 80px;
+	--nav-height: calc(var(--col-1) + var(--col-gutter));
 	--header-height: calc(var(--nav-height)*1.5);
 	--radius: 0px;
 
