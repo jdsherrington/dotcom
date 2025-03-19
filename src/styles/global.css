@@ -161,7 +161,7 @@
 	background: radial-gradient(
 			200px circle at var(--x) var(--y),
 			oklch(var(--accent-background)) -500%,
-			var(--header) 100%
+			oklch(var(--background-header)/0.5) 100%
 		);
 }
 
@@ -475,9 +475,9 @@ html {
 }
 
 /* ------------------------ IMAGE SKELETONS ------------------------ */
-div[data-loaded] {
-	@apply skeleton;
-}
+/* div[data-loaded] { */
+/* 	@apply skeleton; */
+/* } */
 
 
 @keyframes sweep {

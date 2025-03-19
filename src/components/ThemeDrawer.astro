@@ -2,29 +2,52 @@
 const { class: className = "" } = Astro.props;
 ---
 
-<div class=`theme-drawer-wrapper ${className}`>
+<div class=`theme-drawer-wrapper ${className} isolate`>
 	<div
-		class=`theme-drawer menu before:menu-bg-hover -translate-y-[calc(100%)] [.open]:translate-y-0 !border-t-0`
+		class=`theme-drawer menu menu-bg-hover backdrop-blur-xl -translate-y-[calc(100%)] [.open]:translate-y-0 !border-t-0 rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none  hover:after:opacity-100 in-[.open]:pointer-events-auto in-[.open]:opacity-100`
 	>
-		<ul class="extra-themes">
-			<ul class="light-themes">
-				<li class="golden"><span>Golden</span></li>
-				<li class="spring"><span>Spring</span></li>
+		<ul class="extra-themes flex gap-1 p-1">
+			<ul
+				class="light-themes *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 grid w-full grid-cols-1 gap-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:border *:border-transparent *:p-2.5"
+			>
+				<li
+					class="golden bg-[oklch(88.5%_0.0592_94.12/0.6)] text-[oklch(40%_0.1197_94.12)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				>
+					<span>Golden</span>
+				</li>
+				<li
+					class="spring bg-[oklch(88.2%_0.0595_130.12/0.6)] text-[oklch(40%_0.1129_160.83)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				>
+					<span>Spring</span>
+				</li>
 			</ul>
-			<ul class="dark-themes">
-				<li class="source"><span>Source</span></li>
-				<li class="carbon"><span>Carbon</span></li>
+			<ul
+				class="dark-themes *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 grid w-full grid-cols-1 gap-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:border *:border-transparent *:p-2.5"
+			>
+				<li
+					class="source bg-[oklch(15.73%_0.074_142.83/0.6)] text-[oklch(86.44%_0.2985_142.83)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				>
+					<span>Source</span>
+				</li>
+				<li
+					class="carbon bg-[oklch(37.2%_0_197.88/0.6)] text-[oklch(85.73%_0_197.88)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				>
+					<span>Carbon</span>
+				</li>
 			</ul>
 		</ul>
 		<ul
-			class="standard-themes *:rounded-xs *:transition-all *:duration-300 *:ease-in-out"
+			class="standard-themes **:fill-foreground **:stroke-foreground **:text-foreground/70 *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 **:in-[.active]:fill-accent-foreground **:in-[.active]:text-accent-foreground right-0 grid grid-cols-[repeat(3,1fr)] gap-1 p-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:rounded-xs *:border *:border-transparent *:p-2.5 *:transition-all *:duration-300 *:ease-in-out **:in-[.active]:opacity-100 *:sm:p-4 *:md:p-3"
 		>
-			<li class="light">
+			<li
+				class="light *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+			>
 				<svg
 					viewBox="0 0 24 24"
 					fill="currentColor"
 					stroke="currentColor"
 					stroke-width="2"
+					class="h-4"
 				>
 					<g
 						transform="matrix(1, 0, 0, 1, -150.186005, -76.000008)"
@@ -69,12 +92,15 @@ const { class: className = "" } = Astro.props;
 					</g>
 				</svg><span>Light</span>
 			</li>
-			<li class="dark">
+			<li
+				class="dark *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+			>
 				<svg
 					viewBox="0 0 24 24"
 					fill="currentColor"
 					stroke="currentColor"
 					stroke-width="0"
+					class="h-4"
 				>
 					<g
 						transform="matrix(0.904167, 0, 0, 0.904167, -158.233398, -67.316719)"
@@ -85,12 +111,15 @@ const { class: className = "" } = Astro.props;
 					</g>
 				</svg><span>Dark</span>
 			</li>
-			<li class="system">
+			<li
+				class="system *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+			>
 				<svg
 					viewBox="0 0 24 24"
 					fill="currentColor"
 					stroke="currentColor"
 					stroke-width="2"
+					class="h-4"
 				>
 					<g
 						transform="matrix(1, 0, 0, 1, -150.186005, -76.000008)"
@@ -126,84 +155,7 @@ const { class: className = "" } = Astro.props;
 <style is:global>
 	@reference "@/styles/global.css";
 
-	.theme-drawer {
-		@apply rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none;
-	}
-
-	.theme-drawer::before {
-		content: "";
-		@apply rounded-base absolute z-[-1] h-full w-full transition-all duration-300 ease-in-out;
-	}
-
-	/* .theme-drawer::after { */
-	/* 	@apply menu-border; */
+	/* .extra-themes li { */
+	/* 	@apply w-full hover:opacity-100 sm:opacity-100 md:opacity-80; */
 	/* } */
-
-	.theme-drawer:hover::after {
-		@apply opacity-100;
-	}
-
-	.open .theme-drawer {
-		@apply pointer-events-auto opacity-100 blur-none;
-	}
-
-	.theme-drawer li {
-		@apply inline-flex cursor-pointer flex-col place-content-center place-items-center gap-2.5 border border-transparent p-2.5;
-	}
-
-	.theme-drawer .standard-themes li {
-		@apply sm:p-4 md:p-3;
-	}
-
-	.theme-drawer .standard-themes {
-		@apply right-0 grid grid-cols-[repeat(3,1fr)] gap-1 p-1;
-	}
-
-	.theme-drawer li * {
-		@apply ml-0.5 w-full text-center text-xs tracking-widest;
-	}
-
-	.theme-drawer .standard-themes li * {
-		@apply fill-foreground stroke-foreground text-foreground/70;
-	}
-
-	.theme-drawer li.active {
-		@apply border-accent-foreground/50 bg-accent-foreground/5;
-	}
-
-	.theme-drawer .standard-themes li.active * {
-		@apply fill-accent-foreground text-accent-foreground opacity-100;
-	}
-
-	.theme-drawer li svg {
-		@apply h-4 w-4;
-	}
-
-	.extra-themes {
-		@apply flex gap-1 p-1;
-	}
-
-	.extra-themes ul {
-		@apply grid w-full grid-cols-1 gap-1;
-	}
-
-	.extra-themes li {
-		@apply w-full !transition-opacity duration-300 ease-in-out hover:opacity-100 sm:opacity-100 md:opacity-80;
-	}
-
-	.gold {
-		@apply bg-[oklch(98.5%_0.0592_94.12)] text-[oklch(50.56%_0.1197_94.12)];
-	}
-
-	.fresh {
-		@apply bg-[oklch(94.2%_0.0695_130.12)] text-[oklch(53.79%_0.0529_160.83)];
-	}
-
-	.neo {
-		@apply bg-[oklch(15.73%_0.074_142.83)] text-[oklch(86.44%_0.2985_142.83)];
-	}
-
-	.quasar {
-		@apply bg-[oklch(22.2%_0.1941_197.88)] text-[oklch(86.73%_0.1443_197.88)];
-	}
 </style>

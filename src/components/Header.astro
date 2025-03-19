@@ -33,17 +33,17 @@ const { pageTitle } = Astro.props;
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base border-border-background linear pointer-events-auto fixed top-0 z-1000 flex w-[calc(var(--col-full)-2px)] items-center border-b shadow-2xl shadow-transparent backdrop-blur-2xl transition-all duration-50 sm:justify-center md:justify-between"
+	class="rounded-base border-border-background linear pointer-events-auto fixed top-0 z-1000 flex w-[calc(var(--col-full)-2px)] items-center border-b shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-2xl sm:justify-center md:justify-between"
 	style="padding-top: calc((var(--col-gutter)*1) - 1px); padding-bottom: calc((var(--col-gutter)*1) - 2px); padding-left: calc((var(--col-gutter)*1)); padding-right: calc((var(--col-gutter)*1)); background-color: oklch(var(--background-header)/0); height: calc(var(--col-1) + var(--col-gutter))"
 >
 	<a
 		href="/"
-		class="border-border-background relative isolate flex h-full w-auto gap-0.5 transition-all duration-300 ease-in-out sm:flex-row sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none xl:flex-col xl:items-start"
+		class="border-border-background relative isolate flex h-full w-auto gap-0.5 transition-colors duration-300 ease-in-out sm:flex-row sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none xl:flex-col xl:items-start"
 	>
 		<!--	<Icon class="header-logo" name="header" /> -->
 
 		<svg
-			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-8 w-auto py-0.5 pl-2 transition-all duration-300 ease-in-out xl:pt-1"
+			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-8 w-auto py-0.5 pl-2 transition-colors duration-300 ease-in-out xl:pt-1"
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 98 22"
 		>
@@ -64,7 +64,7 @@ const { pageTitle } = Astro.props;
 					d="M 186 281 L 192 283 L 192 288 L 200 288 L 200 294 L 192 294 L 186 294 L 186 281 Z M 160 278 L 160 272 L 204 272 C 207 272 210 275 210 278 L 210 286 C 210 288 212 288 212 288 L 229 288 C 233 288 230 281 230 281 L 236 283 C 236 283 237 285 237 288 C 237 291 234 294 231 294 L 210 294 C 207 294 204 291 204 288 L 204 280 C 204 280 204 278 202 278 L 160 278 Z M 176 281 L 182 283 L 182 288 C 182 291 179 294 176 294 L 160 294 L 160 288 L 174 288 C 174 288 176 288 176 286 L 176 281 Z M 237 272 L 237 278 L 222 278 C 218 278 221 284 221 284 L 215 283 C 215 283 214 281 214 278 C 214 275 217 272 220 272 L 237 272 Z"
 					style="stroke: none"></path>
 				<path
-					class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-all duration-300 ease-in-out"
+					class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-colors duration-300 ease-in-out"
 					d="M 244 280 L 247 272 L 250 280 L 258 283 L 250 286 L 247 294 L 244 286 L 236 283 L 244 280 Z"
 					style="stroke: none"
 				>
@@ -81,7 +81,7 @@ const { pageTitle } = Astro.props;
 					d="M 185 281 L 188 281 L 188 283 L 191 283 L 191 288 L 199 288 L 199 291 L 199 294 L 185 294 L 185 281 Z M 159 278 L 159 272 L 204 272 L 204 274 L 207 274 L 207 277 L 209 277 L 209 288 L 231 288 L 231 284 L 228 284 L 228 281 L 233 281 L 233 284 L 235 284 L 235 286 L 236 286 L 236 290 L 234 290 L 234 292 L 232 292 L 232 294 L 208 294 L 208 292 L 205 292 L 205 289 L 203 289 L 203 278 L 159 278 Z M 175 281 L 178 281 L 178 283 L 181 283 L 181 289 L 179 289 L 179 292 L 176 292 L 176 294 L 159 294 L 159 291 L 159 288 L 175 288 L 175 281 Z M 236 272 L 236 278 L 220 278 L 218 278 L 218 281 L 221 281 L 221 284 L 217 284 L 216 284 L 216 281 L 213 281 L 213 276 L 215 276 L 215 274 L 217 274 L 217 272 L 236 272 Z"
 					style="stroke: none"></path>
 				<path
-					class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-all duration-300 ease-in-out"
+					class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-colors duration-300 ease-in-out"
 					d="M 243 275 L 245 275 L 245 272 L 247 272 L 247 275 L 249 275 L 249 280 L 254 280 L 254 282 L 257 282 L 257 284 L 254 284 L 254 286 L 249 286 L 249 291 L 247 291 C 247 291.475 247 294 247 294 L 245 294 L 245 291 L 243 291 L 243 286 L 238 286 L 238 284 L 235 284 C 235 283.146 235 282 235 282 L 238 282 L 238 280 L 243 280 L 243 275 Z"
 					style="stroke: none"
 				>

@@ -60,7 +60,7 @@ if (!images[imagePath])
 <div
 	id=`blog-post-${id}`
 	transition:name=`blog-post-${id}`
-	class="blog-post card group flex border-0 border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t-0 [&[data-type='featured']]:after:w-full [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 [&[data-type='standard']]:border-r"
+	class="blog-post card group [&[data-type='featured']]:max-h-col-6 flex border-0 border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t-0 [&[data-type='featured']]:after:w-full [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 [&[data-type='standard']]:border-r"
 	style="--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
 			h;
 		--accent-background: from oklch(var(--accent)) var(--shade-background) c
@@ -73,7 +73,7 @@ if (!images[imagePath])
 		id=`blog-post-image-${id}`
 		href={url}
 		transition:name=`blog-post-image-${id}`
-		class="border-border-background m-gutter group/thumbnail ease-flicker in-[&[data-type='featured']]:sm:h-col-4 z-1 flex flex-col border transition-all duration-200 in-[&[data-type='featured']]:sm:w-full md:hover:border-[oklch(var(--accent-foreground))]"
+		class="border-border-background m-gutter group/thumbnail ease-flicker in-[&[data-type='standard']]:md:h-col-2 z-1 flex h-auto flex-col self-start border transition-colors duration-200 sm:h-[calc(100%-(var(--col-gutter))*2)] sm:w-[calc(var(--col-half)-var(--col-gutter))] in-[&[data-type='standard']]:sm:w-[calc(var(--col-1)+(var(--col-gutter)*2))] md:hover:border-[oklch(var(--accent-foreground))] in-[&[data-type='standard']]:md:w-[calc(100%-(var(--col-gutter)*2))]"
 		data-loaded="false"
 		data-id="${id}"
 	>
@@ -81,17 +81,17 @@ if (!images[imagePath])
 			src={images[imagePath]()}
 			alt={imageAlt}
 			onload="this.parentElement.dataset.loaded = 'true'"
-			class="h-[calc(100%-var(--col-gutter))] w-full object-cover"
+			class="w-full object-cover sm:h-full in-[&[data-type='featured']]:md:h-[calc(100%-var(--col-gutter))] in-[&[data-type='standard']]:md:h-[calc(var(--col-2)-var(--col-gutter))]"
 		/>
 
 		<small
-			class="text-border-foreground prevent-select text-2xs ease-flicker pointer-events-none line-clamp-1 h-[calc(var(--col-gutter))] border-t px-2 py-1.25 text-right font-mono tracking-widest uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:bg-[oklch(var(--accent-foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--accent-foreground))]"
+			class="text-border-foreground prevent-select border-border-background text-2xs ease-flicker pointer-events-none line-clamp-1 h-[calc(var(--col-gutter))] border-t px-2 py-1 text-right font-mono tracking-widest uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:border-[oklch(var(--accent-foreground))] md:group-hover/thumbnail:bg-[oklch(var(--accent-foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--accent-foreground))]"
 			>// {imageAlt}
 		</small>
 	</a>
 	<div
 		id=`blog-post-content-${id}`
-		class="p-gutter z-1 flex w-full flex-col transition-opacity duration-300 ease-in-out group-hover:opacity-100 in-[&[data-type='featured']]:justify-center in-[&[data-type='standard']]:h-full sm:opacity-100 in-[&[data-type='standard']]:sm:pt-4 md:opacity-90"
+		class="p-gutter in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='standard']]:md:pl-gutter z-1 flex h-full flex-col transition-opacity duration-300 ease-in-out group-hover:opacity-100 in-[&[data-type='featured']]:justify-center in-[&[data-type='featured']]:pl-0 sm:w-full sm:pl-0 sm:opacity-100 in-[&[data-type='standard']]:sm:pt-4 md:opacity-90 in-[&[data-type='standard']]:md:-mt-[5px] in-[&[data-type='standard']]:md:pt-0"
 	>
 		<div
 			id=`blog-post-featured-${id}`
@@ -124,7 +124,7 @@ if (!images[imagePath])
 		<p
 			id=`blog-post-description-${id}`
 			transition:name=`blog-post-description-${id}`
-			class="text-foreground/70 mb-4 text-sm text-pretty transition-all duration-300 ease-in-out sm:hidden md:line-clamp-3"
+			class="text-foreground/70 mb-4 h-auto text-sm text-pretty transition-all duration-300 ease-in-out sm:hidden md:line-clamp-3"
 		>
 			{description}
 		</p>
@@ -136,7 +136,10 @@ if (!images[imagePath])
 		>
 			{tags?.map((tag: any) => <CardTag text={tag} collection="blog" />)}
 		</div>
-		<div id=`blog-post-button-wrapper-${id}` class="group mt-4 flex w-full">
+		<div
+			id=`blog-post-button-wrapper-${id}`
+			class="group mt-gutter flex w-full"
+		>
 			<div
 				id=`blog-post-decoration-${id}`
 				class="before:ease-flicker ease-flicker border-border-background relative grow-1 border border-r-0 bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 group-has-[.navigation-button:hover]:border-[oklch(var(--accent-foreground))] before:absolute before:inset-0 before:bg-[repeating-linear-gradient(45deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_2px,transparent_2px,transparent_8px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:before:opacity-100"
@@ -146,7 +149,7 @@ if (!images[imagePath])
 				href={url}
 				id=`blog-post-button-${id}`
 				transition:name=`blog-post-button-${id}`
-				class="navigation-button rounded-base border-border-background text-foreground/80 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-200 hover:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
+				class="navigation-button rounded-base border-border-background text-foreground/70 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wider uppercase transition-all duration-200 hover:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:border-[oklch(var(--accent-foreground))] hover:md:text-[oklch(var(--accent-foreground))]"
 			>
 				<span class="">{readTime} min read</span>
 				<Icon name="ui/right-arrow" class="h-3 w-auto" />
@@ -157,14 +160,24 @@ if (!images[imagePath])
 
 <script>
 	const setPostAccents = () => {
-		console.log("COUNT");
 		// Set post accents
 		document.querySelectorAll<HTMLElement>(".blog-post").forEach((post) => {
 			const currentTheme =
 				document.documentElement.getAttribute("data-theme");
+			post.style.setProperty("--accent-local", `${post.dataset.accent}`);
 
 			if (currentTheme === "dark" || currentTheme === "light") {
-				post.style.setProperty("--accent", `${post.dataset.accent}`);
+				post.style.setProperty(
+					"--accent",
+					getComputedStyle(post).getPropertyValue("--accent-local"),
+				);
+			} else {
+				post.style.setProperty(
+					"--accent",
+					getComputedStyle(document.documentElement).getPropertyValue(
+						"--accent-global",
+					),
+				);
 			}
 		});
 	};
@@ -240,7 +253,6 @@ if (!images[imagePath])
 					tag.classList.remove("border-r");
 					tag.classList.remove("border-b");
 					tag.classList.remove("border-t");
-					tag.classList.remove("!h-gutter");
 
 					// tag.classList.add("md:hover:-mb-[1px]");
 					// tag.classList.add("md:hover:-mr-[1px]");
@@ -286,7 +298,6 @@ if (!images[imagePath])
 					rowTags.forEach((tag: any) => {
 						tag.classList.add("border-b");
 						tag.classList.remove("md:hover:-mb-[1px]");
-						tag.classList.add("!h-gutter");
 					});
 				}
 			});

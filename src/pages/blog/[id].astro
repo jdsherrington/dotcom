@@ -69,28 +69,28 @@ if (!images[post.data.imagePath]) {
 		<div
 			id=`blog-post-image-${post.id}`
 			transition:name=`blog-post-image-${post.id}`
-			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b transition-all duration-500 ease-in-out"
+			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b [transition:opacity_50ms_ease-in-out,filter_50ms_ease-in-out]"
 		>
 			<Image
-				class="blog-page-banner-img rounded-base h-full w-full object-cover transition-all duration-50 ease-in-out"
+				class="blog-page-banner-img rounded-base h-full w-full object-cover transition-all duration-0 ease-in-out"
 				src={images[post.data.imagePath]()}
 				alt={post.data.imageAlt}
 			/>
 		</div>
 		<div
 			id=`blog-post-columns-${post.id}`
-			class="blog-page-columns lg:pt-col-5 grid max-w-full transition-all duration-50 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--col-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(auto,1fr)_auto] lg:gap-0"
+			class="blog-page-columns lg:pt-col-5 grid max-w-full transition-all duration-0 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--col-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(auto,1fr)_auto] lg:gap-0"
 		>
 			<div
 				id=`blog-post-sidebar-${post.id}`
-				class="blog-page-sidebar border-border-background sticky flex h-min flex-col transition-all duration-50 ease-linear sm:relative sm:top-0 lg:sticky lg:top-[calc(var(--nav-height)-var(--col-gutter))]"
+				class="blog-page-sidebar border-border-background sm:mt-col-3 flex h-min flex-col transition-all duration-0 ease-linear sm:relative sm:top-0 sm:ml-[1px] sm:border-b lg:sticky lg:top-[calc(var(--nav-height)-var(--col-gutter))] lg:mt-0 lg:border-b-0"
 			>
 				<div
 					id=`blog-post-thumbnail-${post.id}`
-					class="blog-page-thumbnail rounded-base relative ml-[1px] w-[calc(100%-1px)] overflow-hidden transition-all duration-50 ease-in-out lg:place-items-end"
+					class="blog-page-thumbnail rounded-base relative ml-[1px] w-[calc(100%-1px)] overflow-hidden transition-all duration-0 ease-in-out lg:place-items-end"
 				>
 					<Image
-						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background -mt-[1px] w-full border-b object-cover transition-all duration-50 ease-in-out sm:opacity-0 lg:opacity-100"
+						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background -mt-[1px] w-full border-b object-cover transition-all duration-0 ease-in-out sm:opacity-0 lg:opacity-100"
 						src={images[post.data.imagePath]()}
 						alt={post.data.imageAlt}
 						style="height: 0px"
@@ -115,14 +115,14 @@ if (!images[post.data.imagePath]) {
 					<h1
 						id=`blog-post-title-${post.id}`
 						transition:name=`blog-post-title-${post.id}`
-						class="blog-page-title text-foreground/70 z-20 mb-1.5 inline-block w-auto transform-none font-mono text-balance uppercase transition-all duration-50 ease-in-out sm:text-left lg:text-right lg:text-3xl"
+						class="blog-page-title text-foreground/70 z-20 mb-1.5 inline-block w-auto transform-none leading-9 font-[700] tracking-tight text-balance transition-all duration-0 ease-in-out sm:text-left sm:text-3xl lg:text-right lg:text-4xl"
 					>
 						{post.data.title}
 					</h1>
 					<p
 						id=`blog-post-date-${post.id}`
 						transition:name=`blog-post-date-${post.id}`
-						class="text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-widest uppercase transition-all duration-200 ease-in-out sm:text-left lg:text-right"
+						class="blog-page-date text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-widest uppercase transition-all duration-0 ease-in-out sm:text-left lg:text-right"
 					>
 						{formattedDate} // {readTime} min read
 					</p>
@@ -535,13 +535,35 @@ if (!images[post.data.imagePath]) {
 	<script data-astro-rerun>
 		const attachEventListeners = () => {
 			const page = document.querySelector(".blog-page");
-
 			const html = document.querySelector("html");
-			if (
-				localStorage.getItem("theme") === "dark" ||
-				localStorage.getItem("theme") === "light"
-			) {
-				html.style.setProperty("--accent", `${page.dataset.accent}`);
+
+			const currentTheme =
+				document.documentElement.getAttribute("data-theme");
+
+			page.style.setProperty("--accent-local", `${page.dataset.accent}`);
+
+			page.style.setProperty(
+				"--accent",
+				getComputedStyle(document.documentElement).getPropertyValue(
+					"--accent-global",
+				),
+			);
+			html.style.setProperty(
+				"--accent",
+				getComputedStyle(document.documentElement).getPropertyValue(
+					"--accent-global",
+				),
+			);
+
+			if (html && page) {
+				if (currentTheme === "dark" || currentTheme === "light") {
+					html.style.setProperty(
+						"--accent",
+						getComputedStyle(page).getPropertyValue(
+							"--accent-local",
+						),
+					);
+				}
 			}
 		};
 
@@ -618,7 +640,6 @@ if (!images[post.data.imagePath]) {
 						tag.classList.remove("border-r");
 						tag.classList.remove("border-b");
 						tag.classList.remove("border-t");
-						tag.classList.remove("!h-gutter");
 
 						// tag.classList.add("md:hover:-mb-[1px]");
 						// tag.classList.add("md:hover:-mr-[1px]");
@@ -663,8 +684,6 @@ if (!images[post.data.imagePath]) {
 						rowTags.forEach((tag: any) => {
 							tag.classList.add("border-b");
 							tag.classList.remove("md:hover:-mb-[1px]");
-
-							tag.classList.add("!h-gutter");
 						});
 					}
 				});
@@ -701,19 +720,28 @@ if (!images[post.data.imagePath]) {
 				".blog-page-sidebar-nav",
 			)!;
 			const title: any = document.querySelector(".blog-page-title")!;
+			const date: any = document.querySelector(".blog-page-date")!;
 
 			// Get the height of the banner element
 			const scrollDistance = banner ? banner.offsetHeight : 200;
 			const sidebarNavScrollDistance = 50;
 
 			// Initial values
-			let initialWidth = sidebar.parentElement!.offsetWidth * 0.45,
-				initialBannerOpacity = 80,
+			let initialWidth;
+			if (window.innerWidth < 905) {
+				initialWidth = sidebar.parentElement.offsetWidth;
+			} else {
+				initialWidth = sidebar.parentElement!.offsetWidth * 0.5;
+			}
+			let initialBannerOpacity = 80,
 				initialBannerBlur = 0,
 				initialBannerScale = 100,
 				initialThumbnailHeight = 0,
 				initialSidebarNavHeight = 0,
-				initialTitleSize = 1.875;
+				initialTitleSize = 2.25,
+				initialTitleHeight = 36,
+				initialTitleWeight = 700,
+				initialDateSize = 0.75;
 
 			const tempElement = document.createElement("div");
 			tempElement.style.setProperty("width", "var(--col-3)");
@@ -729,7 +757,10 @@ if (!images[post.data.imagePath]) {
 				finalBannerScale = 110,
 				finalThumbnailHeight = parseFloat(computedValue),
 				finalSidebarNavHeight = 40,
-				finalTitleSize = 1.5;
+				finalTitleSize = 1.5,
+				finalTitleHeight = 24,
+				finalTitleWeight = 600,
+				finalDateSize = 0.625;
 
 			// Set initial width
 			sidebar.style.width = initialWidth + "px";
@@ -739,6 +770,8 @@ if (!images[post.data.imagePath]) {
 			let lastScrollPos = window.scrollY;
 
 			function updateValues() {
+				initialWidth = sidebar.parentElement.offsetWidth * 0.5;
+
 				// Get current scroll position
 				let scrollPos = window.scrollY;
 
@@ -749,7 +782,10 @@ if (!images[post.data.imagePath]) {
 					bannerBlur,
 					thumbnailHeight,
 					sidebarNavHeight,
-					titleSize;
+					titleSize,
+					titleHeight,
+					titleWeight,
+					dateSize;
 
 				if (scrollPos >= sidebarNavScrollDistance) {
 					sidebarNavHeight = finalSidebarNavHeight;
@@ -769,6 +805,7 @@ if (!images[post.data.imagePath]) {
 					bannerBlur = finalBannerBlur;
 					thumbnailHeight = finalThumbnailHeight;
 					titleSize = finalTitleSize;
+					dateSize = finalDateSize;
 				} else {
 					// Linear interpolation between initial and final width
 					let shrinkFactor = scrollPos / scrollDistance;
@@ -793,25 +830,50 @@ if (!images[post.data.imagePath]) {
 					titleSize =
 						initialTitleSize -
 						shrinkFactor * (initialTitleSize - finalTitleSize);
+					titleHeight =
+						initialTitleHeight -
+						shrinkFactor * (initialTitleHeight - finalTitleHeight);
+					titleWeight =
+						initialTitleWeight -
+						shrinkFactor * (initialTitleWeight - finalTitleWeight);
+					dateSize =
+						initialDateSize -
+						shrinkFactor * (initialDateSize - finalDateSize);
 				}
 
 				// Apply the new values
-				sidebar.style.width = `${sidebarWidth}px`;
-				banner.style.opacity = `${bannerOpacity / 100}`;
-				banner.style.transform = `scale(${bannerScale / 100})`;
-				banner.style.filter = `blur(${bannerBlur}px)`;
-				thumbnail.style.height = `${thumbnailHeight}px`;
-				title.style.fontSize = `${titleSize}rem`;
+				if (window.innerWidth < 905) {
+					console.log("SMALL SCREEN");
+					sidebar.style.width = `${sidebar.parentElement.offsetWidth}px`;
+					banner.style.opacity = `${initialBannerOpacity / 100}`;
+					banner.style.transform = `scale(${initialBannerScale / 100})`;
+					banner.style.filter = `blur(${initialBannerBlur}px)`;
+					thumbnail.style.height = `${initialThumbnailHeight}px`;
+					title.style.fontSize = `${initialTitleSize}rem`;
+					title.style.lineHeight = `${initialTitleHeight}px`;
+					title.style.fontWeight = `${initialTitleWeight}`;
+					date.style.fontSize = `${initialDateSize}rem`;
+					sidebarNav.style.height = `${initialSidebarNavHeight}px`;
+				} else {
+					sidebar.style.width = `${sidebarWidth}px`;
+					banner.style.opacity = `${bannerOpacity / 100}`;
+					banner.style.transform = `scale(${bannerScale / 100})`;
+					banner.style.filter = `blur(${bannerBlur}px)`;
+					thumbnail.style.height = `${thumbnailHeight}px`;
+					title.style.fontSize = `${titleSize}rem`;
+					title.style.lineHeight = `${titleHeight}px`;
+					title.style.fontWeight = `${titleWeight}`;
+					date.style.fontSize = `${dateSize}rem`;
 
-				sidebarNav.style.height = `${sidebarNavHeight}px`;
-
-				ticking = false;
-
+					sidebarNav.style.height = `${sidebarNavHeight}px`;
+				}
 				if (thumbnailHeight > finalSidebarNavHeight) {
 					sidebarNav.classList.add("border-b");
 				} else {
 					sidebarNav.classList.remove("border-b");
 				}
+
+				ticking = false;
 			}
 			// Handle scroll events more efficiently
 			window.addEventListener("scroll", function () {
@@ -827,7 +889,6 @@ if (!images[post.data.imagePath]) {
 
 			// Update initial width on window resize
 			window.addEventListener("resize", function () {
-				initialWidth = sidebar.parentElement.offsetWidth * 0.45;
 				updateValues();
 			});
 		}
