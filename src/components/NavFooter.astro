@@ -9,10 +9,10 @@ import ThemeIcon from "./ThemeIcon.astro";
 <nav
 	transition:persist="nav-footer"
 	id="nav-footer"
-	class="fixed z-50 mb-[calc(var(--guide-gutter)/2)] ml-[calc(var(--guide-gutter)/2)] h-20 w-[calc(100dvw-var(--guide-gutter))] shadow-2xl shadow-background backdrop-blur-2xl sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))]"
+	class="shadow-background fixed z-50 mb-[calc(var(--guide-gutter)/2)] ml-[calc(var(--guide-gutter)/2)] h-20 w-[calc(100dvw-var(--guide-gutter))] shadow-2xl backdrop-blur-2xl sm:bottom-0 md:-bottom-[calc(5rem+var(--guide-gutter))]"
 >
 	<div
-		class="nav-footer-menu relative z-50 grid h-full w-full grid-cols-5 rounded-[var(--radius)] bg-background/50 px-0.5"
+		class="nav-footer-menu bg-background/50 before:rounded-base relative z-50 grid h-full w-full grid-cols-5 rounded-[var(--radius)] px-0.5 before:pointer-events-none before:absolute before:inset-0 before:border before:opacity-100 before:transition-opacity before:duration-300 before:ease-in-out before:content-['']"
 	>
 		<a href="/">
 			<svg
@@ -127,53 +127,53 @@ import ThemeIcon from "./ThemeIcon.astro";
 <!-- </nav> -->
 
 <style>
-	#nav-footer {
-		view-transition-name: navfooter;
-		transition: ease-in-out bottom 200ms;
-		z-index: 1003 !important;
-		overflow: hidden !important;
+	/* #nav-footer { */
+	/* 	view-transition-name: navfooter; */
+	/* 	transition: ease-in-out bottom 200ms; */
+	/* 	z-index: 1003 !important; */
+	/* 	overflow: hidden !important; */
+	/**/
+	/* 	--tw-shadow: */
+	/* 		0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important; */
+	/* 	--tw-shadow-colored: */
+	/* 		0 20px 25px -5px var(--tw-shadow-color), */
+	/* 		0 8px 10px -6px var(--tw-shadow-color) !important; */
+	/**/
+	/* 	--tw-shadow-color: oklch(var(--background)) !important; */
+	/* 	--tw-shadow: var(--tw-shadow-colored) !important; */
+	/**/
+	/* 	box-shadow: */
+	/* 		var(--tw-ring-offset-shadow, 0 0 #0000), */
+	/* 		var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important; */
+	/* } */
 
-		--tw-shadow:
-			0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
-		--tw-shadow-colored:
-			0 20px 25px -5px var(--tw-shadow-color),
-			0 8px 10px -6px var(--tw-shadow-color) !important;
-
-		--tw-shadow-color: oklch(var(--background)) !important;
-		--tw-shadow: var(--tw-shadow-colored) !important;
-
-		box-shadow:
-			var(--tw-ring-offset-shadow, 0 0 #0000),
-			var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
-	}
-
-	.nav-footer-menu::before {
-		content: "";
-		pointer-events: none;
-		position: absolute;
-		inset: 0;
-		border-radius: inherit;
-		border: 1px solid transparent;
-		background: linear-gradient(
-				0deg,
-				oklch(var(--foreground) / 0),
-				oklch(var(--foreground) / 0.075)
-			)
-			border-box;
-		mask:
-			linear-gradient(#fff 0 0) padding-box,
-			linear-gradient(#fff 0 0);
-		mask-composite: exclude;
-		opacity: 1;
-		transition: opacity 300ms ease-in-out;
-	}
+	/* .nav-footer-menu::before { */
+	/* 	content: ""; */
+	/* 	pointer-events: none; */
+	/* 	position: absolute; */
+	/* 	inset: 0; */
+	/* 	border-radius: inherit; */
+	/* 	border: 1px solid transparent; */
+	/* 	background: linear-gradient( */
+	/* 			0deg, */
+	/* 			oklch(var(--foreground) / 0), */
+	/* 			oklch(var(--foreground) / 0.075) */
+	/* 		) */
+	/* 		border-box; */
+	/* 	mask: */
+	/* 		linear-gradient(#fff 0 0) padding-box, */
+	/* 		linear-gradient(#fff 0 0); */
+	/* 	mask-composite: exclude; */
+	/* 	opacity: 1; */
+	/* 	transition: opacity 300ms ease-in-out; */
+	/* } */
 
 	.nav-footer-menu > a {
-		@apply mx-0.5 my-1 inline-flex flex-col place-items-center justify-center gap-2.5 rounded-md font-normal text-[oklch(var(--foreground)/0.6)] transition-colors duration-150 hover:bg-foreground/5 hover:text-foreground focus:bg-[oklch(var(--foreground)/0.05)] focus:font-semibold focus:text-foreground focus:outline-hidden active:bg-[oklch(var(--foreground)/0.05)] active:text-foreground disabled:pointer-events-none disabled:opacity-50;
+		@apply hover:bg-foreground/5 hover:text-foreground focus:text-foreground active:text-foreground mx-0.5 my-1 inline-flex flex-col place-items-center justify-center gap-2.5 rounded-md font-normal text-[oklch(var(--foreground)/0.6)] transition-colors duration-150 focus:bg-[oklch(var(--foreground)/0.05)] focus:font-semibold focus:outline-hidden active:bg-[oklch(var(--foreground)/0.05)] disabled:pointer-events-none disabled:opacity-50;
 	}
 
 	.nav-footer-menu span {
-		@apply -mb-[2px] inline-block select-none font-mono text-xs uppercase leading-[0.9] tracking-wider;
+		@apply -mb-[2px] inline-block font-mono text-xs leading-[0.9] tracking-wider uppercase select-none;
 	}
 
 	.nav-footer-menu svg {

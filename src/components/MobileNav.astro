@@ -3,8 +3,13 @@ import ThemeDrawer from "@/components/ThemeDrawer.astro";
 import { Icon } from "astro-icon/components";
 ---
 
-<div class="mobile-nav-container">
-	<div class="mobile-nav-backdrop"></div>
+<div
+	class="mobile-nav-container fixed bottom-0 z-1000 inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)] sm:right-[calc(var(--col-margin)+1px)] xl:right-[calc(var(--col-absolute-margin)+1px)]"
+>
+	<div
+		class="mobile-nav-backdrop sm:before:bg-background-secondary/75 pointer-events-none absolute right-0 bottom-0 -z-2 h-[calc(100%*3)] w-[calc(100%*3)] before:absolute before:right-0 before:bottom-0 before:-z-1 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-200 before:ease-in-out before:content-[''] group-has-[.mobile-nav-items.open]/mobilenav:before:opacity-100 before:md:bg-transparent"
+	>
+	</div>
 	<a class="mobile-nav-button page-top-button">
 		<Icon class="page-top-icon" name="ui/page-top" />
 	</a>
@@ -34,29 +39,12 @@ import { Icon } from "astro-icon/components";
 
 <style is:global>
 	@reference "../styles/global.css";
-
-	.mobile-nav-container {
-		@apply fixed right-0 bottom-0 z-1000 inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)];
-	}
-
 	.mobile-nav-backdrop {
 		mask: radial-gradient(
 			ellipse 100% 100% at 100% 100%,
 			rgba(0, 0, 0, 1) 50%,
 			rgba(0, 0, 0, 0) 100%
 		);
-		z-index: -2;
-		@apply pointer-events-none absolute right-0 bottom-0 h-[calc(100%*3)] w-[calc(100%*3)];
-	}
-
-	.mobile-nav-backdrop::before {
-		content: "";
-		@apply sm:bg-background-secondary/75 absolute right-0 bottom-0 z-[-1] h-full w-full opacity-0 transition-opacity duration-200 ease-in-out md:bg-transparent;
-	}
-
-	.mobile-nav-container:has(.mobile-nav-items.open)
-		.mobile-nav-backdrop::before {
-		@apply opacity-100;
 	}
 
 	.page-top-button {
@@ -92,7 +80,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-button {
-		@apply border-foreground/5 bg-background-midpoint text-foreground/80 rounded-base relative inline-block w-min border px-4 py-3 text-right tracking-wider shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
+		@apply border-foreground/5 bg-background-midpoint text-foreground/80 rounded-base relative inline-block w-min border border-r-0 px-4 py-3 text-right tracking-wider shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
 	}
 
 	.mobile-nav-link.active {

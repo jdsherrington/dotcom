@@ -172,7 +172,7 @@ if (!images[post.data.imagePath]) {
 								filteredHeadings.map((heading) => (
 									<a
 										href={`#${heading.slug}`}
-										class={`border-border-background text-border-foreground before:ease-flicker ease-flicker relative w-full border-t border-l leading-none transition-all duration-200 before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:border-[oklch(var(--accent))] before:opacity-0 before:transition-opacity before:duration-200 last:border-b last:before:h-[calc(100%+2px)] md:hover:bg-[oklch(var(--accent-background)/0.1)] md:hover:text-[oklch(var(--accent-foreground))] md:hover:before:opacity-100 lg:text-right`}
+										class={`border-border-background text-border-foreground before:ease-flicker ease-flicker relative w-full border-t border-l leading-none transition-all duration-200 before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:border-[var(--color-accent)] before:opacity-0 before:transition-opacity before:duration-200 last:border-b last:before:h-[calc(100%+2px)] md:hover:bg-[oklch(var(--accent-background)/0.1)] md:hover:text-[oklch(var(--accent-foreground))] md:hover:before:opacity-100 lg:text-right`}
 									>
 										<li
 											class={`toc-heading ease-flicker rounded-base inline-block w-full px-3.5 py-2 font-mono text-xs tracking-wide text-inherit uppercase transition-all duration-0 sm:text-left lg:text-right`}
@@ -185,7 +185,7 @@ if (!images[post.data.imagePath]) {
 						</ul>
 						<div
 							id=`blog-post-table-of-contents-decoration-${post.id}`
-							class="blog-page-table-of-contents-decoration w-gutter border-border-background before:border-accent relative h-auto grow border bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 ease-in-out before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:bg-[repeating-linear-gradient(45deg,oklch(var(--accent)),oklch(var(--accent))_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-200 before:ease-in-out before:content-[''] before:[mask-image:linear-gradient(to_bottom,black_0%,black_49.99%,transparent_50%,transparent_100%)] before:[mask-position:0_var(--mask-position)] before:[mask-size:100%_200%] before:[transition:mask-position_200ms_ease-out]"
+							class="blog-page-table-of-contents-decoration w-gutter border-border-background before:border-accent relative h-auto grow border bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 ease-in-out before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:bg-[repeating-linear-gradient(45deg,var(--color-accent),var(--color-accent)_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-200 before:ease-in-out before:content-[''] before:[mask-image:linear-gradient(to_bottom,black_0%,black_49.99%,transparent_50%,transparent_100%)] before:[mask-position:0_var(--mask-position)] before:[mask-size:100%_200%] before:[transition:mask-position_200ms_ease-out]"
 						>
 						</div>
 					</div>
@@ -250,15 +250,15 @@ if (!images[post.data.imagePath]) {
 
 		@keyframes headerHighlightFade {
 			0% {
-				background-color: oklch(var(--accent) / 0.1);
+				background-color: oklch(var(--color-accent) / 0.1);
 				color: oklch(var(--accent-foreground));
-				border-color: oklch(var(--accent));
+				border-color: var(--color-accent);
 			}
 
 			50% {
-				background-color: oklch(var(--accent) / 0.1);
+				background-color: oklch(var(--color-accent) / 0.1);
 				color: oklch(var(--accent-foreground));
-				border-color: oklch(var(--accent));
+				border-color: var(--color-accent);
 			}
 
 			100% {
@@ -396,7 +396,7 @@ if (!images[post.data.imagePath]) {
 			content: "";
 			background: radial-gradient(
 					200px circle at var(--x) var(--y),
-					oklch(var(--accent)) 0%,
+					var(--color-accent) 0%,
 					transparent 100%
 				)
 				border-box;
@@ -417,7 +417,7 @@ if (!images[post.data.imagePath]) {
 		}
 
 		.post-markdown blockquote {
-			border-left: var(--radius) solid oklch(var(--accent));
+			border-left: var(--radius) solid var(--color-accent);
 			@apply rounded-base relative mb-6 bg-[oklch(var(--foreground)/0.025)] p-4;
 		}
 
@@ -558,6 +558,12 @@ if (!images[post.data.imagePath]) {
 			if (html && page) {
 				if (currentTheme === "dark" || currentTheme === "light") {
 					html.style.setProperty(
+						"--accent",
+						getComputedStyle(page).getPropertyValue(
+							"--accent-local",
+						),
+					);
+					page.style.setProperty(
 						"--accent",
 						getComputedStyle(page).getPropertyValue(
 							"--accent-local",

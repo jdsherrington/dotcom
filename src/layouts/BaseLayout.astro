@@ -252,13 +252,6 @@ const { pageTitle, pageDesc } = Astro.props;
 				button.classList.add("active");
 		});
 
-		localStorage.setItem(
-			"themeAccent",
-			getComputedStyle(document.documentElement).getPropertyValue(
-				"--accent",
-			),
-		);
-
 		const posts = document.querySelectorAll(".blog-post");
 		const page = document.querySelector(".blog-page");
 		const html = document.querySelector("html");
@@ -271,8 +264,12 @@ const { pageTitle, pageDesc } = Astro.props;
 		);
 
 		if (page) {
-			if (currentTheme === "dark" || currentTheme === "light") {
+			if (appliedTheme === "dark" || appliedTheme === "light") {
 				html.style.setProperty(
+					"--accent",
+					getComputedStyle(page).getPropertyValue("--accent-local"),
+				);
+				page.style.setProperty(
 					"--accent",
 					getComputedStyle(page).getPropertyValue("--accent-local"),
 				);
@@ -281,7 +278,7 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		if (posts) {
 			posts.forEach((post) => {
-				if (currentTheme === "dark" || currentTheme === "light") {
+				if (appliedTheme === "dark" || appliedTheme === "light") {
 					console.log("POST");
 					post.style.setProperty(
 						"--accent",
