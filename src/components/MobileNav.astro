@@ -48,7 +48,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.page-top-button {
-		@apply md:hover:border-foreground/10 pointer-events-auto flex aspect-square place-content-center place-items-center !p-0 opacity-100 blur-none transition-all duration-300 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12;
+		@apply md:hover:bg-background-primary pointer-events-auto flex aspect-square place-content-center place-items-center !p-0 opacity-100 blur-none transition-all duration-300 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12;
 	}
 
 	.page-top-button.hidden {
@@ -80,7 +80,7 @@ import { Icon } from "astro-icon/components";
 	}
 
 	.mobile-nav-button {
-		@apply border-foreground/5 bg-background-midpoint text-foreground/80 rounded-base relative inline-block w-min border border-r-0 px-4 py-3 text-right tracking-wider shadow-lg shadow-black/10 transition-all duration-300 ease-in-out;
+		@apply border-border-background bg-background-primary/30 text-foreground/80 rounded-base relative inline-block w-min border border-r-0 px-4 py-3 text-right tracking-wider shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
 	}
 
 	.mobile-nav-link.active {

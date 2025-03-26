@@ -38,12 +38,12 @@ const { pageTitle } = Astro.props;
 >
 	<a
 		href="/"
-		class="border-border-background relative isolate flex h-full w-auto gap-0.5 transition-colors duration-300 ease-in-out sm:flex-row sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none xl:flex-col xl:items-start"
+		class="border-border-background relative isolate flex h-full w-auto flex-row gap-0.5 transition-all duration-300 ease-in-out sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 	>
 		<!--	<Icon class="header-logo" name="header" /> -->
 
 		<svg
-			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-8 w-auto py-0.5 pl-2 transition-colors duration-300 ease-in-out xl:pt-1"
+			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-full w-auto opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 sm:max-h-8 md:pl-1 lg:max-h-8 lg:pl-2"
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 98 22"
 		>
@@ -93,9 +93,6 @@ const { pageTitle } = Astro.props;
 			<!-- 	d="M 196 54 C 196 53.339 196 35.567 196 24 M 140 72 C 140 72 140 120.281 140 132 C 150 132 348 132 348 132 C 348 132 348 122.625 348 109.5 C 348 107.625 348 72 348 72 C 348 72 338 72 324 72 C 322 72 268 72 268 72 C 268 72 268 62.625 268 49.5 C 268 47.625 268 12 268 12 C 268 12 278 12 292 12 C 293.22 12 322.562 12 324 12 C 338 12 356 12 360 12 M 220 84 C 220 83.339 220 65.567 220 54 M 184 12 L 92 12 L 92 132 L 12 132 L 12 72" -->
 			<!-- 	fill="none"></path> -->
 		</svg>
-		<small class="text-border-foreground text-2xs pl-1.5 font-mono"
-			>// 0.1.18</small
-		>
 	</a>
 
 	<div
@@ -115,7 +112,7 @@ const { pageTitle } = Astro.props;
 		>
 			<svg
 				id="desktop-theme-menu-icon"
-				class="fill-foreground stroke-foreground in-[.open]:fill-accent-background in-[.open]:stroke-accent-background h-[20px] w-[20px] scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
+				class="fill-foreground stroke-foreground in-[.open]:fill-accent-background in-[.open]:stroke-accent-background h-auto w-5 scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
 				viewBox="0 0 24 24"
 				fill="currentColor"
 				stroke="currentColor"
@@ -284,6 +281,15 @@ const { pageTitle } = Astro.props;
 			nav.style.paddingRight = `${navPadding}px`;
 			nav.style.height = `${navHeight}px`;
 			nav.style.backgroundColor = `oklch(var(--background-header)/${navBackground / 100 / 2})`;
+
+			document.documentElement.style.setProperty(
+				`--true-nav-opacity`,
+				`${navBackground / 100}`,
+			);
+			document.documentElement.style.setProperty(
+				`--true-nav-height`,
+				`${navHeight}px`,
+			);
 
 			ticking = false;
 		}

@@ -78,6 +78,8 @@
 	
 	/* SIZES */
 	--nav-height: calc(var(--col-1) + var(--col-gutter));
+	--true-nav-height: var(--nav-height);
+	--true-nav-opacity: 0;
 	--header-height: calc(var(--nav-height)*1.5);
 	--radius: 0px;
 

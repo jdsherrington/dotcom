@@ -104,7 +104,7 @@ if (!images[post.data.imagePath]) {
 					<a href="javascript:void(0)" onclick="history.back()">
 						<NavigationButton
 							text="Back"
-							class="arrow-left text-foreground/50 border-border-background bg-background-header/25 md:hover:bg-accent-background/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-300 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--accent-foreground))]"
+							class="arrow-left text-foreground/50 border-border-background bg-background-header/25 md:hover:bg-accent-background/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-200 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--accent-foreground))]"
 						/>
 					</a>
 				</div>
@@ -129,7 +129,7 @@ if (!images[post.data.imagePath]) {
 					<div
 						id=`blog-post-tags-${post.id}`
 						transition:name=`blog-post-tags-${post.id}`
-						class="tags-box mt-1 w-auto grow-1 flex-wrap place-content-start in-[&[data-type='standard']]:flex-grow sm:justify-start lg:justify-end"
+						class="tags-box mt-1 flex h-min w-full grow-1 flex-wrap place-content-start sm:justify-start lg:justify-end"
 					>
 						{
 							post.data.tags?.map((tag: any) => (

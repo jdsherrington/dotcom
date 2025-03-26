@@ -10,15 +10,8 @@ const textCleaned = text.toLowerCase().replaceAll(" ", "-");
 ---
 
 <a
-	href=`/blog`
-	class=`${textCleaned}-${collection}-tag border-box card-tag hover relative text-border-foreground border-border-background ease-flicker before:ease-flicker flex cursor-pointer place-items-center place-self-end rounded-xs bg-transparent px-2.5 sm:py-2 md:py-1.5 font-mono text-xs tracking-widest whitespace-nowrap uppercase before:transition-opacity transition-colors before:duration-200 duration-200 hover:z-100 hover:bg-[oklch(var(--accent-foreground)/0.1)] before:border-[oklch(var(--accent-foreground))] md:hover:before:opacity-100 before:border before:opacity-0 before:absolute before:-top-[1px] before:-left-[1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] md:hover:text-[oklch(var(--accent-foreground))]`
+	href=`/${collection}/tagged/${textCleaned}`
+	class=`${textCleaned}-${collection}-tag border-box card-tag hover relative text-border-foreground border-border-background ease-flicker before:ease-flicker flex cursor-pointer place-items-center place-self-end rounded-base bg-transparent px-2.5 sm:py-2 md:py-1.5 font-mono text-xs tracking-widest whitespace-nowrap uppercase before:transition-opacity transition-colors before:duration-200 duration-200 hover:z-100 md:hover:bg-[oklch(var(--accent-foreground)/0.1)] before:border-[oklch(var(--accent-foreground))] md:hover:before:opacity-100 before:border before:opacity-0 before:absolute before:-top-[1px] before:-left-[1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] md:hover:text-[oklch(var(--accent-foreground))]`
 >
 	<span class="card-tag-text-offset">{text}</span>
 </a>
-
-<style is:global>
-	@reference "../styles/global.css";
-	*:has(> .card-tag) {
-		@apply flex h-min w-full flex-row flex-wrap;
-	}
-</style>
