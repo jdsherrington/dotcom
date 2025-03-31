@@ -29,8 +29,8 @@ const {
 	tags,
 	imagePath,
 	imageAlt,
-	type,
 	wordCount,
+	type,
 } = Astro.props;
 
 const formattedDate = new Date(date).toLocaleDateString("en-AU", {
@@ -91,7 +91,7 @@ if (!images[imagePath])
 	</a>
 	<div
 		id=`blog-post-content-${id}`
-		class="p-gutter in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='standard']]:md:pl-gutter z-1 flex h-full flex-col transition-opacity duration-300 ease-in-out group-hover:opacity-100 in-[&[data-type='featured']]:justify-center in-[&[data-type='featured']]:pl-0 sm:w-full sm:pl-0 sm:opacity-100 in-[&[data-type='standard']]:sm:pt-4 md:opacity-90 in-[&[data-type='standard']]:md:-mt-[5px] in-[&[data-type='standard']]:md:pt-0"
+		class="p-gutter in-[&[data-type='featured']]:sm:w-col-half in-[&[data-type='standard']]:md:pl-gutter z-1 flex h-auto flex-grow flex-col transition-opacity duration-300 ease-in-out group-hover:opacity-100 in-[&[data-type='featured']]:justify-center in-[&[data-type='featured']]:pl-0 sm:w-full sm:pl-0 sm:opacity-100 in-[&[data-type='standard']]:sm:pt-4 md:opacity-90 in-[&[data-type='standard']]:md:-mt-[5px] in-[&[data-type='standard']]:md:pt-0"
 	>
 		<div
 			id=`blog-post-featured-${id}`
@@ -142,7 +142,7 @@ if (!images[imagePath])
 		>
 			<div
 				id=`blog-post-decoration-${id}`
-				class="before:ease-flicker ease-flicker border-border-background relative grow-1 border border-r-0 bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(45deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_2px,transparent_2px,transparent_8px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--accent-foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100"
+				class="before:ease-flicker ease-flicker border-border-background relative grow-1 border border-r-0 bg-[repeating-linear-gradient(90deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_5px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(90deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_1px,transparent_1px,transparent_5px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--accent-foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100"
 			>
 			</div>
 			<a

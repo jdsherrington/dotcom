@@ -1,12 +1,19 @@
 ---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
-const allProjects = (await Astro.glob("./projects/*.md")).sort(
-	(b, a) => b.frontmatter.id - a.frontmatter.id,
+type Project = CollectionEntry<"projects">;
+
+const allProjects = await getCollection("projects");
+
+const sortedProjects = allProjects.sort(
+	(a: Project, b: Project) => a.data.order - b.data.order,
 );
 
-const pageTitle = "Projects";
+const pageTitle = "JDS // Projects";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -17,19 +24,18 @@ const pageTitle = "Projects";
 			class="grid grid-flow-row gap-[var(--guide-gutter)] place-self-center sm:w-(--full-w) sm:grid-cols-1 md:grid-cols-2 lg:w-(--full-w) lg:grid-cols-3"
 		>
 			{
-				allProjects.map((project) => {
+				sortedProjects.map((project) => {
 					return (
 						<ProjectCard
-							id={project.frontmatter.id}
-							title={project.frontmatter.title}
-							category={project.frontmatter.category}
-							description={project.frontmatter.description}
-							url={project.url}
-							tags={project.frontmatter.tags}
-							iconPath={project.frontmatter.iconPath}
-							imagePath={project.frontmatter.imagePath}
-							imageAlt={project.frontmatter.imageAlt}
-							accentColor={project.frontmatter.accentColor}
+							id={project.id}
+							title={project.data.title}
+							category={project.data.category}
+							description={project.data.description}
+							url={project.data.url}
+							repo={project.data.repo}
+							tags={project.data.tags}
+							iconPath={project.data.iconPath}
+							iconAlt={project.data.imageAlt}
 						/>
 					);
 				})

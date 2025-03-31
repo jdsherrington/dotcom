@@ -1,118 +1,160 @@
 ---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 
-export async function getStaticPaths() {
-	const allProjects = (await Astro.glob("../*.md")).sort(
-		(b, a) => b.frontmatter.id - a.frontmatter.id
-	);
+type Project = CollectionEntry<"projects">;
 
+import NavigationButton from "@/components/NavigationButton.astro";
+
+export async function getStaticPaths() {
+	const awaitProjects = await getCollection("projects");
+	const projects = awaitProjects.sort(
+		(a: Project, b: Project) => b.data.order - a.data.order,
+	);
 	const uniqueTags = [
 		...new Set(
-			allProjects
-				.map(
-					(post: { frontmatter: { tags: any } }) =>
-						post.frontmatter.tags
-				)
-				.flat()
+			projects
+				.map((project: { data: { tags: any } }) => project.data.tags)
+				.flat(),
 		),
 	];
 
 	return uniqueTags.map((tag: any) => {
-		const filteredPosts = allProjects.filter(
-			(post: { frontmatter: { tags: string | any[] } }) =>
-				post.frontmatter.tags.includes(tag)
+		const filteredProjects = projects.filter(
+			(project: { data: { tags: string | any[] } }) =>
+				project.data.tags.includes(tag),
 		);
+		const cleanedTag = tag.toLowerCase().replaceAll(" ", "-");
 		return {
-			params: { tag },
-			props: { posts: filteredPosts },
+			params: { tag: cleanedTag },
+			props: { projects: filteredProjects },
 		};
 	});
 }
 
 const { tag } = Astro.params;
-const {
-	posts,
-}: {
-	posts: {
-		url: string;
-		frontmatter: {
-			id: number;
-			title: string;
-			category: string;
-			description: string;
-			url: string;
-			iconPath: string;
-			imagePath: string;
-			imageAlt: string;
-			tags: string[];
-			accentColor: string;
-		};
-	}[];
-} = Astro.props;
-const filteredPosts = posts.filter((post) =>
-	post.frontmatter.tags?.includes(tag)
-);
+const { projects } = Astro.props;
 ---
 
-<BaseLayout pageTitle={tag}>
-	<section class="sm:w-[var(--full-w)] place-self-center">
-		<div class="flex place-items-center gap-[calc(var(--guide-gutter)/2)]">
-			<a href="javascript:void(0);" onclick="history.back()">
-				<svg class="inline-back-arrow" viewBox="0 0 492 492">
-					<g>
-						<g>
-							<path
-								d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
-			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
-			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
-			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
-			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
-			C492,219.198,479.172,207.418,464.344,207.418z"
-							></path>
-						</g>
-					</g>
-				</svg>
+<BaseLayout
+	pageTitle=`JDS // ${tag.toLowerCase().replace(/\b(\s\w|^\w)/g, function (text: any) { return text.toUpperCase(); })} Projects`
+	`
+>
+	<section
+		class="w-col-full relative flex flex-col place-items-center place-self-center"
+	>
+		<div
+			class="tag-controls border-border-background sticky top-[calc(var(--true-nav-height)-1px)] z-999 flex h-[calc(100%-1px)] w-[calc(100%-2px)] place-items-center border-b bg-[oklch(var(--background-primary)/calc(var(--true-nav-opacity)-0.15))] backdrop-blur-xl transition-all duration-0 ease-in-out"
+		>
+			<a href="javascript:void(0)" onclick="history.back()" class="h-10">
+				<NavigationButton
+					text="Back"
+					class="arrow-left text-foreground/50 border-border-background md:hover:bg-accent-foreground/10 md:hover:text-accent-foreground relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-colors duration-200 ease-in-out *:h-3.5"
+				/>
 			</a>
+
 			<span
-				class=`${tag} font-mono uppercase tracking-widest text-xs text-[oklch(var(--foreground)/0.66)] rounded-full bg-[oklch(from_oklch(var(--tag-color))_var(--shade-background)_var(--shade-chroma)_h/0.5)] text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)]! pl-3.5 pr-2.5 pb-1 pt-1.5 select-none`
-				>{tag}<a href="/projects" class="ml-1.5"
+				class="card-tag border-border-background before:ease-flicker ease-flicker text-foreground/60 relative flex h-10 place-items-center gap-1 border-r pr-3 pl-3.5 font-mono text-xs tracking-widest uppercase transition-colors duration-200 before:pointer-events-none before:absolute before:-top-[0px] before:-left-[1px] before:mt-[calc(var(--true-nav-opacity)*1px)] before:h-[calc(100%+1px+(0px-(var(--true-nav-opacity)*1px)))] before:w-[calc(100%+2px)] before:border before:border-transparent before:transition-colors before:duration-200 before:content-[''] sm:py-2 md:py-1.5 has-[.tag-close-link:hover]:md:bg-red-400/10 has-[.tag-close-link:hover]:md:text-red-300 has-[.tag-close-link:hover]:md:before:border-red-400"
+				>{tag.replaceAll("-", " ")}<a
+					href="/projects"
+					class="tag-close-link ease-flicker pointer-events-auto stroke-red-400 transition-colors duration-200 select-auto hover:md:stroke-red-300"
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
 						viewBox="0 0 24 24"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="tag-close-button"
+						class="tag-close-button h-auto w-5"
 					>
 						<path d="M 18 6 L 6 18 M 6 6 L 18 18"></path>
 					</svg></a
 				>
 			</span>
 		</div>
-		<div class="grid items-start mt-[var(--guide-gutter)] gap-12 pb-48">
-			<div
-				class="sm:w-(--full-w) grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row gap-[var(--guide-gutter)] place-self-center"
-			>
-				{
-					posts.map((post) => (
-						<ProjectCard
-							id={post.frontmatter.id}
-							title={post.frontmatter.title}
-							category={post.frontmatter.category}
-							description={post.frontmatter.description}
-							url={post.url}
-							iconPath={post.frontmatter.iconPath}
-							imagePath={post.frontmatter.imagePath}
-							imageAlt={post.frontmatter.imageAlt}
-							tags={post.frontmatter.tags}
-							accentColor={post.frontmatter.accentColor}
-						/>
-					))
-				}
-			</div>
+
+		<div
+			id="tagged-projects"
+			class="sm:grid-cols-1fr grid w-full grid-flow-row pb-96 md:grid-cols-2 lg:grid-cols-3"
+		>
+			{
+				projects.map((project: Project) => (
+					<ProjectCard
+						id={project.id}
+						title={project.data.title}
+						category={project.data.category}
+						description={project.data.description}
+						url={project.data.url}
+						repo={project.data.repo}
+						tags={project.data.tags}
+						iconPath={project.data.iconPath}
+						iconAlt={project.data.imageAlt}
+					/>
+				))
+			}
 		</div>
 	</section>
 </BaseLayout>
+<!-- <BaseLayout pageTitle={tag}> -->
+<!-- 	<section class="place-self-center sm:w-[var(--full-w)]"> -->
+<!-- 		<div class="flex place-items-center gap-[calc(var(--guide-gutter)/2)]"> -->
+<!-- 			<a href="javascript:void(0);" onclick="history.back()"> -->
+<!-- 				<svg class="inline-back-arrow" viewBox="0 0 492 492"> -->
+<!-- 					<g> -->
+<!-- 						<g> -->
+<!-- 							<path -->
+<!-- 								d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124 -->
+<!-- 			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844 -->
+<!-- 			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412 -->
+<!-- 			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008 -->
+<!-- 			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788 -->
+<!-- 			C492,219.198,479.172,207.418,464.344,207.418z" -->
+<!-- 							></path> -->
+<!-- 						</g> -->
+<!-- 					</g> -->
+<!-- 				</svg> -->
+<!-- 			</a> -->
+<!-- 			<span -->
+<!-- 				class=`${tag} font-mono uppercase tracking-widest text-xs text-[oklch(var(--foreground)/0.66)] rounded-full bg-[oklch(from_oklch(var(--tag-color))_var(--shade-background)_var(--shade-chroma)_h/0.5)] text-[oklch(from_oklch(var(--tag-color))_var(--shade-foreground)_var(--shade-chroma)_h)]! pl-3.5 pr-2.5 pb-1 pt-1.5 select-none` -->
+<!-- 				>{tag}<a href="/projects" class="ml-1.5" -->
+<!-- 					><svg -->
+<!-- 						xmlns="http://www.w3.org/2000/svg" -->
+<!-- 						width="24" -->
+<!-- 						height="24" -->
+<!-- 						viewBox="0 0 24 24" -->
+<!-- 						stroke-width="2" -->
+<!-- 						stroke-linecap="round" -->
+<!-- 						stroke-linejoin="round" -->
+<!-- 						class="tag-close-button" -->
+<!-- 					> -->
+<!-- 						<path d="M 18 6 L 6 18 M 6 6 L 18 18"></path> -->
+<!-- 					</svg></a -->
+<!-- 				> -->
+<!-- 			</span> -->
+<!-- 		</div> -->
+<!-- 		<div class="mt-[var(--guide-gutter)] grid items-start gap-12 pb-48"> -->
+<!-- 			<div -->
+<!-- 				class="grid grid-flow-row gap-[var(--guide-gutter)] place-self-center sm:w-(--full-w) sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3" -->
+<!-- 			> -->
+<!-- 				{ -->
+<!-- 					projects.map((project) => ( -->
+<!-- 						<ProjectCard -->
+<!-- 							id={project.id} -->
+<!-- 							title={project.data.title} -->
+<!-- 							category={project.data.category} -->
+<!-- 							description={project.data.description} -->
+<!-- 							url={project.data.url} -->
+<!-- 							repo={project.data.repo} -->
+<!-- 							tags={project.data.tags} -->
+<!-- 							iconPath={project.data.iconPath} -->
+<!-- 							imagePath={project.data.imagePath} -->
+<!-- 							imageAlt={project.data.imageAlt} -->
+<!-- 						/> -->
+<!-- 					)) -->
+<!-- 				} -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
+<!-- </BaseLayout> -->
