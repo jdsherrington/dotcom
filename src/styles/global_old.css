@@ -11,31 +11,35 @@
 @custom-variant light (&:is(.theme-light *));
 
 @theme {
-	--breakpoint-*: initial;
-	--breakpoint-xl: 1440px;
-	--breakpoint-lg: 905px;
-	--breakpoint-md: 600px;
-	--breakpoint-sm: 0px;
+	/* --breakpoint-*: initial; */
+	/* --breakpoint-xl: 1440px; */
+	/* --breakpoint-lg: 999px; */
+	/* --breakpoint-md: 460px; */
+	/* --breakpoint-sm: 0px; */
+	/**/
+	/* --spacing-border-width: 1px; */
+	/* --spacing-col-1: var(--col-1); */
+	/* --spacing-col-2: var(--col-2); */
+	/* --spacing-col-3: var(--col-3); */
+	/* --spacing-col-4: var(--col-4); */
+	/* --spacing-col-5: var(--col-5); */
+	/* --spacing-col-6: var(--col-6); */
+	/* --spacing-col-7: var(--col-7); */
+	/* --spacing-col-1/4: var(--col-1/4); */
+	/* --spacing-col-1/3: var(--col-1/3); */
+	/* --spacing-col-half: var(--col-half); */
+	/* --spacing-col-2/3: var(--col-2/3); */
+	/* --spacing-col-3/4: var(--col-3/4); */
+	/* --spacing-col-full: var(--col-full); */
+	/* --spacing-col-overflow: var(--col-overflow); */
+	/* --spacing-gutter: var(--col-gutter); */
+	/* --spacing-gutter-1/2: calc(var(--col-gutter) * 0.5); */
+	/* --spacing-gutter-2: calc(var(--col-gutter) * 2); */
+	/**/
+	/* --spacing-ch-full: var(--ch-full); */
+	/* --spacing-ch-padded: var(--ch-padded); */
 
-	--spacing-border-width: 1px;
-	--spacing-col-1: var(--col-1);
-	--spacing-col-2: var(--col-2);
-	--spacing-col-3: var(--col-3);
-	--spacing-col-4: var(--col-4);
-	--spacing-col-5: var(--col-5);
-	--spacing-col-6: var(--col-6);
-	--spacing-col-7: var(--col-7);
-	--spacing-col-quarter: var(--col-quarter);
-	--spacing-col-third: var(--col-third);
-	--spacing-col-half: var(--col-half);
-	--spacing-col-2/3: var(--col-2/3);
-	--spacing-col-3/4: var(--col-3/4);
-	--spacing-col-full: var(--col-full);
-	--spacing-col-overflow: var(--col-overflow);
-	--spacing-gutter: var(--col-gutter);
-	--spacing-gutter-1/2: calc(var(--col-gutter) * 0.5);
-	--spacing-gutter-2: calc(var(--col-gutter) * 2);
-
+	--spacing-line: 1.2rem;
 	--text-2xs: 0.625rem;
 
 	--spacing-header: var(--header-height);
@@ -130,7 +134,7 @@
 */
 
 @utility card {
-	@apply rounded-base before:md:bg-glow-card before:rounded-base after:rounded-base after:border-border-background/0 border-border-background relative w-[round(100%,1px)] transition-all duration-300 ease-in-out before:absolute before:top-0 before:left-0 before:h-full before:w-full before:transition-all before:duration-600 before:ease-in-out after:absolute after:inset-0 after:top-[-1px] after:left-[-1px] after:h-[calc(100%+2px)] after:w-[calc(100%+2px)] after:border after:transition-all after:duration-300 after:ease-in-out after:content-[''] hover:before:opacity-100 before:sm:bg-transparent before:sm:opacity-100 after:sm:opacity-100 before:md:opacity-25 after:md:opacity-0 after:md:[background:radial-gradient(300px_circle_at_var(--x)_var(--y),oklch(var(--accent-foreground))_0%,transparent_100%)border-box] hover:after:md:opacity-100;
+	@apply rounded-base before:md:bg-glow-card before:rounded-base after:rounded-base after:ease-flicker after:border-border-background/0 border-border-background relative w-full backdrop-blur-2xl transition-all duration-300 ease-in-out before:absolute before:top-0 before:left-0 before:h-full before:w-full before:transition-all before:duration-600 before:ease-in-out after:absolute after:inset-0 after:h-[calc(100%+1px)] after:w-[calc(100%+1px)] after:border after:transition-all after:duration-300 after:content-[''] hover:before:opacity-100 before:sm:bg-transparent before:sm:opacity-100 after:sm:opacity-100 before:md:opacity-25 after:md:opacity-50 after:md:[background:radial-gradient(200px_circle_at_var(--x)_var(--y),oklch(var(--accent-foreground))_0%,transparent_100%)border-box] hover:after:md:opacity-100;
 
 	:root[data-theme="dark"] & {
 		@apply sm:shadow-black/10 md:shadow-transparent md:hover:shadow-black/15;
@@ -149,7 +153,7 @@
 }
 
 @utility desktop-nav-button {
-	@apply text-border-foreground ease-flicker rounded-base border-border-background inline-flex h-full w-max cursor-pointer place-items-center bg-transparent px-4 font-mono text-sm tracking-wide uppercase transition-all duration-200 *:h-full not-last-of-type:border-r focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 hover:md:bg-[oklch(var(--accent-foreground)/0.05)] hover:md:text-[oklch(var(--accent-foreground))] [.active]:text-[oklch(var(--accent-foreground)/0.7)] [.active]:hover:md:bg-transparent;
+	@apply text-border-foreground ease-flicker rounded-base border-border-background inline-flex h-full w-max cursor-pointer place-items-center bg-transparent px-4 font-mono text-sm tracking-widest uppercase transition-all duration-200 *:h-full not-last-of-type:border-r focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 hover:md:bg-[oklch(var(--accent-foreground)/0.05)] hover:md:text-[oklch(var(--accent-foreground))] [.active]:text-[oklch(var(--accent-foreground)/0.7)] [.active]:hover:md:bg-transparent;
 }
 
 @utility menu-bg {

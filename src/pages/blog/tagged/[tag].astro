@@ -43,12 +43,12 @@ const { posts } = Astro.props;
 	`
 >
 	<section
-		class="w-col-full relative flex flex-col place-items-center place-self-center"
+		class="w-col-full relative flex flex-col place-items-center place-self-center before:absolute before:inset-0 before:left-[0px] before:w-[calc(100%+0px)] before:h-gutter-2 before:content-[''] before:border-l before:border-r before:border-border-background"
 	>
-		<div
-			class="tag-controls border-border-background sticky top-[calc(var(--true-nav-height)-1px)] z-999 flex h-[calc(100%-1px)] w-[calc(100%-2px)] place-items-center border-b bg-[oklch(var(--background-primary)/calc(var(--true-nav-opacity)-0.15))] backdrop-blur-xl transition-all duration-0 ease-in-out"
+		<div id="tagged-controls"
+			class="tag-controls border-border-background sticky top-[calc(3rem-2px)] z-1 flex h-gutter-2 w-[calc(var(--col-full)-2px)] place-items-center border-b bg-[oklch(var(--background-primary)))] backdrop-blur-xl transition-all duration-0 ease-in-out"
 		>
-			<a href="javascript:void(0)" onclick="history.back()" class="h-10">
+			<a href="javascript:void(0)" onclick="history.back()" class="h-full">
 				<NavigationButton
 					text="Back"
 					class="arrow-left text-foreground/50 border-border-background md:hover:bg-accent-foreground/10 md:hover:text-accent-foreground relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-colors duration-200 ease-in-out *:h-3.5"
@@ -56,7 +56,7 @@ const { posts } = Astro.props;
 			</a>
 
 			<span
-				class="card-tag border-border-background before:ease-flicker ease-flicker text-foreground/60 relative flex h-10 place-items-center gap-1 border-r pr-3 pl-3.5 font-mono text-xs tracking-widest uppercase transition-colors duration-200 before:pointer-events-none before:absolute before:-top-[0px] before:-left-[1px] before:mt-[calc(var(--true-nav-opacity)*1px)] before:h-[calc(100%+1px+(0px-(var(--true-nav-opacity)*1px)))] before:w-[calc(100%+2px)] before:border before:border-transparent before:transition-colors before:duration-200 before:content-[''] sm:py-2 md:py-1.5 has-[.tag-close-link:hover]:md:bg-red-400/10 has-[.tag-close-link:hover]:md:text-red-300 has-[.tag-close-link:hover]:md:before:border-red-400"
+				class="card-tag border-border-background before:ease-flicker ease-flicker text-foreground/60 relative flex h-full place-items-center gap-1 border-r pr-3 pl-3.5 font-mono text-xs tracking-wide uppercase transition-colors duration-200 before:pointer-events-none before:absolute before:-top-[0px] before:-left-[1px] before:mt-[calc(var(--true-nav-opacity)*1px)] before:h-[calc(100%+1px+(0px-(var(--true-nav-opacity)*1px)))] before:w-[calc(100%+2px)] before:border before:border-transparent before:transition-colors before:duration-200 before:content-[''] sm:py-2 md:py-1.5 has-[.tag-close-link:hover]:md:bg-red-400/10 has-[.tag-close-link:hover]:md:text-red-300 has-[.tag-close-link:hover]:md:before:border-red-400"
 				>{tag.replaceAll("-", " ")}<a
 					href="/blog"
 					class="tag-close-link ease-flicker pointer-events-auto stroke-red-400 transition-colors duration-200 select-auto hover:md:stroke-red-300"
@@ -76,7 +76,7 @@ const { posts } = Astro.props;
 
 		<div
 			id="tagged-blog-posts"
-			class="sm:grid-cols-1fr grid w-full grid-flow-row pb-96 md:grid-cols-2 lg:grid-cols-3"
+			class="w-col-full sm:grid-cols-1fr grid grid-flow-row mb-60 md:grid-cols-2 lg:grid-cols-3 border-l border-border-background"
 		>
 			{
 				posts.map((post: BlogPost) => (

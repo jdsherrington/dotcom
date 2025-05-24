@@ -1,5 +1,5 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const blog = defineCollection({
 	loader: glob({ pattern: "*.md", base: "./src/content/blog" }),
@@ -12,7 +12,7 @@ const blog = defineCollection({
 		imageAlt: z.string(),
 		tags: z.array(z.string()),
 		wordCount: z.number().optional(), // Making this optional since we'll calculate it
-	})
+	}),
 });
 
 const projects = defineCollection({
@@ -23,11 +23,12 @@ const projects = defineCollection({
 		category: z.string(),
 		description: z.string(),
 		url: z.string(),
+		button: z.string(),
 		repo: z.string(),
 		tags: z.array(z.string()),
 		iconPath: z.string(),
 		iconAlt: z.string(),
-	})
+	}),
 });
 
 export const collections = { blog, projects };

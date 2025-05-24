@@ -1,10 +1,13 @@
 :root {
 	/* Theme-Agnostic Settings */
-    --accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
-    --accent-background: from oklch(var(--accent)) var(--shade-background) c h;
+	--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c h;
+	--accent-background: from oklch(var(--accent)) var(--shade-background) c h;
 
-	--border-background: oklch(var(--foreground)/0.2);
-	--border-foreground: oklch(var(--foreground)/0.4);
+	/* --border-background: oklch(0.6206 0.259 27.53 / 0.5); */
+	/* --border-foreground: oklch(var(--foreground) / 0.4); */
+
+	--border-background: oklch(var(--foreground) / 0.2);
+	--border-foreground: oklch(var(--foreground) / 0.4);
 
 	--card: var(--background);
 	--card-foreground: var(--foreground);
@@ -12,13 +15,12 @@
 	/* --destructive-light: ; */
 	/* --destructive-dark: ; */
 
-	--header: 
-		color-mix(
-			in hsl,
-			var(--background-midpoint) 60%,
-			transparent 40%
-		);
-	
+	--header: color-mix(
+		in hsl,
+		var(--background-midpoint) 60%,
+		transparent 40%
+	);
+
 	--tag-html: 66% 45% 41;
 	--tag-css: 44% 23% 303;
 	--tag-javascript: 88% 39% 100;
@@ -36,8 +38,6 @@
 	--logo-stroke: 30px;
 	--logo-linecap: round;
 
-
-
 	/* DARK THEMES */
 
 	/* Default */
@@ -47,7 +47,11 @@
 	--_dark-background-primary: 28.62% 0.0145 226.58;
 	--_dark-background-secondary: 19.57% 0 0;
 	--_dark-background-tertiary: 31.42% 0.0098 164.3;
-	--_dark-background-midpoint: color-mix(in hsl, oklch(var(--_dark-background-primary)) 50%, oklch(var(--_dark-background-secondary)) 50%);
+	--_dark-background-midpoint: color-mix(
+		in hsl,
+		oklch(var(--_dark-background-primary)) 50%,
+		oklch(var(--_dark-background-secondary)) 50%
+	);
 	--_dark-background-header: 25.62% 0.008 226.58;
 
 	&[data-theme="dark"] {
@@ -69,7 +73,7 @@
 		--shade-background: 0.4;
 		--shade-foreground: 0.8;
 		--shade-chroma: 0.15;
-		
+
 		--logo-stroke: 24px;
 
 		#dark-background {
@@ -83,9 +87,7 @@
 		--background-primary: var(--_dark-background-primary);
 		--background-secondary: var(--_dark-background-secondary);
 		--background-tertiary: var(--_dark-background-tertiary);
-	}	
-
-
+	}
 
 	/* Source */
 	--_source-background: 0% 0 42;
@@ -94,9 +96,8 @@
 	--_source-background-primary: 0% 0 343.34;
 	--_source-background-secondary: 10.38% 0.1872 143.24;
 	--_source-background-tertiary: 13.53% 0.0739 142.5;
-	--_source-background-midpoint: oklch(18.79% 0.0327 142.5); 
+	--_source-background-midpoint: oklch(18.79% 0.0327 142.5);
 	--_source-background-header: 18.79% 0.0327 142.5;
-
 
 	&[data-theme="source"] {
 		--background: var(--_source-background);
@@ -106,7 +107,7 @@
 
 		--destructive-background: var(--destructive-dark);
 		--destructive-foreground: var(--destructive-light);
-	
+
 		--background-primary: var(--_source-background-primary);
 		--background-secondary: var(--_source-background-secondary);
 		--background-tertiary: var(--_source-background-tertiary);
@@ -121,20 +122,22 @@
 		--logo-stroke: 22px;
 		--logo-linecap: square;
 
-		*, *::before, *::after {
+		*,
+		*::before,
+		*::after {
 			border-radius: 0px !important;
 			font-family: GeistMono !important;
 
-			not:code, not:pre {
-				
-			text-transform: uppercase !important;
+			not:code,
+			not:pre {
+				text-transform: uppercase !important;
 			}
 		}
 
 		img {
 			filter: sepia(100%) hue-rotate(50deg) brightness(60%) contrast(300%) !important;
 		}
-		
+
 		#source-background {
 			opacity: 1;
 			z-index: -10;
@@ -148,8 +151,6 @@
 		--background-tertiary: var(--_source-background-tertiary);
 	}
 
-	
-
 	/* Carbon */
 	--_carbon-background: 0% 0 42;
 	--_carbon-foreground: 95% 0.01 48;
@@ -157,8 +158,16 @@
 	--_carbon-background-primary: 28.62% 0.0145 226.58;
 	--_carbon-background-secondary: 19.57% 0 0;
 	--_carbon-background-tertiary: 31.42% 0.0098 164.3;
-	--_carbon-background-midpoint: color-mix(in hsl, oklch(var(--_carbon-background-primary)) 50%, oklch(var(--_carbon-background-secondary)) 50%);
-	--_carbon-background-header: color-mix(in hsl, oklch(var(--_carbon-background-primary)) 50%, oklch(var(--_carbon-background-secondary)) 50%);
+	--_carbon-background-midpoint: color-mix(
+		in hsl,
+		oklch(var(--_carbon-background-primary)) 50%,
+		oklch(var(--_carbon-background-secondary)) 50%
+	);
+	--_carbon-background-header: color-mix(
+		in hsl,
+		oklch(var(--_carbon-background-primary)) 50%,
+		oklch(var(--_carbon-background-secondary)) 50%
+	);
 
 	&[data-theme="carbon"] {
 		--background: var(--_carbon-background);
@@ -194,8 +203,6 @@
 		--background-tertiary: var(--_carbon-background-tertiary);
 	}
 
-
-
 	/* LIGHT THEMES */
 
 	/* Default */
@@ -205,7 +212,11 @@
 	--_light-background-primary: 88.3% 0 0;
 	--_light-background-secondary: 80.45% 0 0;
 	--_light-background-tertiary: 90.45% 0 0;
-	--_light-background-midpoint: color-mix(in hsl, oklch(var(--_light-background-primary)) 50%, oklch(var(--_light-background-secondary)) 50%);
+	--_light-background-midpoint: color-mix(
+		in hsl,
+		oklch(var(--_light-background-primary)) 50%,
+		oklch(var(--_light-background-secondary)) 50%
+	);
 	--_light-background-header: 92% 0 0;
 
 	&[data-theme="light"] {
@@ -243,8 +254,6 @@
 		--background-tertiary: var(--_light-background-tertiary);
 	}
 
-
-
 	/* Golden */
 	--_golden-background: 100% 0 0;
 	--_golden-foreground: 15% 0.01 48;
@@ -252,7 +261,11 @@
 	--_golden-background-primary: 87.3% 0 0;
 	--_golden-background-secondary: 82.45% 0 0;
 	--_golden-background-tertiary: 82.45% 0 0;
-	--_golden-background-midpoint: color-mix(in hsl, oklch(var(--_golden-background-primary)) 50%, oklch(var(--_golden-background-secondary)) 50%);
+	--_golden-background-midpoint: color-mix(
+		in hsl,
+		oklch(var(--_golden-background-primary)) 50%,
+		oklch(var(--_golden-background-secondary)) 50%
+	);
 	--_golden-background-header: oklch(92% 0 0 / 0.5);
 
 	&[data-theme="golden"] {
@@ -289,8 +302,6 @@
 		--background-tertiary: var(--_golden-background-tertiary);
 	}
 
-
-
 	/* Spring */
 	--_spring-background: 100% 0 0;
 	--_spring-foreground: 15% 0.01 48;
@@ -298,7 +309,11 @@
 	--_spring-background-primary: 87.3% 0 0;
 	--_spring-background-secondary: 82.45% 0 0;
 	--_spring-background-tertiary: 82.45% 0 0;
-	--_spring-background-midpoint: color-mix(in hsl, oklch(var(--_spring-background-primary)) 50%, oklch(var(--_spring-background-secondary)) 50%);
+	--_spring-background-midpoint: color-mix(
+		in hsl,
+		oklch(var(--_spring-background-primary)) 50%,
+		oklch(var(--_spring-background-secondary)) 50%
+	);
 	--_spring-background-header: oklch(92% 0 0 / 0.5);
 
 	&[data-theme="spring"] {

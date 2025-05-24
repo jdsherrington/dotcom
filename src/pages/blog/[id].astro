@@ -63,48 +63,47 @@ if (!images[post.data.imagePath]) {
 
 <BaseLayout pageTitle={post.data.title}>
 	<div
-		class="blog-page w-col-full gap-gutter rounded-base border-border-background relative flex flex-col place-items-center content-start place-self-center"
+		class="blog-page border-l border-r w-col-full gap-gutter rounded-base border-border-background relative flex flex-col place-items-center content-start place-self-center"
 		data-accent={accent}
 	>
 		<div
 			id=`blog-post-image-${post.id}`
-			transition:name=`blog-post-image-${post.id}`
-			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b [transition:opacity_50ms_ease-in-out,filter_50ms_ease-in-out]"
+			transition:name=`blog-post-image-blur-${post.id}`
+			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b z-0"
 		>
 			<Image
-				class="blog-page-banner-img rounded-base h-full w-full object-cover transition-all duration-0 ease-in-out"
+				class="blog-page-banner-img blur-xl rounded-base h-full w-full object-cover opacity-25 "
 				src={images[post.data.imagePath]()}
 				alt={post.data.imageAlt}
 			/>
 		</div>
 		<div
 			id=`blog-post-columns-${post.id}`
-			class="blog-page-columns lg:pt-col-5 grid max-w-full transition-all duration-0 ease-in-out sm:grid-cols-1 sm:gap-[calc(var(--col-gutter)*1)] sm:pt-0 lg:grid-cols-[minmax(auto,1fr)_auto] lg:gap-0"
+			class="blog-page-columns lg:pt-0 grid max-w-full sm:grid-cols-1 sm:gap-gutter sm:pt-0 lg:grid-cols-[minmax(auto,1fr)_auto] lg:gap-0"
 		>
 			<div
 				id=`blog-post-sidebar-${post.id}`
-				class="blog-page-sidebar border-border-background sm:mt-col-3 flex h-min flex-col transition-all duration-0 ease-linear sm:relative sm:top-0 sm:ml-[1px] sm:border-b lg:sticky lg:top-[calc(var(--nav-height)-var(--col-gutter))] lg:mt-0 lg:border-b-0"
+				class="blog-page-sidebar border-r border-border-background sm:mt-col-3 flex h-dvh flex-col sm:relative sm:top-0 sm:border-b lg:sticky lg:top-[calc((var(--col-gutter)*2)-2px)] lg:mt-[-2px] lg:border-b-0 backdrop-blur-3xl bg-background-header/10 w-col-third"
 			>
 				<div
 					id=`blog-post-thumbnail-${post.id}`
-					class="blog-page-thumbnail rounded-base relative ml-[1px] w-[calc(100%-1px)] overflow-hidden transition-all duration-0 ease-in-out lg:place-items-end"
+					transition:name=`blog-post-image-${post.id}`
+					class="blog-page-thumbnail rounded-base relative w-full overflow-hidden lg:place-items-end"
 				>
 					<Image
-						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background -mt-[1px] w-full border-b object-cover transition-all duration-0 ease-in-out sm:opacity-0 lg:opacity-100"
+						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background mt-[calc((var(--col-gutter)*2)-2px)] w-full border-b object-cover sm:opacity-0 lg:opacity-100 h-col-3"
 						src={images[post.data.imagePath]()}
 						alt={post.data.imageAlt}
-						style="height: 0px"
 					/>
 				</div>
 				<div
 					id=`blog-post-sidebar-nav-${post.id}`
-					class="blog-page-sidebar-nav bg-background-header/50 border-border-background absolute -mt-[1px] ml-[1px] w-[calc(100%-1px)] overflow-hidden backdrop-blur-xl"
-					style="height: 0"
+					class="blog-page-sidebar-nav border-b border-border-background absolute -mt-[1px] w-full overflow-hidden h-gutter-2"
 				>
 					<a href="javascript:void(0)" onclick="history.back()">
 						<NavigationButton
 							text="Back"
-							class="arrow-left text-foreground/50 border-border-background bg-background-header/25 md:hover:bg-accent-background/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-200 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--accent-foreground))]"
+							class="arrow-left text-foreground/50 border-border-background md:hover:bg-accent-background/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-200 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--accent-foreground))]"
 						/>
 					</a>
 				</div>
@@ -115,14 +114,14 @@ if (!images[post.data.imagePath]) {
 					<h1
 						id=`blog-post-title-${post.id}`
 						transition:name=`blog-post-title-${post.id}`
-						class="blog-page-title text-foreground/70 z-20 mb-1.5 inline-block w-auto transform-none leading-9 font-[700] tracking-tight text-balance transition-all duration-0 ease-in-out sm:text-left sm:text-3xl lg:text-right lg:text-4xl"
+						class="blog-page-title text-foreground/70 z-20 mb-2 inline-block w-auto transform-none leading-8 font-[700] tracking-tight text-balance sm:text-left sm:text-3xl lg:text-right lg:text-3xl"
 					>
 						{post.data.title}
 					</h1>
 					<p
 						id=`blog-post-date-${post.id}`
 						transition:name=`blog-post-date-${post.id}`
-						class="blog-page-date text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-widest uppercase transition-all duration-0 ease-in-out sm:text-left lg:text-right"
+						class="blog-page-date text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-wide uppercase transition-all duration-0 ease-in-out sm:text-left lg:text-right"
 					>
 						{formattedDate} // {readTime} min read
 					</p>
@@ -191,7 +190,7 @@ if (!images[post.data.imagePath]) {
 					</div>
 				</div>
 			</div>
-			<div class="post-markdown">
+			<div class="mt-col-5 pb-60 post-markdown">
 				<Content />
 			</div>
 		</div>
@@ -236,7 +235,7 @@ if (!images[post.data.imagePath]) {
 		}
 
 		.post-markdown {
-			@apply sm:text-foreground sm:px-gutter lg:px-gutter-2 border-border-background relative z-50 w-full max-w-[var(--article-width)] min-w-0 border-l transition-all duration-500 ease-in-out sm:pt-0 lg:pt-[calc(var(--col-gutter)+4px)];
+			@apply sm:text-foreground sm:px-gutter lg:px-gutter-2 border-border-background relative z-50 w-full max-w-[var(--article-width)] min-w-0  sm:pt-0 lg:pt-[calc(var(--col-gutter)+4px)];
 		}
 
 		::-moz-selection {
@@ -306,7 +305,7 @@ if (!images[post.data.imagePath]) {
 			scroll-margin-top: calc(
 				var(--nav-height) + (var(--col-gutter) * 2)
 			);
-			@apply text-accent-foreground font-mono text-sm tracking-wider uppercase;
+			@apply text-accent-foreground font-mono text-sm tracking-wide uppercase;
 		}
 
 		.post-markdown h4 {
@@ -372,7 +371,7 @@ if (!images[post.data.imagePath]) {
 		.post-markdown pre {
 			word-wrap: break-word;
 
-			@apply !font-code rounded-base p-gutter relative mb-8 !bg-[oklch(var(--foreground)/0.025)] break-words whitespace-pre-wrap;
+			@apply !font-code rounded-base border-border-background border p-gutter relative mb-gutter !bg-transparent break-words whitespace-pre-wrap;
 		}
 
 		code {
@@ -388,7 +387,7 @@ if (!images[post.data.imagePath]) {
 				rgba(0, 0, 0, 0) 50%
 			);
 
-			@apply bg-accent-background pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
+			@apply bg-accent-background  pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
 		}
 
 		.post-markdown pre::after,
@@ -413,12 +412,11 @@ if (!images[post.data.imagePath]) {
 		}
 
 		.post-markdown hr {
-			@apply border-border-background mt-12 mb-8;
+			@apply border-border-background mt-gutter-2 mb-gutter;
 		}
 
 		.post-markdown blockquote {
-			border-left: var(--radius) solid var(--color-accent);
-			@apply rounded-base relative mb-6 bg-[oklch(var(--foreground)/0.025)] p-4;
+			@apply rounded-base border-border-background border relative mb-gutter !bg-transparent p-gutter;
 		}
 
 		.post-markdown blockquote p {
@@ -712,197 +710,4 @@ if (!images[post.data.imagePath]) {
 		});
 	</script>
 
-	<script>
-		function loadScrolledValues() {
-			// Initialise elements that change on scroll
-			const sidebar: any = document.querySelector(".blog-page-sidebar")!;
-			const banner: any = document.querySelector(
-				".blog-page-banner-img",
-			)!;
-			const thumbnail: any = document.querySelector(
-				".blog-page-thumbnail-img",
-			)!;
-			const sidebarNav: any = document.querySelector(
-				".blog-page-sidebar-nav",
-			)!;
-			const title: any = document.querySelector(".blog-page-title")!;
-			const date: any = document.querySelector(".blog-page-date")!;
-
-			// Get the height of the banner element
-			const scrollDistance = banner ? banner.offsetHeight : 200;
-			const sidebarNavScrollDistance = 50;
-
-			// Initial values
-			let initialWidth;
-			if (window.innerWidth < 905) {
-				initialWidth = sidebar.parentElement.offsetWidth;
-			} else {
-				initialWidth = sidebar.parentElement!.offsetWidth * 0.5;
-			}
-			let initialBannerOpacity = 80,
-				initialBannerBlur = 0,
-				initialBannerScale = 100,
-				initialThumbnailHeight = 0,
-				initialSidebarNavHeight = 0,
-				initialTitleSize = 2.25,
-				initialTitleHeight = 36,
-				initialTitleWeight = 700,
-				initialDateSize = 0.75;
-
-			const tempElement = document.createElement("div");
-			tempElement.style.setProperty("width", "var(--col-3)");
-			document.body.appendChild(tempElement);
-
-			const computedValue = getComputedStyle(tempElement).width;
-			document.body.removeChild(tempElement); // Clean up
-
-			// Final values
-			const finalWidth = 330,
-				finalBannerOpacity = 25,
-				finalBannerBlur = 24,
-				finalBannerScale = 110,
-				finalThumbnailHeight = parseFloat(computedValue),
-				finalSidebarNavHeight = 40,
-				finalTitleSize = 1.5,
-				finalTitleHeight = 24,
-				finalTitleWeight = 600,
-				finalDateSize = 0.625;
-
-			// Set initial width
-			sidebar.style.width = initialWidth + "px";
-
-			// Use requestAnimationFrame for smoother animations
-			let ticking = false;
-			let lastScrollPos = window.scrollY;
-
-			function updateValues() {
-				initialWidth = sidebar.parentElement.offsetWidth * 0.5;
-
-				// Get current scroll position
-				let scrollPos = window.scrollY;
-
-				// Calculate current sidebar width based on scroll position
-				let sidebarWidth,
-					bannerOpacity,
-					bannerScale,
-					bannerBlur,
-					thumbnailHeight,
-					sidebarNavHeight,
-					titleSize,
-					titleHeight,
-					titleWeight,
-					dateSize;
-
-				if (scrollPos >= sidebarNavScrollDistance) {
-					sidebarNavHeight = finalSidebarNavHeight;
-				} else {
-					let sidebarNavShrinkFactor =
-						scrollPos / sidebarNavScrollDistance;
-					sidebarNavHeight =
-						initialSidebarNavHeight -
-						sidebarNavShrinkFactor *
-							(initialSidebarNavHeight - finalSidebarNavHeight);
-				}
-
-				if (scrollPos >= scrollDistance) {
-					sidebarWidth = finalWidth;
-					bannerOpacity = finalBannerOpacity;
-					bannerScale = finalBannerScale;
-					bannerBlur = finalBannerBlur;
-					thumbnailHeight = finalThumbnailHeight;
-					titleSize = finalTitleSize;
-					dateSize = finalDateSize;
-				} else {
-					// Linear interpolation between initial and final width
-					let shrinkFactor = scrollPos / scrollDistance;
-
-					sidebarWidth =
-						initialWidth -
-						shrinkFactor * (initialWidth - finalWidth);
-					bannerOpacity =
-						initialBannerOpacity -
-						shrinkFactor *
-							(initialBannerOpacity - finalBannerOpacity);
-					bannerBlur =
-						initialBannerBlur -
-						shrinkFactor * (initialBannerBlur - finalBannerBlur);
-					bannerScale =
-						initialBannerScale -
-						shrinkFactor * (initialBannerScale - finalBannerScale);
-					thumbnailHeight =
-						initialThumbnailHeight -
-						shrinkFactor *
-							(initialThumbnailHeight - finalThumbnailHeight);
-					titleSize =
-						initialTitleSize -
-						shrinkFactor * (initialTitleSize - finalTitleSize);
-					titleHeight =
-						initialTitleHeight -
-						shrinkFactor * (initialTitleHeight - finalTitleHeight);
-					titleWeight =
-						initialTitleWeight -
-						shrinkFactor * (initialTitleWeight - finalTitleWeight);
-					dateSize =
-						initialDateSize -
-						shrinkFactor * (initialDateSize - finalDateSize);
-				}
-
-				// Apply the new values
-				if (window.innerWidth < 905) {
-					console.log("SMALL SCREEN");
-					sidebar.style.width = `${sidebar.parentElement.offsetWidth}px`;
-					banner.style.opacity = `${initialBannerOpacity / 100}`;
-					banner.style.transform = `scale(${initialBannerScale / 100})`;
-					banner.style.filter = `blur(${initialBannerBlur}px)`;
-					thumbnail.style.height = `${initialThumbnailHeight}px`;
-					title.style.fontSize = `${initialTitleSize}rem`;
-					title.style.lineHeight = `${initialTitleHeight}px`;
-					title.style.fontWeight = `${initialTitleWeight}`;
-					date.style.fontSize = `${initialDateSize}rem`;
-					sidebarNav.style.height = `${initialSidebarNavHeight}px`;
-				} else {
-					sidebar.style.width = `${sidebarWidth}px`;
-					banner.style.opacity = `${bannerOpacity / 100}`;
-					banner.style.transform = `scale(${bannerScale / 100})`;
-					banner.style.filter = `blur(${bannerBlur}px)`;
-					thumbnail.style.height = `${thumbnailHeight}px`;
-					title.style.fontSize = `${titleSize}rem`;
-					title.style.lineHeight = `${titleHeight}px`;
-					title.style.fontWeight = `${titleWeight}`;
-					date.style.fontSize = `${dateSize}rem`;
-
-					sidebarNav.style.height = `${sidebarNavHeight}px`;
-				}
-				if (thumbnailHeight > finalSidebarNavHeight) {
-					sidebarNav.classList.add("border-b");
-				} else {
-					sidebarNav.classList.remove("border-b");
-				}
-
-				ticking = false;
-			}
-			// Handle scroll events more efficiently
-			window.addEventListener("scroll", function () {
-				lastScrollPos = window.scrollY;
-
-				if (!ticking) {
-					window.requestAnimationFrame(function () {
-						updateValues();
-					});
-					ticking = true;
-				}
-			});
-
-			// Update initial width on window resize
-			window.addEventListener("resize", function () {
-				updateValues();
-			});
-		}
-
-		// Initial values load
-		loadScrolledValues();
-		document.addEventListener("astro:after-swap", function () {
-			loadScrolledValues();
-		});
-	</script>
 </BaseLayout>

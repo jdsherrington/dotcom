@@ -18,10 +18,10 @@ const pageTitle = "JDS // Projects";
 
 <BaseLayout pageTitle={pageTitle}>
 	<section
-		class="w-col-full grid grid-cols-[auto] grid-rows-[min-content] items-start gap-[var(--guide-gutter)] pb-96"
+		class="w-col-full grid grid-cols-[auto] grid-rows-[min-content] items-start mb-40 border-l border-border-background"
 	>
 		<div
-			class="grid grid-flow-row gap-[var(--guide-gutter)] place-self-center sm:w-(--full-w) sm:grid-cols-1 md:grid-cols-2 lg:w-(--full-w) lg:grid-cols-3"
+			class="grid grid-flow-row place-self-center sm:w-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
 		>
 			{
 				sortedProjects.map((project) => {
@@ -32,6 +32,7 @@ const pageTitle = "JDS // Projects";
 							category={project.data.category}
 							description={project.data.description}
 							url={project.data.url}
+							button={project.data.button}
 							repo={project.data.repo}
 							tags={project.data.tags}
 							iconPath={project.data.iconPath}
