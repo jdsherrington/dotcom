@@ -32,14 +32,14 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		<link
 			rel="preload"
-			href="/fonts/AktivGrotesk-Light.woff2"
+			href="/fonts/InterVariable.woff2"
 			as="font"
 			type="font/woff2"
 			crossorigin="anonymous"
 		/>
 		<link
 			rel="preload"
-			href="/fonts/AktivGrotesk-XBold.woff2"
+			href="/fonts/InterVariable-Italic.woff2"
 			as="font"
 			type="font/woff2"
 			crossorigin="anonymous"
@@ -47,7 +47,7 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		<link
 			rel="preload"
-			href="/fonts/JetBrainsMonoVariable.woff2"
+			href="/fonts/GeistMono.woff2"
 			as="font"
 			type="font/woff2"
 			crossorigin="anonymous"
@@ -64,42 +64,7 @@ const { pageTitle, pageDesc } = Astro.props;
 		>
 		</div>
 
-		<Header pageTitle={pageTitle} />
-		<!-- <div -->
-		<!-- 	id="grid-guide-container-cols" -->
-		<!-- 	class="gap-gutter w-col-full justify-items-[var(--col-type)] pointer-events-none fixed top-0 left-0 z-1005 ml-[var(--col-absolute-margin)] grid h-svh grid-flow-col grid-cols-[var(--col-count)] grid-rows-1 items-center pl-[var(--col-margin)] *:h-full *:w-[var(--col-absolute-width)] *:bg-red-500 *:opacity-20" -->
-		<!-- > -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- </div> -->
-		<!-- <div -->
-		<!-- 	id="grid-guide-container-rows" -->
-		<!-- 	class="gap-gutter w-col-full justify-items-[var(--col-type)] *:w-col-full pointer-events-none fixed top-0 left-0 z-1005 ml-[var(--col-absolute-margin)] grid h-svh grid-flow-row grid-cols-1 grid-rows-[var(--col-count)] items-center pl-[var(--col-margin)] *:h-[var(--col-absolute-width)] *:bg-blue-500 *:opacity-20" -->
-		<!-- > -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- 	<div></div> -->
-		<!-- </div> -->
-
+		<Header pageTitle={pageTitle} />	
 		<main class="self-center">
 			<slot />
 		</main>
@@ -243,7 +208,22 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		document.documentElement.setAttribute("data-theme", appliedTheme);
 		document.documentElement.className = "";
-		document.documentElement.classList.add(`theme-${appliedTheme}`);
+		let themeType = appliedTheme;
+		switch (themeType) {
+			case "source":
+				themeType = "dark";
+				break;
+			case "carbon":
+				themeType = "dark";
+				break;
+			case "golden":
+				themeType = "light";
+				break;
+			case "spring":
+				themeType = "light";
+				break;
+		}
+		document.documentElement.classList.add(`theme-${themeType}`);
 
 		document.querySelectorAll(".theme-drawer li").forEach((button) => {
 			button.classList.remove("active");

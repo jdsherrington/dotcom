@@ -3,78 +3,45 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Card from "../components/Card.astro";
 
 import { Image } from "astro:assets";
-import portraitDark from "../assets/portrait-dark.webp";
-import portraitLight from "../assets/portrait-light.webp";
+import Portrait from "../assets/portrait.svg";
 
 const pageTitle = "Home";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 	<section
-		class="grid grid-cols-2 gap-[var(--guide-gutter)] items-center w-[var(--full-w)]"
+		class="flex flex-col"
 	>
-		<div class="relative w-[var(--half-w)] h-full">
-			<Image
-				id="hero-img-light"
-				src={portraitLight}
-				class="opacity-[var(--light-img-opacity)] w-full h-full object-cover p-4"
-				alt="Jordan Sherrington"
-			/>
-			<Image
-				id="hero-img-dark"
-				src={portraitDark}
-				class="opacity-[var(--dark-img-opacity)] absolute inset-0 w-full h-full object-cover p-4"
+		<div class="flex sm:flex-col-reverse md:flex-row gap-gutter items-center w-col-full border border-t-0 border-border-background">
+		<div id="home-img-wrapper" class="relative overflow-hidden w-full h-full md:border-r pt-gutter border-border-background">
+			<Portrait
+				id="home-img"
+				class="w-full h-full object-fill fill-border-background in-[.theme-light]:[&_#dark-portrait]:opacity-0 in-[.theme-dark]:[&_#light-portrait]:opacity-0 -mb-32 px-gutter sm:px-gutter md:px-0"
 				alt="Jordan Sherrington"
 			/>
 		</div>
-		<div class="w-[var(--half-w)] p-4">
-			<h1 class="text-5xl font-bold tracking-tight leading-relaxed">
+		<div id="home-content" class="w-full p-gutter sm:pl-gutter md:pl-0">
+			<h1 id="home-title" class="text-foreground/80 mb-1.5 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl in-[&[data-type='featured']]:sm:text-2xl lg:text-3xl lg:leading-9">
 				Hi, I'm Jordan.
 			</h1>
-			<p class="instructions">
-				Web developer & designer focused on making cool stuff.
-				<br /><br />
-				TO-DO:<br />
-				Create cards for Showcase<br />
-				Create blog layout, thumbnail cards, and post format<br />
-				Implement serif fonts<br />
-				Implement monospace fonts<br />
-				Implement custom theme selector + configurable hero image
+			<p id="home-dotpoints" class="text-foreground/50 mb-2 font-mono text-xs tracking-wide uppercase text-pretty">
+				:: Software developer & designer
+				<br>
+				:: Husband & father
+				<br>
+					:: Obsessed with continous learning
+					<br>
+				:: Inspired by elegant solutions and great design
 			</p>
+			<p
+			id="home-bio"
+			class="text-foreground/70 mb-4 h-auto text-sm text-pretty transition-all duration-300 ease-in-out leading-5.5"
+		>
+				Thanks for visiting my corner of the web. Please feel free to check out some of my blog posts, projects I'm currently/previously working on, or a curated list of useful resources for developers/designers (under construction).
+		</p>
 		</div>
+		</div>
+	<small class="font-mono text-2xs tracking-wide uppercase text-foreground/50 place-self-end border border-t-0 w-full text-right py-1 px-2 border-border-background">:: Copyright Jordan Sherrington 2025</small>
 	</section>
-	<section class="grid grid-cols-2 gap-12 items-center">
-		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
-		/><br /><br /><br /><br /><br /><br />
-	</section>
-</BaseLayout>
 
-<script>
-	document.addEventListener("astro:after-swap", () => {
-		document.querySelectorAll("img").forEach((img) => {
-			img.addEventListener("contextmenu", (e) => {
-				e.preventDefault();
-			});
-		});
-	});
-</script>
+	</BaseLayout>

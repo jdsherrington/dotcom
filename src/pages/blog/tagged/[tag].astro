@@ -46,7 +46,7 @@ const { posts } = Astro.props;
 		class="w-col-full relative flex flex-col place-items-center place-self-center before:absolute before:inset-0 before:left-[0px] before:w-[calc(100%+0px)] before:h-gutter-2 before:content-[''] before:border-l before:border-r before:border-border-background"
 	>
 		<div id="tagged-controls"
-			class="tag-controls border-border-background sticky top-[calc(3rem-2px)] z-1 flex h-gutter-2 w-[calc(var(--col-full)-2px)] place-items-center border-b bg-[oklch(var(--background-primary)))] backdrop-blur-xl transition-all duration-0 ease-in-out"
+			class="tag-controls border-border-background sticky top-[calc((var(--col-gutter)*2)-2px)] z-1 flex h-gutter-2 w-[calc(var(--col-full)-2px)] place-items-center border-b bg-[oklch(var(--background-primary)))] backdrop-blur-xl transition-all duration-0 ease-in-out"
 		>
 			<a href="javascript:void(0)" onclick="history.back()" class="h-full">
 				<NavigationButton

@@ -19,6 +19,9 @@
         "url": {
           "type": "string"
         },
+        "button": {
+          "type": "string"
+        },
         "repo": {
           "type": "string"
         },
@@ -44,6 +47,7 @@
         "category",
         "description",
         "url",
+        "button",
         "repo",
         "tags",
         "iconPath",

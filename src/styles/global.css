@@ -81,7 +81,7 @@
 
 	--font-sans: Inter;
 	--font-mono: GeistMono;
-	--font-code: JetBrainsMono;
+	--font-code: GeistMono;
 
 	--ease-fluid: cubic-bezier(0.3, 0, 0, 1);
 	--ease-snappy: cubic-bezier(0.2, 0, 0, 1);
@@ -130,7 +130,7 @@
 */
 
 @utility card {
-	@apply rounded-base before:md:bg-glow-card before:rounded-base after:rounded-base after:border-border-background/0 border-border-background relative w-[round(100%,1px)] transition-all duration-300 ease-in-out before:absolute before:top-0 before:left-0 before:h-full before:w-full before:transition-all before:duration-600 before:ease-in-out after:absolute after:inset-0 after:top-[-1px] after:left-[-1px] after:h-[calc(100%+2px)] after:w-[calc(100%+2px)] after:border after:transition-all after:duration-300 after:ease-in-out after:content-[''] hover:before:opacity-100 before:sm:bg-transparent before:sm:opacity-100 after:sm:opacity-100 before:md:opacity-25 after:md:opacity-0 after:md:[background:radial-gradient(300px_circle_at_var(--x)_var(--y),oklch(var(--accent-foreground))_0%,transparent_100%)border-box] hover:after:md:opacity-100;
+	@apply rounded-base before:md:bg-glow-card before:rounded-base after:rounded-base after:border-border-background/0 border-border-background relative w-[round(100%,1px)] transition-all duration-300 ease-in-out before:absolute before:top-0 before:left-0 before:h-full before:w-full before:transition-all before:duration-600 before:ease-in-out after:absolute after:inset-0 after:top-[-1px] after:left-[-1px] after:h-[calc(100%+2px)] after:w-[calc(100%+2px)] after:border after:transition-all after:duration-300 after:ease-in-out after:content-[''] before:sm:bg-transparent before:sm:opacity-100 after:sm:opacity-100 before:md:opacity-25 after:md:opacity-25 after:md:[background:radial-gradient(300px_circle_at_var(--x)_var(--y),oklch(var(--accent-foreground))_0%,transparent_100%)border-box] md:hover:before:opacity-100 md:hover:after:opacity-100;
 
 	:root[data-theme="dark"] & {
 		@apply sm:shadow-black/10 md:shadow-transparent md:hover:shadow-black/15;
@@ -145,11 +145,11 @@
 }
 
 @utility nav-btn {
-	@apply hover:fill-foreground inline-block w-auto fill-red-500/50 transition-all duration-200 ease-in-out;
+	@apply md:hover:fill-foreground inline-block w-auto fill-red-500/50 transition-all duration-200 ease-in-out;
 }
 
 @utility desktop-nav-button {
-	@apply text-border-foreground ease-flicker rounded-base border-border-background inline-flex h-full w-max cursor-pointer place-items-center bg-transparent px-4 font-mono text-sm tracking-wide uppercase transition-all duration-200 *:h-full not-last-of-type:border-r focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 hover:md:bg-[oklch(var(--accent-foreground)/0.05)] hover:md:text-[oklch(var(--accent-foreground))] [.active]:text-[oklch(var(--accent-foreground)/0.7)] [.active]:hover:md:bg-transparent;
+	@apply text-border-foreground ease-flicker rounded-base border-border-background inline-flex h-full w-max cursor-pointer place-items-center bg-transparent px-4 font-mono text-sm tracking-wide uppercase transition-all duration-200 *:h-full not-last-of-type:border-r focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 md:hover:bg-[oklch(var(--accent-foreground)/0.05)] md:hover:text-[oklch(var(--accent-foreground))] [.active]:text-[oklch(var(--accent-foreground)/0.7)] [.active]:md:hover:bg-transparent;
 }
 
 @utility menu-bg {
@@ -212,7 +212,7 @@
 		linear-gradient(#fff 0 0);
 	mask-composite: exclude;
 
-	@apply pointer-events-none absolute inset-0 z-10 w-full rounded-sm border border-transparent transition-opacity duration-300 ease-in-out content-[''];
+	@apply pointer-events-none absolute inset-0 z-10 w-full rounded-sm border border-transparent transition-opacity duration-300 ease-in-out content-[''] sm:opacity-0 md:opacity-100;
 }
 
 @utility skeleton {

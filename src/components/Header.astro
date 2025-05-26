@@ -28,7 +28,7 @@ const { pageTitle } = Astro.props;
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base sm:mt-gutter lg:mt-gutter-2 ml-[0px] border h-12 bg-background-header/10 border-border-background border-l-transparent border-t-transparent border-r-transparent linear pointer-events-auto sticky top-[-1px] z-1000 flex w-col-full items-center shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-3xl sm:justify-center md:justify-between"
+	class="rounded-base sm:mt-gutter lg:mt-gutter-2 border h-12 bg-background-header/10 border-border-background border-l-transparent border-t-transparent border-r-transparent linear pointer-events-auto sticky top-[-1px] z-1000 flex w-col-full items-center shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-3xl sm:justify-center md:justify-between"
 	
 >
 	<a
@@ -39,7 +39,7 @@ const { pageTitle } = Astro.props;
 		<!--	<Icon class="header-logo" name="header" /> -->
 
 		<svg
-			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-full w-auto opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 p-2.5 ml-0.5"
+			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-full w-auto opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 p-3 ml-0.5"
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 26.722914 5.8208394"
 		>
@@ -48,7 +48,7 @@ const { pageTitle } = Astro.props;
 			 transform="translate(-5.8208329,-12.435413)">
 			<g
 			   id="header-logo"
-			   class="transition-discrete in-[.theme-source]:hidden"
+			   class="transition-discrete in-data-[theme=source]:hidden"
 			   transform="matrix(0.26458333,0,0,0.26458333,-36.094164,-60.457292)">
 			  <path
 				 class=""
@@ -71,7 +71,7 @@ const { pageTitle } = Astro.props;
 			 transform="translate(-5.2916662,-49.212496)">
 			 <g
 			   id="header-logo-source"
-			   class="transition-discrete hidden in-[.theme-source]:block"
+			   class="transition-discrete hidden in-data-[theme=source]:block"
 			   transform="matrix(0.26458333,0,0,0.26458333,-36.623331,-23.680209)">
 			  <path
 				 class=""
@@ -110,7 +110,7 @@ const { pageTitle } = Astro.props;
 		>
 			<svg
 				id="desktop-theme-menu-icon"
-				class="fill-foreground stroke-foreground in-[.open]:fill-accent-background in-[.open]:stroke-accent-background h-auto w-5 scale-100 opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
+				class="fill-foreground stroke-foreground in-[.open]:fill-accent-background in-[.open]:stroke-accent-background h-auto w-5 scale-100 opacity-40 hover:opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
 				viewBox="0 0 24 24"
 				fill="currentColor"
 				stroke="currentColor"

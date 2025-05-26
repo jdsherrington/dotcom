@@ -72,7 +72,7 @@ if (!images[post.data.imagePath]) {
 			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b z-0"
 		>
 			<Image
-				class="blog-page-banner-img blur-xl rounded-base h-full w-full object-cover opacity-25 "
+				class="blog-page-banner-img blur-xl rounded-base h-full w-full object-cover sm:opacity-10 lg:opacity-25"
 				src={images[post.data.imagePath]()}
 				alt={post.data.imageAlt}
 			/>
@@ -83,7 +83,7 @@ if (!images[post.data.imagePath]) {
 		>
 			<div
 				id=`blog-post-sidebar-${post.id}`
-				class="blog-page-sidebar border-r border-border-background sm:mt-col-3 flex h-dvh flex-col sm:relative sm:top-0 sm:border-b lg:sticky lg:top-[calc((var(--col-gutter)*2)-2px)] lg:mt-[-2px] lg:border-b-0 backdrop-blur-3xl bg-background-header/10 w-col-third"
+				class="blog-page-sidebar lg:border-r border-border-background flex sm:h-col-3 lg:h-dvh flex-col sm:relative sm:top-0 lg:sticky lg:top-[calc((var(--col-gutter)*2)-2px)] lg:mt-[-2px] border-b-0 lg:backdrop-blur-3xl lg:bg-background-header/10 lg:w-col-third sm:w-full"
 			>
 				<div
 					id=`blog-post-thumbnail-${post.id}`
@@ -98,7 +98,7 @@ if (!images[post.data.imagePath]) {
 				</div>
 				<div
 					id=`blog-post-sidebar-nav-${post.id}`
-					class="blog-page-sidebar-nav border-b border-border-background absolute -mt-[1px] w-full overflow-hidden h-gutter-2"
+					class="blog-page-sidebar-nav sm:hidden lg:block border-b border-border-background absolute -mt-[1px] w-full overflow-hidden h-gutter-2"
 				>
 					<a href="javascript:void(0)" onclick="history.back()">
 						<NavigationButton
@@ -123,7 +123,7 @@ if (!images[post.data.imagePath]) {
 						transition:name=`blog-post-date-${post.id}`
 						class="blog-page-date text-foreground/50 z-20 mb-2.5 w-auto font-mono text-xs tracking-wide uppercase transition-all duration-0 ease-in-out sm:text-left lg:text-right"
 					>
-						{formattedDate} // {readTime} min read
+						{formattedDate} :: {readTime} min read
 					</p>
 					<div
 						id=`blog-post-tags-${post.id}`
@@ -190,7 +190,7 @@ if (!images[post.data.imagePath]) {
 					</div>
 				</div>
 			</div>
-			<div class="mt-col-5 pb-60 post-markdown">
+			<div class="sm:mt-0 lg:mt-col-5 pb-60 post-markdown">
 				<Content />
 			</div>
 		</div>
@@ -349,7 +349,8 @@ if (!images[post.data.imagePath]) {
 		@counter-style padded-numbers {
 			system: numeric;
 			symbols: "00" "01" "02" "03" "04" "05" "06" "07" "08" "09" "10";
-			suffix: " // ";
+			prefix: ":: ";
+			suffix: " ";
 		}
 
 		.post-markdown ol > li {
@@ -371,7 +372,7 @@ if (!images[post.data.imagePath]) {
 		.post-markdown pre {
 			word-wrap: break-word;
 
-			@apply !font-code rounded-base border-border-background border p-gutter relative mb-gutter !bg-transparent break-words whitespace-pre-wrap;
+		@apply !font-code rounded-base border-border-background border p-gutter relative mb-gutter !bg-background/20 break-words whitespace-pre-wrap;
 		}
 
 		code {
@@ -404,7 +405,7 @@ if (!images[post.data.imagePath]) {
 				linear-gradient(#fff 0 0);
 			mask-composite: exclude;
 
-			@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
+			@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent sm:opacity-0 md:opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
 		}
 
 		.post-markdown blockquote::after {
@@ -416,7 +417,7 @@ if (!images[post.data.imagePath]) {
 		}
 
 		.post-markdown blockquote {
-			@apply rounded-base border-border-background border relative mb-gutter !bg-transparent p-gutter;
+		@apply rounded-base border border-border-background/50 border-l-border-foreground relative mb-gutter !bg-transparent p-gutter;
 		}
 
 		.post-markdown blockquote p {

@@ -73,7 +73,7 @@ if (!images[imagePath])
 		id=`blog-post-image-${id}`
 		href={url}
 		transition:name=`blog-post-image-${id}`
-		class="border-border-background group/thumbnail ease-flicker in-[&[data-type='standard']]:md:h-col-2 z-1 hover:z-2 h-full grid grid-rows-[1fr_auto] min-h-0 border-r in-[&[data-type='standard']]:border-t border-t-transparent in-[&[data-type='standard']]:top-[-1px] in-[&[data-type='standard']]:border-r-0 in-[&[data-type='standard']]:md:border-b transition-colors duration-200 sm:w-col-half in-[&[data-type='standard']]:sm:w-col-1 relative before:content-[''] before:inset-0 before:absolute before:border hover:before:border-[oklch(var(--accent-foreground))] before:z-10 before:left-[-1px] in-[&[data-type='standard']]:before:top-[-1px] before:h-[calc(100%+1px)] in-[&[data-type='standard']]:before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border-transparent before:ease-flicker before:transition-colors before:duration-200 md:hover:border-[oklch(var(--accent-foreground))] in-[&[data-type='standard']]:md:w-full"
+		class="border-border-background group/thumbnail ease-flicker in-[&[data-type='standard']]:md:h-col-2 z-1 hover:z-2 h-full grid grid-rows-[1fr_auto] min-h-0 border-r in-[&[data-type='standard']]:border-t border-t-transparent in-[&[data-type='standard']]:top-[-1px] in-[&[data-type='standard']]:border-r-0 in-[&[data-type='standard']]:md:border-b transition-colors duration-200 sm:w-col-half in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:sm:min-w-[100px] relative before:content-[''] before:inset-0 before:absolute before:border hover:before:border-[oklch(var(--accent-foreground))] before:z-10 before:left-[-1px] in-[&[data-type='standard']]:before:top-[-1px] before:h-[calc(100%+1px)] in-[&[data-type='standard']]:before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border-transparent before:ease-flicker before:transition-colors before:duration-200 md:hover:border-[oklch(var(--accent-foreground))] in-[&[data-type='standard']]:md:w-full"
 
 		data-loaded="false"
 		data-id="${id}"
@@ -88,7 +88,7 @@ if (!images[imagePath])
 
 		<small
 			class="text-border-foreground prevent-select border-border-background leading-5 text-2xs ease-flicker pointer-events-none line-clamp-1 h-gutter border-t px-2 py-0.5 text-right font-mono tracking-wide uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:border-[oklch(var(--accent-foreground))] md:group-hover/thumbnail:bg-[oklch(var(--accent-foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--accent-foreground))] border-b-0"
-			>// {imageAlt}
+			>:: {imageAlt}
 		</small>
 	</a>
 	<div
@@ -120,7 +120,7 @@ if (!images[imagePath])
 			transition:name=`blog-post-date-${id}`
 			class="sm:text-foreground/60 md:text-foreground/50 mb-2 font-mono text-xs tracking-wide uppercase transition-all duration-300 ease-in-out"
 		>
-			// {formattedDate}
+			:: {formattedDate}
 		</small>
 
 		<p
@@ -308,6 +308,9 @@ if (!images[imagePath])
 
 	setTagRows();
 	document.addEventListener("astro:after-swap", () => {
+		setTagRows();
+	});
+	document.addEventListener("astro:page-load", () => {
 		setTagRows();
 	});
 	window.addEventListener("resize", () => {

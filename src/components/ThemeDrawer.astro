@@ -4,43 +4,43 @@ const { class: className = "" } = Astro.props;
 
 <div class=`theme-drawer-wrapper ${className} isolate`>
 	<div
-		class=`theme-drawer menu menu-bg-hover backdrop-blur-xl -translate-y-[calc(100%)] [.open]:translate-y-0 !border-t-0 rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none  hover:after:opacity-100 in-[.open]:pointer-events-auto in-[.open]:opacity-100`
+		class=`theme-drawer menu menu-bg-hover backdrop-blur-xl -translate-y-[calc(100%)] [.open]:translate-y-0 !border-t-0 rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none hover:after:opacity-100 in-[.open]:pointer-events-auto in-[.open]:opacity-100`
 	>
-		<ul class="extra-themes flex gap-1 p-1">
+		<ul class="extra-themes flex">
 			<ul
-				class="light-themes *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 grid w-full grid-cols-1 gap-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:border *:border-transparent *:p-2.5"
+				class="light-themes *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 grid w-full grid-cols-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:border *:border-transparent *:p-2.5"
 			>
 				<li
-					class="golden bg-[oklch(88.5%_0.0592_94.12/0.6)] text-[oklch(40%_0.1197_94.12)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+					class="golden bg-[oklch(88.5%_0.0592_94.12/0.6)] text-[oklch(40%_0.1197_94.12)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 				>
 					<span>Golden</span>
 				</li>
 				<li
-					class="spring bg-[oklch(88.2%_0.0595_130.12/0.6)] text-[oklch(40%_0.1129_160.83)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+					class="spring bg-[oklch(88.2%_0.0595_130.12/0.6)] text-[oklch(40%_0.1129_160.83)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 				>
 					<span>Spring</span>
 				</li>
 			</ul>
 			<ul
-				class="dark-themes *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 grid w-full grid-cols-1 gap-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:border *:border-transparent *:p-2.5"
+				class="dark-themes *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 grid w-full grid-cols-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:border *:border-transparent *:p-2.5"
 			>
 				<li
-					class="source bg-[oklch(15.73%_0.074_142.83/0.6)] text-[oklch(86.44%_0.2985_142.83)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+					class="source bg-[oklch(15.73%_0.074_142.83/0.6)] text-[oklch(86.44%_0.2985_142.83)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 				>
 					<span>Source</span>
 				</li>
 				<li
-					class="carbon bg-[oklch(37.2%_0_197.88/0.6)] text-[oklch(85.73%_0_197.88)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+					class="carbon bg-[oklch(37.2%_0_197.88/0.6)] text-[oklch(85.73%_0_197.88)] *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 				>
 					<span>Carbon</span>
 				</li>
 			</ul>
 		</ul>
 		<ul
-			class="standard-themes **:fill-foreground **:stroke-foreground **:text-foreground/70 *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 **:in-[.active]:fill-accent-foreground **:in-[.active]:text-accent-foreground right-0 grid grid-cols-[repeat(3,1fr)] gap-1 p-1 *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:rounded-xs *:border *:border-transparent *:p-2.5 *:transition-all *:duration-300 *:ease-in-out **:in-[.active]:opacity-100 *:sm:p-4 *:md:p-3"
+			class="standard-themes **:fill-foreground **:stroke-foreground **:text-foreground/70 *:[.active]:border-accent-foreground/50 *:[.active]:bg-accent-foreground/5 **:in-[.active]:fill-accent-foreground **:in-[.active]:text-accent-foreground right-0 grid grid-cols-[repeat(3,1fr)] *:inline-flex *:cursor-pointer *:flex-col *:place-content-center *:place-items-center *:gap-2.5 *:rounded-xs *:border *:border-transparent *:p-2.5 *:transition-all *:duration-300 *:ease-in-out **:in-[.active]:opacity-100 *:sm:p-4 *:md:p-3"
 		>
 			<li
-				class="light *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				class="light *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 			>
 				<svg
 					viewBox="0 0 24 24"
@@ -93,7 +93,7 @@ const { class: className = "" } = Astro.props;
 				</svg><span>Light</span>
 			</li>
 			<li
-				class="dark *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				class="dark *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 			>
 				<svg
 					viewBox="0 0 24 24"
@@ -112,7 +112,7 @@ const { class: className = "" } = Astro.props;
 				</svg><span>Dark</span>
 			</li>
 			<li
-				class="system *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-widest"
+				class="system *:ml-0.5 *:w-full *:text-center *:text-xs *:tracking-wide"
 			>
 				<svg
 					viewBox="0 0 24 24"
