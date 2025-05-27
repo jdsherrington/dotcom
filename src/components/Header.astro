@@ -15,26 +15,16 @@ const { pageTitle } = Astro.props;
 	class="group w-col-full border-border-background pointer-events-none top-0 z-1001 flex items-start justify-center"
 >
 	</header>
-<!-- <div -->
-<!-- 	id="mobile-header" -->
-<!-- 	class="rounded-base *:border-foreground/10 *:bg-background-midpoint *:!text-foreground/80 *:rounded-base p-gutter-1/2 absolute top-0 left-0 flex h-min w-full flex-row gap-1 border-t-0 bg-red-500/10 opacity-0 transition-all duration-300 ease-in-out *:border *:shadow-lg *:shadow-black/10 *:blur-none sm:pointer-events-auto in-[.scrolled]:sm:opacity-100 md:pointer-events-none in-[.scrolled]:md:opacity-0" -->
-<!-- > -->
-<!-- 	<span -->
-<!-- 		id="mobile-header-page-title" -->
-<!-- 		class="flex w-full max-w-full items-center overflow-hidden px-4 py-2.5 align-middle font-mono text-sm leading-snug tracking-wider text-ellipsis uppercase" -->
-<!-- 	></span> -->
-<!-- </div> -->
-
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base sm:mt-gutter lg:mt-gutter-2 border h-12 bg-background-header/10 border-border-background border-l-transparent border-t-transparent border-r-transparent linear pointer-events-auto sticky top-[-1px] z-1000 flex w-col-full items-center shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-3xl sm:justify-center md:justify-between"
+	class="rounded-base sm:mt-gutter lg:mt-gutter-2 border h-12 bg-background-header/10 border-border-background border-l-transparent border-r-transparent linear pointer-events-auto sticky top-[-1px] z-1000 flex w-col-full items-center shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-3xl sm:justify-center md:justify-between"
 	
 >
 	<a
 		href="/"
 		id="header-logo-link"
-		class="border-border-background relative isolate flex h-full w-auto flex-row gap-0.5 transition-all duration-300 ease-in-out sm:items-center in-[.scrolled]:sm:opacity-0 in-[.scrolled]:sm:blur-md md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+		class="border-border-background relative isolate flex h-full w-auto flex-row gap-0.5 transition-all duration-300 ease-in-out sm:items-center md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 	>
 		<!--	<Icon class="header-logo" name="header" /> -->
 
@@ -134,7 +124,7 @@ const { pageTitle } = Astro.props;
 				</g>
 			</svg>
 			<ThemeDrawer
-				class="pointer-events-none absolute top-[calc(100%+2px)] right-[-2px] h-fit w-fit overflow-hidden"
+				class="*:-translate-y-[calc(100%)] *:border-t-0 *:in-[.open]:translate-y-0 pointer-events-none absolute top-[calc(100%+2px)] right-[-2px] h-fit w-fit overflow-hidden"
 			/>
 		</a>
 		<div
@@ -197,7 +187,7 @@ const { pageTitle } = Astro.props;
 
 	setActiveLink();
 	document.addEventListener("astro:page-load", setActiveLink);
-	document.addEventListener("resize", setActiveLink);
+	window.addEventListener("resize", setActiveLink);
 </script>
 
 <script>

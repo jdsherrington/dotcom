@@ -18,7 +18,7 @@ import {
 const { pageTitle, pageDesc } = Astro.props;
 ---
 
-<html lang="en" data-overlayscrollbars-initialize>
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,7 +60,7 @@ const { pageTitle, pageDesc } = Astro.props;
 		<Background />
 		<div
 			id="top-marker"
-			class="pointer-events-none absolute top-0 left-0 h-[1px] w-[1px] bg-transparent"
+			class="pointer-events-none absolute bg-transparent top-0 left-0 h-px w-full"
 		>
 		</div>
 
@@ -76,19 +76,20 @@ const { pageTitle, pageDesc } = Astro.props;
 <script>
 	document.addEventListener("click", (e) => {
 		const target = e.target as HTMLElement;
-		console.log(
-			document.querySelector(".menu-btn.open") &&
-				!target.closest(".menu"),
-		);
 
 		// Open menu if menu button clicked
 		if (target.closest(".menu-btn") && !target.closest(".menu")) {
 			const menuBtn = target.closest(".menu-btn");
-			const menu = menuBtn?.querySelector(".menu");
 
-			if (menuBtn && menu) {
-				menuBtn.classList.toggle("open");
-				menu.classList.toggle("open");
+			if (menuBtn) {
+				if (menuBtn.classList.contains("open")) {
+					menuBtn.classList.toggle("open");
+					menuBtn.parentElement.querySelectorAll(".open").forEach((menuBtn) => {
+						menuBtn.classList.toggle("open");
+					});
+				} else {
+					menuBtn.classList.toggle("open");
+				}
 			}
 
 			e.stopPropagation();

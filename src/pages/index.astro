@@ -7,7 +7,7 @@ const pageTitle = "JDS :: Home";
 
 <BaseLayout pageTitle={pageTitle}>
 	<section
-		class="flex flex-col"
+		class="flex flex-col pb-40"
 	>
 		<div id="home-columns" class="flex sm:flex-col-reverse md:flex-row sm:gap-gutter sm:items-center md:items-stretch md:gap-0 w-col-full border border-t-0 border-border-background">
 			<div id="home-img-wrapper" class="relative overflow-hidden w-auto sm:pt-0 md:pt-gutter ">
@@ -18,7 +18,7 @@ const pageTitle = "JDS :: Home";
 				/>
 			</div>
 			<div id="home-content" class="flex flex-col w-full justify-center p-gutter sm:border-0 md:border-l border-border-background">
-				<h1 id="home-title" class="text-foreground/80 mb-2 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl lg:text-3xl lg:leading-9">
+				<h1 id="home-title" class="text-foreground/70 mb-2 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl lg:text-3xl lg:leading-9">
 					Hi, I'm Jordan.
 				</h1>
 				<p id="home-dotpoints" class="text-foreground/50 mb-2 font-mono text-xs tracking-wide uppercase text-pretty">
@@ -114,37 +114,59 @@ const pageTitle = "JDS :: Home";
 
 	</BaseLayout>
 
-<script>
-const messageArea = document.getElementById('message');
-const charCounter = document.getElementById('char-counter');
-const maxLength = messageArea.getAttribute('maxLength');
-
-function updateCharCount() {
-	const currentLength = messageArea.value.length;
-	charCounter.textContent = `${currentLength}/${maxLength}`;
-
-	if (currentLength >= (maxLength - 15)) {
-		charCounter.classList.add('!text-red-500');
-	} else {
-		charCounter.classList.remove('!text-red-500');
-	}
-}
-
-if (messageArea && charCounter) {
-	messageArea.addEventListener('input', updateCharCount);
-	updateCharCount();
-}
-</script>
 
 <script>
-  const humanCheckbox = document.getElementById('human-checkbox');
-  const sendButton = document.getElementById('home-form-submit-button');
+  function initializeCharCounter() {
+    const messageArea = document.getElementById('message') as HTMLTextAreaElement;
+    const charCounter = document.getElementById('char-counter') as HTMLElement;
 
-  if (humanCheckbox && sendButton) {
-    function toggleSendButton() {
-      sendButton.disabled = !humanCheckbox.checked;
+    if (messageArea && charCounter) {
+      const maxLengthString = messageArea.getAttribute('maxLength');
+      const maxLength = maxLengthString ? parseInt(maxLengthString, 10) : null;
+      if (maxLength === null) {
+        return; 
+      }
+
+      function updateCharCount() {
+        const currentLength = messageArea.value.length;
+        charCounter.textContent = `${currentLength}/${maxLength}`;
+
+        if (currentLength >= maxLength - 15) {
+          charCounter.classList.add('!text-red-500');
+        } else {
+          charCounter.classList.remove('!text-red-500');
+        }
+      }
+
+      messageArea.removeEventListener('input', updateCharCount);
+      messageArea.addEventListener('input', updateCharCount);
+
+      updateCharCount(); 
     }
-    humanCheckbox.addEventListener('change', toggleSendButton);
-    toggleSendButton(); // Initial state
   }
+
+  document.addEventListener('astro:page-load', initializeCharCounter);
+  </script>
+
+
+<script>
+  function initializeFormLogic() {
+    const humanCheckbox = document.getElementById('human-checkbox');
+    const sendButton = document.getElementById('home-form-submit-button');
+
+    if (humanCheckbox && sendButton) {
+      const currentCheckbox = humanCheckbox as HTMLInputElement;
+      const currentSendButton = sendButton as HTMLButtonElement;
+
+      function toggleSendButton() {
+        currentSendButton.disabled = !currentCheckbox.checked;
+      }
+      currentCheckbox.removeEventListener('change', toggleSendButton); 
+      currentCheckbox.addEventListener('change', toggleSendButton);
+
+      toggleSendButton(); 
+    } 
+  }
+
+  document.addEventListener('astro:page-load', initializeFormLogic);
 </script>

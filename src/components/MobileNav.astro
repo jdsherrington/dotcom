@@ -3,36 +3,41 @@ import ThemeDrawer from "@/components/ThemeDrawer.astro";
 import { Icon } from "astro-icon/components";
 ---
 
-<div
-	class="mobile-nav-container fixed bottom-0 z-1000 inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)] sm:right-[calc(var(--col-margin)+1px)] xl:right-[calc(var(--col-absolute-margin)+1px)]"
+<div id="mobile-nav-buttons"
+	class="mobile-nav-container fixed bottom-gutter z-1000 inline-flex flex-col place-items-end gap-2 p-[calc(var(--guide-gutter)-0.25rem)] sm:right-gutter md:right-[calc((100vw-var(--col-full))/2)]"
 >
 	<div
-		class="mobile-nav-backdrop sm:before:bg-background-secondary/75 pointer-events-none absolute right-0 bottom-0 -z-2 h-[calc(100%*3)] w-[calc(100%*3)] before:absolute before:right-0 before:bottom-0 before:-z-1 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-200 before:ease-in-out before:content-[''] group-has-[.mobile-nav-items.open]/mobilenav:before:opacity-100 before:md:bg-transparent"
+		class="mobile-nav-backdrop sm:before:bg-background-secondary/75 pointer-events-none absolute -right-gutter -bottom-gutter z-0 h-[calc(100%*3)] w-[calc(100%*3)] before:absolute before:right-0 before:bottom-0 before:-z-1 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-200 before:ease-in-out before:content-[''] group-has-[.mobile-nav-items.open]/mobilenav:before:opacity-100 before:md:bg-transparent"
 	>
 	</div>
-	<a class="mobile-nav-button page-top-button">
-		<Icon class="page-top-icon" name="ui/page-top" />
+
+	<a id="mobile-nav-top" class="mobile-nav-button page-top-button flex md:hover:bg-background-primary aspect-square place-content-center place-items-center !p-0 transition-all duration-200 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12 opacity-0 blur-md pointer-events-none in-[.mobile-nav-container:has(.mobile-nav-items.open)]:pointer-events-none in-[.mobile-nav-container:has(.mobile-nav-items.open)]:opacity-0">
+		<Icon class="w-full transition-colors duration-200 ease-in-out sm:h-2.5 md:h-2 in-[#mobile-nav-top:hover]:md:text-foreground" name="ui/page-top" />
 	</a>
-	<div class="mobile-nav-menu">
-		<div class="mobile-nav-items">
-			<a class="mobile-nav-button mobile-nav-link" href="/blog">Blog</a>
-			<a class="mobile-nav-button mobile-nav-link" href="/projects"
+
+	<div id="mobile-nav-menu" class="mobile-nav-menu flex-col place-items-end sm:inline-flex md:hidden">
+		<div id="mobile-nav-buttons" class="mobile-nav-items pointer-events-none absolute right-[calc(var(--guide-gutter)-0.25rem)] -translate-y-[calc(100%-1px)] z-50 inline-flex translate-x-[150%] flex-col place-items-end font-mono uppercase transition-all duration-300 ease-in-out [.open]:pointer-events-auto [.open]:translate-x-0">
+			<a class="mobile-nav-button mobile-nav-link !border-b-0" href="/blog">Blog</a>
+			<a class="mobile-nav-button mobile-nav-link !border-b-0" href="/projects"
 				>Projects</a
 			>
-			<a class="mobile-nav-button mobile-nav-link" href="/resources"
+			<a class="mobile-nav-button mobile-nav-link !border-b-0" href="/resources"
 				>Resources</a
 			>
-			<div class="menu-wrapper">
-				<a
-					class="menu-btn mobile-nav-button mobile-nav-link"
+
+			<div id="mobile-theme-menu" class="flex flex-col items-end w-full">
+			<a
+					class="menu-btn mobile-nav-button mobile-nav-link [.open]:!bg-accent-foreground [.open]:!text-accent-background"
 					href="javascript:void(0)">Theme</a
 				>
-				<ThemeDrawer />
+
+				<ThemeDrawer class="*:translate-x-full *:in-[#mobile-theme-menu:has(.open)]:translate-x-0 -translate-y-[13.5rem] pointer-events-none absolute top-[calc(100%)] h-fit w-fit overflow-hidden"/>
 			</div>
+
 		</div>
-		<a class="mobile-nav-button nav-menu-button">
-			<Icon class="nav-menu-icon" name="ui/hamburger" />
-			<Icon class="nav-menu-close" name="ui/close" />
+		<a class="mobile-nav-button nav-menu-button menu-btn flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0 *:absolute *:top-[50%] *:left-[50%] *:h-6 *:w-6 *:-translate-x-[50%] *:-translate-y-[50%]">
+			<Icon class="nav-menu-icon opacity-100 blur-none in-[.mobile-nav-menu:has(.mobile-nav-items.open)]:opacity-0 in-[.mobile-nav-menu:has(.mobile-nav-items.open)]:blur-sm" name="ui/hamburger" />
+			<Icon class="nav-menu-close opacity-0 blur-sm in-[.mobile-nav-menu:has(.mobile-nav-items.open)]:opacity-100 in-[.mobile-nav-menu:has(.mobile-nav-items.open)]:blur-none" name="ui/close" />
 		</a>
 	</div>
 </div>
@@ -47,76 +52,12 @@ import { Icon } from "astro-icon/components";
 		);
 	}
 
-	.page-top-button {
-		@apply md:hover:bg-background-primary pointer-events-auto flex aspect-square place-content-center place-items-center !p-0 opacity-100 blur-none transition-all duration-300 ease-in-out sm:h-14 sm:w-14 md:h-12 md:w-12;
-	}
-
-	.page-top-button.hidden {
-		@apply pointer-events-none opacity-0 md:blur-md;
-	}
-
-	.mobile-nav-container:has(.mobile-nav-items.open) .page-top-button {
-		@apply !pointer-events-none !opacity-0;
-	}
-
-	.page-top-button:hover .page-top-icon {
-		@apply md:text-foreground;
-	}
-
-	.page-top-icon {
-		@apply w-full transition-colors duration-300 ease-in-out sm:h-2.5 md:h-2;
-	}
-
-	.mobile-nav-menu {
-		@apply flex-col place-items-end sm:inline-flex md:hidden;
-	}
-
-	.mobile-nav-items {
-		@apply pointer-events-none absolute right-[calc(var(--guide-gutter)-0.25rem)] bottom-12 z-50 mb-[calc(var(--guide-gutter)*2)] inline-flex translate-x-[150%] flex-col place-items-end gap-2 font-mono uppercase transition-all duration-300 ease-in-out;
-	}
-
-	.mobile-nav-items.open {
-		@apply pointer-events-auto translate-x-0;
-	}
-
 	.mobile-nav-button {
-		@apply border-border-background bg-background-primary/30 text-foreground/80 rounded-base relative inline-block w-min border px-4 py-3 text-right tracking-wider shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 ease-in-out;
-	}
-
-	.mobile-nav-link.active {
-		@apply border-accent-foreground/50 bg-background-primary text-accent-foreground;
-	}
-
-	.nav-menu-button {
-		@apply flex aspect-square !h-14 !w-14 place-content-center place-items-center p-0;
-	}
-
-	.nav-menu-button svg {
-		@apply absolute top-[50%] left-[50%] h-6 w-6 -translate-x-[50%] -translate-y-[50%];
-	}
-
-	.nav-menu-icon {
-		@apply opacity-100 blur-none;
-	}
-
-	.mobile-nav-menu:has(.mobile-nav-items.open) .nav-menu-icon {
-		@apply opacity-0 blur-sm;
-	}
-
-	.nav-menu-close {
-		@apply opacity-0 blur-sm;
-	}
-
-	.mobile-nav-menu:has(.mobile-nav-items.open) .nav-menu-close {
-		@apply opacity-100 blur-none;
+		@apply border-border-background w-full bg-background-primary/30 text-foreground/80 rounded-base relative inline-block border px-4 py-3 text-right tracking-wider backdrop-blur-xl transition-all duration-200 ease-flicker [.active]:border-accent-foreground/50 [.active]:bg-background-primary [.active]:text-accent-foreground;
 	}
 
 	.mobile-nav-menu .theme-drawer {
-		@apply border-foreground/5 bg-background-midpoint right-0 bottom-0 translate-y-4 flex-col border blur-none;
-	}
-
-	.mobile-nav-menu:has(.mobile-nav-items.open) .theme-drawer {
-		@apply translate-x-0;
+		@apply border-border-background bg-background-midpoint right-0 bottom-0 flex-col border blur-none;
 	}
 
 	.mobile-nav-menu .theme-drawer::before {
@@ -142,50 +83,111 @@ import { Icon } from "astro-icon/components";
 </style>
 
 <script>
-	function scrollToTopButton() {
-		const scrollButton = document.querySelector(".page-top-button");
-		if (!scrollButton) return;
+  let intersectionObserverInstance = null; // To keep track of the observer
 
-		const topElement = document.querySelector("#top-marker");
-		if (!topElement) return;
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
-		if (window.scrollY === 0) {
-			scrollButton.classList.add("hidden");
-		}
+  function setupScrollToTopObserver() {
+    // 1. Disconnect any existing observer to prevent duplicates or observing old elements
+    if (intersectionObserverInstance) {
+      intersectionObserverInstance.disconnect();
+      intersectionObserverInstance = null;
+    }
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				const entry = entries[0];
-				if (entry.isIntersecting) {
-					scrollButton.classList.add("hidden");
-				} else {
-					scrollButton.classList.remove("hidden");
-				}
-			},
-			{ threshold: 0, rootMargin: "-10px 0px 0px 0px" },
-		);
+    const topMarkerEl = document.getElementById("top-marker");
+    const pageTopButtonEl = document.getElementById("mobile-nav-top");
 
-		observer.observe(topElement);
+    if (!pageTopButtonEl) {
+      console.warn(
+        "MobileNav ScrollToTop: mobile-nav-top not found. Cannot initialize.",
+      );
+      return;
+    }
 
-		scrollButton.addEventListener("click", () => {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		});
+    if (!topMarkerEl) {
+      console.warn(
+        "MobileNav ScrollToTop: top-marker element not found in the document. Button functionality might be impaired.",
+      );
+      // Optionally hide the button if the marker is crucial and missing
+      // pageTopButtonEl.style.display = 'none';
+      return;
+    }
 
-		return observer;
-	}
+    // Initial check for button visibility when the function runs
+    // This handles cases where navigation lands you at the top of a new page
+    const topMarkerRect = topMarkerEl.getBoundingClientRect();
+    // A small tolerance (e.g., 1 or 2 pixels) can be useful for h-px elements
+    if (topMarkerRect.top >= 0 && topMarkerRect.bottom > 0 && topMarkerRect.top < 5) {
+	  pageTopButtonEl.classList.add("opacity-0", "pointer-events-none", "blur-md");
+	  pageTopButtonEl.classList.remove("opacity-100", "pointer-events-auto");
+    } else {
+	  pageTopButtonEl.classList.remove("opacity-0", "pointer-events-none", "blur-md");
+      pageTopButtonEl.classList.add("opacity-100", "pointer-events-auto");
+    }
 
-	let scrollObserver = scrollToTopButton();
+    const observerCallback = (entries) => {
+      const [entry] = entries;
+      if (entry.target === topMarkerEl) {
+        if (entry.isIntersecting) {
+				  pageTopButtonEl.classList.add("opacity-0", "pointer-events-none", "blur-md");
+          pageTopButtonEl.classList.remove(
+            "opacity-100",
+            "pointer-events-auto",
+          );
+        } else {
+		  pageTopButtonEl.classList.remove("opacity-0", "pointer-events-none", "blur-md");
+          pageTopButtonEl.classList.add("opacity-100", "pointer-events-auto");
+        }
+      }
+    };
 
-	document.addEventListener("astro:after-swap", () => {
-		if (scrollObserver) {
-			scrollObserver.disconnect();
-		}
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.01, // Trigger when 1% of the element is visible/hidden
+    };
 
-		scrollObserver = scrollToTopButton();
-	});
-</script>
+    intersectionObserverInstance = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
+    intersectionObserverInstance.observe(topMarkerEl);
 
-<script>
+    // Manage click listener to avoid duplicates
+    // Remove existing listener if any (using the named function)
+    pageTopButtonEl.removeEventListener("click", scrollToTop);
+    // Add the listener
+    pageTopButtonEl.addEventListener("click", scrollToTop);
+  }
+
+  // Run on initial full page load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupScrollToTopObserver);
+  } else {
+    // DOMContentLoaded has already fired
+    setupScrollToTopObserver();
+  }
+
+  // Run after Astro View Transitions navigate to a new page
+  document.addEventListener("astro:page-load", setupScrollToTopObserver);
+
+  // Optional: More aggressive cleanup before the DOM is swapped by View Transitions
+  // document.addEventListener('astro:before-swap', () => {
+  //   if (intersectionObserverInstance) {
+  //     intersectionObserverInstance.disconnect();
+  //     intersectionObserverInstance = null;
+  //   }
+  //   const pageTopButtonEl = document.getElementById("mobile-nav-top");
+  //   if (pageTopButtonEl) {
+  //     pageTopButtonEl.removeEventListener("click", scrollToTop);
+  //   }
+  // });
+</script><script>
 	function openNavMenu() {
 		const menuButton = document.querySelector(
 			".nav-menu-button",

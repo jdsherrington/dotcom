@@ -365,10 +365,6 @@ const setProjectAccents = () => {
 	});
 
 	const attachEventListeners = () => {
-		for (const post of document.querySelectorAll(".project-card")) {
-			(post as HTMLElement).onmousemove = (e) => handleOnMouseMove(e);
-		}
-
 		const projects = document.querySelectorAll(
 			".project-card",
 		) as NodeListOf<HTMLElement>;

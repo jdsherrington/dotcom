@@ -4,7 +4,7 @@ const { class: className = "" } = Astro.props;
 
 <div class=`theme-drawer-wrapper ${className} isolate`>
 	<div
-		class=`theme-drawer menu menu-bg-hover backdrop-blur-xl -translate-y-[calc(100%)] [.open]:translate-y-0 !border-t-0 rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none hover:after:opacity-100 in-[.open]:pointer-events-auto in-[.open]:opacity-100`
+		class=`theme-drawer menu menu-bg-hover backdrop-blur-xl rounded-base border-border-background pointer-events-none z-10 flex w-auto origin-top flex-col-reverse border transition-all duration-300 ease-in-out select-none hover:after:opacity-100 in-[div:has(.open)]:pointer-events-auto in-[div:has(.open)]:opacity-100`
 	>
 		<ul class="extra-themes flex">
 			<ul
