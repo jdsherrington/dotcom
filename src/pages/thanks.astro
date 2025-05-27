@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "JDS :: Thank You";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+	<section class="flex w-col-full flex-col border border-t-0 border-border-background min-h-col-half place-items-center justify-center p-gutter">
+		<h1  class="text-foreground/80 mb-2 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl lg:text-3xl lg:leading-9 text-center">
+			Thank you for your message.
+		</h1>
+		<p class="text-foreground/70 mb-4 py-2 h-auto text-sm text-pretty leading-5.5 text-center">
+			If you provided any contact details, I'll get back to you as soon as I can.
+		</p>
+		<button onclick="history.back()" class="outline-0 navigation-button h-gutter-2 border-border-background text-foreground/60 relative inline-flex w-fit cursor-pointer place-items-center gap-3 border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all ease-flicker duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:text-[oklch(var(--accent-foreground))] focus:border-[oklch(var(--accent-foreground))] focus:bg-[oklch(var(--accent-foreground)/0.1)] focus:text-[oklch(var(--accent-foreground))] disabled:hidden border-shimmer-passive">
+			Back
+		</button>
+	</section>
+</BaseLayout>

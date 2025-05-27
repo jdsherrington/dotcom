@@ -1,47 +1,150 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Card from "../components/Card.astro";
-
-import { Image } from "astro:assets";
 import Portrait from "../assets/portrait.svg";
 
-const pageTitle = "Home";
+const pageTitle = "JDS :: Home";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 	<section
 		class="flex flex-col"
 	>
-		<div class="flex sm:flex-col-reverse md:flex-row gap-gutter items-center w-col-full border border-t-0 border-border-background">
-		<div id="home-img-wrapper" class="relative overflow-hidden w-full h-full md:border-r pt-gutter border-border-background">
-			<Portrait
-				id="home-img"
-				class="w-full h-full object-fill fill-border-background in-[.theme-light]:[&_#dark-portrait]:opacity-0 in-[.theme-dark]:[&_#light-portrait]:opacity-0 -mb-32 px-gutter sm:px-gutter md:px-0"
-				alt="Jordan Sherrington"
-			/>
-		</div>
-		<div id="home-content" class="w-full p-gutter sm:pl-gutter md:pl-0">
-			<h1 id="home-title" class="text-foreground/80 mb-1.5 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl in-[&[data-type='featured']]:sm:text-2xl lg:text-3xl lg:leading-9">
-				Hi, I'm Jordan.
-			</h1>
-			<p id="home-dotpoints" class="text-foreground/50 mb-2 font-mono text-xs tracking-wide uppercase text-pretty">
-				:: Software developer & designer
-				<br>
-				:: Husband & father
-				<br>
+		<div id="home-columns" class="flex sm:flex-col-reverse md:flex-row sm:gap-gutter sm:items-center md:items-stretch md:gap-0 w-col-full border border-t-0 border-border-background">
+			<div id="home-img-wrapper" class="relative overflow-hidden w-auto sm:pt-0 md:pt-gutter ">
+				<Portrait
+					id="home-img"
+						class="sm:w-full md:w-col-half h-full fill-border-background in-[.theme-light]:[&_#dark-portrait]:opacity-0 in-[.theme-dark]:[&_#light-portrait]:opacity-0 self-end px-gutter sm:px-gutter md:px-0 sm:-ml-2 md:-ml-6"
+					alt="Jordan Sherrington"
+				/>
+			</div>
+			<div id="home-content" class="flex flex-col w-full justify-center p-gutter sm:border-0 md:border-l border-border-background">
+				<h1 id="home-title" class="text-foreground/80 mb-2 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl lg:text-3xl lg:leading-9">
+					Hi, I'm Jordan.
+				</h1>
+				<p id="home-dotpoints" class="text-foreground/50 mb-2 font-mono text-xs tracking-wide uppercase text-pretty">
+					:: Software developer & designer
+					<br>
+					:: Husband & father
+					<br>
 					:: Obsessed with continous learning
 					<br>
-				:: Inspired by elegant solutions and great design
-			</p>
-			<p
-			id="home-bio"
-			class="text-foreground/70 mb-4 h-auto text-sm text-pretty transition-all duration-300 ease-in-out leading-5.5"
-		>
-				Thanks for visiting my corner of the web. Please feel free to check out some of my blog posts, projects I'm currently/previously working on, or a curated list of useful resources for developers/designers (under construction).
-		</p>
-		</div>
+					:: Inspired by elegant solutions and great design
+				</p>
+				<p
+				id="home-bio"
+				class="text-foreground/70 mb-4 py-2 h-auto text-sm text-pretty leading-5.5"
+				>
+					Welcome to my corner of the web. Please feel free to check out some of my blog posts, projects I'm currently/previously working on, or a curated list of useful resources for developers/designers. If you'd like to work with me or otherwise just drop me a line, please use the form below.
+				</p>
+
+				<form id="home-contact-form" class="" action="https://formspree.io/f/meogbyzk" method="POST">
+				  <div id="home-form-name-wrapper" class="pointer-events-none border relative border-border-background border-b-0 before:content-[''] before:inset-0 before:border before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-transparent focus-within:before:border-accent-foreground before:absolute focus-within:border-transparent transition-all ease-flicker duration-200 before:transition-all before:ease-flicker before:duration-200 border-shimmer-passive">
+						<input class="pointer-events-auto outline-0 w-full resize-none focus:md:bg-[oklch(var(--accent-foreground)/0.05)] transition-all ease-flicker duration-200 placeholder:font-mono placeholder:text-border-foreground text-foreground/70 leading-5.5 placeholder:uppercase font-sans text-sm placeholder:tracking-wide placeholder:text-xs py-1 px-1.5" type="text" id="name" name="name" autocomplete="off" placeholder="Name" required />
+				  </div>
+
+				  <div id="home-form-message-wrapper" class="pointer-events-none border relative border-border-background border-b-0 before:content-[''] before:inset-0 before:border before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-transparent focus-within:before:border-accent-foreground before:absolute group focus-within:border-transparent transition-all ease-flicker duration-200 before:transition-all before:ease-flicker before:duration-200 border-shimmer-passive">
+					<textarea class="pointer-events-auto outline-0 w-full placeholder:font-mono transition-all ease-flicker duration-200 resize-none focus:md:bg-[oklch(var(--accent-foreground)/0.05)] placeholder:text-border-foreground text-foreground/70 leading-5.5 placeholder:uppercase font-sans text-sm py-2 px-1.5 pb-8 placeholder:tracking-wide placeholder:text-xs" id="message" name="message" rows="6" maxlength="260" autocomplete="off" placeholder="Message" required></textarea>
+						<div id="char-counter" class="absolute bottom-2 right-2 font-mono text-xs text-border-foreground group-has-[textarea:focus]:text-accent-foreground pointer-events-none">
+							0/260
+						</div>
+				  </div>
+				<div
+					id="home-form-submit-wrapper"
+					class="group h-gutter-2 flex w-full relative in-[&[data-type='featured']]:lg:mt-gutter-2"
+					>
+					<div class="flex items-center border border-r-0 border-border-background pr-4.5 pl-4 border-shimmer-passive relative">
+						<label for="human-checkbox" class="flex items-center cursor-pointer group">
+						  <span class="block mr-3 text-xs font-mono uppercase tracking-wide text-border-foreground select-none">
+							I am human
+						  </span>
+						<input
+						  id="human-checkbox"
+						  name="human-checkbox"
+						  type="checkbox"
+						  class="peer sr-only"
+						/>
+						<span
+							class="
+							  flex items-center justify-center
+							  w-4 h-4
+							  ring-1 ring-border-background
+								peer-focus:ring-border-foreground
+								ring-offset-1 ring-offset-background-midpoint
+							  bg-transparent
+							  peer-hover:ring-border-foreground
+							  peer-checked:bg-border-foreground
+							  peer-checked:ring-border-foreground
+							"
+							>
+							<svg
+							  class="w-3 h-3 text-white fill-current hidden peer-checked:block"
+							  viewBox="0 0 20 20"
+							  xmlns="http://www.w3.org/2000/svg"
+							>
+							  <path
+								fill-rule="evenodd"
+								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+								clip-rule="evenodd"
+							  />
+							</svg>
+						  </span>
+
+						  <!-- Label text -->
+						  
+						</label>
+					</div>
+					<div
+						id="home-form-decoration"
+						class="before:ease-flicker ease-flicker border-border-background relative grow-1 border-b border-l bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--accent-foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100 border-r"
+					>
+					</div>
+							<button id="home-form-submit-button" class="outline-0 navigation-button h-gutter-2 rounded-base border-border-background text-foreground/60 border-l-transparent relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all ease-flicker duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:text-[oklch(var(--accent-foreground))] focus:border-[oklch(var(--accent-foreground))] focus:bg-[oklch(var(--accent-foreground)/0.1)] focus:text-[oklch(var(--accent-foreground))] disabled:hidden border-shimmer-passive" disabled type="submit">Send</button>
+					</div>
+				</form>
+
+				<!--
+				  If using something like Google reCAPTCHA, you might need to include their script,
+				  usually before the closing </body> tag.
+				  Example: <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+				-->
+			</div>
 		</div>
 	<small class="font-mono text-2xs tracking-wide uppercase text-foreground/50 place-self-end border border-t-0 w-full text-right py-1 px-2 border-border-background">:: Copyright Jordan Sherrington 2025</small>
 	</section>
 
 	</BaseLayout>
+
+<script>
+const messageArea = document.getElementById('message');
+const charCounter = document.getElementById('char-counter');
+const maxLength = messageArea.getAttribute('maxLength');
+
+function updateCharCount() {
+	const currentLength = messageArea.value.length;
+	charCounter.textContent = `${currentLength}/${maxLength}`;
+
+	if (currentLength >= (maxLength - 15)) {
+		charCounter.classList.add('!text-red-500');
+	} else {
+		charCounter.classList.remove('!text-red-500');
+	}
+}
+
+if (messageArea && charCounter) {
+	messageArea.addEventListener('input', updateCharCount);
+	updateCharCount();
+}
+</script>
+
+<script>
+  const humanCheckbox = document.getElementById('human-checkbox');
+  const sendButton = document.getElementById('home-form-submit-button');
+
+  if (humanCheckbox && sendButton) {
+    function toggleSendButton() {
+      sendButton.disabled = !humanCheckbox.checked;
+    }
+    humanCheckbox.addEventListener('change', toggleSendButton);
+    toggleSendButton(); // Initial state
+  }
+</script>
