@@ -8,7 +8,6 @@ const blog = defineCollection({
 		date: z.date(),
 		description: z.string(),
 		author: z.string(),
-		imagePath: z.string(),
 		imageAlt: z.string(),
 		tags: z.array(z.string()),
 		wordCount: z.number().optional(), // Making this optional since we'll calculate it

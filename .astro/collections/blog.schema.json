@@ -29,9 +29,6 @@
         "author": {
           "type": "string"
         },
-        "imagePath": {
-          "type": "string"
-        },
         "imageAlt": {
           "type": "string"
         },
@@ -53,7 +50,6 @@
         "date",
         "description",
         "author",
-        "imagePath",
         "imageAlt",
         "tags"
       ],

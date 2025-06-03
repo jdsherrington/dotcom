@@ -14,7 +14,6 @@ interface Props {
 	date: string;
 	url: string;
 	tags: string[];
-	imagePath: string;
 	imageAlt: string;
 	wordCount?: number;
 	type: string;
@@ -27,7 +26,6 @@ const {
 	date,
 	url,
 	tags,
-	imagePath,
 	imageAlt,
 	wordCount,
 	type,
@@ -38,6 +36,8 @@ const formattedDate = new Date(date).toLocaleDateString("en-AU", {
 	month: "long",
 	day: "2-digit",
 });
+
+const imagePath = `/src/assets/blog/posts/${id}.jpg`
 
 const accentPalette: any = await extractOKLCHColors(imagePath);
 const accent = accentPalette[0];
@@ -53,7 +53,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
 if (!images[imagePath])
 	throw new Error(
-		`"${imagePath}" does not exist in glob: "src/assets/blog/posts/*"`,
+		`"${imagePath}" does not exist in glob: "/src/assets/blog/posts/*"`,
 	);
 ---
 

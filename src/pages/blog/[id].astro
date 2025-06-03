@@ -42,7 +42,9 @@ const formattedDate = new Date(post.data.date).toLocaleDateString("en-AU", {
 	day: "2-digit",
 });
 
-const accentPalette: any = await extractOKLCHColors(post.data.imagePath);
+const imagePath = `/src/assets/blog/posts/${post.id}.jpg`
+
+const accentPalette: any = await extractOKLCHColors(imagePath);
 const accent = accentPalette[0];
 
 let readTime = 0;
@@ -54,9 +56,9 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 	"/src/assets/blog/posts/*.{jpeg,jpg,png,gif,webp}",
 );
 
-if (!images[post.data.imagePath]) {
+if (!images[imagePath]) {
 	throw new Error(
-		`"${post.data.imagePath}" does not exist in glob: "src/assets/blog/posts/*"`,
+		`"${post.id}.jpg" does not exist in glob: "src/assets/blog/posts/*"`,
 	);
 }
 ---
@@ -73,7 +75,7 @@ if (!images[post.data.imagePath]) {
 		>
 			<Image
 				class="blog-page-banner-img blur-xl rounded-base h-full w-full object-cover sm:opacity-10 lg:opacity-25"
-				src={images[post.data.imagePath]()}
+				src={images[imagePath]()}
 				alt={post.data.imageAlt}
 			/>
 		</div>
@@ -92,7 +94,7 @@ if (!images[post.data.imagePath]) {
 				>
 					<Image
 						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background mt-[calc((var(--col-gutter)*2)-2px)] w-full border-b object-cover sm:opacity-0 lg:opacity-100 h-col-3"
-						src={images[post.data.imagePath]()}
+						src={images[imagePath]()}
 						alt={post.data.imageAlt}
 					/>
 				</div>
@@ -264,6 +266,24 @@ if (!images[post.data.imagePath]) {
 				background-color: transparent;
 				color: oklch(var(--foreground));
 				border-color: transparent;
+			}
+		}
+
+		.post-markdown img {
+			width: calc(100% + (var(--col-gutter) * 4));
+			margin-left: calc((var(--col-gutter) * 2) * -1);
+			border-top: solid 1px var(--border-background);
+			border-bottom: solid 1px var(--border-background);
+			margin-bottom: 1rem;
+			aspect-ratio: 16 / 9;
+			object-fit: cover;
+			object-position: top;
+		}
+
+		.post-markdown a {
+			color: oklch(var(--accent-foreground));
+			&:hover {
+				text-decoration: underline;
 			}
 		}
 
