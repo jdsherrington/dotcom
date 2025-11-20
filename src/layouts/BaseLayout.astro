@@ -7,14 +7,6 @@ import MobileNav from "@/components/MobileNav.astro";
 import Footer from "@/components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
 
-import "overlayscrollbars/overlayscrollbars.css";
-import {
-	OverlayScrollbars,
-	ScrollbarsHidingPlugin,
-	SizeObserverPlugin,
-	ClickScrollPlugin,
-} from "overlayscrollbars";
-
 const { pageTitle, pageDesc } = Astro.props;
 ---
 
@@ -32,21 +24,6 @@ const { pageTitle, pageDesc } = Astro.props;
 
 		<link
 			rel="preload"
-			href="/fonts/InterVariable.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin="anonymous"
-		/>
-		<link
-			rel="preload"
-			href="/fonts/InterVariable-Italic.woff2"
-			as="font"
-			type="font/woff2"
-			crossorigin="anonymous"
-		/>
-
-		<link
-			rel="preload"
 			href="/fonts/GeistMono.woff2"
 			as="font"
 			type="font/woff2"
@@ -56,19 +33,21 @@ const { pageTitle, pageDesc } = Astro.props;
 		<ClientRouter />
 	</head>
 
-	<body data-overlayscrollbars-initialize class="flex flex-col items-center">
-		<Background />
+	<body class="bg-background flex flex-col items-center">
 		<div
 			id="top-marker"
 			class="pointer-events-none absolute bg-transparent top-0 left-0 h-px w-full"
 		>
 		</div>
 
-		<Header pageTitle={pageTitle} />	
-		<main class="self-center">
+		<Header pageTitle={pageTitle} />
+
+		<main class="self-center w-main">
 			<slot />
 		</main>
+
 		<MobileNav />
+
 	</body>
 </html>
 

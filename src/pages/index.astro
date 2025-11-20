@@ -9,7 +9,7 @@ const pageTitle = "JDS :: Home";
 	<section
 		class="flex flex-col pb-40"
 	>
-		<div id="home-columns" class="flex sm:flex-col-reverse md:flex-row sm:gap-gutter sm:items-center md:items-stretch md:gap-0 w-col-full border border-t-0 border-border-background">
+		<div id="home-columns" class="flex sm:flex-col-reverse md:flex-row sm:gap-gutter sm:items-center md:items-stretch md:gap-0 w-col-full border border-t-0 border-midground">
 			<div id="home-img-wrapper" class="relative overflow-hidden w-auto sm:pt-0 md:pt-gutter ">
 				<Portrait
 					id="home-img"
@@ -17,7 +17,7 @@ const pageTitle = "JDS :: Home";
 					alt="Jordan Sherrington"
 				/>
 			</div>
-			<div id="home-content" class="flex flex-col w-full justify-center p-gutter sm:border-0 md:border-l border-border-background">
+			<div id="home-content" class="flex flex-col w-full justify-center p-gutter sm:border-0 md:border-l border-midground">
 				<h1 id="home-title" class="text-foreground/70 mb-2 leading-7 font-[650] tracking-tight text-pretty transition-colors duration-300 ease-in-out sm:text-xl lg:text-3xl lg:leading-9">
 					Hi, I'm Jordan.
 				</h1>
@@ -38,13 +38,13 @@ const pageTitle = "JDS :: Home";
 				</p>
 
 				<form id="home-contact-form" class="" action="https://formspree.io/f/meogbyzk" method="POST">
-				  <div id="home-form-name-wrapper" class="pointer-events-none border relative border-border-background border-b-0 before:content-[''] before:inset-0 before:border before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-transparent focus-within:before:border-accent-foreground before:absolute focus-within:border-transparent transition-all ease-flicker duration-200 before:transition-all before:ease-flicker before:duration-200 border-shimmer-passive">
-						<input class="pointer-events-auto outline-0 w-full resize-none focus:md:bg-[oklch(var(--accent-foreground)/0.05)] transition-all ease-flicker duration-200 placeholder:font-mono placeholder:text-border-foreground text-foreground/70 leading-5.5 placeholder:uppercase font-sans text-sm placeholder:tracking-wide placeholder:text-xs py-1 px-1.5" type="text" id="name" name="name" autocomplete="off" placeholder="Name" required />
+				  <div id="home-form-name-wrapper" class="pointer-events-none border relative border-midground border-b-0 before:content-[''] before:inset-0 before:border before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-transparent focus-within:before:border-foreground before:absolute focus-within:border-transparent transition-all ease-flicker duration-200 before:transition-all before:ease-flicker before:duration-200 border-shimmer-passive">
+						<input class="pointer-events-auto outline-0 w-full resize-none focus:md:bg-[oklch(var(--foreground)/0.05)] transition-all ease-flicker duration-200 placeholder:font-mono placeholder:text-foreground text-foreground/70 leading-5.5 placeholder:uppercase font-sans text-sm placeholder:tracking-wide placeholder:text-xs py-1 px-1.5" type="text" id="name" name="name" autocomplete="off" placeholder="Name" required />
 				  </div>
 
-				  <div id="home-form-message-wrapper" class="pointer-events-none border relative border-border-background border-b-0 before:content-[''] before:inset-0 before:border before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-transparent focus-within:before:border-accent-foreground before:absolute group focus-within:border-transparent transition-all ease-flicker duration-200 before:transition-all before:ease-flicker before:duration-200 border-shimmer-passive">
-					<textarea class="pointer-events-auto outline-0 w-full placeholder:font-mono transition-all ease-flicker duration-200 resize-none focus:md:bg-[oklch(var(--accent-foreground)/0.05)] placeholder:text-border-foreground text-foreground/70 leading-5.5 placeholder:uppercase font-sans text-sm py-2 px-1.5 pb-8 placeholder:tracking-wide placeholder:text-xs" id="message" name="message" rows="6" maxlength="260" autocomplete="off" placeholder="Message" required></textarea>
-						<div id="char-counter" class="absolute bottom-2 right-2 font-mono text-xs text-border-foreground group-has-[textarea:focus]:text-accent-foreground pointer-events-none">
+				  <div id="home-form-message-wrapper" class="pointer-events-none border relative border-midground border-b-0 before:content-[''] before:inset-0 before:border before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] before:border-transparent focus-within:before:border-foreground before:absolute group focus-within:border-transparent transition-all ease-flicker duration-200 before:transition-all before:ease-flicker before:duration-200 border-shimmer-passive">
+					<textarea class="pointer-events-auto outline-0 w-full placeholder:font-mono transition-all ease-flicker duration-200 resize-none focus:md:bg-[oklch(var(--foreground)/0.05)] placeholder:text-foreground text-foreground/70 leading-5.5 placeholder:uppercase font-sans text-sm py-2 px-1.5 pb-8 placeholder:tracking-wide placeholder:text-xs" id="message" name="message" rows="6" maxlength="260" autocomplete="off" placeholder="Message" required></textarea>
+						<div id="char-counter" class="absolute bottom-2 right-2 font-mono text-xs text-foreground group-has-[textarea:focus]:text-foreground pointer-events-none">
 							0/260
 						</div>
 				  </div>
@@ -52,9 +52,9 @@ const pageTitle = "JDS :: Home";
 					id="home-form-submit-wrapper"
 					class="group h-gutter-2 flex w-full relative in-[&[data-type='featured']]:lg:mt-gutter-2"
 					>
-					<div class="flex items-center border border-r-0 border-border-background pr-4.5 pl-4 border-shimmer-passive relative">
+					<div class="flex items-center border border-r-0 border-midground pr-4.5 pl-4 border-shimmer-passive relative">
 						<label for="human-checkbox" class="flex items-center cursor-pointer group">
-						  <span class="block mr-3 text-xs font-mono uppercase tracking-wide text-border-foreground select-none">
+						  <span class="block mr-3 text-xs font-mono uppercase tracking-wide text-foreground select-none">
 							I am human
 						  </span>
 						<input
@@ -68,12 +68,12 @@ const pageTitle = "JDS :: Home";
 							  flex items-center justify-center
 							  w-4 h-4
 							  ring-1 ring-border-background
-								peer-focus:ring-border-foreground
+								peer-focus:ring-text-foreground
 								ring-offset-1 ring-offset-background-midpoint
 							  bg-transparent
-							  peer-hover:ring-border-foreground
-							  peer-checked:bg-border-foreground
-							  peer-checked:ring-border-foreground
+							  peer-hover:ring-text-foreground
+							  peer-checked:bg-text-foreground
+							  peer-checked:ring-text-foreground
 							"
 							>
 							<svg
@@ -95,10 +95,10 @@ const pageTitle = "JDS :: Home";
 					</div>
 					<div
 						id="home-form-decoration"
-						class="before:ease-flicker ease-flicker border-border-background relative grow-1 border-b border-l bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--accent-foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100 border-r"
+						class="before:ease-flicker ease-flicker border-midground relative grow-1 border-b border-l bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--foreground)),oklch(var(--foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100 border-r"
 					>
 					</div>
-							<button id="home-form-submit-button" class="outline-0 navigation-button h-gutter-2 rounded-base border-border-background text-foreground/60 border-l-transparent relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all ease-flicker duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:text-[oklch(var(--accent-foreground))] focus:border-[oklch(var(--accent-foreground))] focus:bg-[oklch(var(--accent-foreground)/0.1)] focus:text-[oklch(var(--accent-foreground))] disabled:hidden border-shimmer-passive" disabled type="submit">Send</button>
+							<button id="home-form-submit-button" class="outline-0 navigation-button h-gutter-2 rounded-none border-midground text-foreground/60 border-l-transparent relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all ease-flicker duration-200 hover:md:border-[oklch(var(--foreground))] hover:md:bg-[oklch(var(--foreground)/0.1)] hover:md:text-[oklch(var(--foreground))] focus:border-[oklch(var(--foreground))] focus:bg-[oklch(var(--foreground)/0.1)] focus:text-[oklch(var(--foreground))] disabled:hidden border-shimmer-passive" disabled type="submit">Send</button>
 					</div>
 				</form>
 
@@ -109,7 +109,7 @@ const pageTitle = "JDS :: Home";
 				-->
 			</div>
 		</div>
-	<small class="font-mono text-2xs tracking-wide uppercase text-foreground/50 place-self-end border border-t-0 w-full text-right py-1 px-2 border-border-background">:: Copyright Jordan Sherrington 2025</small>
+	<small class="font-mono text-2xs tracking-wide uppercase text-foreground/50 place-self-end border border-t-0 w-full text-right py-1 px-2 border-midground">:: Copyright Jordan Sherrington 2025</small>
 	</section>
 
 	</BaseLayout>

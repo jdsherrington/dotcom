@@ -12,24 +12,24 @@ const { pageTitle } = Astro.props;
 <header
 	transition:persist="header"
 	id="header"
-	class="group w-col-full border-border-background pointer-events-none top-0 z-1001 flex items-start justify-center"
+	class="group w-full border-midground pointer-events-none top-0 z-1001 flex items-start justify-center"
 >
 	</header>
 <nav
 	id="desktop-nav"
 	transition:persist="nav"
-	class="rounded-base sm:mt-gutter lg:mt-gutter-2 border h-12 bg-background-header/10 border-border-background border-l-transparent border-r-transparent linear pointer-events-auto sticky top-[-1px] z-1000 flex w-col-full items-center shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-3xl sm:justify-center md:justify-between"
+	class="rounded-none sm:mt-gutter lg:mt-gutter-2 border h-12 bg-background-header/10 border-midground border-l-transparent border-r-transparent linear pointer-events-auto sticky top-[-1px] z-1000 flex w-main items-center shadow-2xl shadow-transparent [transition:padding_0ms_ease-in-out,background-color_0ms,ease-in-out,height_0ms_ease-in-out] before:absolute before:inset-0 before:w-full before:backdrop-blur-3xl sm:justify-center md:justify-between"
 	
 >
 	<a
 		href="/"
 		id="header-logo-link"
-		class="border-border-background relative isolate flex h-full w-auto flex-row gap-0.5 transition-all duration-300 ease-in-out sm:items-center md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
+		class="border-midground relative isolate flex h-full w-auto flex-row gap-0.5 transition-all duration-300 ease-in-out sm:items-center md:items-center md:justify-items-center in-[.scrolled]:md:opacity-100 in-[.scrolled]:md:blur-none"
 	>
 		<!--	<Icon class="header-logo" name="header" /> -->
 
 		<svg
-			class="fill-border-foreground group/logo top-0 left-0 z-50 inline-block h-full w-auto opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 p-3 ml-0.5"
+			class="fill-foreground group/logo top-0 left-0 z-50 inline-block h-full w-auto opacity-70 transition-all duration-300 ease-in-out hover:opacity-100 p-3 ml-0.5"
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 26.722914 5.8208394"
 		>
@@ -46,7 +46,7 @@ const { pageTitle } = Astro.props;
 				 style="stroke:none"
 				 />
 			  <path
-				 class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-colors duration-300 ease-in-out"
+				 class="group-hover/logo:fill-foreground fill-accent group-hover/logo:ease-flicker transition-colors duration-300 ease-in-out"
 				 d="m 245.66889,283.75 2.75,-8.25 2.75,8.25 8.25,2.75 -8.25,2.75 -2.75,8.25 -2.75,-8.25 -8.25,-2.75 z"
 				 style="stroke:none;stroke-width:1.375"
 				 />
@@ -69,7 +69,7 @@ const { pageTitle } = Astro.props;
 				 style="stroke:none"
 				 />
 			  <path
-				 class="group-hover/logo:fill-accent-foreground fill-accent group-hover/logo:ease-flicker transition-colors duration-300 ease-in-out"
+				 class="group-hover/logo:fill-foreground fill-accent group-hover/logo:ease-flicker transition-colors duration-300 ease-in-out"
 				 d="m 237.41889,285.49999 h 4 v -1 h 3 v -2 h 2 v -3 h 1 v -4 h 2 v 4 h 1 v 3 h 2 v 2 h 3 v 1 h 4 v 2 h -4 v 1 h -3 v 2 h -2 v 3 h -1 v 4 h -2 v -4 h -1 v -3 h -2 v -2 h -3 v -1 h -4 z"
 				 style="stroke:none;stroke-width:1.375"
 				 />
@@ -85,7 +85,7 @@ const { pageTitle } = Astro.props;
 
 	<div
 		id="desktop-nav-items"
-		class="border-border-background relative h-full items-center gap-0 sm:hidden md:flex border-l"
+		class="border-midground relative h-full items-center gap-0 sm:hidden md:flex border-l"
 	>
 		<a class="desktop-nav-button desktop-nav-link" href="/blog">Blog</a>
 		<a class="desktop-nav-button desktop-nav-link" href="/projects"
@@ -93,11 +93,11 @@ const { pageTitle } = Astro.props;
 		>
 		<a
 			id="desktop-theme-menu-btn"
-			class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-accent-foreground before:bg-glow-btn before:rounded-base after:menu-btn-border border-foreground/0 [.open]:border-foreground/5 peer relative border px-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
+			class="desktop-nav-button menu-btn group/menu text-foreground/70 [.open]:bg-foreground before:bg-glow-btn before:rounded-none after:menu-btn-border peer relative border px-3 font-mono uppercase before:pointer-events-none before:absolute before:top-0 before:left-0 before:h-full before:w-full before:opacity-0 before:transition-opacity before:duration-300 before:ease-in-out before:content-[''] after:opacity-0 hover:before:opacity-100 [.open]:after:opacity-80"
 		>
 			<svg
 				id="desktop-theme-menu-icon"
-				class="fill-foreground stroke-foreground in-[.open]:fill-accent-background in-[.open]:stroke-accent-background h-auto w-5 scale-100 opacity-40 hover:opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
+				class="fill-foreground stroke-foreground in-[.open]:fill-midground in-[.open]:stroke-midground h-auto w-5 scale-100 opacity-40 hover:opacity-60 transition-all duration-200 ease-in-out in-[.open]:rotate-90"
 				viewBox="0 0 24 24"
 				fill="currentColor"
 				stroke="currentColor"

@@ -10,13 +10,10 @@
     }
   ],
   "entries": {
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/post-1.md": "blog",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/post-2.md": "blog",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/post-3.md": "blog",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/blog/why-this-website-took-9-months.md": "blog",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/projects/clai.md": "projects",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/projects/gratis-registry.md": "projects",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/projects/personal-website.md": "projects",
-    "file:///home/jordan/development/repos/jdsherrington.github.io/src/content/projects/wedding-website.md": "projects"
+    "file:///users/jordan/development/repos/dotcom/src/content/blog/why-this-website-took-9-months.md": "blog",
+    "file:///users/jordan/development/repos/dotcom/src/content/projects/gratis-registry.md": "projects",
+    "file:///users/jordan/development/repos/dotcom/src/content/projects/clai.md": "projects",
+    "file:///users/jordan/development/repos/dotcom/src/content/projects/wedding-website.md": "projects",
+    "file:///users/jordan/development/repos/dotcom/src/content/projects/personal-website.md": "projects"
   }
 }

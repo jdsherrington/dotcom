@@ -65,16 +65,16 @@ if (!images[imagePath]) {
 
 <BaseLayout pageTitle={post.data.title}>
 	<div
-		class="blog-page border-l border-r w-col-full gap-gutter rounded-base border-border-background relative flex flex-col place-items-center content-start place-self-center"
+		class="blog-page border-l border-r w-col-full gap-gutter rounded-none border-midground relative flex flex-col place-items-center content-start place-self-center"
 		data-accent={accent}
 	>
 		<div
 			id=`blog-post-image-${post.id}`
 			transition:name=`blog-post-image-blur-${post.id}`
-			class="blog-page-banner rounded-base sm:h-col-3 lg:h-col-5 border-border-background absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b z-0"
+			class="blog-page-banner rounded-none sm:h-col-3 lg:h-col-5 border-midground absolute top-0 left-0 ml-[1px] w-[calc(100%-2px)] overflow-hidden border-b z-0"
 		>
 			<Image
-				class="blog-page-banner-img blur-xl rounded-base h-full w-full object-cover sm:opacity-10 lg:opacity-25"
+				class="blog-page-banner-img blur-xl rounded-none h-full w-full object-cover sm:opacity-10 lg:opacity-25"
 				src={images[imagePath]()}
 				alt={post.data.imageAlt}
 			/>
@@ -85,27 +85,27 @@ if (!images[imagePath]) {
 		>
 			<div
 				id=`blog-post-sidebar-${post.id}`
-				class="blog-page-sidebar lg:border-r border-border-background flex sm:h-col-3 lg:h-dvh flex-col sm:relative sm:top-0 lg:sticky lg:top-[calc((var(--col-gutter)*2)-2px)] lg:mt-[-2px] border-b-0 lg:backdrop-blur-3xl lg:bg-background-header/10 lg:w-col-third sm:w-full"
+				class="blog-page-sidebar lg:border-r border-midground flex sm:h-col-3 lg:h-dvh flex-col sm:relative sm:top-0 lg:sticky lg:top-[calc((var(--col-gutter)*2)-2px)] lg:mt-[-2px] border-b-0 lg:backdrop-blur-3xl lg:bg-background-header/10 lg:w-col-third sm:w-full"
 			>
 				<div
 					id=`blog-post-thumbnail-${post.id}`
 					transition:name=`blog-post-image-${post.id}`
-					class="blog-page-thumbnail rounded-base relative w-full overflow-hidden lg:place-items-end"
+					class="blog-page-thumbnail rounded-none relative w-full overflow-hidden lg:place-items-end"
 				>
 					<Image
-						class="blog-page-thumbnail-img rounded-base mb-gutter border-border-background mt-[calc((var(--col-gutter)*2)-2px)] w-full border-b object-cover sm:opacity-0 lg:opacity-100 h-col-3"
+						class="blog-page-thumbnail-img rounded-none mb-gutter border-midground mt-[calc((var(--col-gutter)*2)-2px)] w-full border-b object-cover sm:opacity-0 lg:opacity-100 h-col-3"
 						src={images[imagePath]()}
 						alt={post.data.imageAlt}
 					/>
 				</div>
 				<div
 					id=`blog-post-sidebar-nav-${post.id}`
-					class="blog-page-sidebar-nav sm:hidden lg:block border-b border-border-background absolute -mt-[1px] w-full overflow-hidden h-gutter-2"
+					class="blog-page-sidebar-nav sm:hidden lg:block border-b border-midground absolute -mt-[1px] w-full overflow-hidden h-gutter-2"
 				>
 					<a href="javascript:void(0)" onclick="history.back()">
 						<NavigationButton
 							text="Back"
-							class="arrow-left text-foreground/50 border-border-background md:hover:bg-accent-background/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-200 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--accent-foreground))]"
+							class="arrow-left text-foreground/50 border-midground md:hover:bg-midground/50 relative h-full w-auto cursor-pointer rounded-sm border-r px-3 transition-all duration-200 ease-in-out *:h-3.5 md:hover:text-[oklch(var(--foreground))]"
 						/>
 					</a>
 				</div>
@@ -138,7 +138,7 @@ if (!images[imagePath]) {
 							))
 						}
 					</div>
-					<!-- <div class="blog-page-share bg-foreground/0 text-foreground/50 rounded-base mb-5 inline-flex w-auto place-items-center px-1 font-mono tracking-wide uppercase duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end"> -->
+					<!-- <div class="blog-page-share bg-foreground/0 text-foreground/50 rounded-none mb-5 inline-flex w-auto place-items-center px-1 font-mono tracking-wide uppercase duration-200 sm:h-9 sm:justify-start md:h-7 lg:justify-end"> -->
 					<!-- 	<div class="blog-page-share-copy border-r-foreground/20 inline-flex w-auto place-items-center gap-3 border-r pr-3.5"> -->
 					<!-- 		<span class="text-xs tracking-wider select-none">Share</span> -->
 					<!-- 		<a class="copy-link hover:text-foreground" -->
@@ -163,7 +163,7 @@ if (!images[imagePath]) {
 					<!-- </div> -->
 
 					<div
-						class="mt-gutter group/toc blog-page-table-of-contents rounded-base sm:mx-gutter relative z-50 h-full w-auto flex-row overflow-hidden sm:hidden lg:mx-0 lg:inline-flex"
+						class="mt-gutter group/toc blog-page-table-of-contents rounded-none sm:mx-gutter relative z-50 h-full w-auto flex-row overflow-hidden sm:hidden lg:mx-0 lg:inline-flex"
 					>
 						<div class="scroll-progress"></div>
 						<ul
@@ -173,10 +173,10 @@ if (!images[imagePath]) {
 								filteredHeadings.map((heading) => (
 									<a
 										href={`#${heading.slug}`}
-										class={`border-border-background text-border-foreground before:ease-flicker ease-flicker relative w-full border-t border-l leading-none transition-all duration-200 before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:border-[var(--color-accent)] before:opacity-0 before:transition-opacity before:duration-200 last:border-b last:before:h-[calc(100%+2px)] md:hover:bg-[oklch(var(--accent-background)/0.1)] md:hover:text-[oklch(var(--accent-foreground))] md:hover:before:opacity-100 lg:text-right`}
+										class={`border-midground text-foreground before:ease-flicker ease-flicker relative w-full border-t border-l leading-none transition-all duration-200 before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:border-[var(--color-accent)] before:opacity-0 before:transition-opacity before:duration-200 last:border-b last:before:h-[calc(100%+2px)] md:hover:bg-[oklch(var(--midground)/0.1)] md:hover:text-[oklch(var(--foreground))] md:hover:before:opacity-100 lg:text-right`}
 									>
 										<li
-											class={`toc-heading ease-flicker rounded-base inline-block w-full px-3.5 py-2 font-mono text-xs tracking-wide text-inherit uppercase transition-all duration-0 sm:text-left lg:text-right`}
+											class={`toc-heading ease-flicker rounded-none inline-block w-full px-3.5 py-2 font-mono text-xs tracking-wide text-inherit uppercase transition-all duration-0 sm:text-left lg:text-right`}
 										>
 											{heading.text}
 										</li>
@@ -186,7 +186,7 @@ if (!images[imagePath]) {
 						</ul>
 						<div
 							id=`blog-post-table-of-contents-decoration-${post.id}`
-							class="blog-page-table-of-contents-decoration w-gutter border-border-background before:border-accent relative h-auto grow border bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 ease-in-out before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:bg-[repeating-linear-gradient(45deg,var(--color-accent),var(--color-accent)_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-200 before:ease-in-out before:content-[''] before:[mask-image:linear-gradient(to_bottom,black_0%,black_49.99%,transparent_50%,transparent_100%)] before:[mask-position:0_var(--mask-position)] before:[mask-size:100%_200%] before:[transition:mask-position_200ms_ease-out]"
+							class="blog-page-table-of-contents-decoration w-gutter border-midground before:border-accent relative h-auto grow border bg-[repeating-linear-gradient(45deg,var(--border-background),var(--border-background)_2px,transparent_2px,transparent_8px)] bg-clip-content transition-all duration-200 ease-in-out before:absolute before:-top-[1px] before:-left-[1px] before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border before:bg-[repeating-linear-gradient(45deg,var(--color-accent),var(--color-accent)_2px,transparent_2px,transparent_8px)] before:opacity-100 before:transition-all before:delay-100 before:duration-200 before:ease-in-out before:content-[''] before:[mask-image:linear-gradient(to_bottom,black_0%,black_49.99%,transparent_50%,transparent_100%)] before:[mask-position:0_var(--mask-position)] before:[mask-size:100%_200%] before:[transition:mask-position_200ms_ease-out]"
 						>
 						</div>
 					</div>
@@ -237,28 +237,28 @@ if (!images[imagePath]) {
 		}
 
 		.post-markdown {
-			@apply sm:text-foreground sm:px-gutter lg:px-gutter-2 border-border-background relative z-50 w-full max-w-[var(--article-width)] min-w-0  sm:pt-0 lg:pt-[calc(var(--col-gutter)+4px)];
+			@apply sm:text-foreground sm:px-gutter lg:px-gutter-2 border-midground relative z-50 w-full max-w-[var(--article-width)] min-w-0  sm:pt-0 lg:pt-[calc(var(--col-gutter)+4px)];
 		}
 
 		::-moz-selection {
 			/* Code for Firefox */
-			@apply bg-accent-background text-accent-foreground;
+			@apply bg-midground text-foreground;
 		}
 
 		::selection {
-			@apply bg-accent-background text-accent-foreground;
+			@apply bg-midground text-foreground;
 		}
 
 		@keyframes headerHighlightFade {
 			0% {
 				background-color: oklch(var(--color-accent) / 0.1);
-				color: oklch(var(--accent-foreground));
+				color: oklch(var(--foreground));
 				border-color: var(--color-accent);
 			}
 
 			50% {
 				background-color: oklch(var(--color-accent) / 0.1);
-				color: oklch(var(--accent-foreground));
+				color: oklch(var(--foreground));
 				border-color: var(--color-accent);
 			}
 
@@ -281,7 +281,7 @@ if (!images[imagePath]) {
 		}
 
 		.post-markdown a {
-			color: oklch(var(--accent-foreground));
+			color: oklch(var(--foreground));
 			&:hover {
 				text-decoration: underline;
 			}
@@ -315,7 +315,7 @@ if (!images[imagePath]) {
 				var(--nav-height) + (var(--col-gutter) * 2)
 			);
 
-			@apply rounded-base -ml-3 border border-transparent py-1 pl-3 font-bold;
+			@apply rounded-none -ml-3 border border-transparent py-1 pl-3 font-bold;
 		}
 
 		.post-markdown h3 {
@@ -325,7 +325,7 @@ if (!images[imagePath]) {
 			scroll-margin-top: calc(
 				var(--nav-height) + (var(--col-gutter) * 2)
 			);
-			@apply text-accent-foreground font-mono text-sm tracking-wide uppercase;
+			@apply text-foreground font-mono text-sm tracking-wide uppercase;
 		}
 
 		.post-markdown h4 {
@@ -392,7 +392,7 @@ if (!images[imagePath]) {
 		.post-markdown pre {
 			word-wrap: break-word;
 
-		@apply !font-code rounded-base border-border-background border p-gutter relative mb-gutter !bg-background/20 break-words whitespace-pre-wrap;
+		@apply !font-code rounded-none border-midground border p-gutter relative mb-gutter !bg-background/20 break-words whitespace-pre-wrap;
 		}
 
 		code {
@@ -408,7 +408,7 @@ if (!images[imagePath]) {
 				rgba(0, 0, 0, 0) 50%
 			);
 
-			@apply bg-accent-background  pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
+			@apply bg-midground  pointer-events-none absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-300 ease-in-out md:hover:opacity-25;
 		}
 
 		.post-markdown pre::after,
@@ -425,7 +425,7 @@ if (!images[imagePath]) {
 				linear-gradient(#fff 0 0);
 			mask-composite: exclude;
 
-			@apply rounded-base pointer-events-none absolute inset-0 z-20 w-full border border-transparent sm:opacity-0 md:opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
+			@apply rounded-none pointer-events-none absolute inset-0 z-20 w-full border border-transparent sm:opacity-0 md:opacity-50 transition-opacity duration-300 ease-in-out md:hover:opacity-100;
 		}
 
 		.post-markdown blockquote::after {
@@ -433,11 +433,11 @@ if (!images[imagePath]) {
 		}
 
 		.post-markdown hr {
-			@apply border-border-background mt-gutter-2 mb-gutter;
+			@apply border-midground mt-gutter-2 mb-gutter;
 		}
 
 		.post-markdown blockquote {
-		@apply rounded-base border border-border-background/50 border-l-border-foreground relative mb-gutter !bg-transparent p-gutter;
+		@apply rounded-none border border-midground/50 border-l-text-foreground relative mb-gutter !bg-transparent p-gutter;
 		}
 
 		.post-markdown blockquote p {

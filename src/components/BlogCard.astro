@@ -60,12 +60,12 @@ if (!images[imagePath])
 <div
 	id=`blog-post-${id}`
 	transition:name=`blog-post-${id}`
-	class="blog-post card group [&[data-type='featured']]:items-stretch [&[data-type='featured']]:h-auto flex gap-gutter border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t-0 [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 border-r"
-	style="--accent-foreground: from oklch(var(--accent)) var(--shade-foreground) c
+	class="blog-post card group [&[data-type='featured']]:items-stretch [&[data-type='featured']]:h-auto flex gap-gutter border-b selection:bg-[oklch(var(--foreground))] selection:text-[oklch(var(--midground))] sm:flex-row md:flex-col [&[data-type='featured']]:flex-row [&[data-type='featured']]:border-t-0 [&[data-type='featured']]:md:col-span-2 [&[data-type='featured']]:lg:col-span-3 border-r"
+	style="--foreground: from oklch(var(--accent)) var(--shade-foreground) c
 			h;
-		--accent-background: from oklch(var(--accent)) var(--shade-background) c
+		--midground: from oklch(var(--accent)) var(--shade-background) c
 		h;
-		--accent-foreground-text: from oklch(var(--accent)) calc(var(--shade-foreground)*5) calc(c*0.25) h;"
+		--foreground-text: from oklch(var(--accent)) calc(var(--shade-foreground)*5) calc(c*0.25) h;"
 	data-accent={accent}
 	data-type={type}
 >
@@ -73,7 +73,7 @@ if (!images[imagePath])
 		id=`blog-post-image-${id}`
 		href={url}
 		transition:name=`blog-post-image-${id}`
-		class="border-border-background group/thumbnail ease-flicker in-[&[data-type='standard']]:md:h-col-2 z-1 hover:z-2 h-full grid grid-rows-[1fr_auto] min-h-0 border-r in-[&[data-type='standard']]:border-t border-t-transparent in-[&[data-type='standard']]:top-[-1px] in-[&[data-type='standard']]:border-r-0 in-[&[data-type='standard']]:md:border-b transition-colors duration-200 sm:w-col-half in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:sm:min-w-[100px] relative before:content-[''] before:inset-0 before:absolute before:border hover:before:border-[oklch(var(--accent-foreground))] before:z-10 before:left-[-1px] in-[&[data-type='standard']]:before:top-[-1px] before:h-[calc(100%+1px)] in-[&[data-type='standard']]:before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border-transparent before:ease-flicker before:transition-colors before:duration-200 md:hover:border-[oklch(var(--accent-foreground))] in-[&[data-type='standard']]:md:w-full"
+		class="border-midground group/thumbnail ease-flicker in-[&[data-type='standard']]:md:h-col-2 z-1 hover:z-2 h-full grid grid-rows-[1fr_auto] min-h-0 border-r in-[&[data-type='standard']]:border-t border-t-transparent in-[&[data-type='standard']]:top-[-1px] in-[&[data-type='standard']]:border-r-0 in-[&[data-type='standard']]:md:border-b transition-colors duration-200 sm:w-col-half in-[&[data-type='standard']]:sm:w-col-1 in-[&[data-type='standard']]:sm:min-w-[100px] relative before:content-[''] before:inset-0 before:absolute before:border hover:before:border-[oklch(var(--foreground))] before:z-10 before:left-[-1px] in-[&[data-type='standard']]:before:top-[-1px] before:h-[calc(100%+1px)] in-[&[data-type='standard']]:before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:border-transparent before:ease-flicker before:transition-colors before:duration-200 md:hover:border-[oklch(var(--foreground))] in-[&[data-type='standard']]:md:w-full"
 
 		data-loaded="false"
 		data-id="${id}"
@@ -87,7 +87,7 @@ if (!images[imagePath])
 		</div>
 
 		<small
-			class="text-border-foreground prevent-select border-border-background leading-5 text-2xs ease-flicker pointer-events-none line-clamp-1 h-gutter border-t px-2 py-0.5 text-right font-mono tracking-wide uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:border-[oklch(var(--accent-foreground))] md:group-hover/thumbnail:bg-[oklch(var(--accent-foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--accent-foreground))] border-b-0"
+			class="text-text-foreground prevent-select border-midground leading-5 text-2xs ease-flicker pointer-events-none line-clamp-1 h-gutter border-t px-2 py-0.5 text-right font-mono tracking-wide uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:border-[oklch(var(--foreground))] md:group-hover/thumbnail:bg-[oklch(var(--foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--foreground))] border-b-0"
 			>:: {imageAlt}
 		</small>
 	</a>
@@ -100,7 +100,7 @@ if (!images[imagePath])
 			class="pointer-events-none mb-4 hidden grow-1 items-end font-mono text-xs tracking-wide uppercase select-none in-[&[data-type='featured']]:flex in-[&[data-type='featured']]:lg:mt-gutter-2"
 		>
 			<small
-				class="text-border-foreground border-border-background border px-2.5 py-2"
+				class="text-text-foreground border-midground border px-2.5 py-2"
 				>Featured Post</small
 			>
 		</div>
@@ -144,14 +144,14 @@ if (!images[imagePath])
 		>
 			<div
 				id=`blog-post-decoration-${id}`
-				class="before:ease-flicker ease-flicker border-border-background relative grow-1 border-b border-l border-r-0 bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--accent-foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100"
+				class="before:ease-flicker ease-flicker border-midground relative grow-1 border-b border-l border-r-0 bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--foreground)),oklch(var(--foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100"
 			>
 			</div>
 			<a
 				href={url}
 				id=`blog-post-button-${id}`
 				transition:name=`blog-post-button-${id}`
-				class="navigation-button h-gutter-2 rounded-base border-border-background text-foreground/60 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:text-[oklch(var(--accent-foreground))]"
+				class="navigation-button h-gutter-2 rounded-none border-midground text-foreground/60 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all duration-200 hover:md:border-[oklch(var(--foreground))] hover:md:bg-[oklch(var(--foreground)/0.1)] hover:md:text-[oklch(var(--foreground))]"
 			>
 				<span>{readTime} min read</span>
 				<Icon name="ui/right-arrow" class="h-3 w-auto" />

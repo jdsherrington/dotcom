@@ -47,14 +47,14 @@ const {
 <div
 	id=`project-${id}`
 	transition:name=`project-${id}`
-	class="project-card card group gap-gutter flex border-b selection:bg-[oklch(var(--accent-foreground))] selection:text-[oklch(var(--accent-background))] h-auto sm:flex-row md:flex-col border-r"
+	class="project-card card group gap-gutter flex border-b selection:bg-[oklch(var(--foreground))] selection:text-[oklch(var(--midground))] h-auto sm:flex-row md:flex-col border-r"
 >
 	<div id=`project-header-${id}` class="sm:w-col-2 sm:max-w-col-2 md:max-w-none md:w-full sm:h-full md:h-gutter-2 flex sm:flex-col md:flex-row">
 		<a
 			id=`project-image-${id}`
 			href={url}
 			transition:name=`project-image-${id}`
-			class="border-border-background relative group/thumbnail ease-flicker h-auto z-1 flex flex-col items-center border border-l-0 border-t-0 transition-colors duration-200 sm:h-full sm:w-full md:w-auto md:hover:before:border-[oklch(var(--accent-foreground))] before:border before:absolute before:inset-0 before:border-transparent before:content-[''] text-border-foreground before:z-2 before:ease-flicker before:duration-200 before:transition-colors before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] md:hover:text-accent-foreground md:hover:bg-accent-foreground/5 px-2"
+			class="border-midground relative group/thumbnail ease-flicker h-auto z-1 flex flex-col items-center border border-l-0 border-t-0 transition-colors duration-200 sm:h-full sm:w-full md:w-auto md:hover:before:border-[oklch(var(--foreground))] before:border before:absolute before:inset-0 before:border-transparent before:content-[''] text-foreground before:z-2 before:ease-flicker before:duration-200 before:transition-colors before:left-[-1px] before:top-[-1px] before:w-[calc(100%+2px)] before:h-[calc(100%+2px)] md:hover:text-foreground md:hover:bg-foreground/5 px-2"
 			data-loaded="false"
 			data-id="${id}"
 		>
@@ -66,14 +66,14 @@ const {
 			/>
 
 			<!-- <small -->
-			<!-- 	class="text-border-foreground prevent-select border-border-background text-2xs ease-flicker pointer-events-none line-clamp-1 h-[calc(var(--col-gutter))] border-t px-2 py-1 text-right font-mono tracking-widest uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:border-[oklch(var(--accent-foreground))] md:group-hover/thumbnail:bg-[oklch(var(--accent-foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--accent-foreground))]" -->
+			<!-- 	class="text-foreground prevent-select border-midground text-2xs ease-flicker pointer-events-none line-clamp-1 h-[calc(var(--col-gutter))] border-t px-2 py-1 text-right font-mono tracking-widest uppercase transition-all duration-200 sm:hidden md:block md:group-hover/thumbnail:border-[oklch(var(--foreground))] md:group-hover/thumbnail:bg-[oklch(var(--foreground)/0.1)] md:group-hover/thumbnail:text-[oklch(var(--foreground))]" -->
 			<!-- 	>// {imageAlt} -->
 			<!-- </small> -->
 		</a>
-		<a id=`project-repo-link-${id}` href=`https://github.com/jdsherrington/${repo}` class="repo-link w-full flex flex-col justify-center z-1 md:border-b sm:border-r md:border-r-0 border-border-background h-auto py-2 px-3">
-			<p class="font-mono uppercase text-2xs tracking-widest transition-colors ease-flicker duration-300 text-border-foreground in-[.repo-link:hover]:md:text-border-foreground">
+		<a id=`project-repo-link-${id}` href=`https://github.com/jdsherrington/${repo}` class="repo-link w-full flex flex-col justify-center z-1 md:border-b sm:border-r md:border-r-0 border-midground h-auto py-2 px-3">
+			<p class="font-mono uppercase text-2xs tracking-widest transition-colors ease-flicker duration-300 text-foreground in-[.repo-link:hover]:md:text-foreground">
 				jdsherrington<br>
-				<span class="text-foreground/60 in-[.repo-link:hover]:md:text-accent-foreground in-[.repo-link:hover]:md:font-semibold transition-colors ease-flicker duration-300">
+				<span class="text-foreground/60 in-[.repo-link:hover]:md:text-foreground in-[.repo-link:hover]:md:font-semibold transition-colors ease-flicker duration-300">
 					/{repo}
 				</span>
 
@@ -123,14 +123,14 @@ const {
 		>
 			<div
 				id=`project-decoration-${id}`
-				class="sm:hidden md:block before:ease-flicker ease-flicker border-border-background relative grow-1 border-b border-l border-r-0 bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--accent-foreground)),oklch(var(--accent-foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--accent-foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100"
+				class="sm:hidden md:block before:ease-flicker ease-flicker border-midground relative grow-1 border-b border-l border-r-0 bg-[repeating-linear-gradient(180deg,var(--border-background),var(--border-background)_1px,transparent_1px,transparent_6px)] bg-clip-content transition-all duration-200 before:absolute before:inset-0 before:bg-[repeating-linear-gradient(180deg,oklch(var(--foreground)),oklch(var(--foreground))_1px,transparent_1px,transparent_6px)] before:opacity-0 before:transition-all before:delay-100 before:duration-200 before:content-[''] group-has-[.navigation-button:hover]:md:border-[oklch(var(--foreground))] group-has-[.navigation-button:hover]:md:before:opacity-100"
 			>
 			</div>
 			<a
 				href={url}
 				id=`project-button-${id}`
 				transition:name=`project-button-${id}`
-				class="navigation-button sm:self-start md:border-b sm:border-b-0 h-gutter-2 rounded-base border-border-background text-foreground/60 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:text-[oklch(var(--accent-foreground))]"
+				class="navigation-button sm:self-start md:border-b sm:border-b-0 h-gutter-2 rounded-none border-midground text-foreground/60 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all duration-200 hover:md:border-[oklch(var(--foreground))] hover:md:bg-[oklch(var(--foreground)/0.1)] hover:md:text-[oklch(var(--foreground))]"
 			>
 				<span class="">{button}</span>
 				<Icon name="ui/open-arrow" class="h-3 w-auto" />
@@ -139,7 +139,7 @@ const {
 				href=`/projects/${id}`
 				id=`project-button-more-${id}`
 				transition:name=`project-button-more-${id}`
-				class="navigation-button sm:self-start h-gutter-2 rounded-base border-border-background text-foreground/60 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all duration-200 hover:md:border-[oklch(var(--accent-foreground))] hover:md:bg-[oklch(var(--accent-foreground)/0.1)] hover:md:text-[oklch(var(--accent-foreground))]"
+				class="navigation-button sm:self-start h-gutter-2 rounded-none border-midground text-foreground/60 ease-flicker relative inline-flex w-fit cursor-pointer place-items-center gap-3 place-self-end border px-4.5 py-3 font-mono text-xs tracking-wide uppercase transition-all duration-200 hover:md:border-[oklch(var(--foreground))] hover:md:bg-[oklch(var(--foreground)/0.1)] hover:md:text-[oklch(var(--foreground))]"
 			>
 				<span class="">Read More</span>
 				<Icon name="ui/right-arrow" class="h-3 w-auto" />
